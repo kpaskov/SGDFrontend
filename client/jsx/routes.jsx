@@ -7,11 +7,13 @@ import ColleaguesShow from './components/colleagues/colleagues_show.jsx';
 import Search from './containers/search.jsx';
 import StyleGuide from './components/style_guide/style_guide.jsx';
 import ExampleContainer from './containers/example_container.jsx';
+import Downloads from './components/downloads/downloads.jsx';
 
 module.exports = (
   <Route path="/" component={Layout}>
   	<Route path='colleague/:formatName' component={ColleaguesShow} />
     <Route path="search" component={Search} />
     <Route path="style-guide" component={StyleGuide} />
+    <Route path="downloads" component={Downloads} />
   </Route>
 );

@@ -46,6 +46,7 @@ def blog_list(request):
     page = request.params.get('page')
     if page is None:
         page = 1
+        
     else:
         page = int(page)
     next_url = request.path + '?page=' + str(page + 1)
@@ -191,7 +192,9 @@ def home(request):
 # @view_config(route_name='example') 
 # def example(request):
 #     return render_to_response(TEMPLATE_ROOT + 'example.jinja2', {}, request=request)
-
+@view_config(route_name='downloads')
+def downloads(request):
+    return render_to_response(TEMPLATE_ROOT + 'downloads.jinja2',{},request=request)
 def get_obj(identifier, obj_type):
     backend_url = config.backend_url + '/' + obj_type + '/' + identifier
     backend_response = requests.get(backend_url)
