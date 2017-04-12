@@ -77,6 +77,10 @@
     "htmltidy": "0.0.6",
     "loose-envify": "^1.2.0",
     "mocha": "^2.3.4",
+    "react": "^0.14.8",
+    "react-dom": "^15.5.4",
+    "react-sortable-tree": "^0.1.15",
+    "webpack": "^1.14.0",
     "webworkify": "^1.0.2"
   }
 }
