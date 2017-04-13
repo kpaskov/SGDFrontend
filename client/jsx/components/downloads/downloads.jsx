@@ -22,6 +22,6 @@ export default class Downloads extends Component{
         );
     }*/
     render(){
-        return(<div>Hello</div>);
+        return(<div>Hello World</div>);
     }
 }
