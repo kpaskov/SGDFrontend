@@ -1,27 +1,15 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-//import SortableTree from 'react-sortable-tree';
+import TreeView from 'treeview-react-bootstrap';
 
 export default class Downloads extends Component{
-    /*constructor(props) {
-        super(props);
-
-        this.state = {
-            treeData: [{ title: 'Chicken', children: [ { title: 'Egg' } ] }],
-        };
-    }
-
-    render() {
-        return (
-            <div style={{ height: 400 }}>
-                <SortableTree
-                    treeData={this.state.treeData}
-                    onChange={treeData => this.setState({ treeData })}
-                />
-            </div>
-        );
-    }*/
+    getInitialState(){
+        return {
+            data:{name:"Felix", age:25}
+        }
+    };
     render(){
-        return(<div>Hello World</div>);
-    }
+        return(
+        <div><TreeView data={this.state.data} /></div>);
+    };
 }
