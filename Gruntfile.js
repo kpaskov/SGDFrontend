@@ -132,7 +132,7 @@ module.exports = function(grunt) {
                     browserifyOptions: {
                         debug: true
                     },
-                    transform: ["babelify", ["loose-envify", { "NODE_ENV": "development" }]]
+                    transform: ["babelify", 'browserify-css',["loose-envify", { "NODE_ENV": "development" }]]
                 }
             },
             production: {
