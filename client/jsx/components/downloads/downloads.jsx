@@ -1,15 +1,26 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-import TreeView from 'treeview-react-bootstrap';
+//import TreeView from 'treeview-react-bootstrap';
+import CustomTreeView from '../widgets/tree_view.jsx'
 
 export default class Downloads extends Component{
-    getInitialState(){
-        return {
-            data:{name:"Felix", age:25}
-        }
-    };
+    constructor(props){
+        super(props);
+    }
     render(){
+        let tree={
+                title: "howdy",
+                childNodes: [
+                {title: "bobby"},
+                {title: "suzie", childNodes: [
+                {title: "puppy", childNodes: [
+                {title: "dog house"}]
+                },
+                {title: "cherry tree"}
+                ]}
+                ]
+        };
         return(
-        <div><TreeView data={this.state.data} /></div>);
-    };
+        <div><CustomTreeView node={tree}/></div>);
+    }
 }
