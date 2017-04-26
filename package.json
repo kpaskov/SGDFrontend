@@ -49,7 +49,6 @@
     "sgd_visualization": "^1.0.12",
     "tcomb-form": "^0.8.0",
     "tcomb-json-schema": "^0.2.3",
-    "treeview-react-bootstrap": "^0.4.6",
     "underscore": "~1.6.0"
   },
   "devDependencies": {
