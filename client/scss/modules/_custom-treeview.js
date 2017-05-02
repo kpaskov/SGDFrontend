@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  charset: 'UTF-8',
   'togglable': {
     'color': '#D78770',
-    'cursor': 'pointer'
+    'cursor': 'default'
   },
   'togglable-down::after': {
     'fontSize': [{ 'unit': 'px', 'value': NaN }],

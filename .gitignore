@@ -26,3 +26,6 @@ client/lib/sgd_visualization/.git
 dev_deploy_variables.sh
 prod_deploy_variables.sh
 asset_version.json
+seetings.json
+.vscode/
+.idea/
