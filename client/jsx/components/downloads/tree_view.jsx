@@ -69,7 +69,7 @@ export default class CustomTreeView extends Component {
             </div>)
         }
         else{
-            console.log(2);
+            console.log(2``);
              return (
             <div>
                 <h5 onClick={this.toggle.bind(this)} className={ClassNames(classObj)}>
