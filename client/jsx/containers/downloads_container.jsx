@@ -4,6 +4,20 @@ import Downloads from '../components/downloads/downloads.jsx';
 
 
 class DownloadsContainer extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            selectedLeaf:'',
+            treeData:[],
+            tableData:[],
+            path:''
+
+        };
+    }
+    onLeafClick(event){
+        console.log(event);
+    }
+
     render(){
         return(<div><Downloads /></div>);
     }

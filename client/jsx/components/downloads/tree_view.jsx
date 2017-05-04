@@ -32,11 +32,14 @@ export default class CustomTreeView extends Component {
         }
 
     }
-   
+
     toggle() {
 
         this.setState({ visible: !this.state.visible });
     };
+    fetchDataOnclick(){
+
+    }
     render() {
         let childNodes;
         let style;
@@ -44,7 +47,7 @@ export default class CustomTreeView extends Component {
 
         if (this.props.node.childNodes != undefined) {
             childNodes = this.props.node.childNodes.map((node, index) => {
-               
+
                 return (<li key={index}><CustomTreeView node={node} /> </li>)
             });
             classObj = {
@@ -53,35 +56,38 @@ export default class CustomTreeView extends Component {
                 'togglable-up': !this.state.visible
             };
         }
-       
+
         if (this.state.visible) {
             style = { display: 'none' };
         }
-        if(this.isLeafNode(this.props.node)){
-            console.log(1);
-            return (<div>
-                <h5 onClick={this.toggle.bind(this)} className={ClassNames(classObj)}>
-                    <a href='#'>{this.props.node.title}</a>
-                </h5>
-                <ul style={style}>
-                    {childNodes}
-                </ul>
-            </div>)
+
+        if (this.props.node.childNodes == undefined){
+            return (
+                <div>
+                    <h5 onClick={this.fetchDataOnclick.bind(this)} className={ClassNames(classObj)}>
+                        <a>{this.props.node.title}</a>
+                    </h5>
+                    <ul style={style}>
+                        {childNodes}
+                    </ul>
+                </div>
+            );
         }
-        else{
-            console.log(2``);
-             return (
-            <div>
-                <h5 onClick={this.toggle.bind(this)} className={ClassNames(classObj)}>
-                    {this.props.node.title}
-                </h5>
-                <ul style={style}>
-                    {childNodes}
-                </ul>
-            </div>
-        );
+        else {
+            return (
+                <div>
+                    <h5 onClick={this.toggle.bind(this)} className={ClassNames(classObj)}>
+                        {this.props.node.title}
+                    </h5>
+                    <ul style={style}>
+                        {childNodes}
+                    </ul>
+                </div>
+            );
         }
-       
+
+
+
     };
 }
 
