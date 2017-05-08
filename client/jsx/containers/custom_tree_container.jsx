@@ -25,7 +25,26 @@ class CustomTreeContainer extends Component {
     }
     
     componentDidMount(){
-        this.setState({treeData:getTreeData});
+        let tree_test=[
+            {
+                title:'Level 1', 
+                childNodes:[
+                    {title:'testSubLevel1'},
+                    {title:'testSubLevel2'}
+                    ]
+            },{
+                title:'Level 1B', 
+                childNodes:[
+                    {title:'testSubLevel1B'},
+                    {title:'testSubLevel1B2',
+                    childNodes:[
+                        {title:'testSubLevel1B21'}
+                        ]
+                    }
+                    ]
+            }
+        ];
+        this.setState({treeData:tree_test});
     }
     renderTreeStructure(){
         this.state.treeData.map(node =>{
