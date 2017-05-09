@@ -8,7 +8,7 @@ import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 //import {fetchTreeNodes} from '../actions/index';
-import {CustomTree} from '../components/downloads/custom_tree.jsx';
+import CustomTree from '../components/downloads/custom_tree.jsx';
 import {getTreeData} from '../lib/downloads_temp_helper';
 
 
@@ -17,6 +17,7 @@ class CustomTreeContainer extends Component {
         super(props);
         this.state = {selectedLeaf:'',treeData:[]};
         this.onLeafClick = this.onLeafClick.bind(this);
+        
     }
 
     onLeafClick(event){
@@ -25,35 +26,25 @@ class CustomTreeContainer extends Component {
     }
     
     componentDidMount(){
-        let tree_test=[
-            {
-                title:'Level 1', 
-                childNodes:[
-                    {title:'testSubLevel1'},
-                    {title:'testSubLevel2'}
-                    ]
-            },{
-                title:'Level 1B', 
-                childNodes:[
-                    {title:'testSubLevel1B'},
-                    {title:'testSubLevel1B2',
-                    childNodes:[
-                        {title:'testSubLevel1B21'}
-                        ]
-                    }
-                    ]
-            }
-        ];
-        this.setState({treeData:tree_test});
+        this.setState({treeData:getTreeData()});
     }
     renderTreeStructure(){
-        this.state.treeData.map(node =>{
+       let treeNodes= this.state.treeData.map((node,index) =>{
             console.log(node);
-            return <CustomTree node={node} />
+            if(node){
+                return <CustomTree key={index} node={node} />
+            }
+            
         });
+        console.log(treeNodes);
+        return treeNodes;
     }
     render(){
-        <div>{this.renderTreeStructure}</div>
+        let data = this.renderTreeStructure();
+        if(data){
+            return <div>{data}</div>
+        }
+       
     }
 
 }
