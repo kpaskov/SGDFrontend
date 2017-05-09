@@ -29,3 +29,4 @@ asset_version.json
 seetings.json
 .vscode/
 .idea/
+*.rdb

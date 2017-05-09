@@ -10,6 +10,7 @@ class CustomTree extends Component {
     constructor(props) {
         super(props);
         this.state = { visible: true };
+        console.log('cutom tree');
     }
     toggle() {
         this.setState({ visible: !this.state.visible });
@@ -57,3 +58,4 @@ class CustomTree extends Component {
 
     }
 }
+export default CustomTree;
