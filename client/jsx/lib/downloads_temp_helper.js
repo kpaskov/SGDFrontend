@@ -31,6 +31,5 @@ export function getTreeData(){
                     ]
             }
         ];
-        console.log('method call')
         return tree_test;
 }

@@ -16,12 +16,12 @@ class CustomTreeContainer extends Component {
     constructor(props){
         super(props);
         this.state = {selectedLeaf:'',treeData:[]};
-        this.onLeafClick = this.onLeafClick.bind(this);
+        this.leafClick = this.leafClick.bind(this);
+        //this.toggle = this.toggle.bind(this);
         
     }
-
-    onLeafClick(event){
-        console.log('event click: ',event);
+    leafClick(event){
+        console.log('leaf click event: ',event.target.id);
         //this.setState({selectedLeaf:event.target.value});
     }
     
@@ -30,13 +30,10 @@ class CustomTreeContainer extends Component {
     }
     renderTreeStructure(){
        let treeNodes= this.state.treeData.map((node,index) =>{
-            console.log(node);
             if(node){
-                return <CustomTree key={index} node={node} />
+                return <CustomTree key={index} node={node} leafClick={this.leafClick} />
             }
-            
         });
-        console.log(treeNodes);
         return treeNodes;
     }
     render(){
@@ -44,10 +41,6 @@ class CustomTreeContainer extends Component {
         if(data){
             return <div>{data}</div>
         }
-       
     }
-
 }
-
-
 export default CustomTreeContainer;
