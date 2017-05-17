@@ -1,12 +1,22 @@
-import {FETCH_DOWNLOADS_DATA} from '../actions/downloads_actions';
+import * as ActionTypes from '../actions/actionTypes';
+import _ from 'underscore';
 
-export default function(state=[],action){
-    console.log('action received', action);
-
-    /*switch(action.type){
-        case FETCH_DOWNLOADS_DATA:
-            return [action.payload.data,...state]
-
-    } */
-    return state;
+const initialState = {
+    downloadsMenu:[],
+    downloadsResults:[]
+};
+export default function(state=initialState,action){
+   
+    switch(action.type){
+        case ActionTypes.FETCH_DOWNLOADS_RESULTS_SUCCESS:
+            return Object.assign({},state,{
+                downloadsResults: state.downloadsResults.concat(action.payload.datasets)
+            });
+        case ActionTypes.FETCH_DOWNLOADS_MENU:
+            return Object.assign({},state,{
+                downloadsMenu: state.downloadsMenu.concat(action.payload.data)
+            });
+        default:
+            return state;
+    }
 }

@@ -43,7 +43,12 @@
     "react-redux": "^2.1.2",
     "react-router": "^1.0.2",
     "react-router-redux": "^2.1.0",
+<<<<<<< HEAD
     "react-select": "^1.0.0-rc.5",
+=======
+    "react-select": "^0.9.1",
+    "react-table": "^6.0.3",
+>>>>>>> added redux setup and css
     "redux": "^3.5.2",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^1.0.0",
@@ -83,14 +88,8 @@
     "grunt-text-replace": "~0.3.11",
     "htmltidy": "0.0.6",
     "mocha": "^2.3.4",
-<<<<<<< HEAD
     "uglify-js": "^3.0.15",
     "uglifyify": "^3.0.4",
-=======
-    "react": "^0.14.8",
-    "react-dom": "^15.5.4",
-    "webpack": "^1.14.0",
->>>>>>> css module for tree plugin
     "webworkify": "^1.0.2"
   }
 }

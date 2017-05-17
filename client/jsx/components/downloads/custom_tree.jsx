@@ -43,7 +43,7 @@ class CustomTree extends Component {
             return (
                 <div>
                     <h5 onClick={this.props.leafClick} className={ClassNames(cssClasses)}>
-                        <a id={this.props.node.title}>{this.props.node.title}</a>
+                        <a id={this.props.node.title} name={this.props.node.title}>{this.props.node.title}</a>
                     </h5>
                 </div>
             );
