@@ -16,7 +16,7 @@ import { startSearchFetchMaybeAsycFetch } from '../actions/search_actions';
 import { createPath } from '../lib/search_helpers';
 
 const SEARCH_URL = '/search';
-const CATS_SORTED_BY_ANNOTATION = ['phenotype', 'biological_process','cellular_component', 'molecular_function'];
+const CATS_SORTED_BY_ANNOTATION = ['phenotype', 'biological_process', 'cellular_component', 'molecular_function'];
 
 const Search = React.createClass({
   displayName: 'Search',
@@ -34,7 +34,7 @@ const Search = React.createClass({
     apiError: React.PropTypes.bool
   },
 
-  render () {
+  render() {
     if (this.props.apiError) {
       return <ErrorMessage />;
     }
@@ -60,34 +60,34 @@ const Search = React.createClass({
   },
 
   // listen for history changes and fetch results when they change, also update google analytics
-  componentWillMount () {
-    this._unlisten = this.props.history.listen( () => {
+  componentWillMount() {
+    this._unlisten = this.props.history.listen(() => {
       this._updateGoogleAnalytics();
       this._fetchSearchResults();
     });
   },
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._unlisten();
   },
 
-  _renderViewAs () {
+  _renderViewAs() {
     if (this.props.activeCategory !== 'locus') return null;
     const qp = _.clone(this.props.queryParams);
     const isList = (this.props.geneMode === 'list');
     const isWrap = (this.props.geneMode === 'wrap');
     const listPath = createPath({ pathname: SEARCH_URL, query: _.extend(qp, { page: 0, geneMode: 'list' }) });
     const wrapPath = createPath({ pathname: SEARCH_URL, query: _.extend(qp, { page: 0, geneMode: 'wrap' }) });
-    
+
     return (
       <ul className='button-group' style={[style.viewAs]}>
-        <Link to={listPath} className={`button tiny${!isList ? ' secondary':''}`}><i className='fa fa-reorder'/> <span>List</span></Link>
-        <Link to={wrapPath} className={`button tiny${!isWrap ? ' secondary':''}`}><i className='fa fa-th'/> <span>Wrapped</span></Link>
+        <Link to={listPath} className={`button tiny${!isList ? ' secondary' : ''}`}><i className='fa fa-reorder' /> <span>List</span></Link>
+        <Link to={wrapPath} className={`button tiny${!isWrap ? ' secondary' : ''}`}><i className='fa fa-th' /> <span>Wrapped</span></Link>
       </ul>
     );
   },
 
-  _renderSearchContent () {
+  _renderSearchContent() {
     if (this.props.isPending) return <Loader />;
     // only render second paginator if num results is >= amount per page
     let isSecondPaginator = (this.props.results.length >= this.props.resultsPerPage && !this._isWrappedResults());
@@ -100,7 +100,8 @@ const Search = React.createClass({
     );
   },
 
-  _renderControls () {
+  _renderControls() {
+
     if (this._isWrappedResults()) return this._renderWrappedControls();
     if (this.props.total === 0) return null;
     const _onPaginate = newPage => {
@@ -127,10 +128,10 @@ const Search = React.createClass({
     );
   },
 
-  _renderWrappedControls () {
+  _renderWrappedControls() {
     // show progress bar if still downloading results, otherise download / analyze buttons
     let actionProgressNode = this.props.isAsyncPending ?
-      this._renderProgressNode() : <SearchDownloadAnalyze results={this.props.asyncResults} query={this.props.query}  url={this.props.url}/>;
+      this._renderProgressNode() : <SearchDownloadAnalyze results={this.props.asyncResults} query={this.props.query} url={this.props.url} />;
     return (
       <div className='row'>
         <div className='columns small-6'>
@@ -140,27 +141,28 @@ const Search = React.createClass({
           {this._renderViewAs()}
         </div>
       </div>
-    );      
+    );
   },
 
-  _renderProgressNode () {
+  _renderProgressNode() {
     let strWidth = `${Math.round(this.props.asyncProgress * 100)}%`;
     return (
       <div style={[style.progressBar]}>
         <label>Downloading ...</label>
         <div className='progress'>
-          <span className='meter' style={{ width:strWidth }} />
+          <span className='meter' style={{ width: strWidth }} />
         </div>
       </div>
     );
   },
 
-  _renderPageSizeSelector () {
+  _renderPageSizeSelector() {
     const options = [10, 25, 50, 100];
-    let optionsNodes = options.map( d => {
+    let optionsNodes = options.map(d => {
       return <option key={`psOp${d}`} value={d}>{d}</option>;
     });
     const _onChange = e => {
+      debugger;
       let newValue = e.currentTarget.value;
       let urlParams = this.props.location.query;
       urlParams.page_size = newValue;
@@ -177,17 +179,18 @@ const Search = React.createClass({
     );
   },
 
-  _renderSortBySelector () {
+  _renderSortBySelector() {
     let options = [
       { value: 'relevance', name: 'Relevance' },
       { value: 'alphabetical', name: 'Alphabetical' },
     ];
     // only allow some categories to search by annotation
     if (this.props.canSortByAnnotation) options.push({ value: 'annotation', name: 'Annotation Count' });
-    let optionsNodes = options.map( d => {
+    let optionsNodes = options.map(d => {
       return <option key={`psOp${d.value}`} value={d.value}>{d.name}</option>;
     });
     const _onChange = e => {
+      debugger;
       let newValue = e.currentTarget.value;
       let urlParams = this.props.location.query;
       urlParams.sort_by = newValue;
@@ -204,7 +207,7 @@ const Search = React.createClass({
     );
   },
 
-  _renderResults () {
+  _renderResults() {
     // empty message
     if (this.props.total === 0) return <p>No results.  Please broaden your search or try a different query.</p>;
     // maybe render special result types
@@ -213,14 +216,14 @@ const Search = React.createClass({
     }
     // if not wrapped or analyzed, just render regular results
     let results = this.props.results;
-    return results.map( (d, i) => {
+    return results.map((d, i) => {
       let id = d.id || i;
       return <SearchResult key={'searchResults' + id} {...d} />;
     });
   },
 
-  _renderWrappedResults () {
-    const nodes = this.props.asyncResults.map( (d, i) => {
+  _renderWrappedResults() {
+    const nodes = this.props.asyncResults.map((d, i) => {
       // only show display name if there is a '/' in name
       const displayName = d.name.split(' / ')[0];
       return <a href={d.href} style={[style.wrappedResult]} key={'serchWR' + i}>{displayName}</a>;
@@ -233,17 +236,17 @@ const Search = React.createClass({
   },
 
   // dispatches redux update and maybe fetches new data
-  _fetchSearchResults () {
+  _fetchSearchResults() {
     // dispatch actions
     this.props.dispatch(startSearchFetchMaybeAsycFetch());
   },
 
-  _isWrappedResults () {
+  _isWrappedResults() {
     return (this.props.activeCategory === 'locus' && this.props.geneMode !== 'list');
   },
 
   // updates google analytics, depends on global 'ga' object. Does nothing if not present
-  _updateGoogleAnalytics () {
+  _updateGoogleAnalytics() {
     if (!ga) return;
     let fullUrl = `${this.props.location.pathname}${this.props.location.search}`;
     ga('set', 'page', fullUrl);

@@ -67,6 +67,7 @@ export function startSearchFetch () {
 export function startAsyncFetch () {
   return function (dispatch, getState) {
     dispatch({ type: 'START_ASYNC_FETCH' });
+    debugger;
     const state = getState();
     const searchState = state.searchResults; 
     const qp = (state.routing.location.query);
