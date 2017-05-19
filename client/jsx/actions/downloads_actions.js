@@ -30,8 +30,7 @@ export const fetchDownloadResults = (searchTerm) => {
     return (dispatch) => {
         return Axios.get(URLS.resultsUrl)
             .then(response => {
-                debugger
-                dispatch(fetchDownloadResultsSuccess(response.data))
+                dispatch(fetchDownloadResultsSuccess({datasets:response.data,searchTerm:searchTerm}))
             }).catch(error => { throw (error) });
     };
 };
