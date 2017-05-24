@@ -23,7 +23,7 @@ class CustomTreeContainer extends Component {
 
     }
     leafClick(event) {
-
+        debugger
         console.log('props before change: ', this.props);
         this.props.dispatch(downloadsActions.fetchDownloadResults(event.target.id));
         this.setState({ selectedLeaf: event.target.id });
