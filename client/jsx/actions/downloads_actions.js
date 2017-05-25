@@ -27,10 +27,13 @@ export function fetchDownloadsMenuData(){
 };
 
 export const fetchDownloadResults = (searchTerm) => {
+
     return (dispatch) => {
         return Axios.get(URLS.resultsUrl)
             .then(response => {
-                dispatch(fetchDownloadResultsSuccess({datasets:response.data,searchTerm:searchTerm}))
+                dispatch(fetchDownloadResultsSuccess({datasets:response.data,searchTerm:searchTerm}));
             }).catch(error => { throw (error) });
     };
 };
+
+

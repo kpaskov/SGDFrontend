@@ -23,21 +23,36 @@ class CustomTreeContainer extends Component {
 
     }
     leafClick(event) {
-        debugger
-        console.log('props before change: ', this.props);
         this.props.dispatch(downloadsActions.fetchDownloadResults(event.target.id));
-        this.setState({ selectedLeaf: event.target.id });
-        this.props.history.pushState(null, DOWNLOADS_URL, this.state.selectedLeaf);
-        console.log('props after change: ', this.props);
+       
     }
 
     componentDidMount() {
         this.props.dispatch(downloadsActions.fetchDownloadsMenuData());
-        if (this.props.downloadsMenu.length > 0) {
+        
+      /*  if (this.props.downloadsMenu.length > 0) {
             this.setState({ treeData: this.props.downloadsMenu });
-        }
+        }*/
 
     }
+    componentWillMount(){
+         this._unlisten = this.props.history.listen(() => {
+             console.log('listener');
+         });
+
+    }
+    componentWillUnmount(){
+      this_._unlisten();
+      console.log('stop listening');
+    }
+
+    componentDidUpdate(){
+        console.log('componentDid updated array:', this.props.downloadsResults);
+        console.log('componentDid updated query:', this.props.query);
+        this.props.history.pushState(null, DOWNLOADS_URL, {q:this.props.selectedLeaf});
+
+    }
+
     setTable(data) {
         let results = { columns: [], tableInfo: [] };
         if (data) {
@@ -89,8 +104,52 @@ class CustomTreeContainer extends Component {
         }
 
     }
-    renderTable() {
-        debugger
+   
+    render() {
+       
+        let data = this.renderTreeStructure();
+        if (Object.keys(this.props.downloadsResults).length > 0) {
+            let table = this.setTable(this.props.downloadsResults);
+            let renderTemplate = (<div className="row">
+                <div className="columns small-4">{data}</div>
+                <div className="columns small-8">
+                    <ReactTable
+                        data={table.tableInfo}
+                        columns={table.columns}
+                        defaultPageSize='10'
+                    />
+                </div>
+            </div>);
+            return renderTemplate;
+        }
+        else {
+            let renderTemplate = (<div className="row">
+                <div className="columns small-4">{data}</div>
+            </div>);
+            return renderTemplate;
+        }
+    }
+
+}
+
+
+function mapStateToProps(state) {
+  
+    return {
+        downloadsMenu: state.downloads.downloadsMenu,
+        downloadsResults: state.downloads.downloadsResults,
+        query: state.downloads.query,
+        selectedLeaf: state.downloads.selectedLeaf,
+        url: `${state.routing.location.pathname}${state.routing.location.search}`,
+        queryParams: state.routing.location.query
+    }
+
+}
+
+
+export default connect(mapStateToProps)(CustomTreeContainer);
+/* renderTable() {
+       
         const info = [
             {
                 name: 'Travis',
@@ -141,45 +200,4 @@ class CustomTreeContainer extends Component {
         }
 
 
-    }
-    render() {
-        let data = this.renderTreeStructure();
-        if (Object.keys(this.props.downloadsResults).length > 0) {
-            let table = this.setTable(this.props.downloadsResults);
-            let renderTemplate = (<div className="row">
-                <div className="columns small-4">{data}</div>
-                <div className="columns small-8">
-                    <ReactTable
-                        data={table.tableInfo}
-                        columns={table.columns}
-                        defaultPageSize='10'
-                    />
-                </div>
-            </div>);
-            return renderTemplate;
-        }
-        else {
-            let renderTemplate = (<div className="row">
-                <div className="columns small-4">{data}</div>
-            </div>);
-            return renderTemplate;
-        }
-    }
-
-}
-
-
-function mapStateToProps(state) {
-    return {
-        downloadsMenu: state.downloads.downloadsMenu,
-        downloadsResults: state.downloads.downloadsResults,
-        query: state.downloads.query,
-        selectedLeaf: state.downloads.selectedLeaf,
-        url: `${state.routing.location.pathname}${state.routing.location.search}`,
-        queryParams: state.routing.location.query
-    }
-
-}
-
-
-export default connect(mapStateToProps)(CustomTreeContainer);
+    }*/
