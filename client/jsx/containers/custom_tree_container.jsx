@@ -13,6 +13,7 @@ import * as downloadsActions from '../actions/downloads_actions';
 import ReactTable from 'react-table';
 import S from 'string';
 
+
 const DOWNLOADS_URL = '/downloads';
 
 class CustomTreeContainer extends Component {
@@ -20,11 +21,23 @@ class CustomTreeContainer extends Component {
         super(props);
         this.state = { selectedLeaf: '', treeData: [] };
         this.leafClick = this.leafClick.bind(this);
+        this.nodeToggle = this.nodeToggle.bind(this);
 
     }
+    nodeToggle(event){
+        console.log('toggle node: ', event);
+        //this.props.dispatch();
+    }
+
     leafClick(event) {
+        debugger
         this.props.dispatch(downloadsActions.fetchDownloadResults(event.target.id));
+        this.props.history.pushState(null, DOWNLOADS_URL, {q:event.target.id});
        
+    }
+
+    getSelectedNode(leaf){
+        this.props.dispatch(downloadsActions.getNode(leaf));
     }
 
     componentDidMount() {
@@ -35,7 +48,7 @@ class CustomTreeContainer extends Component {
         }*/
 
     }
-    componentWillMount(){
+   /* componentWillMount(){
          this._unlisten = this.props.history.listen(() => {
              console.log('listener');
          });
@@ -44,14 +57,7 @@ class CustomTreeContainer extends Component {
     componentWillUnmount(){
       this_._unlisten();
       console.log('stop listening');
-    }
-
-    componentDidUpdate(){
-        console.log('componentDid updated array:', this.props.downloadsResults);
-        console.log('componentDid updated query:', this.props.query);
-        this.props.history.pushState(null, DOWNLOADS_URL, {q:this.props.selectedLeaf});
-
-    }
+    } */
 
     setTable(data) {
         let results = { columns: [], tableInfo: [] };
@@ -94,7 +100,7 @@ class CustomTreeContainer extends Component {
         if (items.length > 0) {
             let treeNodes = items.map((node, index) => {
                 if (node) {
-                    return <CustomTree key={index} node={node} leafClick={this.leafClick} />
+                    return <CustomTree key={index} node={node} leafClick={this.leafClick} visible={this.props.nodeVisible} />
                 }
             });
             return treeNodes;
@@ -141,7 +147,8 @@ function mapStateToProps(state) {
         query: state.downloads.query,
         selectedLeaf: state.downloads.selectedLeaf,
         url: `${state.routing.location.pathname}${state.routing.location.search}`,
-        queryParams: state.routing.location.query
+        queryParams: state.routing.location.query,
+        nodeVisible:state.downloads.nodeVisible
     }
 
 }
