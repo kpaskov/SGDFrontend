@@ -9,19 +9,15 @@ import ClassNames from 'classnames';
 class CustomTree extends Component {
     constructor(props) {
         super(props);
-        this.state={visible:true};
-        //this.onToggle = this.onToggle.bind(this);
+        this.state={visible:false};
+        this.onToggle = this.onToggle.bind(this);
         
     }
-    onToggle(event){
-        debugger
-        console.log('on toggle', event);
+      onToggle(event){
         this.setState({visible:!this.state.visible});
-    }
-   /* toggle() {
-        console.log('toggle event');
-        //this.setState({ visible: !this.state.visible });
-    }*/
+        this.props.nodeClick(this.props.node);
+    } 
+   
     render() {
         let childNodes;
         let style;
@@ -31,24 +27,24 @@ class CustomTree extends Component {
             childNodes = this.props.node.childNodes.map((node, index) => {
                 return (<li key={index} value={index}>
                 <CustomTree node={node} leafClick={this.props.leafClick}
-                  nodeToggle={this.props.nodeToggle} /> 
+                  nodeClick={this.props.nodeClick} /> 
                   </li>);
             });
             cssClasses = {
                 'togglable': true,
-                'togglable-down': this.props.visible,
-                'togglable-up': !this.props.visible
+                'togglable-down': this.state.visible,
+                'togglable-up': !this.state.visible
             };
 
         }
-        if (this.state.visible) {
+        if (!this.state.visible) {
             style = { display: 'none' };
         }
         if (this.props.node.childNodes == undefined) {
             //leaf node
             return (
                 <div>
-                    <h5 onClick={this.props.leafClick} className={ClassNames(cssClasses)}>
+                    <h5 onClick={this.props.leafClick}  className={ClassNames(cssClasses)}>
                         <a id={this.props.node.title} name={this.props.node.title}>{this.props.node.title}</a>
                     </h5>
                 </div>
@@ -58,7 +54,7 @@ class CustomTree extends Component {
             //parent node
             return (
                 <div>
-                    <h5 onClick={this.props.nodeToggle} className={ClassNames(cssClasses)}>
+                    <h5 onClick={this.onToggle} id={this.props.node.title} className={ClassNames(cssClasses)}>
                         {this.props.node.title}
                     </h5>
                     <ul style={style}>

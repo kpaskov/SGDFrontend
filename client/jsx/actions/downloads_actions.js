@@ -53,9 +53,10 @@ export const fetchDownloadResults = (searchTerm) => {
  * add the selected node to state
  * @param {*} key 
  */
-export const getNode = (key,list) => {
-    return (dispatch) =>{
-        return dispatch(_.findWhere(list,{key:key}));
+export const getNode = (node) => {
+    return {
+        type:ActionTypes.GET_SELECTED_NODE,
+        payload:{node:node}
     }
 
 };
@@ -91,10 +92,11 @@ export const deleteNode = (key,list) => {
     }
 };
 
-export const toggleNode = (flag)=>{
-    return (dispatch) => {
-        return dispatch();
-    };
+export const toggleNode = (flag,node)=>{
+    return {
+        type:ActionTypes.GET_SELECTED_NODE,
+        payload: {flag:flag,node:node}
+    }
 };
 
 
