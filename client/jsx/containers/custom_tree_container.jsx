@@ -19,45 +19,36 @@ const DOWNLOADS_URL = '/downloads';
 class CustomTreeContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { selectedLeaf: '', treeData: [] };
         this.leafClick = this.leafClick.bind(this);
         this.nodeToggle = this.nodeToggle.bind(this);
+        this.getSelectedNode = this.getSelectedNode.bind(this);
 
     }
-    nodeToggle(event){
-        console.log('toggle node: ', event);
+    printHello(name){
+        console.log('hello :' + name)
+    }
+    nodeToggle(node){
+        debugger;
+        console.log('toggle node: ', event.target);
+        this.props.dispatch(downloadsActions.toggleNode(!this.props.isVisible));
         //this.props.dispatch();
     }
 
     leafClick(event) {
-        debugger
         this.props.dispatch(downloadsActions.fetchDownloadResults(event.target.id));
         this.props.history.pushState(null, DOWNLOADS_URL, {q:event.target.id});
        
     }
 
-    getSelectedNode(leaf){
-        this.props.dispatch(downloadsActions.getNode(leaf));
+    getSelectedNode(node){
+        debugger
+        this.props.dispatch(downloadsActions.getNode(node));
     }
 
     componentDidMount() {
         this.props.dispatch(downloadsActions.fetchDownloadsMenuData());
-        
-      /*  if (this.props.downloadsMenu.length > 0) {
-            this.setState({ treeData: this.props.downloadsMenu });
-        }*/
 
     }
-   /* componentWillMount(){
-         this._unlisten = this.props.history.listen(() => {
-             console.log('listener');
-         });
-
-    }
-    componentWillUnmount(){
-      this_._unlisten();
-      console.log('stop listening');
-    } */
 
     setTable(data) {
         let results = { columns: [], tableInfo: [] };
@@ -96,11 +87,13 @@ class CustomTreeContainer extends Component {
         return results;
     }
     renderTreeStructure() {
+        debugger
         let items = this.props.downloadsMenu;
         if (items.length > 0) {
             let treeNodes = items.map((node, index) => {
                 if (node) {
-                    return <CustomTree key={index} node={node} leafClick={this.leafClick} visible={this.props.nodeVisible} />
+                    return <CustomTree key={index} node={node} leafClick={this.leafClick} 
+                    nodeClick={this.getSelectedNode} />
                 }
             });
             return treeNodes;
@@ -112,7 +105,7 @@ class CustomTreeContainer extends Component {
     }
    
     render() {
-       
+       debugger;
         let data = this.renderTreeStructure();
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.setTable(this.props.downloadsResults);
@@ -140,7 +133,6 @@ class CustomTreeContainer extends Component {
 
 
 function mapStateToProps(state) {
-  
     return {
         downloadsMenu: state.downloads.downloadsMenu,
         downloadsResults: state.downloads.downloadsResults,

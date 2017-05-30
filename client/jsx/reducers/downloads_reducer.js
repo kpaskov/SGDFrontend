@@ -13,7 +13,7 @@ const initialState = {
     url: '',
     queryParams: '',
     tableColumns: [],
-    nodeVisible:true
+    nodeVisible:false
 };
 
 export default function (state = initialState, action) {
@@ -38,13 +38,12 @@ export default function (state = initialState, action) {
                 downloadsMenu: state.downloadsMenu.concat(action.payload.data)
             });
         case ActionTypes.GET_SELECTED_NODE:
+            debugger
+            console.log(state.selectedNodes.concat(action.payload.node));
             return Object.assign({}, state, {
-                selectedNodes: state.selectedNodes.concat(action.payload.data)
+                selectedNodes: state.selectedNodes.concat(action.payload.node),
             });
-         case ActionTypes.GET_SELECTED_LEAF:
-            return Object.assign({}, state, {
-                selectedLeaf: {key:'',leaf:''}
-            });
+
         default:
             return state;
     }
