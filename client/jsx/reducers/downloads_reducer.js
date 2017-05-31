@@ -18,6 +18,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     if (action.type === '@@router/UPDATE_LOCATION' && action.payload.pathname === '/downloads') {
+        debugger;
         /**
          * listens to changes in the url
          * fetch data with new query when it changes
@@ -38,7 +39,6 @@ export default function (state = initialState, action) {
                 downloadsMenu: state.downloadsMenu.concat(action.payload.data)
             });
         case ActionTypes.GET_SELECTED_NODE:
-            debugger
             console.log(state.selectedNodes.concat(action.payload.node));
             return Object.assign({}, state, {
                 selectedNodes: state.selectedNodes.concat(action.payload.node),

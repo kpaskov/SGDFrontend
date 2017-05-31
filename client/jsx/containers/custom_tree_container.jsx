@@ -28,25 +28,37 @@ class CustomTreeContainer extends Component {
         console.log('hello :' + name)
     }
     nodeToggle(node){
-        debugger;
+        
         console.log('toggle node: ', event.target);
         this.props.dispatch(downloadsActions.toggleNode(!this.props.isVisible));
         //this.props.dispatch();
     }
 
+    fetchDownloads(term){
+        this.props.dispatch(downloadsActions.fetchDownloadResults(term));
+    }
+    sanitizeQString(queryString){
+
+    }
+
     leafClick(event) {
-        this.props.dispatch(downloadsActions.fetchDownloadResults(event.target.id));
+        this.fetchDownloads(event.target.id)
         this.props.history.pushState(null, DOWNLOADS_URL, {q:event.target.id});
        
     }
 
     getSelectedNode(node){
-        debugger
+      
         this.props.dispatch(downloadsActions.getNode(node));
     }
 
     componentDidMount() {
+        debugger;
         this.props.dispatch(downloadsActions.fetchDownloadsMenuData());
+        if(this.props.query.length > 0){
+            let qstring=  this.sanitizeQString(this.props.query);
+            this.props.dispatch(downloadsActions.fetchDownloadResults(qstring));
+        }
 
     }
 
@@ -87,7 +99,7 @@ class CustomTreeContainer extends Component {
         return results;
     }
     renderTreeStructure() {
-        debugger
+       
         let items = this.props.downloadsMenu;
         if (items.length > 0) {
             let treeNodes = items.map((node, index) => {
@@ -105,7 +117,7 @@ class CustomTreeContainer extends Component {
     }
    
     render() {
-       debugger;
+      
         let data = this.renderTreeStructure();
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.setTable(this.props.downloadsResults);
@@ -133,6 +145,7 @@ class CustomTreeContainer extends Component {
 
 
 function mapStateToProps(state) {
+    debugger;
     return {
         downloadsMenu: state.downloads.downloadsMenu,
         downloadsResults: state.downloads.downloadsResults,
