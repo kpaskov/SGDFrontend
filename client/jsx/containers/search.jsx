@@ -162,7 +162,6 @@ const Search = React.createClass({
       return <option key={`psOp${d}`} value={d}>{d}</option>;
     });
     const _onChange = e => {
-      debugger;
       let newValue = e.currentTarget.value;
       let urlParams = this.props.location.query;
       urlParams.page_size = newValue;
@@ -190,7 +189,6 @@ const Search = React.createClass({
       return <option key={`psOp${d.value}`} value={d.value}>{d.name}</option>;
     });
     const _onChange = e => {
-      debugger;
       let newValue = e.currentTarget.value;
       let urlParams = this.props.location.query;
       urlParams.sort_by = newValue;
