@@ -5,20 +5,33 @@
  */
 import React, { Component } from 'react';
 import ClassNames from 'classnames';
+import _ from 'underscore';
 
 class CustomTree extends Component {
     constructor(props) {
         super(props);
-        this.state={visible:false};
+        this.state = { visible: false };
         this.onToggle = this.onToggle.bind(this);
-        
+
     }
-      onToggle(event){
-        this.setState({visible:!this.state.visible});
+    onToggle(event) {
+        this.setState({ visible: !this.state.visible });
         this.props.nodeClick(this.props.node);
-    } 
-   
+    }
+    componentDidMount() {
+        if (this.props.node.childNodes != undefined) {
+            let item = _.findWhere(this.props.node.childNodes,{title:this.props.queryString});
+            if (item) {
+                this.setState({ visible: !this.state.visible });
+            }
+        }
+
+
+
+    }
+
     render() {
+
         let childNodes;
         let style;
         let cssClasses;
@@ -26,9 +39,9 @@ class CustomTree extends Component {
         if (this.props.node.childNodes != undefined) {
             childNodes = this.props.node.childNodes.map((node, index) => {
                 return (<li key={index} value={index}>
-                <CustomTree node={node} leafClick={this.props.leafClick}
-                  nodeClick={this.props.nodeClick} /> 
-                  </li>);
+                    <CustomTree node={node} leafClick={this.props.leafClick}
+                        nodeClick={this.props.nodeClick} queryString={this.props.queryString} />
+                </li>);
             });
             cssClasses = {
                 'togglable': true,
@@ -44,7 +57,7 @@ class CustomTree extends Component {
             //leaf node
             return (
                 <div>
-                    <h5 onClick={this.props.leafClick}  className={ClassNames(cssClasses)}>
+                    <h5 onClick={this.props.leafClick} className={ClassNames(cssClasses)}>
                         <a id={this.props.node.title} name={this.props.node.title}>{this.props.node.title}</a>
                     </h5>
                 </div>

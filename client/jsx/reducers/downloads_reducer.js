@@ -13,18 +13,19 @@ const initialState = {
     url: '',
     queryParams: '',
     tableColumns: [],
-    nodeVisible:false
+    nodeVisible: false,
 };
 
 export default function (state = initialState, action) {
     if (action.type === '@@router/UPDATE_LOCATION' && action.payload.pathname === '/downloads') {
-        debugger;
-        /**
-         * listens to changes in the url
-         * fetch data with new query when it changes
-         */
+        if (action.payload.search.length > 0) {
+            let regexString = /^\?([a-zA-Z]|)+\=([\w*\+\w*])+/g;
+            let result = (typeof action.payload.query.q === 'string') ? action.payload.search.match(regexString) : '';
+            if (result) {
+                state.query = action.payload.query.q;
+            }
+        }
 
-        state.query = (typeof action.payload.query.q === 'string') ? action.payload.query.q : '';
         return state;
     }
     switch (action.type) {
