@@ -20,7 +20,7 @@ class CustomTree extends Component {
     }
     componentDidMount() {
         if (this.props.node.childNodes != undefined) {
-            let item = _.findWhere(this.props.node.childNodes,{title:this.props.queryString});
+            let item = _.findWhere(this.props.node.childNodes, { title: this.props.queryString });
             if (item) {
                 this.setState({ visible: !this.state.visible });
             }
@@ -67,9 +67,10 @@ class CustomTree extends Component {
             //parent node
             return (
                 <div>
-                    <h5 onClick={this.onToggle} id={this.props.node.title} className={ClassNames(cssClasses)}>
-                        {this.props.node.title}
-                    </h5>
+                        <h5 onClick={this.onToggle} id={this.props.node.title} className={ClassNames(cssClasses)}>
+                            {this.props.node.title}
+                        </h5>
+                   
                     <ul style={style}>
                         {childNodes}
                     </ul>

@@ -28,24 +28,28 @@ class CustomTreeContainer extends Component {
 
     }
     renderDataTable(data) {
-        debugger;
         let results = { headers: [], rows: [] };
         if (data) {
-            results.rows.push(data.datasets.map((item, index) => {
-                let arr = []
-                arr.push(item.download_href);
-                arr.push(item.name);
-                arr.push(item.description);
-                arr.push(item.readme_href);
-                return arr;
-            }));
+            let modData = data.datasets.map((item, index) => {
+                return {
+                    readme_href: <span><i className="fa fa-file-text-o fa-lg" aria-hidden="true"></i></span>,
+                    download_href: <span><i className="fa fa-cloud-download fa-lg" aria-hidden="true"></i></span>,
+                    name: item.name,
+                    description: item.description,
+                }
+            });
+            modData.map((item, index) => {
+                let temp = _.values(item);
+                results.rows.push(temp);
+            });
+
             results.headers.push(Object.keys(data.datasets[0])
                 .map((item, index) => {
                     if (item.indexOf('readme') !== -1) {
-                        return 'ReadMe'
+                        return 'ReadMe '
                     }
                     else if (item.indexOf('download') !== -1) {
-                        return 'Download'
+                        return 'Download '
                     }
                     else {
                         return S(item).capitalize().s
@@ -145,15 +149,19 @@ class CustomTreeContainer extends Component {
     }
 
     render() {
-
         let data = this.renderTreeStructure();
+        
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.renderDataTable(this.props.downloadsResults);
-            let renderTemplate = (<div className="row">
-                <div className="columns small-4">{data}</div>
-                <div className="columns small-8">
+            //let rData = this.setTable(this.props.downloadsResults);
+            let renderTemplate = (<div><div className="row">
+                <div className="columns small-2">{data}</div>
+                <div className="columns small-10">
                     <DataTable data={table} usePlugin={true} />
                 </div>
+            </div>
+        
+            
             </div>);
             return renderTemplate;
         }
@@ -166,7 +174,6 @@ class CustomTreeContainer extends Component {
     }
 
 }
-
 
 function mapStateToProps(state) {
     return {
@@ -180,59 +187,4 @@ function mapStateToProps(state) {
     }
 
 }
-
-
 export default connect(mapStateToProps)(CustomTreeContainer);
-/* renderTable() {
-       
-        const info = [
-            {
-                name: 'Travis',
-                age: 26,
-                friend: {
-                    name: 'Jason Maurer',
-                    age: 23,
-                }
-            },
-            {
-                name: 'Pedro',
-                age: 26,
-                friend: {
-                    name: 'Jason Maurer',
-                    age: 23,
-                }
-            }
-        ];
-        const columns = [
-            {
-                Header: 'Name',
-                accessor: 'name' // String-based value accessors!
-            }, {
-                Header: 'Age',
-                accessor: 'age',
-                Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-            }, {
-                id: 'friendName', // Required because our accessor is not a string
-                Header: 'Friend Name',
-                accessor: d => d.friend.name // Custom value accessors!
-            }, {
-                Header: props => <span>Friend Age</span>, // Custom header components!
-                accessor: 'friend.age'
-            }
-        ];
-
-        if (this.props.downloadsResults.tableInfo) {
-            return (<ReactTable
-                data={this.props.downloadsResults.tableInfo}
-                columns={this.props.downloadsResults.columns}
-            />);
-        }
-        else {
-            return (<ReactTable
-                data={info}
-                columns={columns}
-            />);
-        }
-
-
-    }*/
