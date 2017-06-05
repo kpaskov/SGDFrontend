@@ -8,12 +8,13 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CustomTree from '../components/downloads/custom_tree.jsx';
-import { getTreeData } from '../lib/downloads_temp_helper';
 import * as downloadsActions from '../actions/downloads_actions';
 import ReactTable from 'react-table';
 import DataTable from '../components/widgets/data_table.jsx'
 import S from 'string';
 import _ from 'underscore';
+import {$,jQuery} from 'jquery';
+import ClassNames from 'classnames';
 
 
 const DOWNLOADS_URL = '/downloads';
@@ -31,9 +32,11 @@ class CustomTreeContainer extends Component {
         let results = { headers: [], rows: [] };
         if (data) {
             let modData = data.datasets.map((item, index) => {
+                let rmText=`${item.name}.README` ;
+                let dText = `${item.name}.tgz`;
                 return {
-                    readme_href: <span><i className="fa fa-file-text-o fa-lg" aria-hidden="true"></i></span>,
-                    download_href: <span><i className="fa fa-cloud-download fa-lg" aria-hidden="true"></i></span>,
+                    readme_href: <span><a href={item.readme_href} download={rmText}><i className="fa fa-file-text-o fa-lg"  aria-hidden="true"></i></a></span>,
+                    download_href: <span><a href={item.download_href} download={dText}><i className="fa fa-cloud-download fa-lg" color="#8C1515" aria-hidden="true"></i></a></span>,
                     name: item.name,
                     description: item.description,
                 }
@@ -59,13 +62,8 @@ class CustomTreeContainer extends Component {
             return results;
         }
     }
-    fetchSelectedNodes() {
-        //return    
-    }
-
+  
     nodeToggle(node) {
-
-        console.log('toggle node: ', event.target);
         this.props.dispatch(downloadsActions.toggleNode(!this.props.isVisible));
         //this.props.dispatch();
     }
@@ -94,42 +92,7 @@ class CustomTreeContainer extends Component {
 
     }
 
-    setTable(data) {
-        let results = { columns: [], tableInfo: [] };
-        if (data) {
-            results.tableInfo = data.datasets.map((item, index) => {
-                return { download: item.download_href, name: item.name, description: item.description, readme: item.readme_href };
-            });
-            results.columns = results.columns
-                .concat(Object.keys(data.datasets[0]))
-                .map((item, index) => {
-                    if (item.indexOf('readme') !== -1) {
-                        return {
-                            Header: 'ReadMe',
-                            accessor: 'readme',
-                            Cell: props => <span><i className='fa fa-file-text-o' aria-hidden='true'></i></span>,
-                            style: { 'color': '#CCD2D7' }
-
-                        };
-                    }
-                    else if (item.indexOf('download') !== -1) {
-                        return {
-                            Header: 'Download',
-                            accessor: 'download',
-                            Cell: props => <span><i className='fa fa-cloud-download' aria-hidden="true"></i></span>,
-                            style: { color: '#AA0000' }
-                        };
-                    }
-                    else {
-                        return {
-                            Header: S(item).capitalize().s,
-                            accessor: item.toLowerCase()
-                        };
-                    }
-                });
-        }
-        return results;
-    }
+  
     renderTreeStructure() {
 
         let items = this.props.downloadsMenu;
@@ -150,18 +113,22 @@ class CustomTreeContainer extends Component {
 
     render() {
         let data = this.renderTreeStructure();
-        
+
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.renderDataTable(this.props.downloadsResults);
             //let rData = this.setTable(this.props.downloadsResults);
-            let renderTemplate = (<div><div className="row">
-                <div className="columns small-2">{data}</div>
-                <div className="columns small-10">
-                    <DataTable data={table} usePlugin={true} />
+            let cssTree = {
+                'list-style-Type':'none'
+            };
+            let renderTemplate = (<div>
+                <div className="row">
+                    <div className="columns small-2">{data}</div>
+                    <div className="columns small-10">
+                        <DataTable data={table} usePlugin={true} />
+                    </div>
                 </div>
-            </div>
-        
-            
+
+
             </div>);
             return renderTemplate;
         }

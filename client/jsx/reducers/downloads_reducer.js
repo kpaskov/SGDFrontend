@@ -1,3 +1,9 @@
+/**
+ * author: fgondwe
+ * date: 05/05/2017
+ * purpose: exexute action events for custom tree component
+ */
+
 import React from 'react';
 import * as ActionTypes from '../actions/actionTypes';
 import _ from 'underscore';
@@ -40,7 +46,6 @@ export default function (state = initialState, action) {
                 downloadsMenu: state.downloadsMenu.concat(action.payload.data)
             });
         case ActionTypes.GET_SELECTED_NODE:
-            console.log(state.selectedNodes.concat(action.payload.node));
             return Object.assign({}, state, {
                 selectedNodes: state.selectedNodes.concat(action.payload.node),
             });

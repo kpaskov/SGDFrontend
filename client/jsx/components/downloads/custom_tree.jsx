@@ -25,17 +25,12 @@ class CustomTree extends Component {
                 this.setState({ visible: !this.state.visible });
             }
         }
-
-
-
     }
 
     render() {
-
         let childNodes;
         let style;
         let cssClasses;
-
         if (this.props.node.childNodes != undefined) {
             childNodes = this.props.node.childNodes.map((node, index) => {
                 return (<li key={index} value={index}>
@@ -50,15 +45,27 @@ class CustomTree extends Component {
             };
 
         }
+        else{
+            if(this.props.node.title === this.props.queryString){
+                cssClasses = {
+                    'highlight-node':true
+                }
+            }
+        }
         if (!this.state.visible) {
             style = { display: 'none' };
+        }
+        else{
+            style ={
+                'listStyleType':'none'
+            };
         }
         if (this.props.node.childNodes == undefined) {
             //leaf node
             return (
                 <div>
-                    <h5 onClick={this.props.leafClick} className={ClassNames(cssClasses)}>
-                        <a id={this.props.node.title} name={this.props.node.title}>{this.props.node.title}</a>
+                    <h5 onClick={this.props.leafClick} >
+                        <a id={this.props.node.title} name={this.props.node.title} className={ClassNames(cssClasses)}>{this.props.node.title}</a>
                     </h5>
                 </div>
             );
@@ -70,7 +77,6 @@ class CustomTree extends Component {
                         <h5 onClick={this.onToggle} id={this.props.node.title} className={ClassNames(cssClasses)}>
                             {this.props.node.title}
                         </h5>
-                   
                     <ul style={style}>
                         {childNodes}
                     </ul>
