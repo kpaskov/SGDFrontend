@@ -25,7 +25,6 @@ class CustomTreeContainer extends Component {
         this.leafClick = this.leafClick.bind(this);
         this.nodeToggle = this.nodeToggle.bind(this);
         this.getSelectedNode = this.getSelectedNode.bind(this);
-        this.fetchSelectedNodes = this.fetchSelectedNodes.bind(this);
 
     }
     renderDataTable(data) {
