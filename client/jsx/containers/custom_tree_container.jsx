@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CustomTree from '../components/downloads/custom_tree.jsx';
 import * as downloadsActions from '../actions/downloads_actions';
-import ReactTable from 'react-table';
 import DataTable from '../components/widgets/data_table.jsx'
 import S from 'string';
 import _ from 'underscore';
