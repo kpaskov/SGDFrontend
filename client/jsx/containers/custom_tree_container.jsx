@@ -33,8 +33,8 @@ class CustomTreeContainer extends Component {
                 let rmText=`${item.name}.README` ;
                 let dText = `${item.name}.tgz`;
                 return {
-                    readme_href: <span><a href={item.readme_href} download={rmText}><i className="fa fa-file-text-o fa-lg"  aria-hidden="true"></i></a></span>,
-                    download_href: <span><a href={item.download_href} download={dText}><i className="fa fa-cloud-download fa-lg" color="#8C1515" aria-hidden="true"></i></a></span>,
+                    readme_href: <span style={{width:80}}><a href={item.readme_href} download={rmText}><i className="fa fa-file-text-o fa-lg"  aria-hidden="true"></i></a></span>,
+                    download_href: <span style={{width:80}}><a href={item.download_href} download={dText}><i className="fa fa-cloud-download fa-lg" color="#8C1515" aria-hidden="true"></i></a></span>,
                     name: item.name,
                     description: item.description,
                 }
@@ -119,6 +119,10 @@ class CustomTreeContainer extends Component {
                 'list-style-Type':'none'
             };
             let renderTemplate = (<div>
+                <div class="row">
+                    <h3>Downloads</h3>
+                    <hr />
+                </div>
                 <div className="row">
                     <div className="columns small-2">{data}</div>
                     <div className="columns small-10">
