@@ -62,6 +62,7 @@ class CustomTreeContainer extends Component {
     }
   
     nodeToggle(node) {
+        
         this.props.dispatch(downloadsActions.toggleNode(!this.props.isVisible));
         //this.props.dispatch();
     }
@@ -78,7 +79,7 @@ class CustomTreeContainer extends Component {
     }
 
     getSelectedNode(node) {
-
+        debugger
         this.props.dispatch(downloadsActions.getNode(node));
     }
 
@@ -146,6 +147,7 @@ class CustomTreeContainer extends Component {
 }
 
 function mapStateToProps(state) {
+    debugger
     return {
         downloadsMenu: state.downloads.downloadsMenu,
         downloadsResults: state.downloads.downloadsResults,
@@ -154,6 +156,8 @@ function mapStateToProps(state) {
         url: `${state.routing.location.pathname}${state.routing.location.search}`,
         queryParams: state.routing.location.query,
         nodeVisible: state.downloads.nodeVisible,
+        selectedNodes: state.downloads.selectedNodes,
+        openNodes:state.downloads.openNodes
     }
 
 }

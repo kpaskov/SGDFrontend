@@ -64,17 +64,17 @@ class CustomTree extends Component {
             //leaf node
             return (
                 <div>
-                    <span onClick={this.props.leafClick} >
-                        <a id={this.props.node.title} name={this.props.node.title} className={ClassNames(cssClasses)}>{this.props.node.title}</a>
+                    <span onClick={this.props.leafClick} data-node={this.props.node}>
+                        <a id={this.props.node.title} name={this.props.node.title} data-node={this.props.node} value={this.props.node} className={ClassNames(cssClasses)}>{this.props.node.title}</a>
                     </span>
                 </div>
             );
         }
         else {
-            //parent node
+            //parent node 
             return (
                 <div>
-                        <span onClick={this.onToggle} id={this.props.node.title} className={ClassNames(cssClasses)}>
+                        <span onClick={this.onToggle} id={this.props.node.title} value={this.props.node} className={ClassNames(cssClasses)}>
                             {this.props.node.title}
                         </span>
                     <ul style={style}>
