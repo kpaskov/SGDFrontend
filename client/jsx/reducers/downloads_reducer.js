@@ -15,7 +15,8 @@ const initialState = {
     query: '',
     selectedLeaf: '',
     selectedNodes: [],
-    openNodes: [],
+    selectedNode:'',
+    openNodes: {nodes:[],leaf:''},
     url: '',
     queryParams: '',
     tableColumns: [],
@@ -25,7 +26,8 @@ const initialState = {
 export default function (state = initialState, action) {
     if (action.type === '@@router/UPDATE_LOCATION' && action.payload.pathname === '/downloads') {
         if (action.payload.search.length > 0) {
-            let regexString = /^\?([a-zA-Z]|)+\=([\w*\+\w*])+/g;
+            debugger
+            let regexString = /(^\?([a-zA-Z]|)+\=([\w*\+\w*])+(\&([\w*]+)+\=([\w*\+\w*])+)+)|^\?([a-zA-Z]|)+\=([\w*\+\w*])+/g;
             let result = (typeof action.payload.query.q === 'string') ? action.payload.search.match(regexString) : '';
             if (result) {
                 state.query = action.payload.query.q;
@@ -39,15 +41,19 @@ export default function (state = initialState, action) {
             return Object.assign({}, state, {
                 downloadsResults: action.payload.datasets,
                 query: { q: action.payload.searchTerm },
-                selectedLeaf: action.payload.searchTerm
+                selectedLeaf: action.payload.searchTerm,
+                openNodes:{leaf:action.payload.searchTerm}
             });
         case ActionTypes.FETCH_DOWNLOADS_MENU:
             return Object.assign({}, state, {
                 downloadsMenu: state.downloadsMenu.concat(action.payload.data)
             });
         case ActionTypes.GET_SELECTED_NODE:
+        debugger
             return Object.assign({}, state, {
                 selectedNodes: state.selectedNodes.concat(action.payload.node),
+                selectedNode:action.payload.node,
+                openNodes:{nodes:state.openNodes.concat(action.payload.node)}
             });
 
         default:
