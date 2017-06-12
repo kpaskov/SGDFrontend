@@ -111,7 +111,7 @@ class CustomTreeContainer extends Component {
 
     render() {
         let data = this.renderTreeStructure();
-
+        const pageTitle = <div className="row"><h3>Downloads</h3><hr /></div>;
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.renderDataTable(this.props.downloadsResults);
             //let rData = this.setTable(this.props.downloadsResults);
@@ -119,6 +119,7 @@ class CustomTreeContainer extends Component {
                 'list-style-Type':'none'
             };
             let renderTemplate = (<div>
+                {pageTitle}
                 <div className="row">
                     <div className="columns small-2">{data}</div>
                     <div className="columns small-10">
@@ -131,8 +132,12 @@ class CustomTreeContainer extends Component {
             return renderTemplate;
         }
         else {
-            let renderTemplate = (<div className="row">
-                <div className="columns small-4">{data}</div>
+            let renderTemplate = (<div>
+                {pageTitle}
+                <div className="row">
+                <div className="columns small-4">{data}
+                </div>
+                </div>
             </div>);
             return renderTemplate;
         }
