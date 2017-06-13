@@ -15,7 +15,6 @@ import _ from 'underscore';
 import {$,jQuery} from 'jquery';
 import ClassNames from 'classnames';
 
-
 const DOWNLOADS_URL = '/downloads';
 
 class CustomTreeContainer extends Component {
@@ -24,7 +23,6 @@ class CustomTreeContainer extends Component {
         this.leafClick = this.leafClick.bind(this);
         this.nodeToggle = this.nodeToggle.bind(this);
         this.getSelectedNode = this.getSelectedNode.bind(this);
-
     }
     renderDataTable(data) {
         let results = { headers: [], rows: [] };
@@ -33,8 +31,8 @@ class CustomTreeContainer extends Component {
                 let rmText=`${item.name}.README` ;
                 let dText = `${item.name}.tgz`;
                 return {
-                    readme_href: <span><a href={item.readme_href} download={rmText}><i className="fa fa-file-text-o fa-lg"  aria-hidden="true"></i></a></span>,
-                    download_href: <span><a href={item.download_href} download={dText}><i className="fa fa-cloud-download fa-lg" color="#8C1515" aria-hidden="true"></i></a></span>,
+                    readme_href: <span><a href={item.readme_href} download={rmText}><i className="fa fa-file-text-o fa-lg"  aria-hidden="true" style={{width:80}}></i></a></span>,
+                    download_href: <span><a href={item.download_href} download={dText}><i className="fa fa-cloud-download fa-lg" aria-hidden="true" style={{width:80,color:"#8C1515"}}></i></a></span>,
                     name: item.name,
                     description: item.description,
                 }
@@ -43,7 +41,6 @@ class CustomTreeContainer extends Component {
                 let temp = _.values(item);
                 results.rows.push(temp);
             });
-
             results.headers.push(Object.keys(data.datasets[0])
                 .map((item, index) => {
                     if (item.indexOf('readme') !== -1) {
@@ -56,50 +53,35 @@ class CustomTreeContainer extends Component {
                         return S(item).capitalize().s
                     }
                 }));
-
             return results;
         }
     }
-  
     nodeToggle(node) {
-        
         this.props.dispatch(downloadsActions.toggleNode(!this.props.isVisible));
-        //this.props.dispatch();
     }
-
     fetchDownloads(term) {
         this.props.dispatch(downloadsActions.fetchDownloadResults(term));
     }
-
-
     leafClick(event) {
         this.fetchDownloads(event.target.id)
-        this.props.history.pushState(null, DOWNLOADS_URL, { q: event.target.id });
-
+        this.props.history.pushState(null, DOWNLOADS_URL, {category:this.props.selectedNode.title,item: event.target.id});
     }
-
     getSelectedNode(node) {
-        debugger
         this.props.dispatch(downloadsActions.getNode(node));
     }
-
     componentDidMount() {
         this.props.dispatch(downloadsActions.fetchDownloadsMenuData());
-        if (this.props.query.length > 0) {
+        if (this.props.query) {
             this.props.dispatch(downloadsActions.fetchDownloadResults(this.props.query));
         }
-
     }
-
-  
     renderTreeStructure() {
-
         let items = this.props.downloadsMenu;
         if (items.length > 0) {
             let treeNodes = items.map((node, index) => {
                 if (node) {
                     return <CustomTree key={index} node={node} leafClick={this.leafClick}
-                        nodeClick={this.getSelectedNode} queryString={this.props.query.q} />
+                        nodeClick={this.getSelectedNode} queryString={this.props.query} />
                 }
             });
             return treeNodes;
@@ -107,15 +89,12 @@ class CustomTreeContainer extends Component {
         else {
             return [];
         }
-
     }
-
     render() {
         let data = this.renderTreeStructure();
-        const pageTitle = <div className="row"><h3>Downloads</h3><hr /></div>;
+        const pageTitle = <div className="row"><h1>Downloads</h1><hr /></div>;
         if (Object.keys(this.props.downloadsResults).length > 0) {
             let table = this.renderDataTable(this.props.downloadsResults);
-            //let rData = this.setTable(this.props.downloadsResults);
             let cssTree = {
                 'list-style-Type':'none'
             };
@@ -127,8 +106,6 @@ class CustomTreeContainer extends Component {
                         <DataTable data={table} usePlugin={true} />
                     </div>
                 </div>
-
-
             </div>);
             return renderTemplate;
         }
@@ -143,11 +120,8 @@ class CustomTreeContainer extends Component {
             return renderTemplate;
         }
     }
-
 }
-
 function mapStateToProps(state) {
-    debugger
     return {
         downloadsMenu: state.downloads.downloadsMenu,
         downloadsResults: state.downloads.downloadsResults,
@@ -156,9 +130,7 @@ function mapStateToProps(state) {
         url: `${state.routing.location.pathname}${state.routing.location.search}`,
         queryParams: state.routing.location.query,
         nodeVisible: state.downloads.nodeVisible,
-        selectedNodes: state.downloads.selectedNodes,
-        openNodes:state.downloads.openNodes
+        selectedNode: state.downloads.selectedNode
     }
-
 }
 export default connect(mapStateToProps)(CustomTreeContainer);

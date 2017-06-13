@@ -6,13 +6,13 @@
 import React, { Component } from 'react';
 import ClassNames from 'classnames';
 import _ from 'underscore';
+import S from 'string';
 
 class CustomTree extends Component {
     constructor(props) {
         super(props);
         this.state = { visible: false };
         this.onToggle = this.onToggle.bind(this);
-
     }
     onToggle(event) {
         this.setState({ visible: !this.state.visible });
@@ -20,13 +20,12 @@ class CustomTree extends Component {
     }
     componentDidMount() {
         if (this.props.node.childNodes != undefined) {
-            let item = _.findWhere(this.props.node.childNodes, { title: this.props.queryString });
+            let item = _.findWhere(this.props.node.childNodes, { title: S(this.props.queryString.item).capitalize().s});
             if (item) {
                 this.setState({ visible: !this.state.visible });
             }
         }
     }
-
     render() {
         let childNodes;
         let style;
@@ -43,10 +42,9 @@ class CustomTree extends Component {
                 'togglable-down': this.state.visible,
                 'togglable-up': !this.state.visible
             };
-
         }
         else{
-            if(this.props.node.title === this.props.queryString){
+            if(this.props.node.title.toLowerCase() === this.props.queryString.item.toLowerCase()){
                 cssClasses = {
                     'highlight-node':true
                 }
@@ -65,7 +63,7 @@ class CustomTree extends Component {
             return (
                 <div>
                     <span onClick={this.props.leafClick} data-node={this.props.node}>
-                        <a id={this.props.node.title} name={this.props.node.title} data-node={this.props.node} value={this.props.node} className={ClassNames(cssClasses)}>{this.props.node.title}</a>
+                        <a id={S(this.props.node.title).capitalize().s} name={S(this.props.node.title).capitalize().s} data-node={this.props.node} value={this.props.node} className={ClassNames(cssClasses)}>{this.props.node.title}</a>
                     </span>
                 </div>
             );
@@ -74,7 +72,7 @@ class CustomTree extends Component {
             //parent node 
             return (
                 <div>
-                        <span onClick={this.onToggle} id={this.props.node.title} value={this.props.node} className={ClassNames(cssClasses)}>
+                        <span onClick={this.onToggle} id={S(this.props.node.title).capitalize().s} value={this.props.node} className={ClassNames(cssClasses)}>
                             {this.props.node.title}
                         </span>
                     <ul style={style}>
@@ -83,7 +81,6 @@ class CustomTree extends Component {
                 </div>
             );
         }
-
     }
 }
 export default CustomTree;

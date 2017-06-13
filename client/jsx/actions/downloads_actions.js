@@ -9,6 +9,7 @@ import * as ActionTypes from './actionTypes';
 import _ from 'underscore';
 
 export const fetchDownloadResultsSuccess = (results) => {
+
     return {
         type: ActionTypes.FETCH_DOWNLOADS_RESULTS_SUCCESS,
         payload: results
@@ -16,6 +17,7 @@ export const fetchDownloadResultsSuccess = (results) => {
 };
 
 export const fetchDownloadsMenuSuccess = (results) => {
+    
     return {
         type: ActionTypes.FETCH_DOWNLOADS_MENU,
         payload: results
@@ -32,12 +34,12 @@ export function fetchDownloadsMenuData(){
     };
 };
 
-export const fetchDownloadResults = (searchTerm) => {
-
+export const fetchDownloadResults = (query) => {
     return (dispatch) => {
         return Axios.get(URLS.resultsUrl)
             .then(response => {
-                dispatch(fetchDownloadResultsSuccess({datasets:response.data,searchTerm:searchTerm}));
+                    dispatch(fetchDownloadResultsSuccess({datasets:response.data,query:query}));
+                
             }).catch(error => { throw (error) });
     };
 };
