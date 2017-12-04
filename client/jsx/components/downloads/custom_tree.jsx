@@ -20,7 +20,7 @@ class CustomTree extends Component {
     }
     componentDidMount() {
         if (this.props.node.childNodes != undefined) {
-            let item = _.findWhere(this.props.node.childNodes, { title: S(this.props.queryString.item).capitalize().s});
+            let item = _.findWhere(this.props.node.childNodes, { title: this.props.queryString.item ? S(this.props.queryString.item).capitalize().s: undefined});
             if (item) {
                 this.setState({ visible: !this.state.visible });
             }
@@ -44,11 +44,12 @@ class CustomTree extends Component {
             };
         }
         else{
-            if(this.props.node.title.toLowerCase() === this.props.queryString.item.toLowerCase()){
-                cssClasses = {
-                    'highlight-node':true
+            if (this.props.node.title && this.props.queryString) {
+                if (this.props.node.title.toLowerCase() === this.props.queryString.item.toLowerCase()) {
+                  cssClasses = { "highlight-node": true };
                 }
-            }
+
+            } 
         }
         if (!this.state.visible) {
             style = { display: 'none' };

@@ -88,9 +88,9 @@ def blast_sgd(request):
 def colleague_show(request):
     return render_to_response(TEMPLATE_ROOT + 'misc.jinja2', {}, request=request)
 
-@view_config(route_name='downloads')
-def downloads(request):
-    return render_to_response(TEMPLATE_ROOT + 'downloads.jinja2', {}, request=request)
+@view_config(route_name='downloads_data')
+def downloads_data(request):
+    return render_to_response(TEMPLATE_ROOT + 'downloads_data.jinja2', {}, request=request)
 
 @view_config(route_name='new_colleague')
 def new_colleague(request):
