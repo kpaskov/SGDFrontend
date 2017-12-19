@@ -196,6 +196,10 @@ def home(request):
     meetings = get_meetings()
     return render_to_response(TEMPLATE_ROOT + 'homepage.jinja2', { 'meetings': meetings, 'blog_posts': blog_posts }, request=request)
 
+@view_config(route_name='new_gene_name_reservation') 
+def new_gene_name_reservation(request):
+    return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_reservation' }, request=request)
+
 # # example
 # @view_config(route_name='example')
 # def example(request):
