@@ -36,10 +36,11 @@ export default function (state = initialState, action) {
         return state;
     }
     switch (action.type) {
+        
         case ActionTypes.FETCH_DOWNLOADS_RESULTS_SUCCESS:
             return Object.assign({}, state, {
                 downloadsResults: action.payload.datasets,
-                selectedLeaf: S(action.payload.query.item).capitalize().s,
+                selectedLeaf: action.payload.query.item ? S(action.payload.query.item).capitalize().s: S(action.payload.query),
             });
         case ActionTypes.FETCH_DOWNLOADS_MENU:
             return Object.assign({}, state, {
