@@ -62,7 +62,7 @@ module.exports = React.createClass({
 				<form onSubmit={this._onSubmit}>
 					<div className="row">
 						<div className="large-12 columns">
-							<p>Please fill in your name and e-mail address to send mail to a curator sgd-helpdesk@lists.stanford.edu</p>
+							<p>Please fill in your name and e-mail address to send mail to a curator yeastgenome@gmail.com</p>
 							<label>Name: <span className='red'>(Required)</span></label><br></br>
 							<input type='text' placeholder='Your name' ref='name' size='50' required='true'></input><p></p>
 							<label>E-mail: <span className='red'>(Required)</span></label><br></br>

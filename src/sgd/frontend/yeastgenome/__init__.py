@@ -442,7 +442,9 @@ def send_message(request):
     server = "localhost"
     sender = config.sender 
     
-    s = smtplib.SMTP(server)
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo
+    server.login(sender, config.gmail_password)
     
     name = p.get('name')
     email = p.get('email')
