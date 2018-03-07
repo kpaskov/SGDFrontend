@@ -439,13 +439,8 @@ def send_message(request):
     if 'false' in success: 
         return
 
-    server = "localhost"
     sender = config.sender 
-    
-    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.ehlo
-    server.login(sender.replace('@gmail.com', ''), config.gmail_password)
-    
+        
     name = p.get('name')
     email = p.get('email')
     subject = p.get('subject')
@@ -456,7 +451,9 @@ def send_message(request):
 
     msg = MIMEText(text)
     
-    s = smtplib.SMTP(server)
+    s = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    s.ehlo
+    s.login(sender.replace('@gmail.com', ''), config.gmail_password)
     
     recipients = [sender]
 
@@ -466,7 +463,7 @@ def send_message(request):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
-    s.sendmail(sender, recipients, msg.as_string())
+    s.sendmail(sender, recipients, message)
 
     return Response(body=json.dumps(p), content_type='application/json')
 
