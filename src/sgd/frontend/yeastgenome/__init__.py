@@ -463,7 +463,7 @@ def send_message(request):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
-    s.sendmail(sender, recipients, message)
+    s.sendmail(sender, recipients, msg.as_string())
 
     return Response(body=json.dumps(p), content_type='application/json')
 
