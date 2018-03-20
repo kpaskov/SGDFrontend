@@ -20,7 +20,7 @@ class Graph extends Component {
     this.lastNodes = [];
     this.canClick = true;
     this.state = {
-      currentMaxValue: DEFAULT_MAX_VALUE
+      currentMaxNodes: DEFAULT_MAX_VALUE
     };
   }
 
@@ -54,7 +54,7 @@ class Graph extends Component {
 
   handleMaxSizeChange() {
     let newValue = this.refs.slider.value;
-    this.setState({ currentMaxNodes: newValue });
+    this.setState({ currentMaxNodes: Number(newValue) });
     this.drawGraph();
   }
 
@@ -175,6 +175,8 @@ class Graph extends Component {
       nodes: _nodes,
       edges: _edges
     };
+    // hide labels when over 100 nodes
+    let showLablesThresh = (this.state.currentMaxNodes < 100) ? 0 : 100;
     this.s = new sigma({
       graph: _graph,
       renderers: [
@@ -190,7 +192,7 @@ class Graph extends Component {
         maxNodeSize: 7,
         minEdgeSize: 2,
         maxEdgeSize: 2,
-        labelThreshold: 0,
+        labelThreshold: showLablesThresh,
         sideMargin: 4,
         zoomingRatio: 1
       }
