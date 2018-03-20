@@ -697,11 +697,21 @@
         </div>
     </section>
     {% endif %}{% endfor %}
+
+    <section id="graph">
+        <h2>Graph</h2>
+        <hr />
+        <div id="j-network"></div>
+    </section>
     </div>
 </div>
 {% endblock body %}
 
 {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/sigma.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.plugins.animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.renderers.snapshot.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/1.2.1/plugins/sigma.plugins.dragNodes.min.js"></script>
 <script>
     views.summary.render();
 </script>

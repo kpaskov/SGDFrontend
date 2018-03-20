@@ -35,6 +35,12 @@ summaryView.render = function () {
     document.getElementById("navbar-container")
   );
 
+  // render network
+  let sgdid = bootstrappedData.locusData.sgdid;
+  $.getJSON('/backend/locus/' + sgdid + '/graph', function(data) {
+    views.network.render(data);
+  });
+
 	var fetchAndRenderHistory = () => {
     let sgdid = bootstrappedData.locusData.sgdid;
     let expUrl = `https://s3-us-west-2.amazonaws.com/sgd-prod-expression-details/${sgdid}.json`;

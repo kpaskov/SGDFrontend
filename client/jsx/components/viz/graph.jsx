@@ -9,7 +9,7 @@ const TARGET_ID = 'j-sigma-target';
 const TRANSITION_DURATION = 1000;
 const DEFAULT_X = 0;
 const DEFAULT_Y = 0;
-const N_TICKS = 100;
+const N_TICKS = 250;
 const EDGE_COLOR = '#e2e2e2';
 const HIGHLIGHTED_EDGE_COLOR = '#808080';
 const SIZE_DEBOUNCE = 1000;
@@ -68,7 +68,7 @@ class Graph extends Component {
     return MAX_HEIGHT;
   }
 
-  // the edges need by d3 to calc format
+  // the edges need to have source/target as index in nodes d3 to calc format
   getFormattedLinks() {
     let nodes = this.props.data.nodes;
     let edges = this.getEdges();
@@ -96,6 +96,7 @@ class Graph extends Component {
       }).length;
       return (hasSource && hasTarget);
     });
+    console.log(rawEdges.length, filteredEdges.length);
     return filteredEdges.map( (d, i) => {
       d.id = `e${i}`;
       d.color = EDGE_COLOR;
