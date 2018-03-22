@@ -19,7 +19,8 @@ const SELECT_OPTION_DELEMITER = '@@';
 const FacetSelector = React.createClass({
   propTypes: {
     downloadStatus: React.PropTypes.func,
-    downloadStatusStr: React.PropTypes.string
+    downloadStatusStr: React.PropTypes.string,
+    dresults: React.PropTypes.array
   },
   render() {
     if (this.props.isAggPending) return null;
@@ -43,10 +44,32 @@ const FacetSelector = React.createClass({
       let href = '';
       if (d.key === 'download') {
         if(!location.search.toLocaleLowerCase().includes('status=active')){
-          href = `${this._getRawUrl()}&category=${d.key}&status=Active`;
+          if (location.search.toLocaleLowerCase().includes('is_quick')) {
+            //get status
+            if(this.props.dresults.length  == 1){
+              href = `${this._getRawUrl()}&category=${d.key}&status=${this.props.dresults[0].status}`;
+            }
+            else{
+              href = `${this._getRawUrl()}&category=${d.key}&status=Active`;
+            }
+          }
+          else{
+            if(this.props.downloadStatusStr){
+            href = `${this._getRawUrl()}&category=${d.key}&status=${this.props.downloadStatusStr}`;
+          }
+           else{
+            href = `${this._getRawUrl()}&category=${d.key}`;
+          }
+          }
         }
         else{
-          href = `${this._getRawUrl()}&category=${d.key}`;
+          if(this.props.downloadStatusStr){
+            href = `${this._getRawUrl()}&category=${d.key}&status=${this.props.downloadStatusStr}`;
+          }
+          else{
+            href = `${this._getRawUrl()}&category=${d.key}`;
+          }
+          
         }
         
       } else {

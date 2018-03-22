@@ -29,7 +29,7 @@ const Search = React.createClass({
     }
     return <div className='row'>
         <div className='column medium-4 hide-for-small'>
-          <FacetSelector isMobile={false} downloadStatus={this._getdownloadStatus} downloadStatusStr={this.props.downloadStatusStr} />
+          <FacetSelector isMobile={false} downloadStatus={this._getdownloadStatus} downloadStatusStr={this.props.downloadStatusStr} dresults={this.props.results} />
         </div>
         <div className='column small-12 medium-8'>
           <div className='show-for-small-only'>
