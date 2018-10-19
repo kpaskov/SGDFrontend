@@ -45,7 +45,7 @@ run:
 	. dev_deploy_variables.sh && pserve sgdfrontend_development.ini --reload
 
 tests:
-	nosetests test/
+	nosetests test/ -s --with-coverage
 
 # add START_URL env variable to point at non-production environment
 ghost:
