@@ -35,3 +35,16 @@ asset_version.json
 docs/
 production_asset_url.json
 *.env
+
+# coverall
+coverage/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover

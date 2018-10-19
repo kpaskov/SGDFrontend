@@ -5,4 +5,5 @@ group :development do
   gem 'capistrano-ext'
   gem 'highline'
   gem 'compass'
+  gem 'coveralls', require: false
 end
