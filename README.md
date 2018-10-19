@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/yeastgenome/SGDFrontend.svg)](https://travis-ci.org/yeastgenome/SGDFrontend)
 
-[![Coverage Status](https://coveralls.io/repos/github/yeastgenome/SGDBackend-Nex2/badge.svg?branch=qa)](https://coveralls.io/github/yeastgenome/SGDFrontend?branch=5178_coveralls_FE)
+[![Coverage Status](https://coveralls.io/repos/github/yeastgenome/SGDFrontend/badge.svg)](https://coveralls.io/github/yeastgenome/SGDFrontend)
 
 This project is a frontend webaplication used for the SGD Nextgen Redesign. It retreives data in JSON format from
 SGDBackend, then creates the pages of the website.
