@@ -2,10 +2,11 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 
 var WIDTH = 400;
 
-var HelpIcon = React.createClass({
+var HelpIcon = createReactClass({
 
 	getDefaultProps: function () {
 		return {

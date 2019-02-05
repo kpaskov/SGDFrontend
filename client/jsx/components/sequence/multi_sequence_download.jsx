@@ -2,11 +2,12 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 
 var DidClickOutside = require("../mixins/did_click_outside.jsx");
 
-var MultiSequenceDownload = React.createClass({
+var MultiSequenceDownload = createReactClass({
 	mixins: [DidClickOutside],
 
 	getDefaultProps: function () {

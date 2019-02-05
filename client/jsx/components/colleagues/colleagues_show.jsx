@@ -1,10 +1,11 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import Radium from 'radium';
 import { connect } from 'react-redux';
 
 import ColleaguesFormShow from './colleagues_form_show.jsx';
 
-const ColleaguesShow = React.createClass({
+const ColleaguesShow = createReactClass({
   render () {
     return (
       <div style={[style.container]}>

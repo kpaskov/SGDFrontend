@@ -1,4 +1,5 @@
 import { match } from 'react-router';
+import React from 'react';
 
 import $ from 'jquery';
 import attachFastClick from 'fastclick';
@@ -35,7 +36,10 @@ module.exports = function () {
     // exec search setup script, don't do if on any redux page
     // necessary to prevent react re-rending twice on client
     var path = window.location.pathname;
+    console.log(React.version);
+    console.log(routes);
     match({ routes, location:  path}, (error, redirectLocation, renderProps) => {
+      console.log(renderProps);
       if (!renderProps || path === '' || path === '/') {
         setupSearch();
       }

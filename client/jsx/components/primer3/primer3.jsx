@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import Radium from 'radium';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -17,7 +18,7 @@ import { StringField, CheckField, TextField, SelectField, MultiSelectField, Radi
 
 const PRIMER3URL = '/backend/primer3';
 
-const Primer3 = React.createClass({
+const Primer3 = createReactClass({
 
   getInitialState () {
     return {

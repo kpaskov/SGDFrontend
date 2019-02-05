@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+var createReactClass = require('create-react-class');
 
 import AppSearchBar from "../app_search_bar.jsx";
 
-const Header = React.createClass({
+const Header = createReactClass({
   render () {
     return (
       <header id="layout-page-header" ref="wrapper">

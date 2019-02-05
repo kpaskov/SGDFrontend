@@ -3,6 +3,7 @@
 
 var d3 = require("d3");
 var React = require("react");
+var createReactClass = require('create-react-class');
 
 var BarChart = require("../viz/bar_chart.jsx");
 var DataTable = require("../widgets/data_table.jsx");
@@ -12,7 +13,7 @@ var GenomeSnapshot = require("./genome_snapshot.jsx");
 	A react component to render a table, as well as an alternetive
 	way to render the same data.
 */
-module.exports = React.createClass({
+module.exports = createReactClass({
 	getDefaultProps: function () {
 		return {
 			isInitiallyTable: true,

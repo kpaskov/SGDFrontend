@@ -1,5 +1,6 @@
 import Radium from 'radium';
 import React from 'react';
+var createReactClass = require('create-react-class');
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -8,7 +9,7 @@ import { getHrefWithoutAgg, getCategoryDisplayName } from '../lib/search_helpers
 const SEARCH_URL = '/search';
 const SKIPPED_PARAMS = ['page', 'geneMode', 'is_quick', 'page_size', 'sort_by'];
 
-const SearchBreadcrumb = React.createClass({
+const SearchBreadcrumb = createReactClass({
   render() {
     return (
       <h2>

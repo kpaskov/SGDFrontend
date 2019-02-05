@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import ReactDOM from 'react-dom';
 import Radium from 'radium';
 
@@ -12,7 +13,7 @@ const SequenceToggler = require('../sequence/sequence_toggler.jsx');
 const Statics = require('../../statics.jsx');
 const TForm = require('../widgets/t_form.jsx');
 
-const StyleGuide = React.createClass({
+const StyleGuide = createReactClass({
 	render () {
     return (
       <div className='row'>

@@ -1,5 +1,6 @@
 /*eslint-disable no-undef */
 import React, { Component } from 'react';
+var PropTypes = require("prop-types");
 import d3 from 'd3';
 
 const DEFAULT_MAX_VALUE = 50;
@@ -281,10 +282,10 @@ class Graph extends Component {
 }
 
 Graph.propTypes = {
-  data: React.PropTypes.object, // { nodes: [], edges: [] }
-  headerText: React.PropTypes.string, // optional
-  colorScale: React.PropTypes.func, // optional, default to d3.scale.category10(d.category)
-  stage: React.PropTypes.number // optional to force animation 
+  data: PropTypes.object, // { nodes: [], edges: [] }
+  headerText: PropTypes.string, // optional
+  colorScale: PropTypes.func, // optional, default to d3.scale.category10(d.category)
+  stage: PropTypes.number // optional to force animation 
 };
 module.exports = Graph;
 

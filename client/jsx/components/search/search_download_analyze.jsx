@@ -1,11 +1,13 @@
 const React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import Radium from 'radium';
 
-const SearchDownloadAnalyze = React.createClass({
+const SearchDownloadAnalyze = createReactClass({
   propTypes: {
-    results: React.PropTypes.array,
-    url: React.PropTypes.string,
-    query: React.PropTypes.string
+    results: PropTypes.array,
+    url: PropTypes.string,
+    query: PropTypes.string
   },
 
   render () {

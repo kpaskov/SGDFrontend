@@ -1,7 +1,8 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
-const DropdownSelector = React.createClass({
+const DropdownSelector = createReactClass({
 
   getDefaultProps: function () {
     return {

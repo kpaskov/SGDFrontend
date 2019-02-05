@@ -1,4 +1,6 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import Radium from 'radium';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -19,13 +21,13 @@ const COLLEAGUE_GET_URL = '/colleagues';
 const USER_COLLEAGUE_UPDATE_URL = '/backend/colleagues';
 const CURATOR_COLLEAGUE_UPDATE_URL = TRIAGED_COLLEAGUE_URL;
 
-const ColleaguesFormShow = React.createClass({
+const ColleaguesFormShow = createReactClass({
   propTypes: {
-    isReadOnly: React.PropTypes.bool,
-    isCurator: React.PropTypes.bool,
-    isUpdate: React.PropTypes.bool,
-    colleagueDisplayName: React.PropTypes.string,
-    isTriage: React.PropTypes.bool
+    isReadOnly: PropTypes.bool,
+    isCurator: PropTypes.bool,
+    isUpdate: PropTypes.bool,
+    colleagueDisplayName: PropTypes.string,
+    isTriage: PropTypes.bool
   },
 
   getInitialState () {

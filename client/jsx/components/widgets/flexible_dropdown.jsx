@@ -2,15 +2,17 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var DidClickOutside = require("../mixins/did_click_outside.jsx");
 
-var FlexibleDropdown = React.createClass({
+var FlexibleDropdown = createReactClass({
 	mixins: [DidClickOutside],
 
 	propTypes: {
-		labelText: React.PropTypes.string.isRequired,
-		innerNode: React.PropTypes.object.isRequired, // react component
-		orientation: React.PropTypes.string // "left", "right"
+		labelText: PropTypes.string.isRequired,
+		innerNode: PropTypes.object.isRequired, // react component
+		orientation: PropTypes.string // "left", "right"
 	},
 
 	getDefaultProps: function () {

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+var createReactClass = require('create-react-class');
 
 import Header from './layout/header.jsx';
 import Footer from './layout/footer.jsx';
 
-const Layout = React.createClass({
+const Layout = createReactClass({
   render () {
     return (
       <div>

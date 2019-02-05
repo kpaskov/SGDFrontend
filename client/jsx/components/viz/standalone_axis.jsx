@@ -3,10 +3,11 @@
 
 var d3 = require("d3");
 var React = require("react");
+var createReactClass = require('create-react-class');
 
 var CalcWidthOnResize = require("../mixins/calc_width_on_resize.jsx");
 
-var StandaloneAxis = React.createClass({
+var StandaloneAxis = createReactClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

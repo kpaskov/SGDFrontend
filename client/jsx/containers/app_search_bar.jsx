@@ -1,5 +1,7 @@
 import 'isomorphic-fetch';
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import ReactDOM from 'react-dom';
 import Radium from 'radium';
 import { connect } from 'react-redux';
@@ -14,7 +16,7 @@ import { getCategoryDisplayName } from '../lib/search_helpers';
 const AUTOCOMPLETE_URL = '/backend/autocomplete_results';
 const AUTOCOMPLETE_FETCH_DEBOUNCE_WAIT = 200;
 
-const SearchOption = React.createClass({
+const SearchOption = createReactClass({
   render () {
     let extraClass = this.props.isSelected ? ' active' : '';
     let _className = `react-typeahead-option${extraClass}`;
@@ -37,11 +39,11 @@ const SearchOption = React.createClass({
   }
 });
 
-const AppSearchBar = React.createClass({
+const AppSearchBar = createReactClass({
   propTypes: {
-    resultsUrl: React.PropTypes.string.isRequired,
-    userInput: React.PropTypes.string,
-    redirectOnSearch: React.PropTypes.bool// if true, hard HTTP redirect to /search?q=${query}, if false, uses REDUX
+    resultsUrl: PropTypes.string.isRequired,
+    userInput: PropTypes.string,
+    redirectOnSearch: PropTypes.bool// if true, hard HTTP redirect to /search?q=${query}, if false, uses REDUX
   },
 
   getDefaultProps() {

@@ -1,13 +1,15 @@
 "use strict";
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 var Radium = require("radium");
 
-var Paginator = React.createClass({
+var Paginator = createReactClass({
   propTypes: {
-    onPaginate: React.PropTypes.func, // (newPageNum) =>
-    currentPage: React.PropTypes.number,
-    totalPages: React.PropTypes.number.isRequired
+    onPaginate: PropTypes.func, // (newPageNum) =>
+    currentPage: PropTypes.number,
+    totalPages: PropTypes.number.isRequired
   },
 
   getDefaultProps: function () {

@@ -3,6 +3,8 @@
 
 var d3 = require("d3");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 var CalcWidthOnResize = require("../mixins/calc_width_on_resize.jsx");
@@ -14,15 +16,15 @@ var SIDE_PADDING = 100;
 var TOP_PADDING = 20;
 var TRANSITION_DURATION = 1000;
 
-var ExpressionChart = React.createClass({
+var ExpressionChart = createReactClass({
 	mixins: [CalcWidthOnResize],
 
 	propTypes: {
-		data: React.PropTypes.object.isRequired,
-		hasHelpIcon: React.PropTypes.bool,
-		hasScaleToggler: React.PropTypes.bool,
-		minValue: React.PropTypes.number.isRequired,
-		maxValue: React.PropTypes.number.isRequired
+		data: PropTypes.object.isRequired,
+		hasHelpIcon: PropTypes.bool,
+		hasScaleToggler: PropTypes.bool,
+		minValue: PropTypes.number.isRequired,
+		maxValue: PropTypes.number.isRequired
 	},
 
 	getDefaultProps: function () {

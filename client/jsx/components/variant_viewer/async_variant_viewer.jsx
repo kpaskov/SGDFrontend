@@ -2,17 +2,19 @@
 "use strict";
 var Radium = require("radium");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 var VariantViewerComponent = require("sgd_visualization").VariantViewerComponent;
 var RadioSelector = require("../widgets/radio_selector.jsx");
 
-var AsyncVariantViewer = React.createClass({
+var AsyncVariantViewer = createReactClass({
 	propTypes: {
-		hideTitle: React.PropTypes.bool,
-		sgdid: React.PropTypes.string.isRequired,
-		store: React.PropTypes.object.isRequired,
-		parentIsProtein: React.PropTypes.bool
+		hideTitle: PropTypes.bool,
+		sgdid: PropTypes.string.isRequired,
+		store: PropTypes.object.isRequired,
+		parentIsProtein: PropTypes.bool
 	},
 
 	getDefaultProps: function () {

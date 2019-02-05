@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import d3 from 'd3';
 import _ from 'underscore';
 
@@ -19,7 +20,7 @@ const TRACK_SPACING = 10;
 const MIN_BP_WIDTH = 200; // show at least 200 BP
 const MOUSE_CAPTURE_TIME = 500; // millis until scrollwhell events are captured
 
-const LocusDiagram = React.createClass({
+const LocusDiagram = createReactClass({
   mixins: [CalcWidthOnResize],
 
   getDefaultProps: function () {

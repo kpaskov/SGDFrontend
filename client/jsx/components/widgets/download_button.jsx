@@ -1,7 +1,8 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
-const DownloadButton = React.createClass({
+const DownloadButton = createReactClass({
   getDefaultProps: function () {
     return {
       buttonId: null,

@@ -1,4 +1,6 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import { Link } from 'react-router';
 import Radium from 'radium';
 import { connect } from 'react-redux';
@@ -21,7 +23,7 @@ import { createPath } from '../lib/search_helpers';
 const SEARCH_URL = '/search';
 const CATS_SORTED_BY_ANNOTATION = ['phenotype', 'biological_process','cellular_component', 'molecular_function'];
 
-const Search = React.createClass({
+const Search = createReactClass({
   displayName: 'Search',
   render() {
     if (this.props.apiError) {
@@ -310,17 +312,17 @@ const Search = React.createClass({
     ga('send', 'pageview');
   },
   propTypes: {
-    activeCategory: React.PropTypes.string,
-    categoryAggs: React.PropTypes.array,
-    secondaryAggs: React.PropTypes.array,
-    wrapGeneResults: React.PropTypes.bool,
-    currentPage: React.PropTypes.number,
-    isPending: React.PropTypes.bool,
-    query: React.PropTypes.string,
-    results: React.PropTypes.array, // [{ name, url, category, description }]
-    total: React.PropTypes.number,
-    totalPages: React.PropTypes.number,
-    apiError: React.PropTypes.bool
+    activeCategory: PropTypes.string,
+    categoryAggs: PropTypes.array,
+    secondaryAggs: PropTypes.array,
+    wrapGeneResults: PropTypes.bool,
+    currentPage: PropTypes.number,
+    isPending: PropTypes.bool,
+    query: PropTypes.string,
+    results: PropTypes.array, // [{ name, url, category, description }]
+    total: PropTypes.number,
+    totalPages: PropTypes.number,
+    apiError: PropTypes.bool
   }
 });
 

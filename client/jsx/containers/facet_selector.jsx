@@ -1,4 +1,6 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { routeActions, push } from 'react-router-redux';
@@ -16,10 +18,10 @@ const SEARCH_URL = '/search';
 const SELECT_MAX_CHAR_WIDTH = 8;
 const SELECT_OPTION_DELEMITER = '@@';
 
-const FacetSelector = React.createClass({
+const FacetSelector = createReactClass({
   propTypes: {
-    downloadStatus: React.PropTypes.func,
-    downloadStatusStr: React.PropTypes.string
+    downloadStatus: PropTypes.func,
+    downloadStatusStr: PropTypes.string
   },
   render() {
     if (this.props.isAggPending) return null;
@@ -161,17 +163,17 @@ const FacetSelector = React.createClass({
 });
 
 const FacetList = Radium(
-  React.createClass({
+  createReactClass({
     propTypes: {
-      aggKey: React.PropTypes.string.isRequired,
-      values: React.PropTypes.array.isRequired,
-      currentValues: React.PropTypes.array.isRequired,
-      queryParams: React.PropTypes.object.isRequired,
-      name: React.PropTypes.string,
-      customFacetFlag: React.PropTypes.bool,
-      customFacetRadioBtnFlag: React.PropTypes.bool,
-      downloadStatus: React.PropTypes.func,
-      downloadStatusStr: React.PropTypes.string
+      aggKey: PropTypes.string.isRequired,
+      values: PropTypes.array.isRequired,
+      currentValues: PropTypes.array.isRequired,
+      queryParams: PropTypes.object.isRequired,
+      name: PropTypes.string,
+      customFacetFlag: PropTypes.bool,
+      customFacetRadioBtnFlag: PropTypes.bool,
+      downloadStatus: PropTypes.func,
+      downloadStatusStr: PropTypes.string
     },
 
     getInitialState() {

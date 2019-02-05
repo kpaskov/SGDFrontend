@@ -2,13 +2,15 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 
 // React port of the Google recaptcha, documented at https://developers.google.com/recaptcha/docs/display.
 // *** NOTE, requires script tag to be included and loaded from google, see docs ***
 //  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-module.exports = React.createClass({
+module.exports = createReactClass({
 	propTypes: {
-		onComplete: React.PropTypes.func.isRequired // (response) =>
+		onComplete: PropTypes.func.isRequired // (response) =>
 	},
 
 	render: function () {

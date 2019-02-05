@@ -1,4 +1,6 @@
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var Radium = require("radium");
 var d3 = require("d3");
 var _ = require("underscore");
@@ -13,12 +15,12 @@ var ScrollyHeatmap = require("./scrolly_heatmap.jsx");
 var StrainSelector = require("./strain_selector.jsx");
 var VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
 
-var VariantViewer = React.createClass({
+var VariantViewer = createReactClass({
 	// mixins: [Navigation, State],
 
 	propTypes: {
-		store: React.PropTypes.object.isRequired,
-		visibleLocusId: React.PropTypes.string	
+		store: PropTypes.object.isRequired,
+		visibleLocusId: PropTypes.string	
 	},
 
 	getDefaultProps: function () {

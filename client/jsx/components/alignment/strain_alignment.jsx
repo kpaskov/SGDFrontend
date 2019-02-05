@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 import $ from 'jquery';
 
@@ -7,7 +8,7 @@ const Params = require("../mixins/parse_url_params.jsx");
 
 const alignUrl = "/get_alignment";
 
-const StrainAlignment = React.createClass({
+const StrainAlignment = createReactClass({
 
 	getInitialState() {
 	        

@@ -2,11 +2,12 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 
 var GoogleRecaptcha = require("../widgets/google_recaptcha.jsx");
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 	getInitialState: function () {
 		return {
 			isComplete: false,

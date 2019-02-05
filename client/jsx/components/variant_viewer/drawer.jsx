@@ -1,5 +1,7 @@
 var Radium = require("radium");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 var VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
@@ -9,11 +11,11 @@ var REM_SIZE = 16;
 var MAX_HEIGHT = 800;
 var LABEL_WIDTH = 150;
 
-var Drawer = React.createClass({
+var Drawer = createReactClass({
 
 	propTypes: {
-		store: React.PropTypes.object.isRequired,
-		isProteinMode: React.PropTypes.bool
+		store: PropTypes.object.isRequired,
+		isProteinMode: PropTypes.bool
 	},
 
 	getDefaultProps() {

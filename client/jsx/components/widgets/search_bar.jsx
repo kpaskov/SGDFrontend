@@ -2,12 +2,14 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
-var SearchBar = React.createClass({
+var SearchBar = createReactClass({
 	propTypes: {
-		placeholderText: React.PropTypes.string,
-		onSubmit: React.PropTypes.func // query =>
+		placeholderText: PropTypes.string,
+		onSubmit: PropTypes.func // query =>
 	},
 
 	getDefaultProps: function () {

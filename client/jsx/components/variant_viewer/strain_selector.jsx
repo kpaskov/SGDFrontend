@@ -2,6 +2,8 @@
 "use strict";
 var Radium = require("radium");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 var Checklist = require("../widgets/checklist.jsx");
@@ -10,12 +12,12 @@ var DidClickOutside = require("../mixins/did_click_outside.jsx");
 var WIDTH = 150;
 var REFERENCE_STRAIN_ID = 1;
 
-var StrainSelector = React.createClass({
+var StrainSelector = createReactClass({
 	mixins: [DidClickOutside],
 
 	propTypes: {
-		store: React.PropTypes.object,
-		onUpdate: React.PropTypes.func // onUpdate()
+		store: PropTypes.object,
+		onUpdate: PropTypes.func // onUpdate()
 	},
 
 	getInitialState: function () {

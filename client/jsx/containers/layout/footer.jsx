@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+var createReactClass = require('create-react-class');
 
-const Footer = React.createClass({
+const Footer = createReactClass({
   getDefaultProps() {
     return {
       assetRoot: '/static'   

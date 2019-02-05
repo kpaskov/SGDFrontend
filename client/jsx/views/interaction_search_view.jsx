@@ -1,7 +1,8 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import ReactDOM from 'react-dom';
 
-const InteractionSearch = React.createClass({
+const InteractionSearch = createReactClass({
   render () {
     return (
       <div className='row'>

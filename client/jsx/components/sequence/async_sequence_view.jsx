@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
 const HelpIcon = require('../widgets/help_icon.jsx');
@@ -13,7 +14,7 @@ const VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
 /*
   Fetches data from model and renders locus diagram (or loader while fetching).
 */
-var AsyncSequenceView = React.createClass({
+var AsyncSequenceView = createReactClass({
 
   getDefaultProps: function () {
     return {

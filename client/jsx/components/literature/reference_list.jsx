@@ -2,10 +2,11 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 var HelpIcon = require("../widgets/help_icon.jsx");
 
-var ReferenceList = React.createClass({
+var ReferenceList = createReactClass({
 
 	getDefaultProps: function () {
 		return {

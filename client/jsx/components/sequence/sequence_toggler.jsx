@@ -1,5 +1,6 @@
 import d3 from 'd3';
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
 const DownloadButton = require('../widgets/download_button.jsx');
@@ -9,7 +10,7 @@ const subFeatureColorScale = require('../../lib/locus_format_helper.jsx').subFea
 const LETTERS_PER_CHUNK = 10;
 const LETTERS_PER_LINE = 60;
 
-const SequenceToggler = React.createClass({
+const SequenceToggler = createReactClass({
   getDefaultProps: function () {
     return {
       buttonId: null,

@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 import $ from 'jquery';
 
@@ -18,7 +19,7 @@ const evidenceCode = [ 'HDA', 'HGI', 'HMP', 'IBA', 'IC',  'IEA', 'IDA', 'IEP', '
       		       'IKR', 'IMP', 'IMR', 'IPI', 'IRD', 'ISA', 'ISM', 'ISO', 'ISS', 
 		       'NAS', 'ND',  'TAS' ];
 
-const GoTermFinder = React.createClass({
+const GoTermFinder = createReactClass({
 
 	getInitialState() {
 	        

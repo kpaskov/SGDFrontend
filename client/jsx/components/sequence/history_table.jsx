@@ -2,12 +2,13 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 
 var DataTable = require("../widgets/data_table.jsx");
 var HelpIcon = require("../widgets/help_icon.jsx");
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
 	getDefaultProps: function () {
 		return {

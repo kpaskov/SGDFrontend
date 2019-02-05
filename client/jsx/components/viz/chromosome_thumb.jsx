@@ -2,6 +2,7 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var d3 = require("d3");
 var _ = require("underscore");
 
@@ -14,7 +15,7 @@ var PADDING = 3;
 /*
 	A small visualization of a chromosome and inset to show smaller location within. 
 */
-module.exports = React.createClass({
+module.exports = createReactClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

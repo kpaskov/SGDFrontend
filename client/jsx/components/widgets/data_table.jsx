@@ -1,4 +1,5 @@
 const React = require("react");
+var createReactClass = require('create-react-class');
 const _ = require("underscore");
 const d3 = require("d3");
 const $ = require("jquery");
@@ -9,7 +10,7 @@ require("foundationDatatables");
 /*
 	A react component that renders a table, then uses jQuery data tables to spice it up.
 */
-const DataTable = React.createClass({
+const DataTable = createReactClass({
 
 	getDefaultProps: function () {
 		return {

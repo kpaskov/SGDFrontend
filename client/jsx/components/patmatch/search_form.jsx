@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 import $ from 'jquery';
 
@@ -12,7 +13,7 @@ const PatmatchUrl = "/run_patmatch";
 const LETTERS_PER_CHUNK = 10;
 const LETTERS_PER_LINE = 60;
 
-var SearchForm = React.createClass({
+var SearchForm = createReactClass({
 
 	getInitialState: function () {
 	        

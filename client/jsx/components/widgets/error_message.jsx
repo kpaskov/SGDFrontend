@@ -1,6 +1,7 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 
-const ErrorMessage = React.createClass({
+const ErrorMessage = createReactClass({
   getDefaultProps() {
     return {
       heading: 'Woops!',

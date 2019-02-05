@@ -1,4 +1,6 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import _ from 'underscore';
 import Radium from 'radium';
 import Clipboard from 'clipboard';
@@ -7,9 +9,9 @@ import 'foundation';
 
 import DownloadButton from '../widgets/download_button.jsx';
 
-const CopyToClipButton = React.createClass({
+const CopyToClipButton = createReactClass({
   propTypes: {
-    copiedText: React.PropTypes.string.isRequired
+    copiedText: PropTypes.string.isRequired
   },
 
   getInitialState() {
@@ -41,17 +43,17 @@ const CopyToClipButton = React.createClass({
   }
 });
 
-const SearchResult = React.createClass({
+const SearchResult = createReactClass({
   propTypes: {
-    category: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string,
-    highlights: React.PropTypes.object,
-    name: React.PropTypes.string.isRequired,
-    href: React.PropTypes.string,
-    loci: React.PropTypes.array, // i.e. ['rad54', ...]
-    keyStr: React.PropTypes.string, // same as key to give a unique str
-    readme_url: React.PropTypes.string,
-    file_size: React.PropTypes.string,
+    category: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    highlights: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    href: PropTypes.string,
+    loci: PropTypes.array, // i.e. ['rad54', ...]
+    keyStr: PropTypes.string, // same as key to give a unique str
+    readme_url: PropTypes.string,
+    file_size: PropTypes.string,
 
   },
 

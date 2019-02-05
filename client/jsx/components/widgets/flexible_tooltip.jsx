@@ -2,18 +2,20 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
-var FlexibleTooltip = React.createClass({
+var FlexibleTooltip = createReactClass({
 	propTypes: {
-		visible: React.PropTypes.bool,
-		text: React.PropTypes.string,
-		left: React.PropTypes.number,
-		top: React.PropTypes.number,
-		title: React.PropTypes.string,
-		data: React.PropTypes.object,
-		href: React.PropTypes.string,
-		truncateText: React.PropTypes.bool
+		visible: PropTypes.bool,
+		text: PropTypes.string,
+		left: PropTypes.number,
+		top: PropTypes.number,
+		title: PropTypes.string,
+		data: PropTypes.object,
+		href: PropTypes.string,
+		truncateText: PropTypes.bool
 	},
 
 	getDefaultProps: function () {

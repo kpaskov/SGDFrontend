@@ -1,11 +1,12 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import $ from 'jquery';
 import _ from 'underscore';
 require('bootstrap');
 
 const SCROLL_OFFSET = 245; // how far (px) to scroll to trigger link
 
-const Navbar = React.createClass({
+const Navbar = createReactClass({
 
   getDefaultProps: function () {
     return {

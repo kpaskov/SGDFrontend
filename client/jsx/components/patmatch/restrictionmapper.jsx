@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 import $ from 'jquery';
 
@@ -15,7 +16,7 @@ const MAX_NUM_ENZYME = 15;
 
 const restUrl = "/run_restmapper";
 
-const RestrictionMapper = React.createClass({
+const RestrictionMapper = createReactClass({
 
 	getInitialState() {
 	        

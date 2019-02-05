@@ -2,6 +2,7 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var ReactDOM = require("react-dom");
 var $ = require("jquery");
 var VariantViewer = require("../components/variant_viewer/variant_viewer.jsx");
@@ -13,9 +14,9 @@ var { Router, Route, IndexRoute } = require("react-router");
 var view = {};
 view.render = function () {
 	// blank react component to make no drawer
-	var BlankComponent = React.createClass({ render: function () { return <span />; }});
+	var BlankComponent = createReactClass({ render: function () { return <span />; }});
 
-	var RouterComponent = React.createClass({
+	var RouterComponent = createReactClass({
 		render: function () {
 			return (
 				<Router>

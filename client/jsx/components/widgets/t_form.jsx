@@ -1,14 +1,16 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 import ToSchema from 'tcomb-json-schema';
 const t = require('tcomb-form');
 const Form = t.form.Form;
 
 // create form from JSON validation format
-const TForm = React.createClass({
+const TForm = createReactClass({
   propTypes: {
-    onSubmit: React.PropTypes.func, // (value) => form value object
-    submitText: React.PropTypes.string,
-    validationObject: React.PropTypes.object.isRequired,
+    onSubmit: PropTypes.func, // (value) => form value object
+    submitText: PropTypes.string,
+    validationObject: PropTypes.object.isRequired,
   },
 
   getDefaultProps() {

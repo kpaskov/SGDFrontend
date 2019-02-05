@@ -1,13 +1,15 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
-var Checklist = React.createClass({
+var Checklist = createReactClass({
 	propTypes: {
-		elements: React.PropTypes.array.isRequired, // [ { name: "Doggy Woggy", key: "dog" }, ...]
-		initialActiveElementKeys: React.PropTypes.array,
-		onSelect: React.PropTypes.func // (activeElementKeys) =>
+		elements: PropTypes.array.isRequired, // [ { name: "Doggy Woggy", key: "dog" }, ...]
+		initialActiveElementKeys: PropTypes.array,
+		onSelect: PropTypes.func // (activeElementKeys) =>
 	},
 
 	getDefaultProps: function () {

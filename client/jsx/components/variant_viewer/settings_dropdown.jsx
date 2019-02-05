@@ -2,6 +2,8 @@
 "use strict";
 var Radium = require("radium");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 var DidClickOutside = require("../mixins/did_click_outside.jsx");
@@ -9,12 +11,12 @@ var RadioSelector = require("../widgets/radio_selector.jsx");
 
 var WIDTH = 220;
 
-var SettingsDropdown = React.createClass({
+var SettingsDropdown = createReactClass({
 	mixins: [DidClickOutside],
 
 	propTypes: {
-		store: React.PropTypes.object,
-		onUpdate: React.PropTypes.func // onUpdate()
+		store: PropTypes.object,
+		onUpdate: PropTypes.func // onUpdate()
 	},
 
 	getInitialState: function () {

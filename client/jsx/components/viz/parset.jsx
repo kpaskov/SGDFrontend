@@ -3,20 +3,22 @@
 
 var d3 = require("d3");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 // style static elements
 var HEIGHT = 100;
 var LINE_HEIGHT = 6;
 
-var Parset = React.createClass({
+var Parset = createReactClass({
 	propTypes: {
-		isVisible: React.PropTypes.bool,
-		x1Coordinates: React.PropTypes.array,
-		x2Coordinates: React.PropTypes.array,
-		text: React.PropTypes.string,
-		contigHref: React.PropTypes.string,
-		contigDisplayName: React.PropTypes.string
+		isVisible: PropTypes.bool,
+		x1Coordinates: PropTypes.array,
+		x2Coordinates: PropTypes.array,
+		text: PropTypes.string,
+		contigHref: PropTypes.string,
+		contigDisplayName: PropTypes.string
 	},
 
 	getDefaultProps: function () {

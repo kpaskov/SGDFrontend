@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import d3 from 'd3';
 import _ from 'underscore';
 import $ from 'jquery';
@@ -25,7 +26,7 @@ const enzyme_type_to_color = { "3' overhang": GREEN,
     			       "5' overhang": MAGENTA,
 			       "blunt end": ORANGE };
  
-module.exports = React.createClass({
+module.exports = createReactClass({
 
 	mixins: [CalcWidthOnResize],
 

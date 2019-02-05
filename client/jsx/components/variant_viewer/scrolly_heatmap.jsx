@@ -1,6 +1,8 @@
 "use strict";
 var d3 = require("d3");
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 var Radium = require("radium");
 
@@ -18,14 +20,14 @@ var SCROLLBAR_HEIGHT = 15;
 var LARGE_DATA_SIZE = 6500;
 var DEFAULT_BORDER_COLOR = "#EBDD71";
 
-var ScrollyHeatmap = React.createClass({
+var ScrollyHeatmap = createReactClass({
 	propTypes: {
-		data: React.PropTypes.array.isRequired, // [{ name: "some123", id: "123", data: [0.1, 0.5, ...]}, ...]
-		nodeSize: React.PropTypes.number,
-		originalNodeSize: React.PropTypes.number,
-		onClick: React.PropTypes.func,
-		strainData: React.PropTypes.array.isRequired, // [{ name: "foo", id: 1 }, ...]
-		mouseOverBorderColor: React.PropTypes.string
+		data: PropTypes.array.isRequired, // [{ name: "some123", id: "123", data: [0.1, 0.5, ...]}, ...]
+		nodeSize: PropTypes.number,
+		originalNodeSize: PropTypes.number,
+		onClick: PropTypes.func,
+		strainData: PropTypes.array.isRequired, // [{ name: "foo", id: 1 }, ...]
+		mouseOverBorderColor: PropTypes.string
 	},
 
 	getDefaultProps: function () {

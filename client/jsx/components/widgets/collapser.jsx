@@ -1,9 +1,11 @@
 const React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 const _ = require('underscore');
 
-const Collapser = React.createClass({
+const Collapser = createReactClass({
   propTypes: {
-    label: React.PropTypes.string
+    label: PropTypes.string
   },
 
   getDefaultProps() {

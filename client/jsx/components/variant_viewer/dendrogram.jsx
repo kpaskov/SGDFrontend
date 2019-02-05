@@ -2,15 +2,17 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var d3 = require("d3");
 var _ = require("underscore");
 
-var Dendrogram = React.createClass({
+var Dendrogram = createReactClass({
 	propTypes: {
-		width: React.PropTypes.number,
-		height: React.PropTypes.number,
-		data:  React.PropTypes.object,
-		orientation: React.PropTypes.string // "top" or "left"
+		width: PropTypes.number,
+		height: PropTypes.number,
+		data:  PropTypes.object,
+		orientation: PropTypes.string // "top" or "left"
 	},
 
 	getDefaultProps: function () {

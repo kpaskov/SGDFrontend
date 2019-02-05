@@ -1,4 +1,5 @@
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 var $ = require("jquery");
 
@@ -8,7 +9,7 @@ var Params = require("../mixins/parse_url_params.jsx");
 
 var BLAST_URL = "/run_blast";
 
-var SearchForm = React.createClass({
+var SearchForm = createReactClass({
 
 	getDefaultProps: function () {
                 return {

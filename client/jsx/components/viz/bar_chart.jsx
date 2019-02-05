@@ -2,6 +2,7 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var d3 = require("d3");
 var _ = require("underscore");
 
@@ -16,7 +17,7 @@ var BAR_HEIGHT = 15;
 
 	NOTE: Only supports left orientation and values >= 0
 */
-module.exports = React.createClass({
+module.exports = createReactClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

@@ -2,6 +2,8 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
+var PropTypes = require("prop-types");
 var _ = require("underscore");
 
 // fill colors
@@ -10,13 +12,13 @@ var NON_SYNONYMOUS_COLOR = "#C51B7D"; // dark pink
 var INTRON_COLOR = "#E6F5D0"; // pale yellow-green
 var UNTRANSLATEABLE_COLOR = "gray";
 
-var VariantPop = React.createClass({
+var VariantPop = createReactClass({
 	propTypes: {
-		data: React.PropTypes.object.isRequired,
-		hasStem: React.PropTypes.bool,
-		onMouseOver: React.PropTypes.func,
-		scale: React.PropTypes.func,
-		y: React.PropTypes.number
+		data: PropTypes.object.isRequired,
+		hasStem: PropTypes.bool,
+		onMouseOver: PropTypes.func,
+		scale: PropTypes.func,
+		y: PropTypes.number
 	},
 
 	getDefaultProps: function () {

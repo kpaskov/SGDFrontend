@@ -2,6 +2,7 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var d3 = require("d3");
 var _ = require("underscore");
 
@@ -15,7 +16,7 @@ var FILTER_TRESHOLD = 26;
 /*
 	From some sets of data, allow user to toggle between bar charts.
 */
-module.exports = React.createClass({
+module.exports = createReactClass({
 
 	getDefaultProps: function () {
 		var idFn = (d) => { return d; };

@@ -2,9 +2,10 @@
 "use strict";
 
 var React = require("react");
+var createReactClass = require('create-react-class');
 var _ = require("underscore");
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 	getDefaultProps: function () {
 		return {
 			visible: false,

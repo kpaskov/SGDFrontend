@@ -1,4 +1,5 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 import $ from 'jquery';
 
@@ -18,7 +19,7 @@ const MAX_GENE = 50;
 const MAX_SEQ_LENGTH_FOR_TOOLS = 20000;
 
 
-const GeneSequenceResources = React.createClass({
+const GeneSequenceResources = createReactClass({
 
 	getInitialState() {
 	        

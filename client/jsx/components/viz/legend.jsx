@@ -1,7 +1,8 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
-const Legend = React.createClass({
+const Legend = createReactClass({
 	// i.e. elements [{ text: "Audi", color: "#ccc" }]
 	getDefaultProps: function () {
 		return {

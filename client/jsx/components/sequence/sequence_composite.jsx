@@ -3,6 +3,7 @@
   If it doesn't have the models, returns the right loaders
 */
 import React from 'react';
+var createReactClass = require('create-react-class');
 import _ from 'underscore';
 
 const DataTable = require("../widgets/data_table.jsx");
@@ -13,13 +14,13 @@ const LocusDiagram = require("../viz/locus_diagram.jsx");
 const MultiSequenceDownload = require("./multi_sequence_download.jsx");
 const SequenceToggler = require("./sequence_toggler.jsx");
 
-const Loader = React.createClass({
+const Loader = createReactClass({
   render () {
     return <div className='sgd-loader-container'><div className='sgd-loader'></div></div>;
   }
 });
 
-const SequenceComposite = React.createClass({
+const SequenceComposite = createReactClass({
   getDefaultProps: function () {
     return  {
       isSimplified: false, // simplified is for LSP
