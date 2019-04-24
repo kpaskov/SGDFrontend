@@ -229,6 +229,12 @@ def new_colleague(request):
     #     ci_base = 'https://curate.qa.yeastgenome.org'
     return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_base': ci_base }, request=request)
 
+@view_config(route_name='submit_data')
+def submit_data(request):
+    ci_base = 'https://curate.qa.yeastgenome.org'
+    return render_to_response(TEMPLATE_ROOT + 'submit_data_iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_base': ci_base }, request=request)
+
+
 @view_config(route_name='primer3')
 def primer3(request):
     return render_to_response(TEMPLATE_ROOT + 'primer3.jinja2', {}, request=request)
