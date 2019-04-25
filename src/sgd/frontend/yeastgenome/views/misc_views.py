@@ -232,9 +232,8 @@ def new_colleague(request):
 @view_config(route_name='author_response')
 def author_response(request):
     ci_base = 'https://curate.qa.yeastgenome.org'
-    # return render_to_response(TEMPLATE_ROOT + 'submit_data_iframe.jinja2', { 'ci_url': 'author_response', 'ci_base': ci_base }, request=request)
-    return render_to_response(TEMPLATE_ROOT + 'submit_data_iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_b\
-ase': ci_base }, request=request) 
+    return render_to_response(TEMPLATE_ROOT + 'submit_data_iframe.jinja2', { 'ci_url': 'author_response', 'ci_base': ci_base }, request=request)
+    # return render_to_response(TEMPLATE_ROOT + 'submit_data_iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_base': ci_base }, request=request) 
 
 @view_config(route_name='primer3')
 def primer3(request):
