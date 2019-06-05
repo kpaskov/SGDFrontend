@@ -12,10 +12,10 @@ import requests
 import os
 
 DEFAULT_URL = 'http://localhost:6543'
-BACKEND_URL = os.environ.get('BACKEND_URL', DEFAULT_URL)
-ENV = os.environ.get('ENV', 'dev')
-CURATE_QA_URL = os.environ.get('CURATE_QA_URL', DEFAULT_URL)
-PROD_CURATE_URL = os.environ.get('PROD_CURATE_URL', DEFAULT_URL)
+BACKEND_URL = config.backend_url
+ENV = config.env
+CURATE_QA_URL = config.curate_qa_url
+CURATE_PROD_URL = config.curate_prod_url
 
 SEARCH_URL = BACKEND_URL + '/get_search_results'
 TEMPLATE_ROOT = 'src:sgd/frontend/yeastgenome/static/templates/'
@@ -240,7 +240,7 @@ def new_gene_name_reservation(request):
     elif ENV == 'qa':
         ci_base = CURATE_QA_URL
     else:
-        ci_base = PROD_CURATE_URL
+        ci_base = CURATE_PROD_URL
 
     return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_reservation', 'ci_base': ci_base }, request=request)
 
@@ -252,7 +252,7 @@ def new_colleague(request):
     elif ENV == 'qa':
         ci_base = CURATE_QA_URL
     else:
-        ci_base = PROD_CURATE_URL
+        ci_base = CURATE_PROD_URL
 
     return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_base': ci_base }, request=request)
 
