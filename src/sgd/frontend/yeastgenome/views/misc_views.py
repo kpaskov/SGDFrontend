@@ -9,9 +9,17 @@ import urllib
 import datetime
 import json
 import requests
+import os
 
-SEARCH_URL = config.backend_url + '/get_search_results'
+DEFAULT_URL = 'http://localhost:6543'
+BACKEND_URL = os.environ.get('BACKEND_URL', DEFAULT_URL)
+ENV = os.environ.get('ENV', 'dev')
+CURATE_QA_URL = os.environ.get('CURATE_QA_URL', DEFAULT_URL)
+PROD_CURATE_URL = os.environ.get('PROD_CURATE_URL', DEFAULT_URL)
+
+SEARCH_URL = BACKEND_URL + '/get_search_results'
 TEMPLATE_ROOT = 'src:sgd/frontend/yeastgenome/static/templates/'
+
 
 @view_config(route_name='healthcheck')
 def healthcheck(request):
@@ -116,7 +124,6 @@ def api_portal(request):
 
 @view_config(route_name='colleague_show')
 def colleague_show(request):
-    #import pdb ; pdb.set_trace()
     return render_to_response(TEMPLATE_ROOT + 'misc.jinja2', {}, request=request)
 
 
@@ -228,22 +235,24 @@ def variant_viewer(request):
 
 @view_config(route_name='new_gene_name_reservation')
 def new_gene_name_reservation(request):
-    #TODO: run this line in dev to avoid updating curate.* box
-    # https://curate.yeastgenome.org points to production
-    # https://curate.qa.yeastgenome.org points to QA
-    #ci_base = config.backend_url if config.environment == 'dev' else 'https://curate.yeastgenome.org'
-    ci_base = 'https://curate.qa.yeastgenome.org'
+    if ENV == 'dev':
+        ci_base = BACKEND_URL
+    elif ENV == 'qa':
+        ci_base = CURATE_QA_URL
+    else:
+        ci_base = PROD_CURATE_URL
 
     return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_reservation', 'ci_base': ci_base }, request=request)
 
 
 @view_config(route_name='new_colleague')
 def new_colleague(request):
-    #TODO: run this line in dev to avoid updating curate.* box
-    # https://curate.yeastgenome.org points to production
-    # https://curate.qa.yeastgenome.org points to QA
-    #ci_base = config.backend_url if config.environment == 'dev' else 'https://curate.qa.yeastgenome.org'
-    ci_base = 'https://curate.qa.yeastgenome.org'
+    if ENV == 'dev':
+        ci_base = BACKEND_URL
+    elif ENV == 'qa':
+        ci_base = CURATE_QA_URL
+    else:
+        ci_base = PROD_CURATE_URL
 
     return render_to_response(TEMPLATE_ROOT + 'iframe.jinja2', { 'ci_url': 'new_colleague', 'ci_base': ci_base }, request=request)
 
@@ -288,5 +297,5 @@ def get_https_url(url, request):
 
 @view_config(route_name='api_doc')
 def api_doc(request):
-    
+
     return render_to_response(TEMPLATE_ROOT + 'sgd_redoc.jinja2', {}, request=request)
