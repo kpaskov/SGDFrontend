@@ -3,7 +3,7 @@ import _ from 'underscore';
 import Radium from 'radium';
 import Clipboard from 'clipboard';
 import $ from 'jquery';
-import 'foundation'; 
+import 'foundation-sites'; 
 
 import DownloadButton from '../widgets/download_button.jsx';
 
@@ -226,4 +226,4 @@ const style = {
   }
 };
 
-module.exports = Radium(SearchResult);
+export default Radium(SearchResult);
