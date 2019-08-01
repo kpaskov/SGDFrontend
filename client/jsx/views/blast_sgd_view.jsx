@@ -10,4 +10,4 @@ blastSgdView.render = function () {
 	React.render(<SearchForm blastType='sgd'/>, document.getElementById("j-main"));
 };
 
-module.exports = blastSgdView;
+export default blastSgdView;

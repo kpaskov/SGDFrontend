@@ -8,7 +8,7 @@ var LOCAL_STORAGE_TIMEOUT = 7200000; // 2 hours
 /*
 	Base model is an ES6 class that provides a backbone like utility for fetching data from an external API.
 */
-module.exports = class BaseModel {
+export default class BaseModel {
 
 	constructor (options) {
 		this.url = options.url;

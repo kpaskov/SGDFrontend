@@ -311,4 +311,4 @@ var ScrollyHeatmap = React.createClass({
 });
 
 // wrap export with Radium
-module.exports = Radium(ScrollyHeatmap);
+export default Radium(ScrollyHeatmap);

@@ -64,4 +64,4 @@ var FlexibleDropdown = React.createClass({
 	},
 });
 
-module.exports = FlexibleDropdown;
+export default FlexibleDropdown;

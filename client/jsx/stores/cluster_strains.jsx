@@ -72,7 +72,7 @@ var _reformatCluster = function (obj) {
 };
 
 // wrap as web worker
-module.exports = function (self) {
+export default function (self) {
 	self.addEventListener('message', function (ev) {
 		var configObject = JSON.parse(ev.data);
 		var clusteredData = ClusterStrains(configObject);

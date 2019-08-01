@@ -32,4 +32,4 @@ view.render = function () {
 	ReactDOM.render(<RouterComponent />, document.getElementById("j-main"));
 };
 
-module.exports = view;
+export default view;

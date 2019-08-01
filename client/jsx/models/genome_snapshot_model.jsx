@@ -6,7 +6,7 @@ var _ = require("underscore");
 
 var QUALIFICATION_STATUSES = ["Verified", "Uncharacterized", "Dubious"];
 
-module.exports = class GenomeSnapshotModel extends BaseModel {
+export default class GenomeSnapshotModel extends BaseModel {
 
 	constructor (options) {
 		var options = options || {};

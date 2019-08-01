@@ -9,7 +9,7 @@ var onSetQuery = () => {};
 var selectedCategories = []
 var onSetCategories = () => {};
 
-module.exports = class SearchStore {
+export default class SearchStore {
   constructor (options) {
     options = options || {};
     if (options.query) query = options.query;

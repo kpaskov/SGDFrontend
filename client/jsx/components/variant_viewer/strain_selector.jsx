@@ -98,4 +98,4 @@ var style = {
 	}
 };
 
-module.exports = Radium(StrainSelector);
+export default Radium(StrainSelector);

@@ -10,4 +10,4 @@ restMapperView.render = function () {
 	React.render(<SearchForm />,  document.getElementById("j-main"));
 };
 
-module.exports = restMapperView;
+export default restMapperView;

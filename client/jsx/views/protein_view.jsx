@@ -56,4 +56,4 @@ proteinView.render = function(rawDomainData, locusLength, colorScale) {
   );
 };
 
-module.exports = proteinView;
+export default proteinView;

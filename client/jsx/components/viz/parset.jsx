@@ -83,4 +83,4 @@ var Parset = React.createClass({
 	}
 });
 
-module.exports = Parset;
+export default Parset;

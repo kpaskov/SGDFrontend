@@ -116,4 +116,4 @@ var StandaloneAxis = React.createClass({
 
 });
 
-module.exports = StandaloneAxis;
+export default StandaloneAxis;

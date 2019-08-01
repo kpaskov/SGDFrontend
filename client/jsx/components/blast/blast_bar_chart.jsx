@@ -13,7 +13,7 @@ var Legend = require("./blast_legend.jsx");
 var HEIGHT = 10;
 var POINT_WIDTH = 15;
 
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

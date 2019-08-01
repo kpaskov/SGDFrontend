@@ -110,4 +110,4 @@ var FlexibleTooltip = React.createClass({
 	}
 });
 
-module.exports = FlexibleTooltip;
+export default FlexibleTooltip;

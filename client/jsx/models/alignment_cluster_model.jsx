@@ -5,7 +5,7 @@ var _ = require("underscore");
 
 var STRAIN_NAMES = ["S288C", "X2180-1A", "SEY6210", "W303", "JK9-3d", "FL100", "CEN.PK", "D273-10B", "Sigma1278b", "RM11-1a", "SK1", "Y55"];
 
-module.exports = class AlignmentClusterModel {
+export default class AlignmentClusterModel {
 
 	clusterFeatures (data) {
 

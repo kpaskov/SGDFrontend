@@ -37,7 +37,7 @@ const elToHtml = function (el) {
 
 // takes relative url, call cb with html response
 // cb(err, html, statusCode)
-module.exports = function urlToHtml (relativeUrl, cb) {
+export default function urlToHtml (relativeUrl, cb) {
   cb = _.once(cb);
   // create store for server, no router reducer
   let _history = useQueries(createMemoryHistory)();

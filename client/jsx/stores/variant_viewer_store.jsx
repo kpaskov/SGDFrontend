@@ -27,7 +27,7 @@ var visibleStrainIds = null;
 var heatmapZoom = 16; // px per node
 var sortBy = "position"; // or "entropy"
 
-module.exports = class VariantViewerStore {
+export default class VariantViewerStore {
 
 	// *** mutators ***
 	setQuery (newQuery) {

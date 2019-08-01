@@ -48,4 +48,4 @@ var ColorScaleLegend = React.createClass({
 	}
 });
 
-module.exports = ColorScaleLegend;
+export default ColorScaleLegend;

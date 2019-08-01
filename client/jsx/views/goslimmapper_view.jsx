@@ -9,4 +9,4 @@ goSlimMapperView.render = function () {
 	React.render(<SearchForm />,  document.getElementById("j-main"));
 };
 
-module.exports = goSlimMapperView;
+export default goSlimMapperView;

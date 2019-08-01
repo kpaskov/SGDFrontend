@@ -28,4 +28,4 @@ regulationView.render = function(){
 
 };
 
-module.exports = regulationView;
+export default regulationView;

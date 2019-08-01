@@ -80,4 +80,4 @@ var VariantPop = React.createClass({
 
 });
 
-module.exports = VariantPop;
+export default VariantPop;

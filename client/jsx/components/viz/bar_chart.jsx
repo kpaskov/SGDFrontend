@@ -16,7 +16,7 @@ var BAR_HEIGHT = 15;
 
 	NOTE: Only supports left orientation and values >= 0
 */
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

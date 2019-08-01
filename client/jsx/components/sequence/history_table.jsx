@@ -7,7 +7,7 @@ var _ = require("underscore");
 var DataTable = require("../widgets/data_table.jsx");
 var HelpIcon = require("../widgets/help_icon.jsx");
 
-module.exports = React.createClass({
+export default React.createClass({
 
 	getDefaultProps: function () {
 		return {

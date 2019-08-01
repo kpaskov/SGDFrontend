@@ -8,7 +8,7 @@ var LocusFormatHelper = require("../lib/locus_format_helper.jsx");
 
 var MAIN_STRAIN_NAME = "S288C";
 
-module.exports = class SequenceDetailsModel extends BaseModel {
+class SequenceDetailsModel extends BaseModel {
 
     constructor (options) {
         options = options || {};
@@ -294,3 +294,5 @@ module.exports = class SequenceDetailsModel extends BaseModel {
         };
     }
 };
+
+export default SequenceDetailsModel;

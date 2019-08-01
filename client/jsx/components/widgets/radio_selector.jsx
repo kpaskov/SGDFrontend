@@ -60,4 +60,4 @@ var RadioSelector = React.createClass({
 
 });
 
-module.exports = RadioSelector;
+export default RadioSelector;

@@ -3,7 +3,7 @@
 var React = require("react");
 var _ = require("underscore");
 
-module.exports = React.createClass({
+export default React.createClass({
 	// elements, i.e.[ { name: "Doggy Woggy", key: "dog" }, ...]
 	// onSelect(activeElementKey)
 	propTypes: {

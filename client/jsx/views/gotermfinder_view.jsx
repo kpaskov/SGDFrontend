@@ -10,4 +10,4 @@ goTermFinderView.render = function () {
 	React.render(<SearchForm />,  document.getElementById("j-main"));
 };
 
-module.exports = goTermFinderView;
+export default goTermFinderView;

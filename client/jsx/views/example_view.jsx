@@ -9,4 +9,4 @@ exampleView.render = function () {
 	// ReactDOM.render(<ExampleReactComponent />, document.getElementById("j-main"));
 };
 
-module.exports = exampleView;
+export default exampleView;

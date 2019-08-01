@@ -4,7 +4,7 @@
 /*
 	Different than other models, in that it doesn't make a request.  Initialize with rawTabsData and tabType (ie "summary")
 */
-module.exports = class TabsModel {
+export default class TabsModel {
 
 	constructor (options) {
 		var options = options || {};

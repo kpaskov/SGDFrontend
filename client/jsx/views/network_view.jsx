@@ -22,4 +22,4 @@ networkView.render = function renderNetworkView (graphData, categoryColors, targ
     ReactDOM.render(<Graph categoryColors={categoryColors} data={graphData} filters={filters} headerText={_HeaderText} ignoreFloaters={ignoreFloaters} />, document.getElementById(targetId));
 };
 
-module.exports = networkView;
+export default networkView;

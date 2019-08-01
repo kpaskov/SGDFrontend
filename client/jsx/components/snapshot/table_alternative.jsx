@@ -12,7 +12,7 @@ var GenomeSnapshot = require("./genome_snapshot.jsx");
 	A react component to render a table, as well as an alternetive
 	way to render the same data.
 */
-module.exports = React.createClass({
+export default React.createClass({
 	getDefaultProps: function () {
 		return {
 			isInitiallyTable: true,

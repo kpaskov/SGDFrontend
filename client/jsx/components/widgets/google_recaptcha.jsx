@@ -6,7 +6,7 @@ var React = require("react");
 // React port of the Google recaptcha, documented at https://developers.google.com/recaptcha/docs/display.
 // *** NOTE, requires script tag to be included and loaded from google, see docs ***
 //  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-module.exports = React.createClass({
+export default React.createClass({
 	propTypes: {
 		onComplete: React.PropTypes.func.isRequired // (response) =>
 	},

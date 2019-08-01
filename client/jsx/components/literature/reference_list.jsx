@@ -46,4 +46,4 @@ var ReferenceList = React.createClass({
 	}
 });
 
-module.exports = ReferenceList;
+export default ReferenceList;
