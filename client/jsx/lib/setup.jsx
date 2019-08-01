@@ -5,9 +5,9 @@ import attachFastClick from 'fastclick';
 import setupSearch from './setup_search.jsx';
 import routes from '../routes.jsx';
 
-require('foundation');
+require('foundation-sites');
 
-module.exports = function () {
+export default function () {
   // foundation setup
   $(document).foundation();
 
