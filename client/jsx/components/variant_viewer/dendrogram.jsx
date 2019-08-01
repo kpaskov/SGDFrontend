@@ -95,4 +95,4 @@ var LABEL_HEIGHT = 80;
 var TRANSITION_DURATION = 1000;
 var FONT_SIZE = 14;
 
-module.exports = Dendrogram;
+export default Dendrogram;

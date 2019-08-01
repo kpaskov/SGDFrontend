@@ -210,4 +210,4 @@ var ExpressionChart = React.createClass({
 	}
 });
 
-module.exports = ExpressionChart;
+export default ExpressionChart;

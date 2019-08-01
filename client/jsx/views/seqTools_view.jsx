@@ -10,4 +10,4 @@ seqToolsView.render = function () {
 	React.render(<SearchForm />,  document.getElementById("j-main"));
 };
 
-module.exports = seqToolsView;
+export default seqToolsView;

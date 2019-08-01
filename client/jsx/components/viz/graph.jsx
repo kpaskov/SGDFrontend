@@ -286,7 +286,7 @@ Graph.propTypes = {
   colorScale: React.PropTypes.func, // optional, default to d3.scale.category10(d.category)
   stage: React.PropTypes.number // optional to force animation 
 };
-module.exports = Graph;
+export default Graph;
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for

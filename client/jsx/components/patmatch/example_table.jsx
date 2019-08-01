@@ -7,7 +7,7 @@ var _ = require("underscore");
 var DataTable = require("../widgets/data_table.jsx");
 
 
-module.exports = {
+export default {
 
 	examples: function() {
 		 

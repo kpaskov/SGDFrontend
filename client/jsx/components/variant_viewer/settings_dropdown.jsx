@@ -103,4 +103,4 @@ var style = {
 	}
 };
 
-module.exports = Radium(SettingsDropdown);
+export default Radium(SettingsDropdown);

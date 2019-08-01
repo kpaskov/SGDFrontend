@@ -58,4 +58,4 @@ var SearchBar = React.createClass({
 	}
 });
 
-module.exports = SearchBar;
+export default SearchBar;

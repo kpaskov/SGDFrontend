@@ -6,7 +6,7 @@ var BaseModel = require("./base_model.jsx");
 
 var REFERENCE_DISPLAY_NAME = "S288C";
 
-module.exports = class AlignmentShowModel extends BaseModel {
+export default class AlignmentShowModel extends BaseModel {
 
 	constructor (options) {
 		// add strain id segment to url if strainIds defined

@@ -49,4 +49,4 @@ const style = {
   }
 }
 
-module.exports = Radium(Paginator);
+export default Radium(Paginator);

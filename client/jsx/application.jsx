@@ -37,4 +37,4 @@ setup();
 
 // assign to global view object
 window.views = views;
-module.exports = views;
+export default views;

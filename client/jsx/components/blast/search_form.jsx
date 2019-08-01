@@ -713,4 +713,4 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 });
 
-module.exports = SearchForm;
+export default SearchForm;

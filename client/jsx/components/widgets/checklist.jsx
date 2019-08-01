@@ -84,4 +84,4 @@ var Checklist = React.createClass({
 
 });
 
-module.exports = Checklist;
+export default Checklist;

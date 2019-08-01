@@ -10,4 +10,4 @@ strainAlignmentView.render = function () {
 	React.render(<SearchForm />,  document.getElementById("j-main"));
 };
 
-module.exports = strainAlignmentView;
+export default strainAlignmentView;

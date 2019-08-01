@@ -1,4 +1,4 @@
-module.exports = {  
+export default {  
   "strains":[  
     {  
       "name":"S288C",

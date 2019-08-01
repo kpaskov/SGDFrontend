@@ -7,7 +7,7 @@ var React = require('react'),
     getTextDirection = require('../utils/get_text_direction'),
     noop = function() {};
 
-module.exports = React.createClass({
+export default React.createClass({
     displayName: 'Typeahead',
 
     statics: {

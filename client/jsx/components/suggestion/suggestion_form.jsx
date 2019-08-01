@@ -6,7 +6,7 @@ var _ = require("underscore");
 
 var GoogleRecaptcha = require("../widgets/google_recaptcha.jsx");
 
-module.exports = React.createClass({
+export default React.createClass({
 	getInitialState: function () {
 		return {
 			isComplete: false,

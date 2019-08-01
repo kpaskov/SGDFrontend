@@ -4,7 +4,7 @@
 	Assumes that component has method called didClickOutside, which handles being clicked outside
 */
 
-module.exports = {
+export default {
 	// add event listener to document to dismiss when clicking
 	componentDidMount: function () {
 		document.addEventListener("click", () => {

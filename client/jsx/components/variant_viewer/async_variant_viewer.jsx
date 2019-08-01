@@ -216,4 +216,4 @@ var style = {
 	}
 };
 
-module.exports = Radium(AsyncVariantViewer);
+export default Radium(AsyncVariantViewer);

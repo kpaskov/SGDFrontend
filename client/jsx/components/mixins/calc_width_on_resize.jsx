@@ -5,7 +5,7 @@
 	This mixin simply calls that method on resize
 */
 
-module.exports = {
+export default {
 	componentDidMount: function() {
 		window.addEventListener('resize', this._handleResize);
 	},

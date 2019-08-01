@@ -14,7 +14,7 @@ var PADDING = 3;
 /*
 	A small visualization of a chromosome and inset to show smaller location within. 
 */
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

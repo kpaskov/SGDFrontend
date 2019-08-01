@@ -27,4 +27,4 @@ litView.render = function(hasNetwork){
   ReactDOM.render(<NavBar title={_navTitleText} elements={_elements} />, document.getElementById("navbar-container"));
 };
 
-module.exports = litView;
+export default litView;

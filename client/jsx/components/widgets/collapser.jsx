@@ -45,4 +45,4 @@ const Collapser = React.createClass({
   }
 });
 
-module.exports = Collapser;
+export default Collapser;

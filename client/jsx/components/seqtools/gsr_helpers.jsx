@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
 	StrainMapping() {
 		return { 'S288C':      'S. cerevisiae Reference Strain S288C',

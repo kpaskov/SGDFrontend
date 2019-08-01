@@ -9,7 +9,7 @@ var BarChart = require("../../components/viz/bar_chart.jsx");
 var Legend = require("../../components/viz/legend.jsx");
 var StandaloneAxis = require("../../components/viz/standalone_axis.jsx");
 
-module.exports = React.createClass({
+export default React.createClass({
 
     getInitialState: function () {
         return {

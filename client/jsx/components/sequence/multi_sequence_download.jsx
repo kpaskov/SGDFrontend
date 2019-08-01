@@ -73,4 +73,4 @@ var MultiSequenceDownload = React.createClass({
 	}
 });
 
-module.exports = MultiSequenceDownload;
+export default MultiSequenceDownload;

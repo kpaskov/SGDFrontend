@@ -209,4 +209,4 @@ var NODE_SIZE = 16;
 var SCROLL_CONTAINER_HEIGHT = 800;
 var MIN_PENDING_TIME = 250; // millis before loading state invoked
 
-module.exports = Radium(VariantViewer);
+export default Radium(VariantViewer);

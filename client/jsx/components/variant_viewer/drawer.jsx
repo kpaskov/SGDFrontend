@@ -95,4 +95,4 @@ var style = {
 	}
 }
 
-module.exports = Radium(Drawer);
+export default Radium(Drawer);

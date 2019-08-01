@@ -25,4 +25,4 @@ expressionView.render = function (data) {
   }
 };
 
-module.exports = expressionView;
+export default expressionView;

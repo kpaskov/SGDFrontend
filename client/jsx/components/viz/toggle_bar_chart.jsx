@@ -15,7 +15,7 @@ var FILTER_TRESHOLD = 26;
 /*
 	From some sets of data, allow user to toggle between bar charts.
 */
-module.exports = React.createClass({
+export default React.createClass({
 
 	getDefaultProps: function () {
 		var idFn = (d) => { return d; };

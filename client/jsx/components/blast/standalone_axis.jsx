@@ -6,7 +6,7 @@ var React = require("react");
 
 var CalcWidthOnResize = require("../mixins/calc_width_on_resize.jsx");
 
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {

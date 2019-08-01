@@ -3,7 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-module.exports = React.createClass({
+export default React.createClass({
     displayName: 'Aria Status',
 
     propTypes: process.env.NODE_ENV === 'production' ? {} : {

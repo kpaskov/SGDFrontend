@@ -7,7 +7,7 @@ var d3 = require("d3");
 var WATSON_TRACKS = [1 ,2 , 3, 4, 5, 6, 7, 8, 9, 10];
 var CRICK_TRACKS = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
 
-module.exports = {
+export default {
 
 	// For the given locus, assign a track higher than overlaps. return locus, with track assigned
 	assignTrackToSingleLocus: function (locus, locci) {

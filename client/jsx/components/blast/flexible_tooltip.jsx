@@ -4,7 +4,7 @@
 var React = require("react");
 var _ = require("underscore");
 
-module.exports = React.createClass({
+export default React.createClass({
 	getDefaultProps: function () {
 		return {
 			visible: false,

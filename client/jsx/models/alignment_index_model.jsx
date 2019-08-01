@@ -5,7 +5,7 @@ var _ = require("underscore");
 
 var BaseModel = require("./base_model.jsx");
 
-module.exports = class AlignmentIndexModel extends BaseModel {
+export default class AlignmentIndexModel extends BaseModel {
 
 	constructor (options) {
 		var options = options || {};

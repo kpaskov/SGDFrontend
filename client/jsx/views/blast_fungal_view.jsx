@@ -10,4 +10,4 @@ blastFungalView.render = function () {
 	React.render(<SearchForm blastType='fungal'/>, document.getElementById("j-main"));
 };
 
-module.exports = blastFungalView;
+export default blastFungalView;

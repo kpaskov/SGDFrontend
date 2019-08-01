@@ -68,4 +68,4 @@ snapshotView.render = function () {
 	});
 };
 
-module.exports = snapshotView;
+export default snapshotView;
