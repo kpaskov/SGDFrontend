@@ -1,9 +1,10 @@
 const path = require("path");
 
-module.exports = {
+module.exports =  {
   entry: "./client/jsx/application.jsx",
+  mode:'development',
   output: {
-    filename: "./application_new.js",
+    filename: "./application.js",
     path:path.join(__dirname, "src/sgd/frontend/yeastgenome/static/js")
   },
   module: {
@@ -15,7 +16,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             cacheDirectory: true,
-            presets: ["react","es2015"]
+            presets: ["@babel/preset-env","@babel/preset-react"]
           }
         }
       }
@@ -28,9 +29,6 @@ module.exports = {
     colors: true,
     modules: true,
     reasons: true,
-    errorDetails: false
-  },
-  externals: {
-    foundation: 'foundation'
+    errorDetails: true
   }
 }
