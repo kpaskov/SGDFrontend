@@ -4,8 +4,8 @@
 var React = require("react");
 var _ = require("underscore");
 
-var DataTable = require("../widgets/data_table.jsx");
-var HelpIcon = require("../widgets/help_icon.jsx");
+import DataTable from "../widgets/data_table.jsx";
+import HelpIcon from "../widgets/help_icon.jsx";
 
 export default React.createClass({
 

@@ -2,7 +2,7 @@
 if (process.env.NODE_ENV === 'production') {
 	process.env.NODE_ENV = 'production';
 }
-var setup = require('./lib/setup.jsx');
+import setup from './lib/setup.jsx';
 
 /*
 	Assign views as the values in a views object, which gets assigned to the global views object.
@@ -37,4 +37,3 @@ setup();
 
 // assign to global view object
 window.views = views;
-export default views;

@@ -3,7 +3,7 @@
 
 var _ = require("underscore");
 
-var BaseModel = require("./base_model.jsx");
+import BaseModel from "./base_model.jsx";
 var LocusFormatHelper = require("../lib/locus_format_helper.jsx");
 
 var MAIN_STRAIN_NAME = "S288C";

@@ -7,10 +7,10 @@ var d3 = require("d3");
 var WATSON_TRACKS = [1 ,2 , 3, 4, 5, 6, 7, 8, 9, 10];
 var CRICK_TRACKS = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
 
-export default {
+
 
 	// For the given locus, assign a track higher than overlaps. return locus, with track assigned
-	assignTrackToSingleLocus: function (locus, locci) {
+	function assignTrackToSingleLocus(locus, locci) {
 		var isWatsonFn = strand => {  return strand === "+"; };
 		var isWatson = isWatsonFn(locus.strand);
 		var availableTracks = isWatson ? WATSON_TRACKS : CRICK_TRACKS;
@@ -52,10 +52,10 @@ export default {
 
 		locus.track = track;
 		return locus;
-	},
+	}
 
 	// get the min and max track as d3-ish domain array [min, max]
-	getTrackDomain: function (locci) {
+	function getTrackDomain(locci) {
 		var min = -1;
 		var max = 1;
 
@@ -65,9 +65,9 @@ export default {
 		}
 
 		return [min, max];
-	},
+	}
 
-	formatContigData: function (contigData) {
+	function formatContigData (contigData) {
 		var _centromerePosition = null;
 		contigData.is_chromosome = (contigData.is_chromosome === "undefined") ? false : contigData.is_chromosome;
 		if (contigData.is_chromosome) {
@@ -84,10 +84,10 @@ export default {
 			length: contigData.length || 250000, // TEMP default 250 kbp length
 			centromerePosition: _centromerePosition
 		};
-	},
+	}
 
 	// returns a d3 ordinal scale with desired color scale for sub-feature types
-	subFeatureColorScale: function () {
+	function subFeatureColorScale() {
 		var FEAUTRE_TYPES = [
 			"CDS",
 			"INTRON",
@@ -134,4 +134,4 @@ export default {
 		return colorScale;
 	}
 
-};
+export {assignTrackToSingleLocus,getTrackDomain,formatContigData,subFeatureColorScale};
