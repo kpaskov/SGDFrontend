@@ -2,7 +2,7 @@ var Radium = require("radium");
 var React = require("react");
 var _ = require("underscore");
 
-var VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
+import VariantViewerStore from "../../stores/variant_viewer_store.jsx";
 var AsyncVariantViewer = require("./async_variant_viewer.jsx");
 
 var REM_SIZE = 16;

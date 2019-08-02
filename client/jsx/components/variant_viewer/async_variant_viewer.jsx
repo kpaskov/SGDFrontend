@@ -1,11 +1,11 @@
 
 "use strict";
 var Radium = require("radium");
-var React = require("react");
+import React from "react";
 var _ = require("underscore");
 
-var VariantViewerComponent = require("sgd_visualization").VariantViewerComponent;
-var RadioSelector = require("../widgets/radio_selector.jsx");
+import {VariantViewerComponent} from "sgd_visualization";
+import RadioSelector from "../widgets/radio_selector.jsx";
 
 var AsyncVariantViewer = React.createClass({
 	propTypes: {

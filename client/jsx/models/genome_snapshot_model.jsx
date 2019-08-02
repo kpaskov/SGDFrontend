@@ -1,7 +1,7 @@
 
 "use strict";
 
-var BaseModel = require("./base_model.jsx");
+import BaseModel from "./base_model.jsx";
 var _ = require("underscore");
 
 var QUALIFICATION_STATUSES = ["Verified", "Uncharacterized", "Dubious"];

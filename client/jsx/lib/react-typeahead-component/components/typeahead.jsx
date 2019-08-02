@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    Input = require('./input.jsx'),
-    AriaStatus = require('./aria_status.jsx'),
-    getTextDirection = require('../utils/get_text_direction'),
-    noop = function() {};
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Input from './input.jsx';
+import AriaStatus from './aria_status.jsx';
+import getTextDirection from '../utils/get_text_direction';
+var noop = function() {};
 
 export default React.createClass({
     displayName: 'Typeahead',

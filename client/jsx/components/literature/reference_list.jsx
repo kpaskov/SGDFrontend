@@ -1,9 +1,9 @@
 
 "use strict";
 
-var React = require("react");
+import React from "react";
 var _ = require("underscore");
-var HelpIcon = require("../widgets/help_icon.jsx");
+import HelpIcon from "../widgets/help_icon.jsx";
 
 var ReferenceList = React.createClass({
 

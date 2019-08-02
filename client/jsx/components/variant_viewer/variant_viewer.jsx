@@ -11,7 +11,7 @@ var SearchBar = require("../widgets/search_bar.jsx");
 var SettingsDropdown = require("./settings_dropdown.jsx");
 var ScrollyHeatmap = require("./scrolly_heatmap.jsx");
 var StrainSelector = require("./strain_selector.jsx");
-var VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
+import VariantViewerStore from "../../stores/variant_viewer_store.jsx";
 
 var VariantViewer = React.createClass({
 	// mixins: [Navigation, State],
