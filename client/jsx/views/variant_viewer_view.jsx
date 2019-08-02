@@ -1,11 +1,11 @@
 
 "use strict";
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var $ = require("jquery");
-var VariantViewer = require("../components/variant_viewer/variant_viewer.jsx");
-var Drawer = require("../components/variant_viewer/drawer.jsx");
+import React from "react";
+import ReactDOM from "react-dom";
+import $ from "jquery";
+import VariantViewer from "../components/variant_viewer/variant_viewer.jsx";
+import Drawer from "../components/variant_viewer/drawer.jsx";
 
 // router stuff
 var { Router, Route, IndexRoute } = require("react-router");
