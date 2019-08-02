@@ -25,7 +25,7 @@ import networkView from './views/network_view.jsx';
 import proteinView from './views/protein_view.jsx';
 import regulationView from './views/regulation_view.jsx';
 import summaryView from './views/summary_view.jsx'
-import variantViewer from './views/variant_viewer_view.jsx';
+import view from './views/variant_viewer_view.jsx';
 import litView from './views/literature_view.jsx';
 import reactRouterRender from './react_router_render.jsx';
 
@@ -47,7 +47,7 @@ var views = {
   protein: proteinView,
   regulation: regulationView,
   summary :summaryView,
-  variantViewer: variantViewer,
+  variantViewer: view,
   literature: litView,
   router: reactRouterRender
 };
