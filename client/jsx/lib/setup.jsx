@@ -1,18 +1,20 @@
 import { match } from 'react-router';
 
 import $ from 'jquery';
-import attachFastClick from 'fastclick';
+import * as FastClick from 'fastclick';
 import setupSearch from './setup_search.jsx';
 import routes from '../routes.jsx';
+import 'foundation-sites';
 
-require('foundation-sites');
+window.$ = $;
+window.jQuery = $;
 
 export default function () {
   // foundation setup
   $(document).foundation();
 
   // add fast click event listener to reduce delay of mobile "clicks" 
-  attachFastClick(document.body);
+  FastClick['attach'](document.body);
 
   // add console, console.log, and console.warn if they don't exist, for IE9
   if (!(window.console && console.log && console.warn)) {
