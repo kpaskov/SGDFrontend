@@ -30,7 +30,7 @@
     "clusterfck": "~0.6.0",
     "d3": "~3.5.6",
     "datatables.net": "^1.10.19",
-    "datatables.net-zf": "^1.10.19",
+    "datatables.net-zf": "https://github.com/DataTables/Dist-DataTables-Foundation",
     "foundation-sites": "^6.5.3",
     "grunt-contrib-uglify-es": "github:gruntjs/grunt-contrib-uglify#harmony",
     "history": "^1.17.0",
