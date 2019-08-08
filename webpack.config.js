@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports =  {
   entry: "./client/jsx/application.jsx",
@@ -7,6 +8,12 @@ module.exports =  {
     filename: "./application.js",
     path:path.join(__dirname, "src/sgd/frontend/yeastgenome/static/js")
   },
+  plugins:[
+    new CopyPlugin([
+      {from:path.resolve(__dirname,'node_modules/font-awesome/fonts'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/fonts')},
+      {from:path.resolve(__dirname,'node_modules/datatables.net-zf/images'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/img')}
+  ])
+  ],
   module: {
     rules: [
       {
