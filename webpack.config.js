@@ -1,18 +1,26 @@
 const path = require("path");
-const CopyPlugin = require('copy-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports =  {
-  entry: "./client/jsx/application.jsx",
+  entry: {
+    application:"./client/jsx/application.jsx",
+    style:"./client/jsx/style.jsx",
+    normalize:"./client/jsx/normalize.jsx"
+},
   mode:'development',
   output: {
     filename: "./application.js",
     path:path.join(__dirname, "src/sgd/frontend/yeastgenome/static/js")
   },
   plugins:[
-    new CopyPlugin([
+      new CopyPlugin([
       {from:path.resolve(__dirname,'node_modules/font-awesome/fonts'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/fonts')},
       {from:path.resolve(__dirname,'node_modules/datatables.net-zf/images'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/img')}
-  ])
+      ]),
+      new MiniCssExtractPlugin({
+        filename:"../css/[name].css"
+      })
   ],
   module: {
     rules: [
@@ -26,6 +34,19 @@ module.exports =  {
             presets: ["@babel/preset-env","@babel/preset-react"]
           }
         }
+      },
+      {
+        test:/\.(scss|css)$/,
+        use:[
+          {
+            loader:MiniCssExtractPlugin.loader
+          },
+          {loader:"css-loader",
+          options:{
+            url:false
+          }},
+          "sass-loader"
+        ]
       }
     ]
   },
@@ -36,6 +57,6 @@ module.exports =  {
     colors: true,
     modules: true,
     reasons: true,
-    errorDetails: true
+    errorDetails: false
   }
 }
