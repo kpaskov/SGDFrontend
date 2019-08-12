@@ -86,11 +86,11 @@ http://smacss.com/book/type-state
 @media (max-width: 768px) {
   .table-responsive {
     width: 100%;
-    margin-bottom: $table-margin-bottom;
+    // margin-bottom: $table-margin-bottom;
     overflow-y: hidden;
     overflow-x: scroll;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: $table-border-size $table-border-style $table-border-color;
+    // border: $table-border-size $table-border-style $table-border-color;
     -webkit-overflow-scrolling: touch;
 
     .dt-tools-head, .dt-tools-foot { width: 100%; }

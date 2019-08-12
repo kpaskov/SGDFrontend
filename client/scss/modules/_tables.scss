@@ -30,17 +30,21 @@ th:last-child, tr.even td:last-child {
     padding: 5px 15px;
     overflow: hidden;
     background-color: $table-head-bg;
-    border-color: $table-border-color;
-    border-style: $table-border-style;
+    // border-color: $table-border-color;
+    // border-style: $table-border-style;
 }
     
 .dt-tools-head {
-    @include border-top-radius($global-radius);
+    border-top-left-radius: $global-radius;
+    border-top-right-radius: $global-radius;
+    // @include border-top-radius($global-radius);
     border-width: 1px 1px 0 1px;
 }
 
 .dt-tools-foot {
-    @include border-bottom-radius($global-radius);
+    border-bottom-left-radius: $global-radius;
+    border-bottom-right-radius: $global-radius;
+    // @include border-bottom-radius($global-radius);
     border-width: 0 1px 1px 1px;
 }
 
