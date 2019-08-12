@@ -38,3 +38,5 @@ production_asset_url.json
 *py_cache*
 .pytest*
 Notes.MD
+src/sgd/frontend/yeastgenome/static/js/normalize.js
+src/sgd/frontend/yeastgenome/static/js/style.js
