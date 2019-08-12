@@ -1,10 +1,9 @@
 import { match } from 'react-router';
 
-import $ from 'jquery';
 import * as FastClick from 'fastclick';
 import setupSearch from './setup_search.jsx';
 import routes from '../routes.jsx';
-import 'foundation-sites';
+import 'foundation-sites/js/foundation'; 
 
 window.$ = $;
 window.jQuery = $;
