@@ -22,11 +22,11 @@ ul.unstyled, ol.unstyled {
 $header-height: 85px;
 
 input[type="text"] {
-	@include border-radius($global-radius);
+    border-radius: $global-radius;
 }
 
 form textarea {
-    @include border-radius($global-radius);
+    border-radius: $global-radius;
 }
 
 .no-margins {
@@ -130,10 +130,10 @@ h3 .fa-info-circle {
 
 .back-to-top {
     background-color: rgba(231, 231, 231, 0.8);
-    @include transition-property(background-color);
-    @include transition-duration(300ms);
-    @include border-top-left-radius($global-radius);
-    @include border-bottom-left-radius($global-radius);
+    transition-property: background-color;
+    transition-delay: 300ms;
+    border-top-left-radius: $global-radius;
+    border-bottom-left-radius: $global-radius;
     bottom: 2em;
     display: none;
     font-size: rem-calc(12);
