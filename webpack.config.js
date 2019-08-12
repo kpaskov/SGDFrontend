@@ -1,6 +1,7 @@
 const path = require("path");
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports =  {
   entry: {
@@ -10,7 +11,7 @@ module.exports =  {
 },
   mode:'development',
   output: {
-    filename: "./application.js",
+    filename: "./[name].js",
     path:path.join(__dirname, "src/sgd/frontend/yeastgenome/static/js")
   },
   plugins:[
@@ -21,6 +22,11 @@ module.exports =  {
       new MiniCssExtractPlugin({
         filename:"../css/[name].css"
       })
+      // ,
+      //   new webpack.ProvidePlugin({
+      //       $: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js')),
+      //       jQuery: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js'))
+      //      })
   ],
   module: {
     rules: [
@@ -57,6 +63,6 @@ module.exports =  {
     colors: true,
     modules: true,
     reasons: true,
-    errorDetails: false
+    errorDetails: true
   }
 }
