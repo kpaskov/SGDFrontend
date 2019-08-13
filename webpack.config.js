@@ -22,11 +22,11 @@ module.exports =  {
       new MiniCssExtractPlugin({
         filename:"../css/[name].css"
       })
-      // ,
-      //   new webpack.ProvidePlugin({
-      //       $: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js')),
-      //       jQuery: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js'))
-      //      })
+      ,
+        new webpack.ProvidePlugin({
+            $: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js')),
+            jQuery: path.resolve(path.join(__dirname, 'node_modules/jquery/dist/jquery.js'))
+           })
   ],
   module: {
     rules: [
