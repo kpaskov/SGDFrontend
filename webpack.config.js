@@ -17,7 +17,11 @@ module.exports =  {
   plugins:[
       new CopyPlugin([
       {from:path.resolve(__dirname,'node_modules/font-awesome/fonts'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/fonts')},
-      {from:path.resolve(__dirname,'node_modules/datatables.net-zf/images'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/img')}
+      {from:path.resolve(__dirname,'node_modules/datatables.net-zf/images'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/img')},
+      {from:path.resolve(__dirname,'node_modules/cytoscape/dist/cytoscape.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
+      {from:path.resolve(__dirname,'node_modules/cytoscape/lib/arbor.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
+      {from:path.resolve(__dirname,'node_modules/jquery/dist/jquery.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
+      {from:path.resolve(__dirname,'node_modules/kinetic/kinetic.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
       ]),
       new MiniCssExtractPlugin({
         filename:"../css/[name].css"
