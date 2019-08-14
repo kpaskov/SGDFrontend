@@ -5,6 +5,10 @@ import setupSearch from './setup_search.jsx';
 import routes from '../routes.jsx';
 import 'foundation-sites/js/foundation'; 
 
+// Temp
+import React from 'react';
+console.log("React Version " + React.version);
+
 window.$ = $;
 window.jQuery = $;
 
