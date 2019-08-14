@@ -22,6 +22,8 @@ module.exports =  {
       {from:path.resolve(__dirname,'node_modules/cytoscape/lib/arbor.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
       {from:path.resolve(__dirname,'node_modules/jquery/dist/jquery.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
       {from:path.resolve(__dirname,'node_modules/kinetic/kinetic.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
+      {from:path.resolve(__dirname,'node_modules/rem-unit-polyfill/js/rem.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build')},
+      {from:path.resolve(__dirname,'node_modules/nouislider/distribute/jquery.nouislider.min.js'),to:path.resolve(__dirname,'src/sgd/frontend/yeastgenome/static/js/build/nouislider.min.js')},
       ]),
       new MiniCssExtractPlugin({
         filename:"../css/[name].css"
