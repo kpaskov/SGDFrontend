@@ -40,7 +40,7 @@ namespace :deploy do
       config_file_content_2 += "'"
 
       execute "echo \"#{config_file_content}\" >> #{current_path}/src/sgd/frontend/config.py && rm #{current_path}/src/sgd/frontend/config.py.template"
-      execute "echo #{config_file_content_2} > #{current_path}/prod_deploy_variables_test.sh"
+      execute "echo #{config_file_content_2} > #{current_path}/prod_deploy_variables.sh"
   
     end
   end
@@ -48,7 +48,7 @@ namespace :deploy do
   desc 'Restart pyramid'
   task :restart do
     on roles(:app), in: :sequence do
-      execute "cd #{current_path} && export WORKON_HOME=/data/envs/ && source virtualenvwrapper.sh && workon sgdf && . prod_deploy_variables_test.sh && make stop-prod && make run-prod && cat /var/run/pyramid/frontend.pid && sleep 4"
+      execute "cd #{current_path} && export WORKON_HOME=/data/envs/ && source virtualenvwrapper.sh && workon sgdf && . prod_deploy_variables.sh && make stop-prod && make run-prod && cat /var/run/pyramid/frontend.pid && sleep 4"
     end
   end
 

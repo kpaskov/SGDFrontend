@@ -20,7 +20,7 @@ preview-deploy:
 	. dev_deploy_variables.sh && grunt deployAssets && cap preview deploy
 
 run-prod:
-	pserve sgdfrontend_production.ini --daemon --pid-file=/var/run/pyramid/frontend.pid
+	. prod_deploy_variables && pserve sgdfrontend_production.ini --daemon --pid-file=/var/run/pyramid/frontend.pid
 
 stop-prod:
 	-pserve sgdfrontend_production.ini --stop-daemon --pid-file=/var/run/pyramid/frontend.pid
