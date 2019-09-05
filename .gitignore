@@ -25,6 +25,7 @@ client/lib/sgd_visualization/node_modules/
 client/lib/sgd_visualization/.git
 dev_deploy_variables.sh
 prod_deploy_variables.sh
+prod_deploy_variables_test.sh
 asset_version.json
 .vscode
 .vscode/

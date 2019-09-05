@@ -31,12 +31,24 @@ namespace :deploy do
   task :write_config do
     on roles(:app), in: :sequence do
       config_file_content = ""
-      ["HERITAGE_URL", "BACKEND_URL", "SECRET_KEY", "SENDER", "AUTHOR_RESPONSE_FILE", "COMPUTE_URL", "LOG_DIRECTORY", "ELASTICSEARCH_ADDRESS", "GOOGLE_CALENDAR_API_URL"].each do |key|
+      config_file_content_2 = "'"
+      ["HERITAGE_URL", "BACKEND_URL", "SECRET_KEY", "SENDER", "AUTHOR_RESPONSE_FILE", "COMPUTE_URL", "LOG_DIRECTORY", "ELASTICSEARCH_ADDRESS", "GOOGLE_CALENDAR_API_URL", "ENV"].each do |key|
         config_file_content += "#{key.downcase} = '#{ENV[key]}'\n"
+        config_file_content_2 += "export #{key}=\"#{ENV[key]}\"\n"
       end
       config_file_content += "log_directory = None\n"
+      config_file_content_2 += "'"
 
       execute "echo \"#{config_file_content}\" >> #{current_path}/src/sgd/frontend/config.py && rm #{current_path}/src/sgd/frontend/config.py.template"
+      execute "echo #{config_file_content_2} > #{current_path}/prod_deploy_variables_test.sh"
+  
+    end
+  end
+
+  desc 'Restart pyramid'
+  task :restart do
+    on roles(:app), in: :sequence do
+      execute "cd #{current_path} && export WORKON_HOME=/data/envs/ && source virtualenvwrapper.sh && workon sgdf && . prod_variables_test.sh && make stop-prod && make run-prod && cat /var/run/pyramid/frontend.pid && sleep 4"
     end
   end
 
