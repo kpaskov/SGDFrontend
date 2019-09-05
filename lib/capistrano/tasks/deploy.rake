@@ -48,7 +48,7 @@ namespace :deploy do
   desc 'Restart pyramid'
   task :restart do
     on roles(:app), in: :sequence do
-      execute "cd #{current_path} && export WORKON_HOME=/data/envs/ && source virtualenvwrapper.sh && workon sgdf && . prod_variables_test.sh && make stop-prod && make run-prod && cat /var/run/pyramid/frontend.pid && sleep 4"
+      execute "cd #{current_path} && export WORKON_HOME=/data/envs/ && source virtualenvwrapper.sh && workon sgdf && . prod_deploy_variables_test.sh && make stop-prod && make run-prod && cat /var/run/pyramid/frontend.pid && sleep 4"
     end
   end
 
