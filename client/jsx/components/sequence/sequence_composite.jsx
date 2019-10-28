@@ -220,7 +220,8 @@ const SequenceComposite = React.createClass({
 
   _getActiveStrainDetailsData: function () {
     if (this.props.showAltStrains) {
-      return _.findWhere(this.props.detailsModel.attributes.altStrains, { strainKey: this.state.activeStrainKey });
+      // return _.findWhere(this.props.detailsModel.attributes.altStrains, { strainKey: this.state.activeStrainKey });
+      return _.findWhere(this.props.detailsModel.attributes.altStrains, { strainKey: 'Y55' });
     } else {
       return this.props.detailsModel.attributes.mainStrain; 
     }
