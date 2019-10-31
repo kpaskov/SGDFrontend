@@ -31,22 +31,22 @@ const SequenceToggler = React.createClass({
   },
 
   render: function () {
-    var textNode = null;
+    let textNode = null;
     if (this.props.text) {
       textNode = <h3>{this.props.text}</h3>;
     }
 
-    var _activeSequence = this._getActiveSequence();
-    var _downloadParams = {
+    let _activeSequence = this._getActiveSequence();
+    let _downloadParams = {
       header: _activeSequence.header,
       sequence: _activeSequence.sequence,
       filename: _activeSequence.filename
     };
 
-    var dropdownNode = this._getDropdownNode();
-    var sequenceTextNode = this._formatActiveSequenceTextNode();
+    let dropdownNode = this._getDropdownNode();
+    let sequenceTextNode = this._formatActiveSequenceTextNode();
 
-    var customRetrievalNode = null;
+    let customRetrievalNode = null;
     if (this.props.showCustomRetrieval) {
       customRetrievalNode = (<ul className="button-group radius">
         <a className="button small secondary" href={"http://yeastgenome.org/cgi-bin/seqTools?back=1&seqname=" + this.props.locusFormatName}>Custom Sequence Retrieval</a>
@@ -68,8 +68,8 @@ const SequenceToggler = React.createClass({
   },
 
   _getDropdownNode: function () {
-    var _isDisabled = (s) => { return !s.sequence; };
-    var _elements = _.map(this.props.sequences, s => {
+    let _isDisabled = (s) => { return !s.sequence; };
+    let _elements = _.map(this.props.sequences, s => {
       s.value = s.key;
       return s;
     });
@@ -77,16 +77,16 @@ const SequenceToggler = React.createClass({
   },
 
   _formatActiveSequenceTextNode: function () {
-    var node = null;
+    let node = null;
     if (this.props.showSequence) {
-      var seq = this._getActiveSequence().sequence;
+      let seq = this._getActiveSequence().sequence;
 
-      var sequenceNode;
-      var legendNode = null;
+      let sequenceNode;
+      let legendNode = null;
       if (this._canColorSubFeatures()) {
         sequenceNode = this._getComplexSequenceNode(seq);
-        var _featureTypes = _.uniq(_.map(this.props.subFeatureData, f => { return f.class_type; }));
-        var _colors = _.map(_featureTypes, f => {
+        let _featureTypes = _.uniq(_.map(this.props.subFeatureData, f => { return f.class_type; }));
+        let _colors = _.map(_featureTypes, f => {
           return { text: f, color: subFeatureColorScale(f) };
         });
         legendNode = <Legend elements={_colors} />;
@@ -113,8 +113,8 @@ const SequenceToggler = React.createClass({
   },
 
   _getSubFeatureTypeFromIndex: function (index) {
-    for (var i = this.props.subFeatureData.length - 1; i >= 0; i--) {
-      var f = this.props.subFeatureData[i];
+    for (let i = this.props.subFeatureData.length - 1; i >= 0; i--) {
+      let f = this.props.subFeatureData[i];
       if (index >= f.relative_start && index <= f.relative_end) {
         return f.class_type;
       }
@@ -124,13 +124,13 @@ const SequenceToggler = React.createClass({
   },
 
   _getSimpleSequenceNode: function (sequence) {
-    var tenChunked = sequence.match(/.{1,10}/g).join(" ");
-    var lineArr = tenChunked.match(/.{1,66}/g);
-    var maxLabelLength = ((lineArr.length * LETTERS_PER_LINE + 1).toString().length)
+    let tenChunked = sequence.match(/.{1,10}/g).join(" ");
+    let lineArr = tenChunked.match(/.{1,66}/g);
+    let maxLabelLength = ((lineArr.length * LETTERS_PER_LINE + 1).toString().length)
     lineArr = _.map(lineArr, (l, i) => {
-      var lineNum = i * LETTERS_PER_LINE + 1;
-      var numSpaces = maxLabelLength - lineNum.toString().length;
-      var spacesStr = Array(numSpaces + 1).join(" ");
+      let lineNum = i * LETTERS_PER_LINE + 1;
+      let numSpaces = maxLabelLength - lineNum.toString().length;
+      let spacesStr = Array(numSpaces + 1).join(" ");
       return `${spacesStr}${lineNum} ${l}`;
     });
     return _.map(lineArr, (l, i) => {
@@ -139,18 +139,18 @@ const SequenceToggler = React.createClass({
   },
 
   _getComplexSequenceNode: function (sequence) {
-    var maxLabelLength = sequence.length.toString().length + 1;
-    var chunked = sequence.split("");
-    var offset = this.state.activeSequenceType === '1kb' ? 1000 : 0;
+    let maxLabelLength = sequence.length.toString().length + 1;
+    let chunked = sequence.split("");
+    let offset = this.state.activeSequenceType === '1kb' ? 1000 : 0;
         
     return _.map(chunked, (c, i) => {
       i++;
-      var sp = (i % LETTERS_PER_CHUNK === 0 && !(i % LETTERS_PER_LINE === 0)) ? " " : "";
-      var cr = (i % LETTERS_PER_LINE === 0) && (i > 1) ? "\n" : "";
-      var str = c + sp + cr;
-      var _classType = this._getSubFeatureTypeFromIndex(i - offset);
+      let sp = (i % LETTERS_PER_CHUNK === 0 && !(i % LETTERS_PER_LINE === 0)) ? " " : "";
+      let cr = (i % LETTERS_PER_LINE === 0) && (i > 1) ? "\n" : "";
+      let str = c + sp + cr;
+      let _classType = this._getSubFeatureTypeFromIndex(i - offset);
 
-      var labelNode = (i - 1) % LETTERS_PER_LINE === 0 ? <span style={{ color: "#6f6f6f" }}>{`${Array(maxLabelLength - i.toString().length).join(" ")}${i} `}</span> : null;
+      let labelNode = (i - 1) % LETTERS_PER_LINE === 0 ? <span style={{ color: "#6f6f6f" }}>{`${Array(maxLabelLength - i.toString().length).join(" ")}${i} `}</span> : null;
 
       return <span key={`sequence-car${i}`} style={{ color: subFeatureColorScale(_classType) }}>{labelNode}{str}</span>;
     });
@@ -163,7 +163,7 @@ const SequenceToggler = React.createClass({
     }
 
     // no overlaps
-    var _allTracks = _.uniq(_.map(this.props.subFeatureData, f => { return f.track; }));
+    let _allTracks = _.uniq(_.map(this.props.subFeatureData, f => { return f.track; }));
     if (_allTracks.length > 1) return false;
 
     return true;

@@ -1,9 +1,9 @@
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Checklist = React.createClass({
+const Checklist = React.createClass({
 	propTypes: {
 		elements: React.PropTypes.array.isRequired, // [ { name: "Doggy Woggy", key: "dog" }, ...]
 		initialActiveElementKeys: React.PropTypes.array,
@@ -23,10 +23,10 @@ var Checklist = React.createClass({
 	},
 
 	render: function () {
-		var _currentActive = this.state.activeElementKeys;
-		var inputs = _.map(this.props.elements, (d, i) => {
-			var _isActive = _currentActive.indexOf(d.key) >= 0;
-			var _onClick = e => {
+		let _currentActive = this.state.activeElementKeys;
+		let inputs = _.map(this.props.elements, (d, i) => {
+			let _isActive = _currentActive.indexOf(d.key) >= 0;
+			let _onClick = e => {
 				// e.preventDefault();
 				e.nativeEvent.stopImmediatePropagation();
 				// add or remove key from active

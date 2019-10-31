@@ -1,12 +1,12 @@
 
 $(document).ready(function() {
 	$.getJSON('/backend/go/' + ontology['id'] + '/ontology_graph', function(data) {
-  		var cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "goOntology");
+  		let cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "goOntology");
         create_cy_download_button(cy, "cy_download", ontology['display_name'] + '_go_ontology_graph')
 	});
 
     $.getJSON('/backend/go/' + ontology['id'] + '/locus_details', function(data) {
-	  	var go_table = create_go_table(data);
+	  	let go_table = create_go_table(data);
 	  	create_analyze_button("go_table_analyze", go_table, "<a href='" + ontology['link'] + "' class='gene_name'>" + ontology['display_name'] + "</a> genes", true);
   	    create_download_button("go_table_download", go_table, ontology['display_name'] + "_annotations");
 	});
@@ -14,16 +14,16 @@ $(document).ready(function() {
 });
 
 function create_go_table(data) {
-	var datatable = [];
-	var genes = {};
-	for (var i=0; i < data.length; i++) {
+	let datatable = [];
+	let genes = {};
+	for (let i=0; i < data.length; i++) {
         datatable.push(go_data_to_table(data[i], i));
 		genes[data[i]["locus"]["id"]] = true;
 	}
 
     set_up_header('go_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-	var options = {};
+	let options = {};
 	options["bPaginate"] = true;
 	options["aaSorting"] = [[3, "asc"]];
 	options["bDestroy"] = true;
@@ -50,7 +50,7 @@ function create_go_table(data) {
     return create_table("go_table", options);
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -95,7 +95,7 @@ var graph_style = cytoscape.stylesheet()
 //		{'background-color': "#c9e4f6"
 //	});
 
-var layout = {
+let layout = {
     "name": "breadthfirst",
 	"circle": true
 };

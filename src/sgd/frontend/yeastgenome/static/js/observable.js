@@ -2,15 +2,15 @@
 $(document).ready(function() {
 
 	$.getJSON('/backend/observable/' + observable['id'] + '/locus_details', function(data) {
-        var phenotype_table = create_phenotype_table(data);
+        let phenotype_table = create_phenotype_table(data);
         create_analyze_button("phenotype_table_analyze", phenotype_table, "<a href='" + observable['link'] + "' class='gene_name'>" + observable['display_name'] + "</a> genes", true);
         create_download_button("phenotype_table_download", phenotype_table, observable['display_name'] + "_annotations");
 
         if(observable['descendant_locus_count'] > observable['locus_count']) {
             create_show_child_button("phenotype_table_show_children", phenotype_table, data, '/backend/observable/' + observable['id'] + '/locus_details_all', phenotype_data_to_table, function(table_data) {
 
-                var genes = {};
-                for (var i=0; i < table_data.length; i++) {
+                let genes = {};
+                for (let i=0; i < table_data.length; i++) {
                     genes[table_data[i][1]] = true;
                 }
                 set_up_header('phenotype_table', table_data.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
@@ -19,14 +19,14 @@ $(document).ready(function() {
 	});
 
 	$.getJSON('/backend/observable/' + observable['id'] + '/ontology_graph', function(data) {
-  		var cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "observable");
+  		let cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "observable");
         create_cy_download_button(cy, "cy_download", observable['display_name'] + '_ontology')
 
         if(data['all_children'] != null && data['all_children'].length > 0) {
-            var children_div = document.getElementById("children");
-            var more_children_div = document.getElementById("children_see_more");
-            for(var i=0; i < data['all_children'].length; i++) {
-                var a = document.createElement('a');
+            let children_div = document.getElementById("children");
+            let more_children_div = document.getElementById("children_see_more");
+            for(let i=0; i < data['all_children'].length; i++) {
+                let a = document.createElement('a');
                 a.innerHTML = data['all_children'][i]['display_name'];
                 a.href = data['all_children'][i]['link']
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 
                 if(i != data['all_children'].length-1) {
-                    var comma = document.createElement('span');
+                    let comma = document.createElement('span');
                     comma.innerHTML = ' &bull; ';
                     if(i < 20) {
                         children_div.appendChild(comma);
@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 function create_phenotype_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[2, "asc"]];
         options["bDestroy"] = true;
@@ -71,16 +71,16 @@ function create_phenotype_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(phenotype_data_to_table(data[i], i));
             genes[data[i]["locus"]["id"]] = true;
         }
 
         set_up_header('phenotype_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[2, "asc"]];
         options["bDestroy"] = true;
@@ -93,7 +93,7 @@ function create_phenotype_table(data) {
 }
 
 //Graph style
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -156,7 +156,7 @@ var graph_style = cytoscape.stylesheet()
 		{'background-color': "#BF5B17"
 });
 
-var layout = {
+let layout = {
 	"name": "breadthfirst",
 	"fit": true,
     "directed": true

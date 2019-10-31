@@ -2,12 +2,12 @@
 $(document).ready(function() {
 
 	$.getJSON('/backend/domain/' + domain['id'] + '/locus_details', function(data) {
-	  	var annotation_table = create_domain_table(data);
+	  	let annotation_table = create_domain_table(data);
 	  	create_analyze_button("domain_table_analyze", annotation_table, "<a href='" + domain['link'] + "' class='gene_name'>" + domain['display_name'] + "</a> Genes", true);
   	    create_download_button("domain_table_download", annotation_table, domain['display_name'] + "_annotations");
 
         $.getJSON('/backend/domain/' + domain['id'] + '/enrichment', function(enrichment_data) {
-            var enrichment_table = create_enrichment_table("enrichment_table", annotation_table, enrichment_data);
+            let enrichment_table = create_enrichment_table("enrichment_table", annotation_table, enrichment_data);
             create_download_button("enrichment_table_download", enrichment_table, domain['display_name'] + "_go_process_enrichment");
         });
 	});
@@ -16,10 +16,10 @@ $(document).ready(function() {
 });
 
 function create_domain_table(data) {
-	var datatable = [];
+	let datatable = [];
 
-    var bioents = {};
-    for (var i=0; i < data.length; i++) {
+    let bioents = {};
+    for (let i=0; i < data.length; i++) {
         datatable.push(domain_data_to_table(data[i]));
         bioents[data[i]['locus']['id']] = true;
     }
@@ -28,7 +28,7 @@ function create_domain_table(data) {
 
     set_up_range_sort();
 
-    var options = {};
+    let options = {};
     options["bPaginate"] = true;
     options["aaSorting"] = [[2, "asc"], [4, "asc"]];
     options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, { "sType": "range" }, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}]

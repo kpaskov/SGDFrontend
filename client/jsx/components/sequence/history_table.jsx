@@ -1,11 +1,11 @@
 
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var DataTable = require("../widgets/data_table.jsx");
-var HelpIcon = require("../widgets/help_icon.jsx");
+const DataTable = require("../widgets/data_table.jsx");
+const HelpIcon = require("../widgets/help_icon.jsx");
 
 module.exports = React.createClass({
 
@@ -18,24 +18,24 @@ module.exports = React.createClass({
 
 	render: function () {
 		// filter data to desired type
-		var historyData = _.where(this.props.data, { history_type: this.props.dataType });
+		let historyData = _.where(this.props.data, { history_type: this.props.dataType });
 
 		// format history data for table
-		var _tableRows = _.map(historyData, e => {
-			var noteNode = <span dangerouslySetInnerHTML={{__html: e.note }} />;
-			var refsNode = _.map(e.references, (r, i) => {
-				var pubmedNode = r.pubmed_id ? <small> PMID:{r.pubmed_id}</small> : null;
-				var sepNode = (i > 0 && i !== e.references.length - 1) ? ", " : null;
+		let _tableRows = _.map(historyData, e => {
+			let noteNode = <span dangerouslySetInnerHTML={{__html: e.note }} />;
+			let refsNode = _.map(e.references, (r, i) => {
+				let pubmedNode = r.pubmed_id ? <small> PMID:{r.pubmed_id}</small> : null;
+				let sepNode = (i > 0 && i !== e.references.length - 1) ? ", " : null;
 				return <span><a href={r.link}>{r.display_name}</a>{pubmedNode}{sepNode}</span>;
 			});
 			return [e.date_created, noteNode, refsNode];
 		});
-		var _tableData = {
+		let _tableData = {
 			headers: [["Date", "Note", "References"]],
 			rows: _tableRows
 		};
 
-		var _dataTableOptions = {
+		let _dataTableOptions = {
 			bPaginate: false,
 			oLanguage: { "sEmptyTable": "No history." }
 		};

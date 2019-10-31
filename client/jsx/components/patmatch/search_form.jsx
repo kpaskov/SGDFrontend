@@ -12,18 +12,18 @@ const PatmatchUrl = "/run_patmatch";
 const LETTERS_PER_CHUNK = 10;
 const LETTERS_PER_LINE = 60;
 
-var SearchForm = React.createClass({
+const SearchForm = React.createClass({
 
 	getInitialState: function () {
 	        
-		var param = Params.getParams();
+		let param = Params.getParams();
 		
-		var submitted = null;				
+		let submitted = null;				
 		if (param['pattern']) {
 		     submitted = 1;
 		}
 		
-		var get_seq = 0;
+		let get_seq = 0;
 		if (param['seqname']) {
 		   get_seq = 1;
 		}
@@ -58,7 +58,7 @@ var SearchForm = React.createClass({
 	},
 
 	render: function () {		
-		var formNode = this._getFormNode();
+		let formNode = this._getFormNode();
 		
 		if (this.state.getSeq) {
 		     return (<div>{ formNode }</div>);
@@ -91,7 +91,7 @@ var SearchForm = React.createClass({
 		}		
 		else if (this.state.getSeq && this.state.seqFetched) {
 
-		     	var seqNode = this._getSeqNode();
+		     	let seqNode = this._getSeqNode();
 			
 			return (<div dangerouslySetInnerHTML={{ __html: seqNode }} />);
 				
@@ -99,21 +99,21 @@ var SearchForm = React.createClass({
 	        else if (this.state.isComplete) {
 
 		        // if (this.state.resultData.hits == '') {
-			//     var errorReport = this.state.resultData.result;
+			//     let errorReport = this.state.resultData.result;
 			//     return (<div dangerouslySetInnerHTML={{ __html: errorReport }} />);
 			// }
 
-			var data = this.state.resultData.hits;
-			var totalHits = this.state.resultData.totalHits;
-			var uniqueHits = this.state.resultData.uniqueHits;
-			var downloadUrl = this.state.resultData.downloadUrl;
+			let data = this.state.resultData.hits;
+			let totalHits = this.state.resultData.totalHits;
+			let uniqueHits = this.state.resultData.uniqueHits;
+			let downloadUrl = this.state.resultData.downloadUrl;
 			
 			if (totalHits == 0) {
 			     return (<div><p>No hits found for your pattern. Please modify your pattern and try again..</p></div>);
 			}
 
-			var _summaryTable = this._getSummaryTable(totalHits, uniqueHits);
-			var _resultTable = this._getResultTable(data, totalHits);
+			let _summaryTable = this._getSummaryTable(totalHits, uniqueHits);
+			let _resultTable = this._getResultTable(data, totalHits);
 
 		       	return (<div><p><center>{_summaryTable}</center></p>
 				     <p><center>{_resultTable}</center></p>
@@ -137,19 +137,19 @@ var SearchForm = React.createClass({
 
 			}
 			
-			var configData = this.state.configData;
+			let configData = this.state.configData;
 
-			var genomeBoxNode = this._getGenomeBoxNode(configData);
-			var seqtypeNode = this._getSeqtypeNode(); 
-			var patternBoxNode = this._getPatternBoxNode();
-			var datasetNode = this._getDatasetNode(configData);
-                	var submitNode = this._getSubmitNode();
-                	var optionNode = this._getOptionsNode();
-			var patternExampleNode = this._getPatternExampleNote();
+			let genomeBoxNode = this._getGenomeBoxNode(configData);
+			let seqtypeNode = this._getSeqtypeNode(); 
+			let patternBoxNode = this._getPatternBoxNode();
+			let datasetNode = this._getDatasetNode(configData);
+                	let submitNode = this._getSubmitNode();
+                	let optionNode = this._getOptionsNode();
+			let patternExampleNode = this._getPatternExampleNote();
 
 			// need to put the date in a config file
 			
-			var descText = "<p>Pattern Matching allows you to search for short (<20 residues) nucleotide or peptide sequences, or ambiguous/degenerate patterns. It uses the same dataset as SGD's BLAST program. If you are searching for a sequence >20 bp or aa with no degenerate positions, please use BLAST, which is much faster. Pattern Matching allows for ambiguous characters, mismatches, insertions and deletions, but does not do alignments and so is not a replacement for <a target='_blank' href='/blast-sgd'>BLAST</a>. Please note, also, that PatMatch will not find overlapping hits.</p><p>Your comments and suggestions are appreciated: <a target='_blank' href='/suggestion'>Send a Message to SGD</a></p>";
+			let descText = "<p>Pattern Matching allows you to search for short (<20 residues) nucleotide or peptide sequences, or ambiguous/degenerate patterns. It uses the same dataset as SGD's BLAST program. If you are searching for a sequence >20 bp or aa with no degenerate positions, please use BLAST, which is much faster. Pattern Matching allows for ambiguous characters, mismatches, insertions and deletions, but does not do alignments and so is not a replacement for <a target='_blank' href='/blast-sgd'>BLAST</a>. Please note, also, that PatMatch will not find overlapping hits.</p><p>Your comments and suggestions are appreciated: <a target='_blank' href='/suggestion'>Send a Message to SGD</a></p>";
 							
 			return (<div>
 			        <div dangerouslySetInnerHTML={{ __html: descText}} />
@@ -173,21 +173,21 @@ var SearchForm = React.createClass({
 
 	_getSeqNode: function() {
 
-		var param = this.state.param;
-                var beg = param['beg'];
-                var end = param['end'];
-		var dataset = param['dataset'];
-		var seqname = param['seqname'];
+		let param = this.state.param;
+                let beg = param['beg'];
+                let end = param['end'];
+		let dataset = param['dataset'];
+		let seqname = param['seqname'];
 
-                var seq = this.state.resultData.seq;
-		var text = this.state.resultData.defline;
+                let seq = this.state.resultData.seq;
+		let text = this.state.resultData.defline;
 
-		var seq_orig = seq;
+		let seq_orig = seq;
 
-		var seqlen = seq.length;
-		var seqStart = 0;
+		let seqlen = seq.length;
+		let seqStart = 0;
 		
-		var seqEnd = seqlen;
+		let seqEnd = seqlen;
                 if (seqlen > 5000) {
                      if (Math.ceil(beg/LETTERS_PER_LINE)*LETTERS_PER_LINE >  LETTERS_PER_LINE*4) {
                      	  seqStart = Math.ceil(beg/ LETTERS_PER_LINE)*LETTERS_PER_LINE -  LETTERS_PER_LINE*4;
@@ -199,26 +199,26 @@ var SearchForm = React.createClass({
                      seq = seq.substring(seqStart, seqEnd);
                 }
 		
-		var tenChunked = seq.match(/.{1,10}/g).join(" ");
-    		var lineArr = tenChunked.match(/.{1,66}/g);
-    		// var maxLabelLength = ((lineArr.length * LETTERS_PER_LINE + 1).toString().length)
-		var maxLabelLength = seqEnd.toString().length + 1;
+		let tenChunked = seq.match(/.{1,10}/g).join(" ");
+    		let lineArr = tenChunked.match(/.{1,66}/g);
+    		// let maxLabelLength = ((lineArr.length * LETTERS_PER_LINE + 1).toString().length)
+		let maxLabelLength = seqEnd.toString().length + 1;
 
     		lineArr = _.map(lineArr, (line, i) => {
-      			var lineNum = seqStart + i * LETTERS_PER_LINE + 1;
-      			var numSpaces = maxLabelLength - lineNum.toString().length;
-      			var spacesStr = Array(numSpaces + 1).join(" ");
+      			let lineNum = seqStart + i * LETTERS_PER_LINE + 1;
+      			let numSpaces = maxLabelLength - lineNum.toString().length;
+      			let spacesStr = Array(numSpaces + 1).join(" ");
 			
       			if (beg >= lineNum && beg <= lineNum + 59) {
-          		    var tmpBeg = beg - lineNum;
-          		    var tmpEnd = end - lineNum;
+          		    let tmpBeg = beg - lineNum;
+          		    let tmpEnd = end - lineNum;
           		    if (tmpEnd > 59) {
              		       tmpEnd = 59;
              		       beg = lineNum + 60;
           		    }
-          		    var baseArr = line.split("");
-          		    var k = 0;
-          		    var newLine = ""
+          		    let baseArr = line.split("");
+          		    let k = 0;
+          		    let newLine = ""
            		    _.map(baseArr, (base, j) => {
               		         if (k < tmpBeg || k > tmpEnd || base == ' ') {
                    		      newLine += base;
@@ -237,7 +237,7 @@ var SearchForm = React.createClass({
     	        });
 		
 		
-    	  	// var seqNode = _.map(lineArr, (l, i) => {
+    	  	// let seqNode = _.map(lineArr, (l, i) => {
     	  	//       return <span key={'seq' + i}>{l}<br /></span>;
     	  	// });
 		//		
@@ -249,12 +249,12 @@ var SearchForm = React.createClass({
              	//       </blockquote>
              	//       </div>);
 		
-		var seqlines = "";
+		let seqlines = "";
 		_.map(lineArr, (l, i) => {
 		    seqlines += l + "\n";
 		});
 	    
-		// var spacesStr = Array(maxLabelLength + 1).join(" ");
+		// let spacesStr = Array(maxLabelLength + 1).join(" ");
 		if (seqEnd < seqlen) {
 	    	     seqlines += " ..........";
 		}
@@ -262,11 +262,11 @@ var SearchForm = React.createClass({
 		   seqlines = " ..........\n" + seqlines;
 		}
 
-		var seqSection = "<blockquote style={{ fontFamily: 'Monospace', fontSize: 14 }}><pre>" + seqlines + "</pre></blockquote>";
+		let seqSection = "<blockquote style={{ fontFamily: 'Monospace', fontSize: 14 }}><pre>" + seqlines + "</pre></blockquote>";
 		
-		var datasetLabel = this._getDatasetLabel(dataset);
+		let datasetLabel = this._getDatasetLabel(dataset);
 		
-                var seqNode = "<center><h1>" + datasetLabel + " for " + seqname + "</h1><h3>The matching region is highlighted in the following retrieved sequence (in <span style='color:blue;'>blue</span>)</h3>" + seqSection + "</center>";
+                let seqNode = "<center><h1>" + datasetLabel + " for " + seqname + "</h1><h3>The matching region is highlighted in the following retrieved sequence (in <span style='color:blue;'>blue</span>)</h3>" + seqSection + "</center>";
 
 		return seqNode;
 
@@ -274,8 +274,8 @@ var SearchForm = React.createClass({
 
 	_getGenomeBoxNode: function(data) {
 	
-		var _genomeDef = 'S288C';
-		var _elements = _.map(data.genome, g => {
+		let _genomeDef = 'S288C';
+		let _elements = _.map(data.genome, g => {
                        if (g.strain == _genomeDef) {
                             return <option value={g.strain} selected="selected">{g.label}</option>;
                        }
@@ -292,11 +292,11 @@ var SearchForm = React.createClass({
 		
 	_getSeqtypeNode: function() {
 
-	        var param = this.state.param;
+	        let param = this.state.param;
 
-                var pattern_type = {'peptide': 'protein', 'nucleotide': 'dna'};
-                var _elements = [];
-                for (var key in pattern_type) {
+                let pattern_type = {'peptide': 'protein', 'nucleotide': 'dna'};
+                let _elements = [];
+                for (let key in pattern_type) {
 		     
 		     if (param['seqtype'] && param['seqtype'] == 'dna') {
 		     	  _elements.push(<option value='dna' selected="selected">{key}</option>);
@@ -318,8 +318,8 @@ var SearchForm = React.createClass({
 
 	_getPatternBoxNode: function() {
 
-		var param = this.state.param;
-		var pattern = param['seq'];
+		let param = this.state.param;
+		let pattern = param['seq'];
 
                 return (<div>
                         <h3>sequence or pattern (<a href='#examples'>syntax</a>)</h3>
@@ -331,12 +331,12 @@ var SearchForm = React.createClass({
 	_getDatasetNode: function(data) {
 	 			
 				// if( dataset.indexOf('orf_') >= 0 ){
-		var _elements = []; 
-		for (var key in data.dataset) {
+		let _elements = []; 
+		for (let key in data.dataset) {
 		     if (key == this.state.genome) {
-		       	    var datasets = data.dataset[key];
-			    for (var i = 0; i < datasets.length; i++) { 
-    			    	var d = datasets[i];
+		       	    let datasets = data.dataset[key];
+			    for (let i = 0; i < datasets.length; i++) { 
+    			    	let d = datasets[i];
 				if (d.seqtype != this.state.seqtype) {
 				     continue;
 				}
@@ -368,12 +368,12 @@ var SearchForm = React.createClass({
 
 	_getOptionsNode: function() {
 
-		var maximumHitsNode = this._getMaximumHitsNode();
-		var strandNode = this._getStrandNote();
-		var mismatchNode = this._getMismatchNode();
-		var mismatchTypeNode = this._getMismatchTypeNode();
+		let maximumHitsNode = this._getMaximumHitsNode();
+		let strandNode = this._getStrandNote();
+		let mismatchNode = this._getMismatchNode();
+		let mismatchTypeNode = this._getMismatchTypeNode();
 
-		var descText = "<p>PLEASE WAIT FOR EACH REQUEST TO COMPLETE BEFORE SUBMITTING ANOTHER. These searches are done on a single computer at Stanford shared by many other people.</p><hr><h3>More Options:</h3>";
+		let descText = "<p>PLEASE WAIT FOR EACH REQUEST TO COMPLETE BEFORE SUBMITTING ANOTHER. These searches are done on a single computer at Stanford shared by many other people.</p><hr><h3>More Options:</h3>";
 
 	        return(<div>
 		      <div dangerouslySetInnerHTML={{ __html: descText}} />
@@ -390,38 +390,38 @@ var SearchForm = React.createClass({
 
 	_getMaximumHitsNode: function() {
 
-		var hits = ['25', '50', '100', '200', '500', '1000', "2000", "5000", "no limit"];
-		var _elements = this._getDropdownList(hits, "500");
+		let hits = ['25', '50', '100', '200', '500', '1000', "2000", "5000", "no limit"];
+		let _elements = this._getDropdownList(hits, "500");
                 return <select name='max_hits' ref='max_hits' onChange={this._onChange}>{_elements}</select>;
 	
 	},
 
 	_getStrandNote: function() {
 
-               	var strands = ['Both strands', 'Strand in dataset', 'Reverse complement of strand in dataset'];
-                var _elements = this._getDropdownList(strands, "Both strands");
+               	let strands = ['Both strands', 'Strand in dataset', 'Reverse complement of strand in dataset'];
+                let _elements = this._getDropdownList(strands, "Both strands");
                 return <select name='strand' ref='strand' onChange={this._onChange}>{_elements}</select>;
 			
 	},
 
 	_getMismatchNode: function() {
 	
-		var mismatch = ['0', '1', '2', '3'];
-                var _elements = this._getDropdownList(mismatch, "0");
+		let mismatch = ['0', '1', '2', '3'];
+                let _elements = this._getDropdownList(mismatch, "0");
                 return <select name='mismatch' ref='mismatch' onChange={this._onChange}>{_elements}</select>;
 
 	},	
 
 	_getMismatchTypeNode: function() {
 
-	        var _elements = [ { 'key': 'insertion',
+	        let _elements = [ { 'key': 'insertion',
 		    	      	    'name': 'Insertions' },
 				  { 'key': 'deletion',
                                     'name': 'Deletions' },
 				  { 'key': 'substitution',
                                     'name': 'Substitutions' } ]
 
-		var _init_active_keys = ['insertion', 'deletion', 'substitution'];
+		let _init_active_keys = ['insertion', 'deletion', 'substitution'];
 
 	        return (<div><a href='#mismatch_note'>(more information on use of the Mismatch option)</a>
 		       <Checklist elements={_elements} initialActiveElementKeys={_init_active_keys} />
@@ -431,7 +431,7 @@ var SearchForm = React.createClass({
 
 	_getPatternExampleNote: function() {
 
-		var examples = ExampleTable.examples();
+		let examples = ExampleTable.examples();
 		
 		return(<div><p><a name='examples'><h3>Supported Pattern Syntax and Examples:</h3></a></p>
 		      {examples}
@@ -442,7 +442,7 @@ var SearchForm = React.createClass({
         },
 
 	_getDropdownList: function(elementList, activeVal) {
-		var _elements = [];
+		let _elements = [];
 		elementList.forEach ( function(m) {
                      if (m == activeVal) {
                      	  _elements.push(<option value={m} selected='selected'>{m}</option>);
@@ -468,7 +468,7 @@ var SearchForm = React.createClass({
         },
 	
 	_getConfigData: function() {
-                var jsonUrl = PatmatchUrl + "?conf=patmatch.json";
+                let jsonUrl = PatmatchUrl + "?conf=patmatch.json";
                 $.ajax({
     		      url: jsonUrl,
                       dataType: 'json',
@@ -483,10 +483,10 @@ var SearchForm = React.createClass({
 
 	_onSubmit: function (e) {
                 	
-		var genome = this.state.genome.value.trim();
-		var seqtype = this.state.seqtype.value.trim();
-		var pattern = this.refs.pattern.value.trim();
-		var dataset =  this.refs.dataset.value.trim();
+		let genome = this.state.genome.value.trim();
+		let seqtype = this.state.seqtype.value.trim();
+		let pattern = this.refs.pattern.value.trim();
+		let dataset =  this.refs.dataset.value.trim();
 				
 		if (pattern) {
 		    window.localStorage.clear();
@@ -504,15 +504,15 @@ var SearchForm = React.createClass({
 
 	_doPatmatch: function() {
 
-	        var param = this.state.param;
+	        let param = this.state.param;
 
-		var genome = param['genome'];
-                var seqtype = param['seqtype'];
+		let genome = param['genome'];
+                let seqtype = param['seqtype'];
 		if (typeof(seqtype) == "undefined" || seqtype == 'protein') {
                     seqtype = 'pep';
                 }
-                var pattern = param['pattern'];
-                var dataset = param['dataset'];
+                let pattern = param['pattern'];
+                let dataset = param['dataset'];
 		if (typeof(dataset) == "undefined") {
 		    if (seqtype == 'pep') {
 		        dataset = 'orf_pep';
@@ -522,7 +522,7 @@ var SearchForm = React.createClass({
 		    }
 		}
 		
-		var strand = param['strand'];
+		let strand = param['strand'];
 		if (typeof(strand) == "undefined") {
                     strand = 'Both strands';
                 }
@@ -536,8 +536,8 @@ var SearchForm = React.createClass({
 		    window.localStorage.setItem("strand", strand);
                 }
 
-		var pattern = pattern.replace("%3C", "<");
-		var pattern = pattern.replace("%3E", ">");
+		let pattern = pattern.replace("%3C", "<");
+		let pattern = pattern.replace("%3E", ">");
 
 		$.ajax({
 			url: PatmatchUrl,
@@ -566,7 +566,7 @@ var SearchForm = React.createClass({
 
 	_getSeq: function() {
 
-		var param = this.state.param;
+		let param = this.state.param;
 		
 		$.ajax({
                         url: PatmatchUrl,
@@ -588,18 +588,18 @@ var SearchForm = React.createClass({
 
 	_getSummaryTable: function(totalHits, uniqueHits) {
 	
-                var dataset = window.localStorage.getItem("dataset");
-                var pattern = window.localStorage.getItem("pattern");
-                var seqtype = window.localStorage.getItem("seqtype");
-		var strand  = window.localStorage.getItem("strand");
+                let dataset = window.localStorage.getItem("dataset");
+                let pattern = window.localStorage.getItem("pattern");
+                let seqtype = window.localStorage.getItem("seqtype");
+		let strand  = window.localStorage.getItem("strand");
 
-                var configData = this.state.configData;
-                var seqSearched = 0;
-                var datasetDisplayName = "";
-                for (var key in configData.dataset) {
-                     var datasets = configData.dataset[key];
-                     for (var i = 0; i < datasets.length; i++) {
-                         var d = datasets[i];
+                let configData = this.state.configData;
+                let seqSearched = 0;
+                let datasetDisplayName = "";
+                for (let key in configData.dataset) {
+                     let datasets = configData.dataset[key];
+                     for (let i = 0; i < datasets.length; i++) {
+                         let d = datasets[i];
                          if (d.dataset_file_name == dataset) {
                             seqSearched = d.seqcount;
                             datasetDisplayName = d.label.split(" = ")[1];
@@ -610,14 +610,14 @@ var SearchForm = React.createClass({
 		
 		window.localStorage.setItem("dataset_label", datasetDisplayName);
 		
-                var _summaryRows = [];
+                let _summaryRows = [];
 
                 _summaryRows.push(['Total Hits', totalHits]);
                 _summaryRows.push(['Number of Unique Sequence Entries Hit', uniqueHits]);
                 _summaryRows.push(['Sequences Searched', seqSearched]);
 
-		var pattern = pattern.replace("%3C", "<");
-		var pattern = pattern.replace("%3E", ">");
+		let pattern = pattern.replace("%3C", "<");
+		let pattern = pattern.replace("%3E", ">");
 
                 if (seqtype == "dna" || seqtype.indexOf('nuc') >= 0) {
                        _summaryRows.push(['Entered nucleotide pattern', pattern]);
@@ -631,7 +631,7 @@ var SearchForm = React.createClass({
                        _summaryRows.push(['Strand', strand]);
                 }
 
-                var _summaryData = { headers: [['', '']],
+                let _summaryData = { headers: [['', '']],
 		                     rows: _summaryRows };
 		
 		return <DataTable data={_summaryData} />;		
@@ -640,30 +640,30 @@ var SearchForm = React.createClass({
 
 	_getResultTable: function(data, totalHits) {
 
-	        var dataset = window.localStorage.getItem("dataset");
+	        let dataset = window.localStorage.getItem("dataset");
 
-		var withDesc = 0;
+		let withDesc = 0;
 		if( dataset.indexOf('orf_') >= 0 ){		
 		    withDesc = 1;
 		}
 		
-		var notFeat = 0;
+		let notFeat = 0;
 		if ( dataset.indexOf('Not') >= 0 ) {
 		    notFeat = 1;
 		}
 								
-		var _tableRows = [];
+		let _tableRows = [];
 
 		_.map(data, d => {
 
-			var beg = d.beg;
-			var end = d.end;
+			let beg = d.beg;
+			let end = d.end;
 			if (notFeat == 1) {
-			    var featStart = d.seqname.split(':')[1].split("-")[0];
+			    let featStart = d.seqname.split(':')[1].split("-")[0];
 			    beg = beg - parseInt(featStart) + 1;
 			    end = end - parseInt(featStart) + 1;
 			}   
-			var seqLink = '/nph-patmatch?seqname=' + d.seqname + '&dataset=' + dataset + '&beg=' + beg + '&end=' + end;
+			let seqLink = '/nph-patmatch?seqname=' + d.seqname + '&dataset=' + dataset + '&beg=' + beg + '&end=' + end;
 				   
 	 	  	if (notFeat == 1) {
     				
@@ -677,19 +677,19 @@ var SearchForm = React.createClass({
 			}
 			else {		    	   
 
-		    	     var headline = d.desc.split(';')[0];
-			     var name = d.seqname;
+		    	     let headline = d.desc.split(';')[0];
+			     let name = d.seqname;
 			     if (d.gene_name) {
 			       	  name = name + "/" + d.gene_name;
 			     }
-			     var lspLink = '/locus/' + d.seqname;
+			     let lspLink = '/locus/' + d.seqname;
 
 			     _tableRows.push([ <span><a href={ lspLink } target='infowin2'>{ name }</a></span>, d.count, d.matchingPattern, d.beg, d.end, <span><a href={ seqLink} target='infowin2'>Sequence</a></span>, headline]);
 				
 			}
                 });
 
-		var header = ['Sequence Name', 'Hit Number', 'Matching Pattern', 'Matching Begin', 'Matching End', 'Matching Result'];
+		let header = ['Sequence Name', 'Hit Number', 'Matching Pattern', 'Matching Begin', 'Matching End', 'Matching Result'];
      	        if (withDesc == 1) {
 
 		     header = ['Sequence Name', 'Hit Number', 'Matching Pattern', 'Matching Begin', 'Matching End', 'Matching Result',  'Locus Information'];
@@ -701,17 +701,17 @@ var SearchForm = React.createClass({
 
 		}
 
-		var _tableData = {
+		let _tableData = {
 		      headers: [header],
 		      rows: _tableRows
 		};
 		
-		var pagination= true;
+		let pagination= true;
 		if (totalHits  <= 10) {
 		      pagination = false;
 		}
 
-		var _dataTableOptions = {
+		let _dataTableOptions = {
 		    bPaginate: pagination,
 		    oLanguage: { "sEmptyTable": "No Hits." }
                 };
@@ -722,13 +722,13 @@ var SearchForm = React.createClass({
 
 	_getDatasetLabel: function(dataset) {
 
-	        var configData = this.state.configData;
-                var datasetDisplayName = "";
-		var seqtype = "";
-                for (var key in configData.dataset) {
-                     var datasets = configData.dataset[key];
-                     for (var i = 0; i < datasets.length; i++) {
-                         var d = datasets[i];
+	        let configData = this.state.configData;
+                let datasetDisplayName = "";
+		let seqtype = "";
+                for (let key in configData.dataset) {
+                     let datasets = configData.dataset[key];
+                     for (let i = 0; i < datasets.length; i++) {
+                         let d = datasets[i];
                          if (d.dataset_file_name == dataset) {
                             seqtype = d.seqtype;
                             datasetDisplayName = d.label.split(" = ")[0];

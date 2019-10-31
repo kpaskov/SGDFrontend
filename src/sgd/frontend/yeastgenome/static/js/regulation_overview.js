@@ -3,16 +3,16 @@ if(locus['regulation_overview']['target_count'] + locus['regulation_overview']['
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart() {
-        var data_table = google.visualization.arrayToDataTable([['Category', 'Genes', { role: 'style' }, { role: 'annotation' }],
+        let data_table = google.visualization.arrayToDataTable([['Category', 'Genes', { role: 'style' }, { role: 'annotation' }],
                                                                 ['Targets', locus['regulation_overview']['target_count'], '#AF8DC3', locus['regulation_overview']['target_count']],
                                                                 ['Regulators', locus['regulation_overview']['regulator_count'], '#7FBF7B', locus['regulation_overview']['regulator_count']]]);
 
 
-        var chart = new google.visualization.BarChart(document.getElementById('summary_diagram'));
+        let chart = new google.visualization.BarChart(document.getElementById('summary_diagram'));
 
         // The select handler. Call the chart's getSelection() method
         function barSelectHandler() {
-            var selectedItem = chart.getSelection()[0];
+            let selectedItem = chart.getSelection()[0];
             if (selectedItem) {
                 if(selectedItem.row == 1) {
                     try {

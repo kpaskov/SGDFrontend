@@ -13,7 +13,7 @@ const VariantViewerStore = require("../../stores/variant_viewer_store.jsx");
 /*
   Fetches data from model and renders locus diagram (or loader while fetching).
 */
-var AsyncSequenceView = React.createClass({
+let AsyncSequenceView = React.createClass({
 
   getDefaultProps: function () {
     return {
@@ -39,11 +39,11 @@ var AsyncSequenceView = React.createClass({
   },
 
   render: function () {
-    var mainStrainNode = this._getMainStrainNode();
-    var altStrainsNode = this._getAltStrainsNode();
-    var variantNode = this._getVariantsNode();
-    var otherStrainsNode = this._getOtherStrainsNode();
-    var historyNode = this._getHistoryNode();
+    let mainStrainNode = this._getMainStrainNode();
+    let altStrainsNode = this._getAltStrainsNode();
+    let variantNode = this._getVariantsNode();
+    let otherStrainsNode = this._getOtherStrainsNode();
+    let historyNode = this._getHistoryNode();
 
     return (<div>
       {mainStrainNode}
@@ -60,11 +60,11 @@ var AsyncSequenceView = React.createClass({
 
   // from locusId, get data and update
   _fetchData: function () {
-    var _neighborsModel = new SequenceNeighborsModel({ id: this.props.locusId });
+    let _neighborsModel = new SequenceNeighborsModel({ id: this.props.locusId });
     _neighborsModel.fetch( (err, response) => {
       if (this.isMounted()) {
         this.setState({ neighborsModel: _neighborsModel });
-        var _detailsModel = new SequenceDetailsModel({
+        let _detailsModel = new SequenceDetailsModel({
           id: this.props.locusId,
           locusDiplayName: this.props.locusDisplayName,
           locusFormatName: this.props.locusFormatName,
@@ -83,7 +83,7 @@ var AsyncSequenceView = React.createClass({
   },
 
   _getMainStrainNode: function () {
-    var innerNode = (<SequenceComposite
+    let innerNode = (<SequenceComposite
       isSimplified={this.props.isSimplified}
       focusLocusDisplayName={this.props.locusDisplayName}
       focusLocusFormatName={this.props.locusFormatName}
@@ -103,10 +103,10 @@ var AsyncSequenceView = React.createClass({
   },
 
   _getAltStrainsNode: function () {
-    var node = null;
+    let node = null;
     if (!this.props.showAltStrains) return node;
     if (this.state.detailsModel ? this.state.detailsModel.attributes.altStrainMetaData.length : false) {
-      var _defaultAltStrainKey = this.state.detailsModel.attributes.altStrainMetaData[0].key;
+      let _defaultAltStrainKey = this.state.detailsModel.attributes.altStrainMetaData[0].key;
       node = (<section id='alternative'><SequenceComposite
         focusLocusDisplayName={this.props.locusDisplayName}
         neighborsModel={this.state.neighborsModel}
@@ -122,7 +122,7 @@ var AsyncSequenceView = React.createClass({
 
   _getVariantsNode: function () {
     if (!this.props.showVariants) return null;
-    var variantViewerStore = new VariantViewerStore();
+    let variantViewerStore = new VariantViewerStore();
     return (
       <section id='variants'>
         <h2>Variants</h2>
@@ -133,11 +133,11 @@ var AsyncSequenceView = React.createClass({
   },  
 
   _getOtherStrainsNode: function () {
-    var node = null
+    let node = null
     if (!this.props.showOtherStrains) return node;
     if (this.state.detailsModel ? this.state.detailsModel.attributes.otherStrains.length : false) {
-      var outerHelpNode = <HelpIcon text='Other laboratory, industrial, and environmental isolates; sequences available via the Download button.' isInfo={true} />;
-      var innerHelpNode = <HelpIcon text='Select a strain using the pull-down in order to download its sequence as an .fsa file using the Download button located directly below.' />;
+      let outerHelpNode = <HelpIcon text='Other laboratory, industrial, and environmental isolates; sequences available via the Download button.' isInfo={true} />;
+      let innerHelpNode = <HelpIcon text='Select a strain using the pull-down in order to download its sequence as an .fsa file using the Download button located directly below.' />;
       node = (<section id='other'>
         <h2>Other Strains {outerHelpNode}</h2>
         <hr />
@@ -156,7 +156,7 @@ var AsyncSequenceView = React.createClass({
   },
 
   _getHistoryNode: function () {
-    var node = null;
+    let node = null;
     if (this.props.showHistory && this.props.locusHistoryData) {
       node = <HistoryTable data={this.props.locusHistoryData} dataType='SEQUENCE' />;
     }

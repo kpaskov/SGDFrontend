@@ -11,7 +11,7 @@ const StrainAlignment = React.createClass({
 
 	getInitialState() {
 	        
-		var param = Params.getParams();
+		let param = Params.getParams();
 		
 		return {
 			isComplete: false,
@@ -21,19 +21,19 @@ const StrainAlignment = React.createClass({
 			resultData: {},
 			notFound: null,
 			locus: param['locus'],
-			type: param['type'],
+			type: param['type'], //potential bug
 			param: param
 		};
 	},
 
 	render() {	
 	
-		var page_to_display = this.getPage();
+		let page_to_display = this.getPage();
 		
 		if (this.state.isComplete) {
 
-		     var data = this.state.resultData;
-                     var displayName = data['displayName'];
+		     let data = this.state.resultData;
+                     let displayName = data['displayName'];
 
 		     return (<div>
                           <span style={{ textAlign: "center" }}><h1> { displayName } <i>S. cerevisiae</i> Strain Sequence Alignment<a target="_blank" href="https://sites.google.com/view/yeastgenome-help/sequence-help/align-strain-sequences"><img src="https://d1x6jdqbvd5dr.cloudfront.net/legacy_img/icon_help_circle_dark.png"></img></a></h1>
@@ -60,17 +60,17 @@ const StrainAlignment = React.createClass({
 
 	getPage() {
 		
-		var param = this.state.param;
+		let param = this.state.param;
 
 	        if (this.state.isComplete) {
 
-		        var data = this.state.resultData;
-                        var images_url = data['dendrogram_url'];
-		        var treeImage = "<center><img src=" + images_url + "></img></center>";
-			var alignment = data['alignment']
-			var searchBox = this.getFrontPage() 			
-			var seqSection = "<pre>" + data['seqs'] + "</pre>";
-			var downloadSeqSection = this.getDownloadSeqSection();
+		        let data = this.state.resultData;
+                        let images_url = data['dendrogram_url'];
+		        let treeImage = "<center><img src=" + images_url + "></img></center>";
+			let alignment = data['alignment']
+			let searchBox = this.getFrontPage() 			
+			let seqSection = "<pre>" + data['seqs'] + "</pre>";
+			let downloadSeqSection = this.getDownloadSeqSection();
 			return (<div>
 			       <p dangerouslySetInnerHTML={{ __html: treeImage }} />
 			       { searchBox }
@@ -103,11 +103,11 @@ const StrainAlignment = React.createClass({
 
 	getFrontPage() {
 
-		var submitBox = this.submitBox();
-		var seqTypeBox = this.getSeqTypeBox();
-		var geneBox = this.getGeneBox();
+		let submitBox = this.submitBox();
+		let seqTypeBox = this.getSeqTypeBox();
+		let geneBox = this.getGeneBox();
 
-		var _searchSection = { headers: [['', '', '']],
+		let _searchSection = { headers: [['', '', '']],
                             rows:    [[geneBox, seqTypeBox, submitBox]] };
 	
 	        return (<div>
@@ -139,7 +139,7 @@ const StrainAlignment = React.createClass({
 
 	getSeqTypeBox() {
 
-	       var _elements = [];
+	       let _elements = [];
 	       if (this.state.type == 'dna') {
 	       	   _elements.push(<option value='protein' selected="selected">Protein</option>);
               	   _elements.push(<option value='dna'>DNA</option>);
@@ -173,7 +173,7 @@ const StrainAlignment = React.createClass({
 
 	getDownloadSeqSection() {
 
-	      var downloadUrl = alignUrl + "?locus=" + this.state.locus + "&download=1&type=" + this.state.type ;
+	      let downloadUrl = alignUrl + "?locus=" + this.state.locus + "&download=1&type=" + this.state.type ;
 	  
 	      return (<div>
 	      	     <hr></hr>
@@ -189,9 +189,9 @@ const StrainAlignment = React.createClass({
 
 	runAlignTools() {
 
-		var paramData = {};
+		let paramData = {};
 
-		var param = this.state.param;
+		let param = this.state.param;
 		
 		paramData['locus'] = param['locus']
 		paramData['type'] = param['type'];

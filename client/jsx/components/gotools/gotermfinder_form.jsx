@@ -23,7 +23,7 @@ const GoTermFinder = React.createClass({
 
 	getInitialState() {
 	        
-		var param = Params.getParams();
+		let param = Params.getParams();
 		
 		this.getAmbiguousNames();
 		
@@ -43,7 +43,7 @@ const GoTermFinder = React.createClass({
 
 	render() {	
 	
-		var page_to_display = this.getPage();
+		let page_to_display = this.getPage();
 		
 		return (<div>
 			  <span style={{ textAlign: "center" }}><h1>Gene Ontology Term Finder <a target="_blank" href="https://sites.google.com/view/yeastgenome-help/analyze-help/go-term-finder?authuser=0"><img src="https://d1x6jdqbvd5dr.cloudfront.net/legacy_img/icon_help_circle_dark.png"></img></a></h1>
@@ -55,7 +55,7 @@ const GoTermFinder = React.createClass({
 	},
 
 	componentDidMount() {
-		var param = this.state.param;
+		let param = this.state.param;
 	        if (param['submit']) {
 	              this.runGoTools();
 	        }				      
@@ -63,12 +63,12 @@ const GoTermFinder = React.createClass({
 
 	getPage() {
 		
-		var param = this.state.param;
+		let param = this.state.param;
 
 	        if (this.state.isComplete) {
 
-			var data = this.state.resultData;
-			var output = data['output'];
+			let data = this.state.resultData;
+			let output = data['output'];
 			if (typeof(output) != "undefined") {
 			     return (<div>
 			     	     <h3>There is an issue for this search. Please take a look at the following message and try to fix your query and resubmit again.</h3>
@@ -76,20 +76,20 @@ const GoTermFinder = React.createClass({
 			     	     </div>);
 			}
 
-			var resultTable = data['html'];
-			var graph = data['image_html'];
-			var termsUrl = data['term_page'];
-			var tabUrl = data['tab_page'];
-			var pngUrl = data['png_page'];
-			var pngHtmlUrl = data['image_page'];
-			var svgUrl = data['svg_page'];
-			var psUrl = data['ps_page'];
-			var tableUrl = data['table_page'];
-			var inputUrl = data['input_page'];
+			let resultTable = data['html'];
+			let graph = data['image_html'];
+			let termsUrl = data['term_page'];
+			let tabUrl = data['tab_page'];
+			let pngUrl = data['png_page'];
+			let pngHtmlUrl = data['image_page'];
+			let svgUrl = data['svg_page'];
+			let psUrl = data['ps_page'];
+			let tableUrl = data['table_page'];
+			let inputUrl = data['input_page'];
 	
-			var resultText = this.getResultText();
-			var tableSaveOptions = this.tableSaveOptions(tableUrl, termsUrl, tabUrl, inputUrl);
-			var graphSaveOptions = this.graphSaveOptions(pngUrl, pngHtmlUrl, svgUrl, psUrl, inputUrl);
+			let resultText = this.getResultText();
+			let tableSaveOptions = this.tableSaveOptions(tableUrl, termsUrl, tabUrl, inputUrl);
+			let graphSaveOptions = this.graphSaveOptions(pngUrl, pngHtmlUrl, svgUrl, psUrl, inputUrl);
 
 			tableSaveOptions = "<br><h2 id='table'><center>Search Results in HTML Table Format</center></h2><br>" + tableSaveOptions;
 			graphSaveOptions = "<h2 id='graph'><center>Search Results in GO View Tree Image Format</center></h2><br>" + graphSaveOptions;
@@ -126,18 +126,18 @@ const GoTermFinder = React.createClass({
 
 	getFrontPage() {
 
-		var descText = this.topDescription();		
+		let descText = this.topDescription();		
 
-		var submitReset = this.submitReset();
-		var geneBox = this.getGeneBox();
-		var ontology = this.getOntology();
-		var gene4bgBox = this.getGene4bgBox();
-		var optionalInput = this.getOptionalInput();
+		let submitReset = this.submitReset();
+		let geneBox = this.getGeneBox();
+		let ontology = this.getOntology();
+		let gene4bgBox = this.getGene4bgBox();
+		let optionalInput = this.getOptionalInput();
 				 
-		var _defaultSection = { headers: [[<span style={ style.textFont }><a name='step1'>Step 1. Query Set (Your Input)</a></span>, <span style={ style.textFont }><a name='step2'>Step 2. Choose Ontology</a></span>]],
+		let _defaultSection = { headers: [[<span style={ style.textFont }><a name='step1'>Step 1. Query Set (Your Input)</a></span>, <span style={ style.textFont }><a name='step2'>Step 2. Choose Ontology</a></span>]],
                                      rows:    [[geneBox, ontology]] };
 			  
-		var _backgroundSection = { headers: [[<span style={ style.textFont }><a name='step3'>Step 3. (Optional) Specify your background set of genes</a></span>, <span style={ style.textFont }><a name='step4'>Step 4. Optional Input</a></span>]],
+		let _backgroundSection = { headers: [[<span style={ style.textFont }><a name='step3'>Step 3. (Optional) Specify your background set of genes</a></span>, <span style={ style.textFont }><a name='step4'>Step 4. Optional Input</a></span>]],
                                      rows:    [[gene4bgBox, optionalInput]] };
 
 		return (<div>
@@ -166,7 +166,7 @@ const GoTermFinder = React.createClass({
 
 	getOntology() {
 
-	        var _elements = [ { name: "Process", key: "P" }, { name: "Function", key: "F" }, { name: "Component", key: "C" }];
+	        let _elements = [ { name: "Process", key: "P" }, { name: "Function", key: "F" }, { name: "Component", key: "C" }];
 
 		return (<div style={{ textAlign: "top" }}>
 		        <h3><strong>Pick an ontology aspect:</strong></h3> 
@@ -179,7 +179,7 @@ const GoTermFinder = React.createClass({
 
 	getGeneBox() {
 
-		var genes = window.localStorage.getItem("geneList");
+		let genes = window.localStorage.getItem("geneList");
 		if (genes) {
 
                    return (<div style={{ textAlign: "top" }}>
@@ -222,21 +222,21 @@ const GoTermFinder = React.createClass({
                 // used for computational only: IBA, IEA, IRD
                 // used for both manual and computational: IKR, IMR
 
-                // var _init_active_keys = evidenceCode;
-		var _init_active_keys = [];
-                var _elements = [];
-                for (var i = 0; i < evidenceCode.length; i++) {
+                // let _init_active_keys = evidenceCode;
+		let _init_active_keys = [];
+                let _elements = [];
+                for (let i = 0; i < evidenceCode.length; i++) {
                        _elements.push({ 'key': evidenceCode[i], 'name': evidenceCode[i] });
 		}
 		
-		var _pvalueElements = [<option value='0.01' selected='selected'>0.01</option>];
+		let _pvalueElements = [<option value='0.01' selected='selected'>0.01</option>];
                 _pvalueElements.push(<option value='0.05'>0.05</option>);
                 _pvalueElements.push(<option value='0.1'>0.1</option>);
 
-                var _init_active_keys = ['FDR']
-                var _FDRelements = [ { 'key': 'FDR', 'name': 'FDR'} ];
+                let _init_active_keys = ['FDR']
+                let _FDRelements = [ { 'key': 'FDR', 'name': 'FDR'} ];
 
-		var evidenceCodeLink = "Pick <a href=http://geneontology.org/page/guide-go-evidence-codes target='infowin3'>evidence codes</a> to exclude for calculation:";
+		let evidenceCodeLink = "Pick <a href=http://geneontology.org/page/guide-go-evidence-codes target='infowin3'>evidence codes</a> to exclude for calculation:";
 
                 return (<div>
 		       <h3><strong><p dangerouslySetInnerHTML={{ __html: evidenceCodeLink }} /></strong></h3>
@@ -250,9 +250,9 @@ const GoTermFinder = React.createClass({
         },
 	
 	handleFile(e) {
-                var reader = new FileReader();
-                var fileHandle = e.target.files[0];
-                var fileName = e.target.files[0].name;
+                let reader = new FileReader();
+                let fileHandle = e.target.files[0];
+                let fileName = e.target.files[0].name;
                 reader.onload = function(upload) {
                       this.setState({
                             uploadedGenes: upload.target.result
@@ -262,9 +262,9 @@ const GoTermFinder = React.createClass({
         },
 
 	handleFile4bg(e) {
-                var reader = new FileReader();
-                var fileHandle = e.target.files[0];
-                var fileName = e.target.files[0].name;
+                let reader = new FileReader();
+                let fileHandle = e.target.files[0];
+                let fileName = e.target.files[0].name;
                 reader.onload = function(upload) {
                       this.setState({
                             uploadedGenes4bg: upload.target.result
@@ -279,9 +279,9 @@ const GoTermFinder = React.createClass({
 		     return '';
 		}	 	        
 		genes = genes.replace(/[^A-Za-z:\-0-9\(\)\,\_]/g, ' ');
-                var re = /\+/g;
+                let re = /\+/g;
                 genes = genes.replace(re, " ");
-                var re = / +/g;
+                let re = / +/g;
                 genes = genes.replace(re, "|");
 
 		return genes;
@@ -295,8 +295,8 @@ const GoTermFinder = React.createClass({
 
 	onSubmit(e) {
 
-		var genes = this.refs.genes.value.trim();
-		var genesInBox = 0;
+		let genes = this.refs.genes.value.trim();
+		let genesInBox = 0;
 		if (genes == '') {
 		     genes = this.state.uploadedGenes;
 		     this.setState({
@@ -313,7 +313,7 @@ const GoTermFinder = React.createClass({
                      return 1;
                 }
 
-		var all_genes = genes.split("|");
+		let all_genes = genes.split("|");
 
 		if (genesInBox == 1 && all_genes.length > 100) {
 		     alert("You have entered more than 100 genes. Please save it as a file and upload it.");
@@ -323,16 +323,16 @@ const GoTermFinder = React.createClass({
 
 		// check for ambiguous genes
 
-		var ambiguousGeneDict = this.state.ambiguousNames;
+		let ambiguousGeneDict = this.state.ambiguousNames;
 
-                for (var i = 0; i < all_genes.length; i++) {
-                     var gene = all_genes[i];
+                for (let i = 0; i < all_genes.length; i++) {
+                     let gene = all_genes[i];
                      if (gene in ambiguousGeneDict) {
-                           var ambiguousGeneObj = ambiguousGeneDict[gene];
-                           var warningMsg = "The name '" + gene + "' is associated with multiple genes. " + gene + " is ";
-                           for (var j = 0; j < ambiguousGeneObj.length; j++) {
-                                 var geneObj = ambiguousGeneObj[j];
-                                 var display_name = geneObj['systematic_name'] + " (SGDID: " + geneObj['sgdid'] + ")";
+                           let ambiguousGeneObj = ambiguousGeneDict[gene];
+                           let warningMsg = "The name '" + gene + "' is associated with multiple genes. " + gene + " is ";
+                           for (let j = 0; j < ambiguousGeneObj.length; j++) {
+                                 let geneObj = ambiguousGeneObj[j];
+                                 let display_name = geneObj['systematic_name'] + " (SGDID: " + geneObj['sgdid'] + ")";
                                  if (geneObj['gene_name']) {
                                       display_name = geneObj['gene_name'] + "/" + display_name;
                                  }
@@ -355,7 +355,7 @@ const GoTermFinder = React.createClass({
 
 		window.localStorage.setItem("genes", genes);
 
-		var genes4bg = this.refs.genes4bg.value.trim();
+		let genes4bg = this.refs.genes4bg.value.trim();
                 if (genes4bg == '') {
                      genes4bg = this.state.uploadedGenes4bg;
 		     this.setState({
@@ -366,7 +366,7 @@ const GoTermFinder = React.createClass({
                 	
 		window.localStorage.setItem("genes4bg", genes4bg);
 
-		var aspect = '';
+		let aspect = '';
 		if (document.getElementById('C').checked) {
 		   	aspect = 'C';		
 		}      
@@ -388,7 +388,7 @@ const GoTermFinder = React.createClass({
 
 	runGoTools() {
 
-		var paramData = {};
+		let paramData = {};
 
 		paramData['genes'] = window.localStorage.getItem("genes");
 
@@ -397,7 +397,7 @@ const GoTermFinder = React.createClass({
 		}
 		paramData['aspect'] = window.localStorage.getItem("aspect");
 		
-		var param = this.state.param;
+		let param = this.state.param;
 		
 		paramData['pvalue'] = param['pvalue'];
 
@@ -405,13 +405,13 @@ const GoTermFinder = React.createClass({
 		     paramData['FDR'] = 1;
 		}
 
-		var evidence = ""; 
-		var selected = 0;
-		for (var i = 0; evidenceCode.length; i++) {
+		let evidence = ""; 
+		let selected = 0;
+		for (let i = 0; evidenceCode.length; i++) {
 		     if (typeof(evidenceCode[i]) == "undefined") {
 		         break;
 		     }
-		     var code = param[evidenceCode[i]];
+		     let code = param[evidenceCode[i]];
 		     if (typeof(code) != "undefined") {
 		     	 selected += 1; 
 		     	 continue;

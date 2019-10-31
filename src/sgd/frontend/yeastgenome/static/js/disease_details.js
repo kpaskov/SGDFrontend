@@ -1,21 +1,21 @@
 $(document).ready(function() {
 
   	$.getJSON('/backend/locus/' + locus['id'] + '/disease_details', function(data) {
-  	    var mc_disease_table = create_disease_table("mc", "No manually curated terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "manually curated"}, data);
+  	    let mc_disease_table = create_disease_table("mc", "No manually curated terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "manually curated"}, data);
         create_download_button("mc_disease_table_download", mc_disease_table, locus['display_name'] + "_mc_disease");
 
-        var htp_disease_table = create_disease_table("htp", "No high-throughput terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "high-throughput"}, data);
+        let htp_disease_table = create_disease_table("htp", "No high-throughput terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "high-throughput"}, data);
         create_download_button("htp_disease_table_download", htp_disease_table, locus['display_name'] + "_htp_disease");
 
-        var comp_disease_table = create_disease_table("comp", "No computational terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "computational"}, data);
+        let comp_disease_table = create_disease_table("comp", "No computational terms for " + locus['display_name'], function(x) {return x["annotation_type"] == "computational"}, data);
         create_download_button("comp_disease_table_download", comp_disease_table, locus['display_name'] + "_comp_disease");
 
 
-        var transformed_data = [];
-        var mc_count = 0;
-        var htp_count = 0;
-        var comp_count = 0;
-        for (var i=0; i < data.length; i++) {
+        let transformed_data = [];
+        let mc_count = 0;
+        let htp_count = 0;
+        let comp_count = 0;
+        for (let i=0; i < data.length; i++) {
             transformed_data.push(disease_data_to_table(data[i], i));
             if(data[i]['annotation_type'] == 'manually curated') {
                 mc_count = mc_count + 1;
@@ -27,7 +27,7 @@ $(document).ready(function() {
                 comp_count = comp_count + 1;
             }
         }
-        var headers = ["Evidence ID", "Analyze ID", "", "Gene", "Gene Format Name", "Disease Ontology Term", "Disease Ontology Term ID", "With", "Method", "Evidence", "Source", "Assigned On", "Reference", "Relationships"];
+        let headers = ["Evidence ID", "Analyze ID", "", "Gene", "Gene Format Name", "Disease Ontology Term", "Disease Ontology Term ID", "With", "Method", "Evidence", "Source", "Assigned On", "Reference", "Relationships"];
         create_download_button_no_table("disease_download_all", headers, transformed_data, locus['display_name'] + "_disease_annotations")
 
         if(mc_count == 0) {
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
   	$.getJSON('/backend/locus/' + locus['id'] + '/disease_graph', function(data) {
         if(data['nodes'].length > 1) {
-            var _categoryColors = {
+            let _categoryColors = {
                 'FOCUS': 'black',
                 'Yeast Gene': '#1f77b4',
                 'Human Gene': '#17becf',
@@ -57,7 +57,7 @@ $(document).ready(function() {
 });
 
 function create_disease_table(prefix, message, filter, data) {
-    var options = {};
+    let options = {};
      options["aoColumns"] = [
             {"bSearchable":false, "bVisible":false}, //evidence_id
             {"bSearchable":false, "bVisible":false}, //analyze_id
@@ -81,9 +81,9 @@ function create_disease_table(prefix, message, filter, data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var diseases = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let diseases = {};
+        for (let i=0; i < data.length; i++) {
             if(filter(data[i])) {
                 datatable.push(disease_data_to_table(data[i], i));
                 diseases[data[i]['disease']['id']] = true;

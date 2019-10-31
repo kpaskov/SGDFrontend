@@ -1,13 +1,13 @@
 
 $(document).ready(function() {
     $("#expression_table_analyze").hide();
-    var tag = keyword;
-    var expression_table = create_expression_table(tag['bioitems']);
+    let tag = keyword;
+    let expression_table = create_expression_table(tag['bioitems']);
     create_download_button("expression_table_download", expression_table, tag['display_name'] + '_datasets');
 
     $.getJSON('/backend/keywords', function(data) {
-        var tag_links = [];
-        for (var i=0; i < data.length; i++) {
+        let tag_links = [];
+        for (let i=0; i < data.length; i++) {
             if(data[i]['display_name'] != tag['display_name']) {
                 tag_links.push('<a href="' + data[i]['link'] + '">' + data[i]['display_name'] + '</a>');
             }
@@ -20,8 +20,8 @@ $(document).ready(function() {
 });
 
 function create_expression_table(data) {
-    var tag = keyword;
-    var options = {
+    let tag = keyword;
+    let options = {
         'bPaginate': true,
         'aaSorting': [[3, "asc"]],
         'aoColumns': [
@@ -40,9 +40,9 @@ function create_expression_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var reference_ids = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let reference_ids = {};
+        for (let i=0; i < data.length; i++) {
             if (data[i].references.length === 0) {
                 data[i].reference = null;
             } else {

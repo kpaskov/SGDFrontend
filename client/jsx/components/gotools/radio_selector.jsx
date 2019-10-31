@@ -1,7 +1,7 @@
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
 module.exports = React.createClass({
 	// elements, i.e.[ { name: "Doggy Woggy", key: "dog" }, ...]
@@ -30,16 +30,16 @@ module.exports = React.createClass({
 	},
 
 	render: function () {
-		var inputs = _.map(this.props.elements, (d, i) => {
-			var _onClick = (e) => {
+		let inputs = _.map(this.props.elements, (d, i) => {
+			let _onClick = (e) => {
 				this.setState({
 					activeElementKey: d.key
 				});
 			};
-			var _checked = d.key === this.state.activeElementKey;
+			let _checked = d.key === this.state.activeElementKey;
 
 			// make the width as wide as possible
-			var widthPercent = `${1 / this.props.elements.length * 100}%`;
+			let widthPercent = `${1 / this.props.elements.length * 100}%`;
 
 			return (
 				<div className="radio-element-container" style={{ display: "inline-block", width: widthPercent }} key={"radioElement" + i}>

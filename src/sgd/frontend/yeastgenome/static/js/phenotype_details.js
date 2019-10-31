@@ -1,15 +1,15 @@
 
 $(document).ready(function() {
   	$.getJSON('/backend/locus/' + locus['id'] + '/phenotype_details', function(data) {
-  	    var phenotype_table = create_phenotype_table(data);
+  	    let phenotype_table = create_phenotype_table(data);
         create_download_button("phenotype_table_download", phenotype_table, locus['display_name'] + "_phenotypes");
         $("#phenotype_table_analyze").hide();
   	});
 
   	$.getJSON('/backend/locus/' + locus['id'] + '/phenotype_graph', function(data) {
   		if(data['nodes'].length > 1) {
-  			var graph = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "phenotype");
-  			var slider = create_slider("slider", graph, data['min_cutoff'], data['max_cutoff'], slider_filter, data['max_cutoff']+1);
+  			let graph = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "phenotype");
+  			let slider = create_slider("slider", graph, data['min_cutoff'], data['max_cutoff'], slider_filter, data['max_cutoff']+1);
             create_cy_download_button(graph, "cy_download", locus['display_name'] + '_phenotype_graph')
   		}
 		else {
@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 function create_phenotype_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, {"bVisible":false}, null, null, null, {'sWidth': '250px'}, null];
@@ -28,16 +28,16 @@ function create_phenotype_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var phenotypes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let phenotypes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(phenotype_data_to_table(data[i], i));
             phenotypes[data[i]['phenotype']['id']] = true;
         }
 
         set_up_header('phenotype_table', datatable.length, 'entry', 'entries', Object.keys(phenotypes).length, 'phenotype', 'phenotypes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, {"bVisible":false}, null, null, null, {'sWidth': '250px'}, null];
@@ -50,12 +50,12 @@ function create_phenotype_table(data) {
 }
 
 function slider_filter(new_cutoff) {
-    var filter = "node[gene_count >= " + new_cutoff + "], edge";
+    let filter = "node[gene_count >= " + new_cutoff + "], edge";
     return filter;
 }
 
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -87,7 +87,7 @@ var graph_style = cytoscape.stylesheet()
 		'background-color': "#D0A9F5"
 });
 
-var layout = {
+let layout = {
 	"name": "arbor",
 	"liveUpdate": true,
 	"ungrabifyWhileSimulating": true,

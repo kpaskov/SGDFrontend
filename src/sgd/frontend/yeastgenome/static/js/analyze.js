@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    var gene_table = create_gene_table(bioents);
+    let gene_table = create_gene_table(bioents);
     create_download_button("gene_list_table_download", gene_table, list_name);
     $("#gene_list_table_analyze").hide();
     set_up_tools(gene_table, "go_term_finder", "go_slim_mapper", "spell", "yeastmine");
@@ -9,17 +9,17 @@ $(document).ready(function() {
 });
 
 function create_gene_table(data) {
-    var gene_table = null;
+    let gene_table = null;
     if(data != null && data.length > 0) {
-	    var datatable = [];
+	    let datatable = [];
 
-        for (var i=0; i < data.length; i++) {
+        for (let i=0; i < data.length; i++) {
             datatable.push(gene_data_to_table(data[i]));
         }
 
         $("#gene_list_table_header").html(data.length);
 
-        var options = {};
+        let options = {};
 	    options["bPaginate"] = false;
 	    options["aaSorting"] = [[3, "asc"]];
 	    options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null];
@@ -33,23 +33,23 @@ function create_gene_table(data) {
 function post_to_yeastmine(bioent_ids) {
     // The rest of this code assumes you are not using a library.
     // It can be made less wordy if you use one.
-    var form = document.createElement("form");
+    let form = document.createElement("form");
     form.setAttribute("method", "post");
     form.setAttribute("action", "https://yeastmine.yeastgenome.org/yeastmine/portal.do?goToListUpload=true");
     
-    var cinp = document.createElement("input");
+    let cinp = document.createElement("input");
     cinp.setAttribute("type", "hidden");
     cinp.setAttribute("name", "class");
     cinp.setAttribute("value", "Gene");
     form.appendChild(cinp);
 
-    var vinp = document.createElement("input");
+    let vinp = document.createElement("input");
     vinp.setAttribute("type", "hidden");
     vinp.setAttribute("name", "extraValue");
     vinp.setAttribute("value", "S. cerevisiae");
     form.appendChild(vinp);
 
-    var hiddenField = document.createElement("input");
+    let hiddenField = document.createElement("input");
     hiddenField.setAttribute("type", "hidden");
     hiddenField.setAttribute("name", "externalids");
     hiddenField.setAttribute("value", bioent_ids);
@@ -62,43 +62,43 @@ function post_to_yeastmine(bioent_ids) {
 
 function set_up_tools(table, go_term_finder_id, go_slim_mapper_id, spell_id, yeastmine_id) {
 	document.getElementById(go_term_finder_id).onclick = function f() {
-		var bioent_format_names = '';
+		let bioent_format_names = '';
 
-		var data = table._("tr", {"filter": "applied"});
-		for (var i=0,len=data.length; i<len; i++) { 
-			var sys_name = data[i][2];
+		let data = table._("tr", {"filter": "applied"});
+		for (let i=0,len=data.length; i<len; i++) { 
+			let sys_name = data[i][2];
 			bioent_format_names = bioent_format_names + sys_name + " ";
 		}
-		var localStorageGeneList = data.reduce(function(acc, d) {
-			var sysName = d[2];
+		let localStorageGeneList = data.reduce(function(acc, d) {
+			let sysName = d[2];
 			return acc + sysName + " ";
 		}, "");
 		window.localStorage.setItem("geneList", localStorageGeneList);
-		var url = '/goTermFinder';
+		let url = '/goTermFinder';
 		location.assign(url);
 	};
 	document.getElementById(go_slim_mapper_id).onclick = function f() {
-	        var bioent_format_names = '';
+	        let bioent_format_names = '';
 
-	        var data = table._("tr", {"filter": "applied"});
-	        for (var i=0,len=data.length; i<len; i++) {
-		    var sys_name = data[i][2];
+	        let data = table._("tr", {"filter": "applied"});
+	        for (let i=0,len=data.length; i<len; i++) {
+		    let sys_name = data[i][2];
 		    bioent_format_names = bioent_format_names + sys_name + " ";
 	        }
-	        var localStorageGeneList = data.reduce(function(acc, d) {
-		    var sysName = d[2];
+	        let localStorageGeneList = data.reduce(function(acc, d) {
+		    let sysName = d[2];
 		    return acc + sysName + " ";
                 }, "");
 	        window.localStorage.setItem("geneList4slim", localStorageGeneList);
-	        var url = '/goSlimMapper';
+	        let url = '/goSlimMapper';
 	        location.assign(url);
 
 	};
 	document.getElementById(spell_id).onclick = function f() {
-		var bioent_format_names = [];
-		var data = table._("tr", {"filter": "applied"});
-		for (var i=0,len=data.length; i<len; i++) { 
-			var sys_name = data[i][2];
+		let bioent_format_names = [];
+		let data = table._("tr", {"filter": "applied"});
+		for (let i=0,len=data.length; i<len; i++) { 
+			let sys_name = data[i][2];
 			bioent_format_names.push(sys_name);
 		}
 		post_to_url("https://spell.yeastgenome.org/search/show_results", {
@@ -106,10 +106,10 @@ function set_up_tools(table, go_term_finder_id, go_slim_mapper_id, spell_id, yea
 		});
 	};
 	document.getElementById(yeastmine_id).onclick = function f() {
-		var bioent_format_names = [];
-		var data = table._('tr', {"filter": "applied"});
-		for (var i=0,len=data.length; i<len; i++) { 
-			var sys_name = data[i][2];
+		let bioent_format_names = [];
+		let data = table._('tr', {"filter": "applied"});
+		for (let i=0,len=data.length; i<len; i++) { 
+			let sys_name = data[i][2];
 			bioent_format_names.push(sys_name);
 		}
 		post_to_yeastmine(bioent_format_names);

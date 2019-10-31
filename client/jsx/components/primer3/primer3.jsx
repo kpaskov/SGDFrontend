@@ -8,8 +8,8 @@ import _ from 'underscore';
 import t from 'tcomb-form';
 const Form = t.form.Form;
 
-var v = require('tcomb-validation');
-var validate = v.validate;
+const v = require('tcomb-validation');
+const validate = v.validate;
 
 const DataTable = require('../widgets/data_table.jsx');
 import apiRequest from '../../lib/api_request.jsx';
@@ -44,8 +44,8 @@ const Primer3 = React.createClass({
         this.setState({value: tempVal});
     }
     if(this.props.queryParams.sequence_id){
-       var seqId = this.props.queryParams.sequence_id;
-       var seq = window.localStorage.getItem(seqId);
+       let seqId = this.props.queryParams.sequence_id;
+       let seq = window.localStorage.getItem(seqId);
        let tempVal = this.state.value;
        tempVal.sequence = seq;
        this.setState({sequence: seq});
@@ -290,7 +290,7 @@ const Primer3 = React.createClass({
       );
     };
 
-    var options = {
+    let options = {
         auto: 'none',
         fields: {
             gene_name:{
@@ -368,7 +368,7 @@ const style = {
 };
 
 function addNewlines(seq) {
-  var result = '';
+  let result = '';
   while ($.trim(seq).length > 0) {
     result += seq.substring(0,80) + '\n';
     seq = seq.substring(80);
@@ -377,7 +377,7 @@ function addNewlines(seq) {
 }
 
 function getCounter(c){
-    var cc = c+1
+    let cc = c+1
     return cc
 }
 

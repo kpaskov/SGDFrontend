@@ -1,14 +1,14 @@
-var React = require("react");
-var _ = require("underscore");
-var $ = require("jquery");
+const React = require("react");
+const _ = require("underscore");
+const $ = require("jquery");
 
-var RadioSelector = require("./radio_selector.jsx");
-var BlastBarChart = require("./blast_bar_chart.jsx");
-var Params = require("../mixins/parse_url_params.jsx");
+const RadioSelector = require("./radio_selector.jsx");
+const BlastBarChart = require("./blast_bar_chart.jsx");
+const Params = require("../mixins/parse_url_params.jsx");
 
-var BLAST_URL = "/run_blast";
+const BLAST_URL = "/run_blast";
 
-var SearchForm = React.createClass({
+const SearchForm = React.createClass({
 
 	getDefaultProps: function () {
                 return {
@@ -18,9 +18,9 @@ var SearchForm = React.createClass({
 
 	getInitialState: function () {
 	        
-		var param = Params.getParams();
+		let param = Params.getParams();
 		
-		var submitted = '';
+		let submitted = '';
 		if (param['program']) {
 		     submitted = 1;
 		}
@@ -32,7 +32,7 @@ var SearchForm = React.createClass({
                 }
 
 		// need to put the date in a config file..
-		var lastUpdate = "January 13, 2015";	 
+		let lastUpdate = "January 13, 2015";	 
 		return {
 			isComplete: false,
 			isPending: false,
@@ -63,7 +63,7 @@ var SearchForm = React.createClass({
 	},
 
 	render: function () {		
-		var formNode = this._getFormNode();
+		let formNode = this._getFormNode();
 
 		if (this.props.blastType == 'sgd') {
 		        return (<div>
@@ -92,28 +92,28 @@ var SearchForm = React.createClass({
 				
 	        if (this.state.isComplete) {
 		        if (this.state.resultData.hits == '') {
-			     var errorReport = this.state.resultData.result;
+			     let errorReport = this.state.resultData.result;
 			     // return (<div dangerouslySetInnerHTML={{ __html: this.state.resultData.result}} />);
 			     // return (<div><p>{resultData.result}</p></div>);
 			     return (<div dangerouslySetInnerHTML={{ __html: errorReport }} />);
 
 			}
 
-		        var descText = "<p>Query performed by the Saccharomyces Genome Database; for full BLAST options and parameters, refer to the NCBI BLAST Documentation Links to GenBank, EMBL, PIR, SwissProt, and SGD are shown in bold type; links to locations within this document are in normal type. Your comments and suggestions are requested: <a href='/suggestion'>Send a Message to SGD</a></p><hr>"; 
+		        let descText = "<p>Query performed by the Saccharomyces Genome Database; for full BLAST options and parameters, refer to the NCBI BLAST Documentation Links to GenBank, EMBL, PIR, SwissProt, and SGD are shown in bold type; links to locations within this document are in normal type. Your comments and suggestions are requested: <a href='/suggestion'>Send a Message to SGD</a></p><hr>"; 
 			if (this.state.filter) {
 			       descText = descText + '<p><b>***Please Note Sequence Filtering is ON.***</b> Sequence filtering will mask out regions of low compositional complexity from your query sequence. Filtering can eliminate statistically significant but biologically uninteresting reports from the BLAST output. Low complexity regions found by a filter program are substituted using the letter "N" in nucleotide sequence (e.g., "NNNNN") and the letter "X" in protein sequences (e.g., "XXXXX"). In the BLAST output, filtered regions are shown in the query sequence as lower-case letters. Filtering is on by default, however it can be turned off by selecting "Off" from the Filter options on the BLAST form.</p><p>For more details on filtering see the <a href="http://blast.ncbi.nlm.nih.gov/blast_help.shtml">\
 BLAST Help at NCBI</a>.</p><hr>';
 
 			}
 			
-			var graph = this._getGraphNode(this.state.resultData.hits);
-			var tableStyle = { width: "900", marginLeft: "auto", marginRight: "auto" };
+			let graph = this._getGraphNode(this.state.resultData.hits);
+			let tableStyle = { width: "900", marginLeft: "auto", marginRight: "auto" };
 
-			var showHits = this.state.resultData.showHits;
-                        var totalHits = this.state.resultData.totalHits;
+			let showHits = this.state.resultData.showHits;
+                        let totalHits = this.state.resultData.totalHits;
 
-			var hitSummary = "All hits shown";
-			var hitSummary2 = "";
+			let hitSummary = "All hits shown";
+			let hitSummary2 = "";
 
 			if (Number(showHits) < Number(totalHits)) {
 			       hitSummary = "The graph shows the highest hits per range";
@@ -149,28 +149,28 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 			}
 
-		        var seqData = this.state.seqData;
-                	var configData = this.state.configData;
+		        let seqData = this.state.seqData;
+                	let configData = this.state.configData;
 
-			var seq = "";
+			let seq = "";
 			
-			var param = this.state.param;
+			let param = this.state.param;
 			if (param['sequence_id']) {
-			     var seqID = param['sequence_id'];
+			     let seqID = param['sequence_id'];
                              seq = window.localStorage.getItem(seqID);
 			}
 			else {
 			     seq = seqData.seq;
 			}
 			                
-			var commentBoxNode = this._getCommentBoxNode();
-                	var submitNode = this._getSubmitNode();
-                	var seqBoxNode = this._getSeqBoxNode(seq);
-                	var blastProgramNode = this._getBlastProgramNode(configData);
-                	var databaseNode = this._getDatabaseNode(configData);
-                	var optionNode = this._getOptionsNode(configData);
+			let commentBoxNode = this._getCommentBoxNode();
+                	let submitNode = this._getSubmitNode();
+                	let seqBoxNode = this._getSeqBoxNode(seq);
+                	let blastProgramNode = this._getBlastProgramNode(configData);
+                	let databaseNode = this._getDatabaseNode(configData);
+                	let optionNode = this._getOptionsNode(configData);
 			// need to put the date in a config file
-			var descText = "<p>Datasets updated: January 31, 2018</p><p>This form allows BLAST searches of S. cerevisiae sequence datasets. To search multiple fungal sequences, go to the <a href='/blast-fungal'>Fungal BLAST search form</a>.</p>";
+			let descText = "<p>Datasets updated: January 31, 2018</p><p>This form allows BLAST searches of S. cerevisiae sequence datasets. To search multiple fungal sequences, go to the <a href='/blast-fungal'>Fungal BLAST search form</a>.</p>";
 			
 			if (this.props.blastType == 'fungal') {
 			     descText = "<p>This form allows BLAST searches of multiple fungal sequence datasets. To restrict your search to S. cerevisiae with additional BLAST search options, go to the <a href='/blast-sgd'><i>S. cerevisiae</i> BLAST search form</a>.</p>";
@@ -197,15 +197,15 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 	_getGraphNode:  function(data) {
 	
-		var legendColor = [{text: "< 10",     color: "#0000FF"},
+		let legendColor = [{text: "< 10",     color: "#0000FF"},
 				   {text: "10-50",  color: "#00FFFF"},
 				   {text: "50-100", color: "#7FFF00"},
 				   {text: "100-200",  color: "#8A2BE2"},
 				   {text: "> 200",    color: "#DC143C"}
 		];		   
 					
-       	        var _labelRatio = 0.1;
-                var _colorScale = (d) => {
+       	        let _labelRatio = 0.1;
+                let _colorScale = (d) => {
 		     if (d.exp < -200) {
 		          return legendColor[4].color;
 	             }
@@ -224,11 +224,11 @@ BLAST Help at NCBI</a>.</p><hr>';
 				      
                 };
 
-                var _maxY = data[0].query_length; 
-		var _left = 50;
-		var _size = data.length;
-		var _totalHits = this.state.resultData.totalHits; 
-                var barNode = (<BlastBarChart 
+                let _maxY = data[0].query_length; 
+		let _left = 50;
+		let _size = data.length;
+		let _totalHits = this.state.resultData.totalHits; 
+                let barNode = (<BlastBarChart 
 		                data={data}
 				size={_size} 
                                 maxY={_maxY}
@@ -279,11 +279,11 @@ BLAST Help at NCBI</a>.</p><hr>';
 	},
 
 	_getBlastProgramNode: function(data) {
-                var _programDef = 'blastn';
+                let _programDef = 'blastn';
                 if (this.state.seqType == 'protein') {
                        _programDef = 'blastp';
                 }
-                var _elements = _.map(data.program, p => {
+                let _elements = _.map(data.program, p => {
 		       if (p.script == _programDef) {
 		       	    return <option value={p.script} selected="selected">{p.label}</option>;
 		       }
@@ -299,18 +299,18 @@ BLAST Help at NCBI</a>.</p><hr>';
 
         _getDatabaseNode: function(data) {
 
-                var database = data.database;
-		var datagroup = data.datagroup;
-                var _databaseDef = data.databasedef;
+                let database = data.database;
+		let datagroup = data.datagroup;
+                let _databaseDef = data.databasedef;
 		
-		var param = this.state.param;
+		let param = this.state.param;
 		if (param['type'] == 'protein') {
 		       _databaseDef = ['YeastORF.fsa'];
 		}
-                var i = 0;
-                var _elements = _.map(database, d => {
+                let i = 0;
+                let _elements = _.map(database, d => {
                        i += 1;
-		       var dataset = d.dataset;
+		       let dataset = d.dataset;
 		       if (dataset.match(/^label/)) {
 		       	  dataset = datagroup[dataset];
 		       }
@@ -333,13 +333,13 @@ BLAST Help at NCBI</a>.</p><hr>';
 
         _getOptionsNode: function(data) {
 
-                var outFormatMenu = this._getOutFormatMenu();
-                var matrixMenu = this._getMatrixMenu(data);
-                var cutoffMenu = this._getCutoffScoreMenu();
-                var wordLengthMenu = this._getWordLengthMenu();
-                var thresholdMenu = this._getThresholdMenu();
-                var alignToShowMenu = this._getAlignToShowMenu();
-                var filterMenu = this._getFilterMenu();
+                let outFormatMenu = this._getOutFormatMenu();
+                let matrixMenu = this._getMatrixMenu(data);
+                let cutoffMenu = this._getCutoffScoreMenu();
+                let wordLengthMenu = this._getWordLengthMenu();
+                let thresholdMenu = this._getThresholdMenu();
+                let alignToShowMenu = this._getAlignToShowMenu();
+                let filterMenu = this._getFilterMenu();
 
                 return(<div>
                        <b>Options:</b> For descriptions of BLAST options and parameters, refer to the BLAST documentation at NCBI.<br></br>
@@ -362,9 +362,9 @@ BLAST Help at NCBI</a>.</p><hr>';
 
         _getOutFormatMenu: function() {
 
-                var format = ['gapped alignments', 'ungapped alignments'];
+                let format = ['gapped alignments', 'ungapped alignments'];
 
-		var _elements = [];
+		let _elements = [];
                 format.forEach ( function(f) {
 	             if (f == 'gapped alignments') {
 		     	  _elements.push(<option value={f} selected="selected">{f}</option>);
@@ -380,57 +380,57 @@ BLAST Help at NCBI</a>.</p><hr>';
 
         _getMatrixMenu: function(data) {
                 if (!data.matrix) return null;
-                var matrix = data.matrix;
-		var _elements = this._getDropdownList(matrix, "BLOSUM62");
+                let matrix = data.matrix;
+		let _elements = this._getDropdownList(matrix, "BLOSUM62");
 		return <p><select ref='matrix' onChange={this._onChange}>{_elements}</select></p>;
         },
 
         _getCutoffScoreMenu: function() {
 
-                var cutoffScore = ['10', '1', '0.1', '0.01', '0.001', '0.0001', '0.00001'];
-		var _elements = this._getDropdownList(cutoffScore, "0.01");
+                let cutoffScore = ['10', '1', '0.1', '0.01', '0.001', '0.0001', '0.00001'];
+		let _elements = this._getDropdownList(cutoffScore, "0.01");
 		return <p><select ref='cutoffScore' onChange={this._onChange}>{_elements}</select></p>;
 
         },
 
         _getWordLengthMenu: function() {
 
-                var wordLength = ['default', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
-		var _elements = this._getDropdownList(wordLength, "default");
+                let wordLength = ['default', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+		let _elements = this._getDropdownList(wordLength, "default");
 		return <p><select ref='wordLength' onChange={this._onChange}>{_elements}</select></p>;
 
         },
 
         _getThresholdMenu: function() {
 
-                var threshold = ['default', '0.0001', '0.01', '1', '10', '100', '1000'];
-		var _elements = this._getDropdownList(threshold, "default");
+                let threshold = ['default', '0.0001', '0.01', '1', '10', '100', '1000'];
+		let _elements = this._getDropdownList(threshold, "default");
       		return <p><select ref='threshold' onChange={this._onChange}>{_elements}</select></p>;
 
         },
 
         _getAlignToShowMenu: function() {
 
-                var alignToShow = ['0', '25', '50', '100', '200', '400', '500', '800', '1000'];
+                let alignToShow = ['0', '25', '50', '100', '200', '400', '500', '800', '1000'];
 		
-		var defaultVal = "50";
+		let defaultVal = "50";
 		if (this.props.blastType == 'fungal') {
 		     defaultVal = "500";
 		}
 		alignToShow.unshift(defaultVal);
-		var _elements = this._getDropdownList(alignToShow, defaultVal);
+		let _elements = this._getDropdownList(alignToShow, defaultVal);
 		return <p><select ref='alignToShow' onChange={this._onChange}>{_elements}</select></p>;
 
         },
 
         _getFilterMenu: function() {
 
-                var _elements = [ { name: "On", key: "On" }, { name: "Off", key: "Off"}];
+                let _elements = [ { name: "On", key: "On" }, { name: "Off", key: "Off"}];
 		return <RadioSelector name='filter' elements={_elements} initialActiveElementKey='On'/>; 
         },
 
 	_getDropdownList: function(elementList, activeVal) {
-		var _elements = [];
+		let _elements = [];
 		elementList.forEach ( function(m) {
                      if (m == activeVal) {
                      	  _elements.push(<option value={m} selected='selected'>{m}</option>);
@@ -447,7 +447,7 @@ BLAST Help at NCBI</a>.</p><hr>';
         },
 
 	_getSeq: function(name, type) {
-                var jsonUrl = BLAST_URL + "?name=" + name;
+                let jsonUrl = BLAST_URL + "?name=" + name;
 		if (type == 'protein' || type == 'pep') {
 		   jsonUrl = jsonUrl + "&type=" + type;
 		}
@@ -465,7 +465,7 @@ BLAST Help at NCBI</a>.</p><hr>';
         },
 
 	_getConfigData: function(db) {
-                var jsonUrl = BLAST_URL + "?conf=";
+                let jsonUrl = BLAST_URL + "?conf=";
                 if (db == 'sgd') {
                       jsonUrl = jsonUrl + "blast-sgd";
                 }
@@ -486,15 +486,15 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 	_onSubmit: function (e) {
 
-		var queryComment = this.refs.queryComment.value.trim();
-		var seq = this.refs.sequence.value.trim();
+		let queryComment = this.refs.queryComment.value.trim();
+		let seq = this.refs.sequence.value.trim();
 		if (seq == '') {
 		    seq = this.state.uploadedSeq;
 		}
-		var program = this.refs.program.value.trim();
-		var dbs = document.getElementById('database');
-		var database = '';
-		for (var i = 0; i < dbs.options.length; i++) {
+		let program = this.refs.program.value.trim();
+		let dbs = document.getElementById('database');
+		let database = '';
+		for (let i = 0; i < dbs.options.length; i++) {
 		     if (dbs.options[i].selected) {
 		     	 if (database) {
 			      database = database + ' ' + dbs.options[i].value;
@@ -505,19 +505,19 @@ BLAST Help at NCBI</a>.</p><hr>';
 		     }
 		}
 		
-                var outFormat = this.refs.outFormat.value;
-                var matrix = this.refs.matrix.value;
-                var cutoffScore = this.refs.cutoffScore.value;
-                var wordLength = this.refs.wordLength.value;
-                var threshold = this.refs.threshold.value;
-                var alignToShow = this.refs.alignToShow.value;
-		var filter = 'on';
+                let outFormat = this.refs.outFormat.value;
+                let matrix = this.refs.matrix.value;
+                let cutoffScore = this.refs.cutoffScore.value;
+                let wordLength = this.refs.wordLength.value;
+                let threshold = this.refs.threshold.value;
+                let alignToShow = this.refs.alignToShow.value;
+		let filter = 'on';
 		if (document.getElementById('Off').checked) {
 		     filter = '';
 		}
 		seq = this._cleanUpSeq(seq);
 
-		var newDatabase = this._checkParameters(seq, 
+		let newDatabase = this._checkParameters(seq, 
 		    	      			      	program, 
 		    	      			        database, 
 						        wordLength, 
@@ -546,16 +546,16 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 	_doBlast: function() {
 
-		var seq = window.localStorage.getItem("seq");
-		var program = window.localStorage.getItem("program");
-		var database = window.localStorage.getItem("database");
-		var outFormat = window.localStorage.getItem("outFormat");
-                var matrix = window.localStorage.getItem("matrix");
-                var cutoffScore = window.localStorage.getItem("cutoffScore");
-                var wordLength = window.localStorage.getItem("wordLength");
-                var threshold = window.localStorage.getItem("threshold");
-                var alignToShow = window.localStorage.getItem("alignToShow");
-                var filter = window.localStorage.getItem("filter");
+		let seq = window.localStorage.getItem("seq");
+		let program = window.localStorage.getItem("program");
+		let database = window.localStorage.getItem("database");
+		let outFormat = window.localStorage.getItem("outFormat");
+                let matrix = window.localStorage.getItem("matrix");
+                let cutoffScore = window.localStorage.getItem("cutoffScore");
+                let wordLength = window.localStorage.getItem("wordLength");
+                let threshold = window.localStorage.getItem("threshold");
+                let alignToShow = window.localStorage.getItem("alignToShow");
+                let filter = window.localStorage.getItem("filter");
 
 		$.ajax({
 			url: BLAST_URL,
@@ -628,31 +628,31 @@ BLAST Help at NCBI</a>.</p><hr>';
 
 		// check database and program to make sure they match...
 		
-		var configData = this.state.configData;		
-		var programs = configData.program;
-		var datasets = configData.database;
+		let configData = this.state.configData;		
+		let programs = configData.program;
+		let datasets = configData.database;
 		
-		var programType = "";
+		let programType = "";
 		 _.map(programs, p => {
 	             if (p.script == program) {
 		      	  programType = p.type;
 		     }
 		});
 		
-		var dbType = {};
+		let dbType = {};
 		_.map(datasets, d => {
 		     dbType[d.dataset] = d.type;
 		});		
 
 		database = database.replace(/\,/g, " ");
 
-		var dblist = database.split(" ");
-		var goodDatabase = "";
-		var badDatabase = "";
-		var good = 0;
-		var removed = 0;
-		var databaseType = "";
-		var foundDB = {};
+		let dblist = database.split(" ");
+		let goodDatabase = "";
+		let badDatabase = "";
+		let good = 0;
+		let removed = 0;
+		let databaseType = "";
+		let foundDB = {};
 		dblist.forEach( function(d) {
 		    if (dbType[d] == 'both' || dbType[d] == programType) {
 		        if (foundDB[d] == undefined) {
@@ -700,9 +700,9 @@ BLAST Help at NCBI</a>.</p><hr>';
 	},
 
 	_handleFile: function(e) {
-                var reader = new FileReader();
-                var fileHandle = e.target.files[0];
-		var fileName = e.target.files[0].name;
+                let reader = new FileReader();
+                let fileHandle = e.target.files[0];
+		let fileName = e.target.files[0].name;
                 reader.onload = function(upload) {
                       this.setState({
                             uploadedSeq: upload.target.result

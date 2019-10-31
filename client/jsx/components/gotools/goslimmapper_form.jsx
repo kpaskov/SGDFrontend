@@ -28,7 +28,7 @@ const GoSlimMapper = React.createClass({
 
 	getInitialState() {
 	        
-		var param = Params.getParams();		
+		let param = Params.getParams();		
 		
 		this.getSlimData();
 		this.getAmbiguousNames();
@@ -50,7 +50,7 @@ const GoSlimMapper = React.createClass({
 
 	render() {	
 	
-		var page_to_display = this.getPage();
+		let page_to_display = this.getPage();
 		
 		return (<div>
 			  <span style={{ textAlign: "center" }}><h1>Gene Ontology Slim Term Mapper <a target="_blank" href="https://sites.google.com/view/yeastgenome-help/analyze-help/go-slim-mapper?authuser=0"><img src="https://d1x6jdqbvd5dr.cloudfront.net/legacy_img/icon_help_circle_dark.png"></img></a></h1>
@@ -60,7 +60,7 @@ const GoSlimMapper = React.createClass({
 	},
 
 	componentDidMount() {
-		var param = this.state.param;
+		let param = this.state.param;
 	        if (param['submit']) {
 	                this.runGoTools();
 	        }				      
@@ -68,12 +68,12 @@ const GoSlimMapper = React.createClass({
 
 	getPage() {
 		
-		var param = this.state.param;
+		let param = this.state.param;
 
 	        if (this.state.isComplete) {
 
-			var data = this.state.resultData;
-			var output = data['output'];
+			let data = this.state.resultData;
+			let output = data['output'];
 			if (typeof(output) != "undefined") {
 			     return (<div>
 			     	     <h3>There is an issue for this search. Please take a look at the following message and try to fix your query and resubmit again.</h3>
@@ -81,15 +81,15 @@ const GoSlimMapper = React.createClass({
 			     	     </div>);
 			}
 
-			var resultTable = data['html'];
-			var termsUrl = data['term_page'];
-			var tabUrl = data['tab_page'];
-			var tableUrl = data['table_page'];
-			var geneInputUrl = data['gene_input_page'];
-			var slimInputUrl = data['slim_input_page'];
+			let resultTable = data['html'];
+			let termsUrl = data['term_page'];
+			let tabUrl = data['tab_page'];
+			let tableUrl = data['table_page'];
+			let geneInputUrl = data['gene_input_page'];
+			let slimInputUrl = data['slim_input_page'];
 			
-			var resultText = this.getResultText();
-			var tableSaveOptions = this.tableSaveOptions(tableUrl, termsUrl, tabUrl, geneInputUrl, slimInputUrl);
+			let resultText = this.getResultText();
+			let tableSaveOptions = this.tableSaveOptions(tableUrl, termsUrl, tabUrl, geneInputUrl, slimInputUrl);
 			tableSaveOptions = "<h2 id='table'><center>Search Results</center></h2>" + tableSaveOptions;
 
 			return (<div>
@@ -122,15 +122,15 @@ const GoSlimMapper = React.createClass({
 
 	getFrontPage() {
 
-		var descText = this.topDescription();		
+		let descText = this.topDescription();		
 
-		var submitReset = this.submitReset();
-		var geneBox = this.getGeneBox();
-		var termBox = this.getTermBox();
+		let submitReset = this.submitReset();
+		let geneBox = this.getGeneBox();
+		let termBox = this.getTermBox();
 				 
-		var _geneSection = { headers: [[<span style={ style.textFont }>Query Set (Your Input)</span>]],
+		let _geneSection = { headers: [[<span style={ style.textFont }>Query Set (Your Input)</span>]],
                                      rows:    [[geneBox]] };
-		var _goSection = { headers: [[<span style={ style.textFont }>Specify your Slim Terms</span>]],
+		let _goSection = { headers: [[<span style={ style.textFont }>Specify your Slim Terms</span>]],
                                      rows:    [[termBox]] };
 		
 		return (<div>
@@ -158,7 +158,7 @@ const GoSlimMapper = React.createClass({
 
 	getGeneBox() {
 
-	        var genes = window.localStorage.getItem("geneList4slim");
+	        let genes = window.localStorage.getItem("geneList4slim");
                 if (genes) {
 		     return (<div style={{ textAlign: "top" }}>
                             <h3>Enter Gene/ORF names (separated by a return or a space):</h3>
@@ -183,8 +183,8 @@ const GoSlimMapper = React.createClass({
 
 	getTermBox() {
 				
-		var goSetNode = this.getGoSetNode();
-		var goTermNode = this.getTermNode();
+		let goSetNode = this.getGoSetNode();
+		let goTermNode = this.getTermNode();
 
                 return (<div style={{ textAlign: "top" }}>
        			{ goSetNode }
@@ -194,9 +194,9 @@ const GoSlimMapper = React.createClass({
         },
 	
 	handleFile(e) {
-                var reader = new FileReader();
-                var fileHandle = e.target.files[0];
-                var fileName = e.target.files[0].name;
+                let reader = new FileReader();
+                let fileHandle = e.target.files[0];
+                let fileName = e.target.files[0].name;
                 reader.onload = function(upload) {
                       this.setState({
                             uploadedGenes: upload.target.result
@@ -207,7 +207,7 @@ const GoSlimMapper = React.createClass({
 
 	getGoSetNode() {
         
-		var _elements = _.map(goSet, g => {
+		let _elements = _.map(goSet, g => {
 		      return <option value={g}>{g}</option>;
 		});
 
@@ -221,14 +221,14 @@ const GoSlimMapper = React.createClass({
 
 	getTermNode(slimData) {
 		      
-		var slimData = this.state.goslimData;		
+		let slimData = this.state.goslimData;		
 		
-		var slimType = this.state.slimType;
+		let slimType = this.state.slimType;
 		if (slimType == '') {
 		      slimType = window.localStorage.getItem("slimType");
 		}
 
-                var terms = [];
+                let terms = [];
 		_.map(slimData, g => {
                     if (g.slim_type == slimType) {
 		       terms = g.terms;
@@ -242,7 +242,7 @@ const GoSlimMapper = React.createClass({
 		}
 
 		terms.unshift("SELECT ALL Terms from "+slimType);
-		var _elements = _.map(terms, t => {
+		let _elements = _.map(terms, t => {
 		    return <option value={t}>{t}</option>;
 		});
 
@@ -260,9 +260,9 @@ const GoSlimMapper = React.createClass({
                      return '';
                 }
                 genes = genes.replace(/[^A-Za-z:\-0-9\(\)\,\_]/g, ' ');
-                var re = /\+/g;
+                let re = /\+/g;
                 genes = genes.replace(re, " ");
-                var re = / +/g;
+                let re = / +/g;
                 genes = genes.replace(re, "|");
 
                 return genes;
@@ -271,14 +271,14 @@ const GoSlimMapper = React.createClass({
 
 	processTermList() {
 
-	        var terms = document.getElementById('terms');
+	        let terms = document.getElementById('terms');
 
-		var all_terms = [];
-		for (var i = 0; i < terms.options.length; i++) {
+		let all_terms = [];
+		for (let i = 0; i < terms.options.length; i++) {
                      if (terms.options[i].selected) {
-		     	  var term = terms.options[i].value;      
+		     	  let term = terms.options[i].value;      
 			  if (term.includes("SELECT ALL Terms from")) {
-			       var allTerms = window.localStorage.getItem("all_terms");
+			       let allTerms = window.localStorage.getItem("all_terms");
 			       all_terms = allTerms.split(",");
 			       break;
 			  } 
@@ -296,8 +296,8 @@ const GoSlimMapper = React.createClass({
 
 		// window.localStorage.clear();
 
-		var genes = this.refs.genes.value.trim();
-		var genesInBox = 0;
+		let genes = this.refs.genes.value.trim();
+		let genesInBox = 0;
 		if (genes == '') {
 		     genes = this.state.uploadedGenes;
 		}
@@ -311,7 +311,7 @@ const GoSlimMapper = React.createClass({
                      return 1;
                 }
 		
-		var all_genes = genes.split("|");
+		let all_genes = genes.split("|");
 				
 		if (genesInBox == 1 && all_genes.length > 100) {
 		     alert("You have entered more than 100 genes. Please save it as a file and upload it.");
@@ -320,16 +320,16 @@ const GoSlimMapper = React.createClass({
 		}
 
 		// check for ambiguous genes
-		var ambiguousGeneDict = this.state.ambiguousNames;
+		let ambiguousGeneDict = this.state.ambiguousNames;
 
-		for (var i = 0; i < all_genes.length; i++) {
-		     var gene = all_genes[i];
+		for (let i = 0; i < all_genes.length; i++) {
+		     let gene = all_genes[i];
 		     if (gene in ambiguousGeneDict) {
-		     	   var ambiguousGeneObj = ambiguousGeneDict[gene];
-			   var warningMsg = "The name '" + gene + "' is associated with multiple genes. " + gene + " is ";
-			   for (var j = 0; j < ambiguousGeneObj.length; j++) {
-			         var geneObj = ambiguousGeneObj[j];
-				 var display_name = geneObj['systematic_name'] + " (SGDID: " + geneObj['sgdid'] + ")";
+		     	   let ambiguousGeneObj = ambiguousGeneDict[gene];
+			   let warningMsg = "The name '" + gene + "' is associated with multiple genes. " + gene + " is ";
+			   for (let j = 0; j < ambiguousGeneObj.length; j++) {
+			         let geneObj = ambiguousGeneObj[j];
+				 let display_name = geneObj['systematic_name'] + " (SGDID: " + geneObj['sgdid'] + ")";
 				 if (geneObj['gene_name']) {
 				      display_name = geneObj['gene_name'] + "/" + display_name;
 				 }
@@ -352,14 +352,14 @@ const GoSlimMapper = React.createClass({
 
 		window.localStorage.setItem("genes", genes);
 
-                // var terms = [];
+                // let terms = [];
                 // _.map(slimData, g => {
                 //    if (g.slim_type == slimType) {
                 //       terms = g.terms;
                 //    }
                 // });
 
-		var terms = this.processTermList();
+		let terms = this.processTermList();
 
                 if (terms == '') {
                      alert("Please select one or more GO Slim terms.");
@@ -370,11 +370,11 @@ const GoSlimMapper = React.createClass({
 		window.localStorage.setItem("terms", terms);
 
 
-		var slimType = this.state.slimType;
+		let slimType = this.state.slimType;
                 if (slimType == '') {
                       slimType = window.localStorage.getItem("slimType");
                 }
-		var aspect = "C";
+		let aspect = "C";
 		if (slimType && slimType.includes(": process")) {
 		     aspect = "P";
 		}
@@ -403,7 +403,7 @@ const GoSlimMapper = React.createClass({
 
 	runGoTools() {
 
-		var paramData = {};
+		let paramData = {};
 
 		paramData['genes'] = window.localStorage.getItem("genes");
 

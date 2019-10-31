@@ -2,10 +2,10 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
     // legend type defaults to false (only loci)
     legendType = legendType || false;
 
-    var cytoscape_div = $("#" + div_id);
-    var height = Math.min(.75*$(window).height(), 600);
-    var width = $('#' + div_id).width();
-    var offset = 75;
+    let cytoscape_div = $("#" + div_id);
+    let height = Math.min(.75*$(window).height(), 600);
+    let width = $('#' + div_id).width();
+    let offset = 75;
     cytoscape_div.height(height);
 
     $(".j-sgd-cyto-canvas")
@@ -13,7 +13,7 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 	.attr("height", height + offset);
     $(".j-sgd-cyto-canvas").css("margin-top", '2rem');;
 
-    var _legendOffsets = {
+    let _legendOffsets = {
 	protein: 0,
 	go: 75,
 	phenotype: 75,
@@ -26,7 +26,7 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 	diseaseOntology: 0,
 	observable: 0
     };
-    var _legendOffset = _legendOffsets[legendType];
+    let _legendOffset = _legendOffsets[legendType];
     $(".sgd-cyto-canvas-container").parent().height(height + offset + _legendOffset);
 
     options = {
@@ -43,28 +43,28 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
     };
     
     $('#' + div_id).cytoscape(options);
-    var cy = $('#' + div_id).cytoscape("get");
+    let cy = $('#' + div_id).cytoscape("get");
 
-    var legendY = height + 35;
+    let legendY = height + 35;
 
     // add date
-    var $canvas = $("#j-sgd-visible-cyto-canvas")[0]
-	var ctx = $canvas.getContext("2d");
-    var fontSize = 12;
+    let $canvas = $("#j-sgd-visible-cyto-canvas")[0]
+	let ctx = $canvas.getContext("2d");
+    let fontSize = 12;
     ctx.font = fontSize + "pt Helvetica";
-    var now = new Date();
-    var month = (now.getMonth() + 1).toString();
-    var date = now.getDate().toString();
+    let now = new Date();
+    let month = (now.getMonth() + 1).toString();
+    let date = now.getDate().toString();
     if (month.length === 1) month = "0" + month;
     if (date.length === 1) date = "0" + date;
-    var txt = "SGD " + now.getFullYear() + "-" + month + "-" + date;
-    var txtWidth = ctx.measureText(txt).width;
+    let txt = "SGD " + now.getFullYear() + "-" + month + "-" + date;
+    let txtWidth = ctx.measureText(txt).width;
     ctx.fillText(txt, width - txtWidth - fontSize, legendY + 5);
 
     /// *** draw legend ***
 
     // helper method to draw legend nodes
-    var drawLegendNode = function (ctx, text, x, y, color, isCircle, isBlackText) {
+    let drawLegendNode = function (ctx, text, x, y, color, isCircle, isBlackText) {
 	ctx.fillStyle = color;
 	if (isCircle) {
 	    ctx.beginPath();
@@ -78,8 +78,8 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 	    ctx.fill();
 	}
 	
-	var textX = x - ctx.measureText(text).width / 2;
-	var textY = y + 3;
+	let textX = x - ctx.measureText(text).width / 2;
+	let textY = y + 3;
 	ctx.font = 12 + "pt Helvetica";
 	ctx.strokeStyle = isBlackText ? 'white': '#757575';
 	ctx.lineWidth = 5;
@@ -88,8 +88,8 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 	ctx.fillText(text, textX, textY);
     };
 
-    var mainText = "Current Locus";
-    var secondText = "Other Locus";
+    let mainText = "Current Locus";
+    let secondText = "Other Locus";
     if (legendType === "goOntology" || legendType === "diseaseOntology") {
 	mainText = "Current Term";
 	secondText = "Other Term";
@@ -97,15 +97,15 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 	mainText = "Current Observable";
 	secondText = "Other Observable";
     }
-	var secondColor = (legendType === "goOntology" || legendType === "diseaseOntology") ? "#458FD3" :  "#757575";
+	let secondColor = (legendType === "goOntology" || legendType === "diseaseOntology") ? "#458FD3" :  "#757575";
     if (legendType === "observable") secondColor = "#FF6A00";
 
     // draw legend
-    var startX = (legendType === "phenotypeOntology" || legendType === "observable") ? 74 : 53;
+    let startX = (legendType === "phenotypeOntology" || legendType === "observable") ? 74 : 53;
     drawLegendNode(ctx, mainText, startX, legendY, '#F9DA56', true, false);
-    var secondX = (legendType === "phenotypeOntology" || legendType === "observable") ? 230 : 160;
+    let secondX = (legendType === "phenotypeOntology" || legendType === "observable") ? 230 : 160;
     if (legendType !== "literature") drawLegendNode(ctx, secondText, secondX, legendY, secondColor, true, true);
-    var nextLegendX = (legendType === "phenotypeOntology" || legendType === "observable") ? 360 : 245;
+    let nextLegendX = (legendType === "phenotypeOntology" || legendType === "observable") ? 360 : 245;
     if (legendType === "protein") {
 	drawLegendNode(ctx, "Domain", nextLegendX, legendY, '#3366cc', false, true);
     } else if (legendType === "go") {
@@ -123,7 +123,7 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
         f();
     }
     cy.on('tap', 'node', function(evt){
-	    var node = evt.cyTarget;
+	    let node = evt.cyTarget;
 	    if(node.data().link != null) {
 		window.location.href = node.data().link;
 	    }
@@ -140,29 +140,29 @@ function create_cytoscape_vis(div_id, layout, style, data, f, hide_singletons, l
 
     cy.filters = {};
     cy.applyFilters = function() {
-        var elements = cy.elements("*");
-	for(var filterKey in cy.filters) {
+        let elements = cy.elements("*");
+	for(let filterKey in cy.filters) {
             elements = elements.intersect(cy.filters[filterKey]);
 	}
 	elements.show();
 
-	var notElements = cy.elements("*");
+	let notElements = cy.elements("*");
 	notElements = notElements.not(elements);
 	notElements.hide();
 
 	//Hide singleton nodes
 	if(hide_singletons) {
-            var centerNode = cy.elements("node[sub_type = 'FOCUS']")[0].id();
-            var singletons = cy.elements("node:visible");
-            var connectedNodes = cy.elements("edge[target = '" + centerNode + "']:visible, edge[source = '" + centerNode + "']:visible").connectedNodes();
+            let centerNode = cy.elements("node[sub_type = 'FOCUS']")[0].id();
+            let singletons = cy.elements("node:visible");
+            let connectedNodes = cy.elements("edge[target = '" + centerNode + "']:visible, edge[source = '" + centerNode + "']:visible").connectedNodes();
             singletons = singletons.not(connectedNodes);
             singletons.hide();
         }
     };
 
-    var recenter_button = $('#' + div_id + '_recenter');
+    let recenter_button = $('#' + div_id + '_recenter');
     recenter_button.click(function() {
-	    var old_zoom_value = cy.zoomingEnabled();
+	    let old_zoom_value = cy.zoomingEnabled();
 	    cy.zoomingEnabled(true);
 	    cy.reset();
 	    if(typeof cy.layout().run === 'function') {
@@ -178,16 +178,16 @@ function create_cy_download_button(cy, button_id, file_name) {
     $("#" + button_id).click(function() {
 
 	    // get hidden canvas
-	    var $hiddenCanvas = $("#j-sgd-hidden-cyto-canvas")[0];
-	    var hiddenCtx = $hiddenCanvas.getContext("2d");
+	    let $hiddenCanvas = $("#j-sgd-hidden-cyto-canvas")[0];
+	    let hiddenCtx = $hiddenCanvas.getContext("2d");
 	    
 	    // get custom canvas, write to hidden canvas
-	    var $customCanvas = $("#j-sgd-visible-cyto-canvas")[0];
-	    var customImage = new Image();
+	    let $customCanvas = $("#j-sgd-visible-cyto-canvas")[0];
+	    let customImage = new Image();
 	    customImage.onload = function () {
 		hiddenCtx.drawImage(this, 0, 0);
 		// write cyto hidden canvas
-		var cytoImage = new Image();
+		let cytoImage = new Image();
 		
 		cytoImage.onload = function () {
 		    hiddenCtx.drawImage(this, 0, 16);
@@ -205,8 +205,8 @@ function create_cy_download_button(cy, button_id, file_name) {
 }
 
 function create_slider(slider_id, graph, min, max, slide_f, stop) {
-    var range;
-    var start;
+    let range;
+    let start;
     if(max==min) {
 	range = {'min': [min],
 		 'max': [min+1]};
@@ -217,7 +217,7 @@ function create_slider(slider_id, graph, min, max, slide_f, stop) {
 		 'max': [max]};
 	start = Math.max(3, min);
     }
-    var slider = $("#" + slider_id).noUiSlider({
+    let slider = $("#" + slider_id).noUiSlider({
 	    range: range
 	    ,start: start
 	    ,step: 1
@@ -225,7 +225,7 @@ function create_slider(slider_id, graph, min, max, slide_f, stop) {
 	    ,connect: "lower"
 	});
     slider.change(function() {
-            var cutoff = slider.val();
+            let cutoff = slider.val();
             graph.filters['slider'] = slide_f(cutoff);
             graph.applyFilters();
 	});
@@ -237,7 +237,7 @@ function create_slider(slider_id, graph, min, max, slide_f, stop) {
     create_slider_ticks("slider_ticks", min, max, stop)
 
 	slider.update_new_max = function(smax) {
-        var slider_max = smax;
+        let slider_max = smax;
         if(slider_max == min) {
             slider_max = min+1;
         }
@@ -246,12 +246,12 @@ function create_slider(slider_id, graph, min, max, slide_f, stop) {
 			'max': [slider_max]}
 	    }, true);
         create_slider_ticks("slider_ticks", min, smax, stop);
-        var cutoff = slider.val();
+        let cutoff = slider.val();
         graph.filters['slider'] = slide_f(cutoff);
         graph.applyFilters();
     };
 
-    var cutoff = slider.val();
+    let cutoff = slider.val();
     graph.filters['slider'] = slide_f(cutoff);
     graph.applyFilters();
 
@@ -264,28 +264,28 @@ function create_slider_ticks(slider_tick_id, min, max, stop) {
     }
     $("#" + slider_tick_id).empty();
     if(max==min) {
-	var spacing =  87;
+	let spacing =  87;
 	    i = min-1
-		var value = i+1;
+		let value = i+1;
 	    if(value >= stop) {
-		var left = (spacing * (i-min+1))+4.5
+		let left = (spacing * (i-min+1))+4.5
 		    $('<span class="ui-slider-tick-mark muted">' +stop+ '+</span>').css('left', left + '%').css('display', 'inline-block').css('position', 'absolute').css('margin-top', '8px').appendTo("#" + slider_tick_id);
 	    }
 	    else {
-		var left = (spacing * (i-min+1))+6
+		let left = (spacing * (i-min+1))+6
 		    $('<span class="ui-slider-tick-mark muted">' +value+ '</span>').css('left', left + '%').css('display', 'inline-block').css('position', 'absolute').css('margin-top', '8px').appendTo("#" + slider_tick_id);
 	    }
     }
     else {
-	var spacing =  87 / (max - min);
-	for (var i = min-1; i < max ; i=i+1) {
-	    var value = i+1;
+	let spacing =  87 / (max - min);
+	for (let i = min-1; i < max ; i=i+1) {
+	    let value = i+1;
 	    if(value >= stop) {
-		var left = (spacing * (i-min+1))+4.5
+		let left = (spacing * (i-min+1))+4.5
 		    $('<span class="ui-slider-tick-mark muted">' +stop+ '+</span>').css('left', left + '%').css('display', 'inline-block').css('position', 'absolute').css('margin-top', '8px').appendTo("#" + slider_tick_id);
 	    }
 	    else {
-		var left = (spacing * (i-min+1))+6
+		let left = (spacing * (i-min+1))+6
 		    $('<span class="ui-slider-tick-mark muted">' +value+ '</span>').css('left', left + '%').css('display', 'inline-block').css('position', 'absolute').css('margin-top', '8px').appendTo("#" + slider_tick_id);
 	    }
 	}
@@ -293,7 +293,7 @@ function create_slider_ticks(slider_tick_id, min, max, stop) {
 }
 
 function create_discrete_filter(radio_id, graph, slider, target_filter, max_value) {
-    var radio = $("#" + radio_id);
+    let radio = $("#" + radio_id);
     radio.click(function() {
 	    if(slider != null) {
 		slider.update_new_max(max_value);

@@ -1,12 +1,12 @@
 
 "use strict";
 
-var d3 = require("d3");
-var React = require("react");
+const d3 = require("d3");
+const React = require("react");
 
-var BarChart = require("../viz/bar_chart.jsx");
-var DataTable = require("../widgets/data_table.jsx");
-var GenomeSnapshot = require("./genome_snapshot.jsx");
+const BarChart = require("../viz/bar_chart.jsx");
+const DataTable = require("../widgets/data_table.jsx");
+const GenomeSnapshot = require("./genome_snapshot.jsx");
 
 /*
 	A react component to render a table, as well as an alternetive
@@ -26,8 +26,8 @@ module.exports = React.createClass({
 
 	render: function () {
 		// is table defaults to state, set to props.isInitiallyTable if state is null
-		var isTable = ((this.state.isTable === null) ? this.props.isInitiallyTable : this.state.isTable);
-		var dataNode = this._getDataNode();
+		let isTable = ((this.state.isTable === null) ? this.props.isInitiallyTable : this.state.isTable);
+		let dataNode = this._getDataNode();
 
 		return (
 			<div className="table-alternative">
@@ -54,7 +54,7 @@ module.exports = React.createClass({
 				<DataTable data={this.props.tableData} />
 			</div>);
 		} else {
-			var vizNodeTypes = {
+			let vizNodeTypes = {
 				bar: (<BarChart
 					data={this.props.graphData.combined} yValue={ function (d) { return d.value; } }
 					labelValue={ function (d) { return d.name; } } labelRatio={0.2} colorScale={ function () { return "#DF8B93"; }}

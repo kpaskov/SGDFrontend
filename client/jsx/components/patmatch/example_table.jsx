@@ -1,17 +1,17 @@
 "use strict";
 
-var React = require("react");
-var $ = require("jquery");
-var _ = require("underscore");
+const React = require("react");
+const $ = require("jquery");
+const _ = require("underscore");
 
-var DataTable = require("../widgets/data_table.jsx");
+const DataTable = require("../widgets/data_table.jsx");
 
 
 module.exports = {
 
 	examples: function() {
 		 
-		var rows = [];
+		let rows = [];
 
 		rows.push(["Peptide Searches", "IFVLWMAGCYPTSHEDQNKR", "Exact match", <span><a href='/nph-patmatch?pattern=ELVIS' target='infowin'>ELVIS</a></span>]);
 		rows.push(["Peptide Searches", "J", "Any hydrophobic residue (IFVLWMAGCY)", <span><a href='/nph-patmatch?pattern=AAAAAAJJ' target='infowin'>AAAAAAJJ</a></span>]);
@@ -45,21 +45,21 @@ module.exports = {
 
 		rows.push(["All Searches", ">", "Constrains pattern to C-terminus or 3' end", <span><br><a href={ "/nph-patmatch?seqtype=pep&pattern=sjgo>" } target='infowin'>{ "sjgo>" }</a>{ ' (pep)' }</br> <br><a href={ "/nph-patmatch?seqtype=nuc&pattern=yattrtga>" } target='infowin'>{ "yattrtga>" }</a>{ ' (nuc)' }</br></span>]);
 		
-		var _tableData = {
+		let _tableData = {
                         headers: [["Search type", "Character", "Meaning", "Examples"]],
                         rows: rows
                 };
 
-		// var _columns = [ { name: 'first', title: 'Search type' }, 
+		// let _columns = [ { name: 'first', title: 'Search type' }, 
 		//    	        { title: 'Character' }, 
 		//		{ title: 'Meaning' },
 		//		{ title: 'Examples' } ];
                 //
-		// var _rowsGroup = [ 'first:name' ];
+		// let _rowsGroup = [ 'first:name' ];
 				 
                 // return <DataTable data={_tableData} columns={_columns} rowsGroup={_rowsGroup}  />;
 
-		var _dataTableOptions = {
+		let _dataTableOptions = {
                     bPaginate: false,
                     oLanguage: { "sEmptyTable": "" }
                 };

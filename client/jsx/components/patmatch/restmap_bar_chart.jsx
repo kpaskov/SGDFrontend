@@ -54,17 +54,17 @@ module.exports = React.createClass({
 
 	render() {
 
-		var state = this.state;
-		var props = this.props;
+		let state = this.state;
+		let props = this.props;
 
 		// require widthScale to continue
 		if (!state.widthScale) return <div ref="wrapper"></div>;
 		
 		// create y axis, if hasYaxis
-                var data = this.props.data;
-                var seqLength = this.props.seqLength;
- 		var left = this.props.left + BAR_START;
-                var axisNode =  <StandaloneAxis 
+                let data = this.props.data;
+                let seqLength = this.props.seqLength;
+ 		let left = this.props.left + BAR_START;
+                let axisNode =  <StandaloneAxis 
                                  scaleType='linear' 
                                  domain={[0, seqLength]} 
                                  labelText='bp' 
@@ -73,19 +73,19 @@ module.exports = React.createClass({
                                  transitionDuration={100} 
                 />;
                 
-		var legendNodes = [];
+		let legendNodes = [];
 		legendNodes.push(<svg style={{ width: "100%", left: props.left, height: HEIGHT, position: "relative"}}>{this._getLegendNode4WC(seqLength)}</svg>);
 		legendNodes.push(<svg style={{ width: "100%", left: props.left, height: HEIGHT, position: "relative"}}>{this._getLegendNode4enzymes(seqLength)}</svg>); 
 
-		var [modText, dateText] = this._getModDate();
+		let [modText, dateText] = this._getModDate();
 
-		var allBars = [];
+		let allBars = [];
 		
-		var h = 0;
-		var enzymes = Object.keys(data).sort();
-		for (var i = 0; i < enzymes.length; i++) {
+		let h = 0;
+		let enzymes = Object.keys(data).sort();
+		for (let i = 0; i < enzymes.length; i++) {
 		       h += HEIGHT;
-		       var bar = this._getBarNode(enzymes[i], data[enzymes[i]], seqLength, h);
+		       let bar = this._getBarNode(enzymes[i], data[enzymes[i]], seqLength, h);
 		       allBars.push(<svg style={{ display: "block", margin: "0", width: "100%", left: props.left, height: HEIGHT, position: "relative"}}>{bar}</svg>);
 		       
 		}
@@ -119,47 +119,47 @@ module.exports = React.createClass({
 
 	_calculateWidthScale() {
 
-		var baseScale = d3.scale.linear();
+		let baseScale = d3.scale.linear();
 				
-		var maxY = this.props.seqLength;
-		var width = this.refs.wrapper.getBoundingClientRect().width;
-		var labelRatio = 0.1;
-		var scale = baseScale.domain([0, maxY]).range([0, width * (1-labelRatio)]);
+		let maxY = this.props.seqLength;
+		let width = this.refs.wrapper.getBoundingClientRect().width;
+		let labelRatio = 0.1;
+		let scale = baseScale.domain([0, maxY]).range([0, width * (1-labelRatio)]);
 		this.setState({ widthScale: scale });
 	},
 
 	_getBarNode(enzyme, d, seqLen, h) {
 
-		var cutPositionsW  = d['cut_site_on_watson_strand'].split(",");
-		var cutPositionsC = d['cut_site_on_crick_strand'].split(",");
-		var cutFragments = d['fragment_size'].split(",");
-		var offset = parseInt(d['offset']);
-		var overhang = parseInt(d['overhang']);
-		var recognition_seq = d['recognition_seq'];
-                var enzyme_type = d['enzyme_type'];
-		var cutTicks = [];
-		var coordW1 = [];
-		var coordW2 = [];
-		var cutSiteW = [];
-		var cutSiteC = [];
-		for (var i = 0; i < cutPositionsW.length; i++) {
+		let cutPositionsW  = d['cut_site_on_watson_strand'].split(",");
+		let cutPositionsC = d['cut_site_on_crick_strand'].split(",");
+		let cutFragments = d['fragment_size'].split(",");
+		let offset = parseInt(d['offset']);
+		let overhang = parseInt(d['overhang']);
+		let recognition_seq = d['recognition_seq'];
+                let enzyme_type = d['enzyme_type'];
+		let cutTicks = [];
+		let coordW1 = [];
+		let coordW2 = [];
+		let cutSiteW = [];
+		let cutSiteC = [];
+		for (let i = 0; i < cutPositionsW.length; i++) {
 		    if (cutPositionsW[i] == '') {
                        continue;
 	            }  
-		    var cutSite = parseInt(cutPositionsW[i]);
+		    let cutSite = parseInt(cutPositionsW[i]);
 		    var	color =	"red";
-		    var x = BAR_START + this._getScale(cutSite);
-		    var y = 10;
+		    let x = BAR_START + this._getScale(cutSite);
+		    let y = 10;
 		    cutSiteW.push(cutSite);
 		    cutTicks.push(<circle cx={x+1} cy={y-2} r={3} stroke={color} stroke-width={1} fill={color} />);	         
 		    cutTicks.push(<rect x={x} y={y} width={2} height={7} fill={color} opacity={OPACITY} />);
 		}
-		for (var i = 0; i < cutPositionsC.length; i++) {		    
+		for (let i = 0; i < cutPositionsC.length; i++) {		    
 		    if (cutPositionsC[i] == '') {
 		        continue;
 		    }
-		    var cutSite = parseInt(cutPositionsC[i]);
-		    var color = "blue";
+		    let cutSite = parseInt(cutPositionsC[i]);
+		    let color = "blue";
 		    x = BAR_START + this._getScale(cutSite);
         y = 15;
 		    cutSiteC.push(cutSite);
@@ -167,15 +167,15 @@ module.exports = React.createClass({
 		    cutTicks.push(<rect x={x} y={y} width={2} height={7} fill={color} opacity={OPACITY} />); 
 		}
 				
-		var startX = this._getScale(0);
-                var endX = this._getScale(seqLen);
+		let startX = this._getScale(0);
+                let endX = this._getScale(seqLen);
 
-                var textX = endX-100;
-                var textColor = enzyme_type_to_color[enzyme_type];
+                let textX = endX-100;
+                let textColor = enzyme_type_to_color[enzyme_type];
 				
-                var transform = this._getGroupTransform(startX, endX);
+                let transform = this._getGroupTransform(startX, endX);
 			
-		var fragments = "";
+		let fragments = "";
                 if (cutFragments.length > 10) {
                      cutFragments = cutFragments.slice(0,10);
                      fragments = cutFragments.join(", ") + ", ...";
@@ -184,7 +184,7 @@ module.exports = React.createClass({
                      fragments = cutFragments.join(", ");
                 }
 
-		var cSiteW = "";
+		let cSiteW = "";
                 if (cutSiteW.length > 10) {
                      cutSiteW = cutSiteW.slice(0, 10);
                      cSiteW = cutSiteW.join(", ") + ", ...";
@@ -193,7 +193,7 @@ module.exports = React.createClass({
                      cSiteW = cutSiteW.join(", ")
                 }
 
-                var cSiteC = "";
+                let cSiteC = "";
                 if (cutSiteC.length > 10) {
                      cutSiteC = cutSiteC.slice(0, 10);
                      cSiteC = cutSiteC.join(", ") + ", ...";
@@ -208,7 +208,7 @@ module.exports = React.createClass({
 		if (cSiteC == "") {
 		      cSiteC = "None";
                 }
-		var mouseOverData = { "offset (bp)": offset,
+		let mouseOverData = { "offset (bp)": offset,
 		    		      "overhang (bp)": overhang,
 				      "recognition sequence": recognition_seq,
 				      "enzyme type": enzyme_type,
@@ -216,11 +216,11 @@ module.exports = React.createClass({
 				      "cut site on W strand": cSiteW,
 				      "cut site on C strand": cSiteC };
 		
-		var mouseOverId = enzyme;		
-                var tooltipTop = h-15;
-                var tooltipLeft = BAR_START+320;
+		let mouseOverId = enzyme;		
+                let tooltipTop = h-15;
+                let tooltipLeft = BAR_START+320;
 
-		var _onMouseover = (e) => {
+		let _onMouseover = (e) => {
                         this._onMouseOver(e, mouseOverId, tooltipTop, tooltipLeft, false, mouseOverData, "Enzyme: "+enzyme);
                 };
 		
@@ -256,10 +256,10 @@ module.exports = React.createClass({
 		
 	_getLegendNode4enzymes(seqLen) {
 
-		var startX = this._getScale(0);
-                var endX = this._getScale(seqLen);
+		let startX = this._getScale(0);
+                let endX = this._getScale(seqLen);
 
-                var transform = this._getGroupTransform(startX, endX);
+                let transform = this._getGroupTransform(startX, endX);
 
 	        return (<g transform={transform}>
 		       	   <rect x={0}
@@ -304,10 +304,10 @@ module.exports = React.createClass({
 
 	 _getLegendNode4WC(seqLen) {
 
-                var startX = this._getScale(0);
-                var endX = this._getScale(seqLen);
+                let startX = this._getScale(0);
+                let endX = this._getScale(seqLen);
 
-                var transform = this._getGroupTransform(startX, endX);
+                let transform = this._getGroupTransform(startX, endX);
 
                 return (<g transform={transform}>
                            <rect x={0}
@@ -341,10 +341,10 @@ module.exports = React.createClass({
 
 	_getModDate() {
 	
-		var today = new Date();
-                var day = today.getDate();
-                var month = today.getMonth()+1; // January is 0!
-                var year = today.getFullYear();
+		let today = new Date();
+                let day = today.getDate();
+                let month = today.getMonth()+1; // January is 0!
+                let year = today.getFullYear();
                 if (day < 10) {
                     day = '0' + day;
                 }
@@ -352,9 +352,9 @@ module.exports = React.createClass({
                     month = '0' + month;
                 }
                 today = year + "-" + month + "-" + day;
-                var mod = "SGD";
-                var modText = <span className="legend-entry-container" style={{left: "2%", position: "relative"}}>{mod}</span>
-                var dateText = <span className="legend-entry-container" style={{left: "85%", position: "relative"}}>{today}</span>
+                let mod = "SGD";
+                let modText = <span className="legend-entry-container" style={{left: "2%", position: "relative"}}>{mod}</span>
+                let dateText = <span className="legend-entry-container" style={{left: "85%", position: "relative"}}>{today}</span>
 
 		return [modText, dateText]
 
@@ -362,14 +362,14 @@ module.exports = React.createClass({
 
 	// returns the transform string used to position the g element for a locus
 	_getGroupTransform(start, end) {
-		var obj = this._getTransformObject(start, end);
+		let obj = this._getTransformObject(start, end);
 		return `translate(${obj.x}, ${obj.y})`;
 	},
 
 	// returns  transform x y coordinates
 	_getTransformObject(start, end) {
-		var _x = this._getScale(Math.min(start, end));
-		var _y = this._getMidpointY();
+		let _x = this._getScale(Math.min(start, end));
+		let _y = this._getMidpointY();
 		return {
 		        x: _x,
 			y: _y

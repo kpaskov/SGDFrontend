@@ -19,7 +19,7 @@ const RestrictionMapper = React.createClass({
 
 	getInitialState() {
 	        
-		var param = Params.getParams();
+		let param = Params.getParams();
 		return {
 			isComplete: false,
 			isPending: false,
@@ -34,7 +34,7 @@ const RestrictionMapper = React.createClass({
 
 	render() {	
 	
-		var page_to_display = this.getPage();
+		let page_to_display = this.getPage();
 		
 		return (<div>
 			  <span style={{ textAlign: "center" }}><h1>Restriction Site Mapper<a target="_blank" href="https://sites.google.com/view/yeastgenome-help/analyze-help/restriction-mapper?authuser=0"><img src="https://d1x6jdqbvd5dr.cloudfront.net/legacy_img/icon_help_circle_dark.png"></img></a></h1>
@@ -45,7 +45,7 @@ const RestrictionMapper = React.createClass({
 	},
 
 	componentDidMount() {
-		var param = this.state.param;
+		let param = this.state.param;
 	        if (param['gene']) {
 	              this.runRestTools('gene', param['gene']);
 	        }
@@ -56,9 +56,9 @@ const RestrictionMapper = React.createClass({
 
 	getPage() {
 		
-		var param = this.state.param;
-		var seq_id = param['seq_id'];
-		var seq = "";
+		let param = this.state.param;
+		let seq_id = param['seq_id'];
+		let seq = "";
 		if (seq_id) {
 		   seq = window.localStorage.getItem(seq_id);
 		}
@@ -69,13 +69,13 @@ const RestrictionMapper = React.createClass({
 
 	        if (this.state.isComplete) {
 
-			var data = this.state.resultData;
+			let data = this.state.resultData;
 	
-			var cuts = data['data'];
-			var seqLength = data['seqLength'];
+			let cuts = data['data'];
+			let seqLength = data['seqLength'];
 			
 			if (seqLength == 0 || typeof(seqLength) == "undefined") {
-			    var message = "";
+			    let message = "";
 			    if (param['gene']) {
 			         message = "Please enter a single valid gene name.";
 			    }
@@ -85,8 +85,8 @@ const RestrictionMapper = React.createClass({
 			    return <div><span style={ style.textFont }>{ message }</span></div>
 			}
 
-			var notCutEnzymeTable = "";
-                        var downloadLink = "";
+			let notCutEnzymeTable = "";
+                        let downloadLink = "";
                         if (param['type'] == 'all' || param['type'] == 'enzymes that do not cut') {
                              notCutEnzymeTable = this.getNotCutEnzymeTable(data['notCutEnzyme']);
 			     if (param['type'] == 'all') {
@@ -101,7 +101,7 @@ const RestrictionMapper = React.createClass({
                              downloadLink = this.getDownloadLinks(data['downloadUrl'], '');
                         }
 
-			var desc = this.getDesc(data['seqName'], seqLength, data['chrCoords']);
+			let desc = this.getDesc(data['seqName'], seqLength, data['chrCoords']);
 			 
 			if (param['type'] == 'enzymes that do not cut') {
 			     return (<div>
@@ -114,12 +114,12 @@ const RestrictionMapper = React.createClass({
                              </div>);
 			}
 
-			var graphNode = (<RestBarChart 
+			let graphNode = (<RestBarChart 
                                 data={cuts}
 				seqLength={seqLength}
                         />);
 			
-			var graphStyle = { width: "1000", marginLeft: "auto", marginRight: "auto" };
+			let graphStyle = { width: "1000", marginLeft: "auto", marginRight: "auto" };
              		
 			return (<div>
                                <div className="row">
@@ -159,12 +159,12 @@ const RestrictionMapper = React.createClass({
 
 	getFrontPage() {
 
-		var geneNode = this.getGeneNode();
-		var seqNode = this.getSeqNode();
-		var enzymeNode = this.getEnzymeNode();
-		var submitNode = this.getSubmitNode();
+		let geneNode = this.getGeneNode();
+		let seqNode = this.getSeqNode();
+		let enzymeNode = this.getEnzymeNode();
+		let submitNode = this.getSubmitNode();
 
-		var searchSection = { headers: [[<span style={ style.textFont }><strong>Step 1: Enter a Gene Name</strong></span>, <span style={ style.textFontRed }><strong>OR</strong></span>, <span style={ style.textFont }><strong>Type or Paste a DNA Sequence</strong></span>]],
+		let searchSection = { headers: [[<span style={ style.textFont }><strong>Step 1: Enter a Gene Name</strong></span>, <span style={ style.textFontRed }><strong>OR</strong></span>, <span style={ style.textFont }><strong>Type or Paste a DNA Sequence</strong></span>]],
 			    	     rows:    [[geneNode, '', seqNode], [enzymeNode, '', submitNode]] };
 				     					
 		return (<div>
@@ -201,20 +201,20 @@ const RestrictionMapper = React.createClass({
 
 	getSeqNode() {
 		     
-		var param = this.state.param;
+		let param = this.state.param;
 
-		var seqID = param['sequence_id'];
+		let seqID = param['sequence_id'];
 		if (seqID) {
 		   seqID = seqID.replace("%28", "(");
 		   seqID = seqID.replace("%29", ")");
 		}
-		var sequence = "";
+		let sequence = "";
 		if (seqID) {
 		    sequence = window.localStorage.getItem(seqID);
 		}
-		var min = 1;
-                var max = 10000;
-		var localSeqID = min + (Math.random() * (max-min)); 
+		let min = 1;
+                let max = 10000;
+		let localSeqID = min + (Math.random() * (max-min)); 
 
 		//  <textarea ref='seq' name='seq' value={sequence} onChange={this.onChange} rows='5' cols='75'></textarea>
 
@@ -238,9 +238,9 @@ const RestrictionMapper = React.createClass({
 
 	getEnzymeNode() {
 
-                var enzymes = ["all", "3'overhang", "5'overhang", "blunt end", "cut once", "cut twice", "Six-base cutters", "enzymes that do not cut"];
+                let enzymes = ["all", "3'overhang", "5'overhang", "blunt end", "cut once", "cut twice", "Six-base cutters", "enzymes that do not cut"];
 
-                var _elements = _.map(enzymes, e => {
+                let _elements = _.map(enzymes, e => {
                        if (e == 'all') {
                             return <option value={ e } selected="selected">{ e }</option>;
                        }
@@ -267,11 +267,11 @@ const RestrictionMapper = React.createClass({
 
 	getNotCutEnzymeTable(notCutEnzymes) {
 
-		var tableRows = [];
-		var cells = []
-		var headers = []
-		var headerDone = 0;
-		var i = 0;
+		let tableRows = [];
+		let cells = []
+		let headers = []
+		let headerDone = 0;
+		let i = 0;
 		_.map(notCutEnzymes, e => {
 		     if (i == MAX_NUM_ENZYME) {
 		     	 tableRows.push(cells);
@@ -288,13 +288,13 @@ const RestrictionMapper = React.createClass({
 		});
 
 		if (i != 0) {
-		     for (var j = i; j < MAX_NUM_ENZYME; j++) {
+		     for (let j = i; j < MAX_NUM_ENZYME; j++) {
 		     	 cells.push(" ");
 		     }
 		     tableRows.push(cells);
 		}
 	
-		var notCutTable = { headers: [headers],
+		let notCutTable = { headers: [headers],
                                     rows:   tableRows };
 
 	        return(<div>
@@ -311,8 +311,8 @@ const RestrictionMapper = React.createClass({
         },
 
 	onSubmit(e) {
-		 var seq_id = this.refs.seq_id.value.trim();;
-		 var seq = this.refs.seq.value.trim();
+		 let seq_id = this.refs.seq_id.value.trim();;
+		 let seq = this.refs.seq.value.trim();
 		 seq = seq.replace(/%0D/g, '');
                  seq = seq.replace(/%0A/g, '');
                  seq = seq.toUpperCase().replace(/[^ATCG]/g, '');
@@ -323,13 +323,13 @@ const RestrictionMapper = React.createClass({
 
 	runRestTools(searchType, value) {
 
-		var paramData = {};
-		var param = this.state.param;
+		let paramData = {};
+		let param = this.state.param;
 		paramData['type'] = param['type'];
-		var seq_id = param['seq_id'];
+		let seq_id = param['seq_id'];
 
 		if (searchType == 'gene') {
-                   var gene = value;
+                   let gene = value;
                    gene = gene.replace("SGD:", "");
                    gene = gene.replace("SGD%3A", "");
                    paramData['name'] = gene;
@@ -341,7 +341,7 @@ const RestrictionMapper = React.createClass({
                 }
 
 		if (searchType == 'seq') {
-		   // var seq = param['seq'];
+		   // let seq = param['seq'];
 		   // seq = seq.replace(/%0D/g, '');
 		   // seq = seq.replace(/%0A/g, '');
 		   // seq = seq.toUpperCase().replace(/[^ATCG]/g, '');
@@ -374,7 +374,7 @@ const RestrictionMapper = React.createClass({
 
 	getDownloadLinks(url, url4notCutEnzyme) {
 
-	        var links =  "";
+	        let links =  "";
 		if (url && url4notCutEnzyme) {	   
 		     links = "<a href='" + url + "' target='dl_win'>Download Restriction Site Results</a> | <a href='" + url4notCutEnzyme + "' target='dl_win'>Download 'Do Not Cut' Enzyme List</a>";
 		} 

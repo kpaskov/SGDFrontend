@@ -1,12 +1,12 @@
 
 $(document).ready(function() {
 	$.getJSON('/backend/disease/' + ontology['id'] + '/ontology_graph', function(data) {
-  		var cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "diseaseOntology");
+  		let cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "diseaseOntology");
         create_cy_download_button(cy, "cy_download", ontology['display_name'] + '_disease_ontology_graph')
 	});
 
     $.getJSON('/backend/disease/' + ontology['id'] + '/locus_details', function(data) {
-	  	var disease_table = create_disease_table(data);
+	  	let disease_table = create_disease_table(data);
 	  	create_analyze_button("disease_table_analyze", disease_table, "<a href='" + ontology['link'] + "' class='gene_name'>" + ontology['display_name'] + "</a> genes", true);
   	    create_download_button("disease_table_download", disease_table, ontology['display_name'] + "_annotations");
 	});
@@ -14,16 +14,16 @@ $(document).ready(function() {
 });
 
 function create_disease_table(data) {
-	var datatable = [];
-	var genes = {};
-	for (var i=0; i < data.length; i++) {
+	let datatable = [];
+	let genes = {};
+	for (let i=0; i < data.length; i++) {
         datatable.push(disease_data_to_table(data[i], i));
 		genes[data[i]["locus"]["id"]] = true;
 	}
 
     set_up_header('disease_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-	var options = {};
+	let options = {};
 	options["bPaginate"] = true;
 	options["aaSorting"] = [[3, "asc"]];
 	options["bDestroy"] = true;
@@ -48,7 +48,7 @@ function create_disease_table(data) {
     return create_table("disease_table", options);
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -81,7 +81,7 @@ var graph_style = cytoscape.stylesheet()
 		'color': '#888'
 	});
 
-var layout = {
+let layout = {
     "name": "breadthfirst",
 	"circle": true
 };

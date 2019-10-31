@@ -1,6 +1,6 @@
 function domain_data_to_table(evidence) {
-    var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
-    var domain;
+    let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
+    let domain;
     if(evidence['domain']['link'] != null) {
         domain = create_link(evidence['domain']['display_name'], evidence['domain']['link']);
     }
@@ -8,9 +8,9 @@ function domain_data_to_table(evidence) {
         domain = evidence['domain']['display_name']
     }
 
-    var coord_range = evidence['start'] + '-' + evidence['end'];
+    let coord_range = evidence['start'] + '-' + evidence['end'];
 
-    var description = '';
+    let description = '';
     if (evidence['domain']['description'] != null) {
         description = evidence['domain']['description'];
     }
@@ -20,7 +20,7 @@ function domain_data_to_table(evidence) {
 }
 
 function dataset_datat_to_table(dataset) {
-    var reference = '';
+    let reference = '';
     if(dataset['reference'] != null) {
         reference = create_link(dataset['reference']['display_name'], dataset['reference']['link']);
         if(dataset['reference']['pubmed_id'] != null) {
@@ -28,17 +28,17 @@ function dataset_datat_to_table(dataset) {
         }
     }
 
-    var dataset_with_link = create_link(dataset['display_name'], dataset['link']);
-    var tags = [];
-    for(var j=0; j < dataset['tags'].length; j++) {
+    let dataset_with_link = create_link(dataset['display_name'], dataset['link']);
+    let tags = [];
+    for(let j=0; j < dataset['tags'].length; j++) {
         tags.push(create_link(dataset['tags'][j]['display_name'], dataset['tags'][j]['link']));
     }
 
-    var hist_values = [];
+    let hist_values = [];
     if('hist_values' in dataset) {
-        for(var j=0; j < dataset['hist_values'].length; j++) {
-            var min_range = dataset['hist_values'][j];
-            var max_range = min_range + .5;
+        for(let j=0; j < dataset['hist_values'].length; j++) {
+            let min_range = dataset['hist_values'][j];
+            let max_range = min_range + .5;
             if(min_range == -5.5) {
                 min_range = '*';
             }
@@ -61,27 +61,27 @@ function dataset_datat_to_table(dataset) {
 
 function downloadable_file_to_table(data) {
 
-    var s3_url = data['s3_url'].split("?versionId").shift();
-    var file_with_link = create_link(s3_url.split("/").pop(), s3_url);
+    let s3_url = data['s3_url'].split("?versionId").shift();
+    let file_with_link = create_link(s3_url.split("/").pop(), s3_url);
     
     return [data['id'], data['id'], file_with_link, data['description']]
 
 }
 
 function phosphorylation_data_to_table(evidence) {
-    var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
+    let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
 
-    var site_index = evidence['site_index'];
-    var site_residue = evidence['site_residue'];
+    let site_index = evidence['site_index'];
+    let site_residue = evidence['site_residue'];
 
-    var reference = '';
+    let reference = '';
     if(evidence['reference'] != null) {
         reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     }
 
-    var site_functions = '';
-    var kinases = '';
-    for(var j=0; j < evidence['properties'].length; j++) {
+    let site_functions = '';
+    let kinases = '';
+    for(let j=0; j < evidence['properties'].length; j++) {
         if(evidence['properties'][j]['role'] == 'Kinase') {
             if(kinases.length > 0) {
                 kinases = kinases + ', ';
@@ -96,10 +96,10 @@ function phosphorylation_data_to_table(evidence) {
         }
     }
 
-    var source = evidence['source']['display_name'];
+    let source = evidence['source']['display_name'];
     if(source == "PhosphoGRID") {
-        var gene_id = null;
-        for(var j=0; j < locus['aliases'].length; j++) {
+        let gene_id = null;
+        for(let j=0; j < locus['aliases'].length; j++) {
             if(locus['aliases'][j]['category'] == 'Gene ID' && locus['aliases'][j]['source']['display_name'] == 'BioGRID') {
                 gene_id = locus['aliases'][j]['display_name'];
             }
@@ -108,10 +108,10 @@ function phosphorylation_data_to_table(evidence) {
 	        source = create_link(source, "http://www.phosphogrid.org/sites/" + gene_id + "/" + evidence['locus']['format_name'] + ".phospho", true);
         }
 	}
-    var type = evidence['type'];
-    var reference = "";
+    let type = evidence['type'];
+    let reference = "";
     if (evidence.source.format_name !== "PhosphoGRID") {
-        var _r = evidence.reference;
+        let _r = evidence.reference;
         reference = "<span><a href='" + _r.link + "'>" + _r.display_name + "</a> <small>PMID: " + _r.pubmed_id + "</small></span>";
     } 
 
@@ -119,12 +119,12 @@ function phosphorylation_data_to_table(evidence) {
 }
 
 function history_data_to_table(evidence) {
-    var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
+    let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
 
-    var references = [];
-    for(var j=0; j < evidence['references'].length; j++) {
-        var reference = evidence['references'][j];
-        var ref_link = create_link(reference['display_name'], reference['link']);
+    let references = [];
+    for(let j=0; j < evidence['references'].length; j++) {
+        let reference = evidence['references'][j];
+        let ref_link = create_link(reference['display_name'], reference['link']);
         if(reference['pubmed_id'] != null) {
             ref_link = ref_link + ' <small>PMID:' + reference['pubmed_id'] + '</small>';
         }
@@ -134,39 +134,39 @@ function history_data_to_table(evidence) {
 }
 
 function protein_experiment_data_to_table(evidence) {
-    var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
+    let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
 
-    var reference = '';
+    let reference = '';
     if(evidence['reference'] != null) {
         reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     }
 
-    var experiment = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);
+    let experiment = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);
 
     return [evidence['id'], evidence['locus']['id'], bioent, evidence['locus']['format_name'], experiment, evidence['data_value'] + ' ' + evidence['data_unit'], reference];
 }
 
 function protein_abundance_data_to_table(evidence) {
 
-    var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
+    let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
 
-    var reference = '';
+    let reference = '';
     if(evidence['reference'] != null) {
         reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     }
     
-    var original_reference = '';
+    let original_reference = '';
     if(evidence['original_reference'] != null) {
         original_reference = create_link(evidence['original_reference']['display_name'], evidence['original_reference']['link']);
     }
 
-    var media = '';
+    let media = '';
     if (evidence['media'] != null) {
 	media = evidence['media']['display_name'];
     }
 
-    var treatment = 'untreated';
-    var treatment_time = '';
+    let treatment = 'untreated';
+    let treatment_time = '';
     if (evidence['treatment']['chemical'] != '') {
 	treatment = evidence['treatment']['chemical'];
     }
@@ -175,7 +175,7 @@ function protein_abundance_data_to_table(evidence) {
     }
     if (treatment != 'untreated') {
 	if (evidence['treatment']['conc_value'] != null) {
-	    var unit = '';
+	    let unit = '';
 	    if (evidence['treatment']['conc_unit']!= null) {
 		unit = evidence['treatment']['conc_unit'];
 	    }
@@ -187,7 +187,7 @@ function protein_abundance_data_to_table(evidence) {
 	    }
 	}
 	if (evidence['treatment']['time_value']!= null) {
-	    var unit = '';
+	    let unit = '';
             if (evidence['treatment']['time_unit']!= null) {
 		unit = evidence['treatment']['time_unit'];
 	    } 
@@ -195,17 +195,17 @@ function protein_abundance_data_to_table(evidence) {
 	}
     }
    
-    var fold_change = '';
+    let fold_change = '';
     if (evidence['fold_change'] != null) {
 	fold_change = evidence['fold_change'];
     }
     
-    var visualization = '';
+    let visualization = '';
     if (evidence['visualization'] != null) {
 	visualization = evidence['visualization']['display_name'];
     }  
 
-    var strain_background = '';
+    let strain_background = '';
     if (evidence['strain'] != null) {
 	strain_background = create_link(evidence['strain']['display_name'], evidence['strain']['link']);
     }  
@@ -224,9 +224,9 @@ function protein_abundance_data_to_table(evidence) {
 }
 
 function complex_subunit_data_to_table(evidence) {
-    var subunit = create_link(evidence['display_name'], evidence['link'], false);
-    var description = evidence['description'];
-    var stoichiometry = evidence['stoichiometry'];
+    let subunit = create_link(evidence['display_name'], evidence['link'], false);
+    let description = evidence['description'];
+    let stoichiometry = evidence['stoichiometry'];
      
     return [subunit, description, stoichiometry];
 
@@ -234,15 +234,15 @@ function complex_subunit_data_to_table(evidence) {
 
 
 function sublabel_data_to_table(evidence, locus, strand, data_id) {
-    var coord_version = evidence['coord_version'];
-    var seq_version = evidence['seq_version'];
+    let coord_version = evidence['coord_version'];
+    let seq_version = evidence['seq_version'];
     if(coord_version == 'None') {
         coord_version = '';
     }
     if(seq_version == 'None') {
         seq_version = '';
     }
-    var coords = '';
+    let coords = '';
     if(evidence['chromosomal_start'] < evidence['chromosomal_end']) {
         coords = evidence['chromosomal_start'] + '-' + evidence['chromosomal_end'];
     }
@@ -250,7 +250,7 @@ function sublabel_data_to_table(evidence, locus, strand, data_id) {
         coords = evidence['chromosomal_end'] + '-' + evidence['chromosomal_start'];
     }
 
-    var display_name = evidence['display_name'];
+    let display_name = evidence['display_name'];
     if(evidence['bioentity'] != null) {
         display_name = create_link(display_name, evidence['bioentity']['link']);
     }
@@ -259,25 +259,25 @@ function sublabel_data_to_table(evidence, locus, strand, data_id) {
 }
 
 function regulation_data_to_table(evidence, is_regulator) {
-    var bioent1 = create_link(evidence['locus1']['display_name'], evidence['locus1']['link']);
-	var bioent2 = create_link(evidence['locus2']['display_name'], evidence['locus2']['link']);
+    let bioent1 = create_link(evidence['locus1']['display_name'], evidence['locus1']['link']);
+	let bioent2 = create_link(evidence['locus2']['display_name'], evidence['locus2']['link']);
 
-	var experiment = '';
+	let experiment = '';
 	if(evidence['experiment'] != null) {
         experiment = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);
 	}
-	var strain = '';
+	let strain = '';
 	if(evidence['strain'] != null) {
 	    strain = create_link(evidence['strain']['display_name'], evidence['strain']['link']);
 	}
-	var reference = '';
+	let reference = '';
 	if(evidence['reference'] != null) {
 	    reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
         if(evidence['reference']['pubmed_id'] != null) {
             reference = reference + ' <small>PMID:' + evidence['reference']['pubmed_id'] + '</small>';
         }
 	}
-	var analyze_value;
+	let analyze_value;
     if(is_regulator == null) {
         analyze_value = evidence['locus1']['id'] + ',' + evidence['locus2']['id'];
     }
@@ -287,18 +287,18 @@ function regulation_data_to_table(evidence, is_regulator) {
 	else {
 	    analyze_value = evidence['locus2']['id'];
 	}
-    var direction = evidence['direction'] || '';
-    var regulation_type = evidence['regulation_type'] || '';
-    var regulator_type= evidence['regulator_type'] || '';
-    var happens_during = evidence['happens_during'] || '';
-    var evidence_name = evidence['experiment']['display_name'] || '';
+    let direction = evidence['direction'] || '';
+    let regulation_type = evidence['regulation_type'] || '';
+    let regulator_type= evidence['regulator_type'] || '';
+    let happens_during = evidence['happens_during'] || '';
+    let evidence_name = evidence['experiment']['display_name'] || '';
     // Evidence ID, Analyze ID, Regulator, Regulator Systematic Name, Target, Target Systematic Name, Direction, Regulation of, Happens During, Regulator type, direction, regulation of, happens during, annotation_type (method),  Evidence, Strain Background, Reference
     return [evidence['id'], analyze_value, bioent1, evidence['locus1']['format_name'], bioent2, evidence['locus2']['format_name'], direction, regulation_type, happens_during, regulator_type, direction, regulation_type, happens_during, evidence['annotation_type'], evidence_name, strain, reference];
   	
 }
 
 function interaction_data_to_table(evidence, index) {
-	var icon;
+	let icon;
 	if(evidence['note'] != null) {
 		icon = create_note_icon(index, evidence['note']);
 	}
@@ -306,10 +306,10 @@ function interaction_data_to_table(evidence, index) {
 		icon = null;
 	}
 
-	var bioent1_key = 'locus1';
-	var bioent2_key = 'locus2';
-	var direction = evidence['bait_hit'];
-    var analyze_key;
+	let bioent1_key = 'locus1';
+	let bioent2_key = 'locus2';
+	let direction = evidence['bait_hit'];
+    let analyze_key;
 
 	if(typeof(locus) !== 'undefined') {
 	    if(locus['id'] == evidence['locus1']['id']) {
@@ -336,15 +336,15 @@ function interaction_data_to_table(evidence, index) {
         analyze_key = evidence[bioent1_key]['id'] + ',' + evidence[bioent2_key]['id'];
     }
 
-	var experiment = '';
+	let experiment = '';
 	if(evidence['experiment'] != null) {
 		experiment = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);
 	}
-	var phenotype = '';
+	let phenotype = '';
 	if(evidence['phenotype'] != null) {
 		phenotype = create_link(evidence['phenotype']['display_name'], evidence['phenotype']['link']) + '<br><strong>Mutant Type:</strong> ' + evidence['mutant_type'];
 	}
-	var modification = '';
+	let modification = '';
 	if(evidence['modification'] != null) {
 		modification = evidence['modification'];
   	}
@@ -352,7 +352,7 @@ function interaction_data_to_table(evidence, index) {
      bioent1 = create_link(evidence[bioent1_key]['display_name'], evidence[bioent1_key]['link']);
 	 bioent2 = create_link(evidence[bioent2_key]['display_name'], evidence[bioent2_key]['link']);
 
-  	var reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
+  	let reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     if(evidence['reference']['pubmed_id'] != null) {
         reference = reference + ' <small>PMID:' + evidence['reference']['pubmed_id'] + '</small>';
     }
@@ -361,19 +361,19 @@ function interaction_data_to_table(evidence, index) {
 }
 
 function gene_data_to_table(bioent) {
-	var bioent_name = create_link(bioent['display_name'], bioent['link']);
+	let bioent_name = create_link(bioent['display_name'], bioent['link']);
   	return [bioent['id'], bioent['id'], bioent['format_name'], bioent_name, bioent['description']];
 }
 
 function dataset_data_to_table(dataset) {
-    var dataset_link = create_link(dataset['geo_id'], dataset['link']);
+    let dataset_link = create_link(dataset['geo_id'], dataset['link']);
     return [dataset['display_name'], dataset_link];
 }
 
 function phenotype_data_to_table(evidence, index) {
-	var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
+	let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
 
-	var experiment = '';
+	let experiment = '';
 	if(evidence['experiment'] != null) {
 		experiment = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);
 		if(evidence['experiment_details'] != null) {
@@ -381,28 +381,28 @@ function phenotype_data_to_table(evidence, index) {
 		}
 	}
 
-	var strain = '';
+	let strain = '';
 	if(evidence['strain'] != null) {
 		strain = create_link(evidence['strain']['display_name'], evidence['strain']['link']);
 	}
 
-    var allele = '';
-    var chemical = '';
-	var reporter = '';
-    var note = '';
-    for (var j=0; j < evidence['properties'].length; j++) {
-        var entry = evidence['properties'][j];
+    let allele = '';
+    let chemical = '';
+	let reporter = '';
+    let note = '';
+    for (let j=0; j < evidence['properties'].length; j++) {
+        let entry = evidence['properties'][j];
         if(evidence['properties'][j]['class_type'] == 'CHEMICAL') {
-            var newChemical = '';
+            let newChemical = '';
             if(evidence['properties'][j]['concentration'] != null) {
-                var temp_unit = evidence["properties"][j]["unit"] ? evidence["properties"][j]["unit"] : "";
+                let temp_unit = evidence["properties"][j]["unit"] ? evidence["properties"][j]["unit"] : "";
                 temp_unit = temp_unit.match(/%/) ? temp_unit : ' '+ temp_unit;
                 newChemical = evidence['properties'][j]['concentration'] + temp_unit +' ' + create_link(evidence['properties'][j]['bioitem']['display_name'], evidence['properties'][j]['bioitem']['link']);
             }
             else {
                 newChemical = create_link(evidence['properties'][j]['bioitem']['display_name'], evidence['properties'][j]['bioitem']['link']);
             }
-            var chemical_icon = create_note_icon('chemical_icon' + index, evidence['properties'][j]['note']);
+            let chemical_icon = create_note_icon('chemical_icon' + index, evidence['properties'][j]['note']);
             if(chemical_icon != '') {
                 newChemical = newChemical + ' ' + chemical_icon;
             } 
@@ -419,21 +419,21 @@ function phenotype_data_to_table(evidence, index) {
         }
         else if(evidence['properties'][j]['role'] == 'Allele') {
             allele = '<br><strong>Allele: </strong>' + evidence['properties'][j]['bioitem']['display_name'];
-            var allele_icon = create_note_icon('allele_icon' + index, evidence['properties'][j]['note']);
+            let allele_icon = create_note_icon('allele_icon' + index, evidence['properties'][j]['note']);
             if(allele_icon != '') {
                 allele = allele + ' ' + allele_icon;
             }
         }
         else if(evidence['properties'][j]['role'] == 'Reporter') {
             reporter = '<strong>Reporter: </strong>' + evidence['properties'][j]['bioitem']['display_name'];
-            var reporter_icon = create_note_icon('reporter_icon' + index, evidence['properties'][j]['note']);
+            let reporter_icon = create_note_icon('reporter_icon' + index, evidence['properties'][j]['note']);
             if(reporter_icon != '') {
                 reporter = reporter + ' ' + reporter_icon;
             }
         }
         else {
-	    var classType = evidence['properties'][j]['class_type'];
-	    var label = classType.charAt(0).toUpperCase() + classType.slice(1) + ": ";
+	    let classType = evidence['properties'][j]['class_type'];
+	    let label = classType.charAt(0).toUpperCase() + classType.slice(1) + ": ";
 	    note = note + '<strong>' + label + '</strong>' + evidence['properties'][j]['note'] + '<br>';
         }
     }
@@ -443,10 +443,10 @@ function phenotype_data_to_table(evidence, index) {
         note = note + '<strong>Details: </strong>' + evidence['note'] + '<br>';
     }
 
-	var biocon = create_link(evidence['phenotype']['display_name'], evidence['phenotype']['link']);
+	let biocon = create_link(evidence['phenotype']['display_name'], evidence['phenotype']['link']);
 	biocon = biocon + '<br>' + reporter;
 
-  	var reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
+  	let reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     if(evidence['reference']['pubmed_id'] != null) {
         reference = reference + ' <small>PMID:' + evidence['reference']['pubmed_id'] + '</small>';
     }
@@ -455,14 +455,14 @@ function phenotype_data_to_table(evidence, index) {
 }
 
 function go_data_to_table(evidence, index) {
-	var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
-	var biocon = create_link(evidence['go']['display_name'], evidence['go']['link']);
-  	var reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
+	let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
+	let biocon = create_link(evidence['go']['display_name'], evidence['go']['link']);
+  	let reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     if(evidence['reference']['pubmed_id'] != null) {
         reference = reference + ' <small>PMID:' + evidence['reference']['pubmed_id'] + '</small>';
     }
 
-    var evidence_code = null;
+    let evidence_code = null;
     if(evidence['experiment'] != null) {
         evidence_code = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);;
     }
@@ -470,12 +470,12 @@ function go_data_to_table(evidence, index) {
         evidence_code = evidence['go_evidence'];
     }
 
-  	var with_entry = null;
-	var relationship_entry = null;
+  	let with_entry = null;
+	let relationship_entry = null;
 
-  	for(var j=0; j < evidence['properties'].length; j++) {
-  		var condition = evidence['properties'][j];
-        var obj = null;
+  	for(let j=0; j < evidence['properties'].length; j++) {
+  		let condition = evidence['properties'][j];
+        let obj = null;
         if('bioitem' in condition) {
             obj = condition['bioitem'];
         }
@@ -487,7 +487,7 @@ function go_data_to_table(evidence, index) {
         }
 
   		if(condition['role'] == 'With' || condition['role'] == 'From') {
-  			var new_with_entry;
+  			let new_with_entry;
             if(obj['link'] == null) {
                 new_with_entry = obj['display_name'];
             }
@@ -503,7 +503,7 @@ function go_data_to_table(evidence, index) {
 	  	}
 	  	else if(obj != null) {
 
-	  		var new_rel_entry = condition['role'] + ' ';
+	  		let new_rel_entry = condition['role'] + ' ';
             if(obj['link'] == null) {
                 new_rel_entry = new_rel_entry + obj['display_name'];
             }
@@ -524,7 +524,7 @@ function go_data_to_table(evidence, index) {
   		evidence_code = evidence_code + ' with ' + with_entry;
   	}
 
-    var qualifier = evidence['qualifier'];
+    let qualifier = evidence['qualifier'];
     if(qualifier == 'involved in' || qualifier == 'enables' || qualifier == 'part of') {
         qualifier = '';
     }
@@ -533,14 +533,14 @@ function go_data_to_table(evidence, index) {
 }
 
 function disease_data_to_table(evidence, index) {
-	var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
-	var biocon = create_link(evidence['disease']['display_name'], evidence['disease']['link']);
-  	var reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
+	let bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link']);
+	let biocon = create_link(evidence['disease']['display_name'], evidence['disease']['link']);
+  	let reference = create_link(evidence['reference']['display_name'], evidence['reference']['link']);
     if(evidence['reference']['pubmed_id'] != null) {
         reference = reference + ' <small>PMID:' + evidence['reference']['pubmed_id'] + '</small>';
     }
 
-    var evidence_code = null;
+    let evidence_code = null;
     if(evidence['experiment'] != null) {
         evidence_code = create_link(evidence['experiment']['display_name'], evidence['experiment']['link']);;
     }
@@ -548,12 +548,12 @@ function disease_data_to_table(evidence, index) {
         evidence_code = evidence['do_evidence'];
     }
 
-  	var with_entry = null;
-	var relationship_entry = null;
+  	let with_entry = null;
+	let relationship_entry = null;
 
-  	for(var j=0; j < evidence['properties'].length; j++) {
-  		var condition = evidence['properties'][j];
-        var obj = null;
+  	for(let j=0; j < evidence['properties'].length; j++) {
+  		let condition = evidence['properties'][j];
+        let obj = null;
         if('bioitem' in condition) {
             obj = condition['bioitem'];
         }
@@ -566,7 +566,7 @@ function disease_data_to_table(evidence, index) {
 
 
         if(condition['role'] == 'With' || condition['role'] == 'From') {
-  			var new_with_entry;
+  			let new_with_entry;
             if(obj['link'] == null) {
                 new_with_entry = obj['display_name'];
             }
@@ -582,7 +582,7 @@ function disease_data_to_table(evidence, index) {
 	  	}
 	  	else if(obj != null) {
 
-	  		var new_rel_entry = condition['role'] + ' ';
+	  		let new_rel_entry = condition['role'] + ' ';
             if(obj['link'] == null) {
                 new_rel_entry = new_rel_entry + obj['display_name'];
             }
@@ -603,7 +603,7 @@ function disease_data_to_table(evidence, index) {
   		evidence_code = evidence_code + ' with ' + with_entry;
   	}
 
-    var qualifier = evidence['qualifier'];
+    let qualifier = evidence['qualifier'];
     if(qualifier == 'involved in' || qualifier == 'enables' || qualifier == 'part of') {
         qualifier = '';
     }

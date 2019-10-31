@@ -1,6 +1,6 @@
 
 function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
-	var zoom = 1;
+	let zoom = 1;
 	if(r > s) {
 		zoom = 1.0/r;
 	}
@@ -8,17 +8,17 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
 		zoom = 1.0/s;
 	}
 	
-	var stage = new Kinetic.Stage({
+	let stage = new Kinetic.Stage({
 		container: container_name,
 		draggable: false,
 		width:500,
 		height:250
 	});	
 	
-	var layer = new Kinetic.Layer();
+	let layer = new Kinetic.Layer();
 
 	if(s > 0) {
-        var physical_circle = new Kinetic.Circle({
+        let physical_circle = new Kinetic.Circle({
             x: 100,
             y: 150,
             radius: 100*s*zoom,
@@ -27,7 +27,7 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
         });
         layer.add(physical_circle);
 
-        var physical_label = new Kinetic.Text({
+        let physical_label = new Kinetic.Text({
             x: 70,
             y: 125-(100*s*zoom),
             text: 'Physical',
@@ -37,7 +37,7 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
             });
         layer.add(physical_label);
 
-        var physical_count = new Kinetic.Text({
+        let physical_count = new Kinetic.Text({
             x: 100 - 10,
             y: 125-(100*s*zoom) + 35,
             text: B,
@@ -49,7 +49,7 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
     }
 
     if(r > 0) {
-        var genetic_circle = new Kinetic.Circle({
+        let genetic_circle = new Kinetic.Circle({
             x: 100+100*x*zoom,
             y: 150,
             radius: 100*r*zoom,
@@ -58,7 +58,7 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
         });
         layer.add(genetic_circle);
 
-        var genetic_label = new Kinetic.Text({
+        let genetic_label = new Kinetic.Text({
             x: 70+100*x*zoom,
             y: 125-(100*r*zoom),
             text: 'Genetic',
@@ -68,7 +68,7 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
             });
         layer.add(genetic_label);
 
-        var genetic_count = new Kinetic.Text({
+        let genetic_count = new Kinetic.Text({
             x: 100+100*x*zoom - 10,
             y: 125-(100*r*zoom) + 35,
             text: A,
@@ -81,10 +81,10 @@ function draw_venn_diagram(container_name, r, s, x, A, B, C, color1, color2) {
 
     if(r+s > 0) {
     
-        var m = (x*x + s*s - r*r)/(2*x);
+        let m = (x*x + s*s - r*r)/(2*x);
 
         if(C > 0) {
-            var overlap_count = new Kinetic.Text({
+            let overlap_count = new Kinetic.Text({
                 x: 100+100*m*zoom,
                 y: 145,
                 text: C,

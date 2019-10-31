@@ -1,10 +1,10 @@
 
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var GoogleRecaptcha = require("../widgets/google_recaptcha.jsx");
+const GoogleRecaptcha = require("../widgets/google_recaptcha.jsx");
 
 module.exports = React.createClass({
 	getInitialState: function () {
@@ -22,7 +22,7 @@ module.exports = React.createClass({
 	},
 
 	render: function () {
-		var formNode = this._getFormNode();
+		let formNode = this._getFormNode();
 		return (<div>
 			<h1>SGD Suggestions and Questions</h1>
 			<hr />
@@ -90,11 +90,11 @@ module.exports = React.createClass({
 	_onSubmit: function (e) {
 		e.preventDefault();
 
-		var name = this.refs.name.value.trim();
-		var email = this.refs.internet.value.trim();
-                var subject = this.refs.subject.value.trim();
-                var message = this.refs.text.value.trim();
-                var sendUserCopy = this.refs.send_user_copy.checked;
+		let name = this.refs.name.value.trim();
+		let email = this.refs.internet.value.trim();
+                let subject = this.refs.subject.value.trim();
+                let message = this.refs.text.value.trim();
+                let sendUserCopy = this.refs.send_user_copy.checked;
 		/* console.log(sendUserCopy) */
 		/* return */
 

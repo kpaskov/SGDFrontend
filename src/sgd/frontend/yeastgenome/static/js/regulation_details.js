@@ -10,7 +10,7 @@ $(document).ready(function() {
     if(locus['regulation_overview']['target_count'] > 0) {
         $("#domain_table_analyze").hide();
         $.getJSON('/backend/locus/' + locus['id'] + '/protein_domain_details', function(data) {
-            var domain_table = create_domain_table(data);
+            let domain_table = create_domain_table(data);
             if(domain_table != null) {
                 create_download_button("domain_table_download", domain_table, locus['display_name'] + "_domains");
             }
@@ -30,7 +30,7 @@ $(document).ready(function() {
     $.getJSON('/backend/locus/' + locus['id'] + '/regulation_details', function(data) {
         
         if(locus['regulation_overview']['target_count'] > 0) {
-            var target_tables = create_target_table(data);
+            let target_tables = create_target_table(data);
             create_analyze_button("analyze_targets", target_tables.all, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> targets", false);
             create_analyze_button("manual_target_table_analyze", target_tables.manual, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> targets", true);
             create_download_button("manual_target_table_download", target_tables.manual, locus['display_name'] + "_targets");
@@ -38,7 +38,7 @@ $(document).ready(function() {
             create_download_button("htp_target_table_download", target_tables.htp, locus['display_name'] + "_targets");
 
             $.getJSON('/backend/locus/' + locus['id'] + '/regulation_target_enrichment', function(enrichment_data) {
-                var enrichment_table = create_enrichment_table("enrichment_table", target_tables.all, enrichment_data);
+                let enrichment_table = create_enrichment_table("enrichment_table", target_tables.all, enrichment_data);
                 create_download_button("enrichment_table_download", enrichment_table, locus['display_name'] + "_targets_go_process_enrichment");
             });
         }
@@ -48,7 +48,7 @@ $(document).ready(function() {
             $("#enrichment").hide();
         }
 
-        var regulator_tables = create_regulator_table(data);
+        let regulator_tables = create_regulator_table(data);
         
         if(locus['regulation_overview']['target_count'] + locus['regulation_overview']['regulator_count'] > 0) {
             create_analyze_button("analyze_regulators", regulator_tables.all, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> regulators", false);
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     $.getJSON('/backend/locus/' + locus['id'] + '/regulation_graph', function(data) {
         if(data != null && data["nodes"].length > 1) {
-            var _categoryColors = {
+            let _categoryColors = {
                 'REGULATOR': '#6CB665',
                 'TARGET': '#9F75B8',
                 'FOCUS': '#1f77b4'
@@ -79,11 +79,11 @@ $(document).ready(function() {
 });
 
 function create_domain_table(data) {
-    var domain_table = null;
+    let domain_table = null;
     if(data != null && data.length > 0) {
-        var datatable = [];
-        var domains = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let domains = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(domain_data_to_table(data[i]));
             domains[data[i]['domain']['id']] = true;
         }
@@ -92,7 +92,7 @@ function create_domain_table(data) {
 
         set_up_range_sort();
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, { "sType": "range" }, { "sType": "html" }, null, null, null]
@@ -106,14 +106,14 @@ function create_domain_table(data) {
 function create_binding_site_table(data) {
     if(data.length > 0) {
         $("#binding").show();
-        var list = $("#binding_motifs");
-        for (var i=0; i < data.length; i++) {
-            var evidence = data[i];
+        let list = $("#binding_motifs");
+        for (let i=0; i < data.length; i++) {
+            let evidence = data[i];
 
-            var a = document.createElement("a");
+            let a = document.createElement("a");
             a.href = "http://yetfasco.ccbr.utoronto.ca/MotViewLong.php?PME_sys_qf2=" + evidence["motif_id"];
             a.target = "_blank";
-            var img = document.createElement("img");
+            let img = document.createElement("img");
             img.src = evidence["link"];
             img.className = "yetfasco";
 
@@ -128,9 +128,9 @@ function create_binding_site_table(data) {
 
 function create_target_table(data) {
     // table column options
-    var targetTableColOptions = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null];
+    let targetTableColOptions = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null];
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = targetTableColOptions;
@@ -138,16 +138,16 @@ function create_target_table(data) {
         options["aaData"] = [];
     }
     else {
-        var manualDatatable = [];
-        var htpDatatable = [];
-        var allDatatable = [];
-        var manualGenes = {};
-        var htpGenes = {};
-        var target_entry_count = 0;
-        for (var i=0; i < data.length; i++) {
-            var d = data[i];
+        let manualDatatable = [];
+        let htpDatatable = [];
+        let allDatatable = [];
+        let manualGenes = {};
+        let htpGenes = {};
+        let target_entry_count = 0;
+        for (let i=0; i < data.length; i++) {
+            let d = data[i];
             if(d["locus1"]["id"] == locus['id']) {
-                var isManual = (d.annotation_type !== 'high-throughput');
+                let isManual = (d.annotation_type !== 'high-throughput');
                 if (isManual) {
                     manualDatatable.push(regulation_data_to_table(d, false));
                     manualGenes[d["locus2"]["id"]] = true;
@@ -162,19 +162,19 @@ function create_target_table(data) {
         set_up_header('manual_target_table', manualDatatable.length, 'entry', 'entries', Object.keys(manualGenes).length, 'gene', 'genes');
         set_up_header('htp_target_table', htpDatatable.length, 'entry', 'entries', Object.keys(htpGenes).length, 'gene', 'genes');
 
-        var manualOptions = {};
+        let manualOptions = {};
         manualOptions["bPaginate"] = true;
         manualOptions["aaSorting"] = [[4, "asc"]];
         manualOptions["aoColumns"] = targetTableColOptions;
         manualOptions["oLanguage"] = {"sEmptyTable": "No manually curated targets " + locus['display_name']};
         manualOptions["aaData"] = manualDatatable;
-        var htpOptions = {};
+        let htpOptions = {};
         htpOptions["bPaginate"] = true;
         htpOptions["aaSorting"] = [[4, "asc"]];
         htpOptions["aoColumns"] = targetTableColOptions;
         htpOptions["oLanguage"] = {"sEmptyTable": "No HTP targets for " + locus['display_name']};
         htpOptions["aaData"] = htpDatatable;
-        var allOptions = {};
+        let allOptions = {};
         allOptions["bPaginate"] = true;
         allOptions["aaSorting"] = [[4, "asc"]];
         allOptions["aoColumns"] = targetTableColOptions;
@@ -182,9 +182,9 @@ function create_target_table(data) {
         allOptions["aaData"] = allDatatable;
     }
 
-    var _manual = create_table("manual_target_table", manualOptions);
-    var _htp = create_table("htp_target_table", htpOptions);
-    var _all = create_table("all_target_table", allOptions);
+    let _manual = create_table("manual_target_table", manualOptions);
+    let _htp = create_table("htp_target_table", htpOptions);
+    let _all = create_table("all_target_table", allOptions);
     return {
         manual: _manual,
         htp: _htp,
@@ -193,17 +193,17 @@ function create_target_table(data) {
 }
 
 function create_regulator_table(data) {
-    var regulatorTableColOptions = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null, null, {"bSearchable":false, "bVisible":false}, null, null, null];
-    var manualDatatable = [];
-    var htpDatatable = [];
-    var allDatatable = [];
-    var manualGenes = {};
-    var htpGenes = {};
-    var regulation_entry_count = 0;
-    for (var i=0; i < data.length; i++) {
-        var d = data[i];
+    let regulatorTableColOptions = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null, null, {"bSearchable":false, "bVisible":false}, null, null, null];
+    let manualDatatable = [];
+    let htpDatatable = [];
+    let allDatatable = [];
+    let manualGenes = {};
+    let htpGenes = {};
+    let regulation_entry_count = 0;
+    for (let i=0; i < data.length; i++) {
+        let d = data[i];
         if(d["locus2"]["id"] == locus['id']) {
-           var isManual = (d.annotation_type !== 'high-throughput');
+           let isManual = (d.annotation_type !== 'high-throughput');
             if (isManual) {
                 manualDatatable.push(regulation_data_to_table(d, true));
                 manualGenes[d["locus1"]["id"]] = true;
@@ -218,28 +218,28 @@ function create_regulator_table(data) {
     set_up_header('manual_regulator_table', manualDatatable.length, 'entry', 'entries', Object.keys(manualGenes).length, 'gene', 'genes');
     set_up_header('htp_regulator_table', htpDatatable.length, 'entry', 'entries', Object.keys(htpGenes).length, 'gene', 'genes');
 
-    var manualOptions = {};
+    let manualOptions = {};
     manualOptions["bPaginate"] = true;
     manualOptions["aaSorting"] = [[2, "asc"]];
     manualOptions["aoColumns"] = regulatorTableColOptions;
     manualOptions["oLanguage"] = {"sEmptyTable": "No manually curated regulators for " + locus['display_name']};
     manualOptions["aaData"] = manualDatatable;
-    var htpOptions = {};
+    let htpOptions = {};
     htpOptions["bPaginate"] = true;
     htpOptions["aaSorting"] = [[2, "asc"]];
     htpOptions["aoColumns"] = regulatorTableColOptions;
     htpOptions["oLanguage"] = {"sEmptyTable": "No HTP regulators for " + locus['display_name']};
     htpOptions["aaData"] = htpDatatable;
-    var allOptions = {};
+    let allOptions = {};
     allOptions["bPaginate"] = true;
     allOptions["aaSorting"] = [[2, "asc"]];
     allOptions["aoColumns"] = regulatorTableColOptions;
     allOptions["oLanguage"] = {"sEmptyTable": "No HTP regulators for " + locus['display_name']};
     allOptions["aaData"] = allDatatable;
 
-    var _manual = create_table("manual_regulator_table", manualOptions);
-    var _htp = create_table("htp_regulator_table", htpOptions);
-    var _all = create_table("all_regulator_table", allOptions);
+    let _manual = create_table("manual_regulator_table", manualOptions);
+    let _htp = create_table("htp_regulator_table", htpOptions);
+    let _all = create_table("all_regulator_table", allOptions);
     return {
         manual: _manual,
         htp: _htp,

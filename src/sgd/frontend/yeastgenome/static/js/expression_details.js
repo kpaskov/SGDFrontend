@@ -1,14 +1,14 @@
 function filter_table(minValue, maxValue) {
-    var dataset_table = $($.fn.dataTable.fnTables(true)).dataTable();
+    let dataset_table = $($.fn.dataTable.fnTables(true)).dataTable();
     dataset_table.fnFilter( 'log2ratio=' + minValue + ':' + maxValue );
 }
 
 $(document).ready(function() {
     $("#expression_table_analyze").hide();
-    var sgdid = locus.sgdid;
-    var expUrl = 'https://s3-us-west-2.amazonaws.com/sgd-prod-expression-details/' + sgdid + '.json';
+    let sgdid = locus.sgdid;
+    let expUrl = 'https://s3-us-west-2.amazonaws.com/sgd-prod-expression-details/' + sgdid + '.json';
     $.getJSON(expUrl, function(data) {
-        var expression_table = create_expression_table(data['datasets']);
+        let expression_table = create_expression_table(data['datasets']);
         create_download_button("expression_table_download", expression_table, locus['display_name'] + "_expression");
         $("#expression_table_analyze").hide();
         // defer some logic to React
@@ -17,10 +17,10 @@ $(document).ready(function() {
 
     $.getJSON('/backend/locus/' + locus['id'] + '/expression_graph', function(data) {
         if(data != null && data['nodes'].length > 1) {
-            var graph = create_cytoscape_vis("cy", layout, graph_style, data, null, true, "expression");
-            var max_value = data["min_coeff"] + Math.min(data["max_coeff"] - data["min_coeff"], 10);
+            let graph = create_cytoscape_vis("cy", layout, graph_style, data, null, true, "expression");
+            let max_value = data["min_coeff"] + Math.min(data["max_coeff"] - data["min_coeff"], 10);
             // remove slider because of data["min_coeff"] issues
-            // var slider = create_slider("slider", graph, data["min_coeff"], max_value, function slider_filter(new_cutoff) {return "node, edge[score >= " + (new_cutoff/10) + "]";}, max_value+1);
+            // let slider = create_slider("slider", graph, data["min_coeff"], max_value, function slider_filter(new_cutoff) {return "node, edge[score >= " + (new_cutoff/10) + "]";}, max_value+1);
             create_cy_download_button(graph, "cy_download", locus['display_name'] + '_expression_graph')
         }
         else {
@@ -30,7 +30,7 @@ $(document).ready(function() {
 });
 
 function create_expression_table(data) {
-    var options = {
+    let options = {
         'bPaginate': true,
         'aaSorting': [[3, "asc"]],
         'aoColumns': [
@@ -49,9 +49,9 @@ function create_expression_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var reference_ids = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let reference_ids = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(dataset_datat_to_table(data[i], i));
             if(data[i]['reference'] != null) {
                 reference_ids[data[i]['reference']['id']] = true;
@@ -68,7 +68,7 @@ function create_expression_table(data) {
     return create_table("expression_table", options);
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
     .selector('node')
     .css({
         'content': 'data(name)',
@@ -102,7 +102,7 @@ var graph_style = cytoscape.stylesheet()
     })
     ;
 
-var layout = {
+let layout = {
     "name": "arbor",
     "liveUpdate": true,
     "ungrabifyWhileSimulating": true,

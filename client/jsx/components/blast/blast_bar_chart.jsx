@@ -1,23 +1,23 @@
 
 "use strict";
 
-var React = require("react");
-var d3 = require("d3");
-var _ = require("underscore");
+let React = require("react");
+let d3 = require("d3");
+let _ = require("underscore");
 
-var CalcWidthOnResize = require("../mixins/calc_width_on_resize.jsx");
-var FlexibleTooltip = require("./flexible_tooltip.jsx");
-var StandaloneAxis = require("./standalone_axis.jsx");
-var Legend = require("./blast_legend.jsx");
+let CalcWidthOnResize = require("../mixins/calc_width_on_resize.jsx");
+let FlexibleTooltip = require("./flexible_tooltip.jsx");
+let StandaloneAxis = require("./standalone_axis.jsx");
+let Legend = require("./blast_legend.jsx");
 
-var HEIGHT = 10;
-var POINT_WIDTH = 15;
+let HEIGHT = 10;
+let POINT_WIDTH = 15;
 
 module.exports = React.createClass({
 	mixins: [CalcWidthOnResize],
 
 	getDefaultProps: function () {
-	        var _identity = (d) => { return d; };
+	        let _identity = (d) => { return d; };
 		return {
 		        data: null, // *
                         colorValue: function (d) { return d; },
@@ -54,16 +54,16 @@ module.exports = React.createClass({
 
 	render: function () {
 
-		var state = this.state;
-		var props = this.props;
+		let state = this.state;
+		let props = this.props;
 
 		// require widthScale to continue
 		if (!state.widthScale) return <div ref="wrapper"></div>;
 		
 		// create y axis, if hasYaxis
-                var data = this._getData();
-                var _maxY = this.props.maxY;
-                var axisNode =  <StandaloneAxis 
+                let data = this._getData();
+                let _maxY = this.props.maxY;
+                let axisNode =  <StandaloneAxis 
                                  scaleType={props.scaleType} 
                                  domain={[0, _maxY]} 
                                  labelText="Query" 
@@ -72,21 +72,21 @@ module.exports = React.createClass({
                                  transitionDuration={500} 
                 />;
                  
-                var tooltipNode = props.hasTooltip ? (<FlexibleTooltip visible={state.tooltipVisible}
+                let tooltipNode = props.hasTooltip ? (<FlexibleTooltip visible={state.tooltipVisible}
                                 left={state.tooltipLeft} top={state.tooltipTop} text={state.tooltipText}
                         />) : null;
 		
-		var _onMouseOver = (e) => { this._handleMouseOver(e, d); };
+		let _onMouseOver = (e) => { this._handleMouseOver(e, d); };
 
-		var allBars = [];
-		var preBars = [];
-		var h = 0;
+		let allBars = [];
+		let preBars = [];
+		let h = 0;
 		// h += 2*HEIGHT;
 		_.map(data, d => { 
 		       if (!d.same_row) {
 		       	  h += 1.74*HEIGHT;
 		       }
-		       var bar = this._getBarNode(d, h);
+		       let bar = this._getBarNode(d, h);
 		       if (d.same_row) {
 			     preBars.push(bar);
 		       }
@@ -103,7 +103,7 @@ module.exports = React.createClass({
 		
 		allBars.push(<svg style={{ height: HEIGHT, position: "relative"}}></svg>); // empty row for extra space between bars and legend
     
-		var legendBar = (<Legend 
+		let legendBar = (<Legend 
                                   elements={props.legendColor}
                                   leftRatio={props.labelRatio}
                 />);
@@ -134,22 +134,22 @@ module.exports = React.createClass({
         },
 
 	_calculateWidthScale: function (props) {
-	        var scaleTypes = {
+	        let scaleTypes = {
 		        linear: d3.scale.linear(),
 			sqrt: d3.scale.sqrt()
                 };
-		var _baseScale = scaleTypes[this.props.scaleType];
+		let _baseScale = scaleTypes[this.props.scaleType];
 									    
-		var _props = props ? props : this.props;
-		var _maxY = _props.maxY || d3.max(_props.data, _props.yValue); // defaults to maxY prop, if defined
-		var _width = this.refs.wrapper.getBoundingClientRect().width;
-		var _scale = _baseScale.domain([0, _maxY]).range([0, _width * (1-_props.labelRatio)]);
+		let _props = props ? props : this.props;
+		let _maxY = _props.maxY || d3.max(_props.data, _props.yValue); // defaults to maxY prop, if defined
+		let _width = this.refs.wrapper.getBoundingClientRect().width;
+		let _scale = _baseScale.domain([0, _maxY]).range([0, _width * (1-_props.labelRatio)]);
 		this.setState({ widthScale: _scale });
 	},
 
 	_getData: function () {
-                var hasFilter = this.props.filter && this.state.filterIsApplied;
-                var data = this.props.data;
+                let hasFilter = this.props.filter && this.state.filterIsApplied;
+                let data = this.props.data;
                 if (hasFilter) {
                         data = _.filter(data, this.props.filter);
                 }
@@ -157,30 +157,30 @@ module.exports = React.createClass({
 	},
 
 	_getBarNode: function (d, h) {
-		// var startX = this._getScale(d.start) + this.props.left;
-		// var endX = this._getScale(d.end) + this.props.left;
+		// let startX = this._getScale(d.start) + this.props.left;
+		// let endX = this._getScale(d.end) + this.props.left;
 
-		var startX = this._getScale(d.start);
-                var endX = this._getScale(d.end);
+		let startX = this._getScale(d.start);
+                let endX = this._getScale(d.end);
 
-		// var relativeStartX = 0;
-		// var relativeEndX = endX - startX;
+		// let relativeStartX = 0;
+		// let relativeEndX = endX - startX;
 	
-		var pathString = this._getTrapezoidStringPath(startX, endX, d.strand);
+		let pathString = this._getTrapezoidStringPath(startX, endX, d.strand);
 
-		var _opacity = 0.5;
+		let _opacity = 0.5;
 		
 		// interaction handlers
-		var _onMouseover = (e) => {
+		let _onMouseover = (e) => {
 			this._handleMouseOver(e, d, h);
 		};
-		var _onClick = (e) => {
+		let _onClick = (e) => {
 			this._handleClick(e, d);
 		}
 
-		var _color = this.props.colorScale(this.props.colorValue(d));
+		let _color = this.props.colorScale(this.props.colorValue(d));
 		
-		var shapeNode;
+		let shapeNode;
 		// large enough for trapezoid
 		if ((endX - startX) > POINT_WIDTH) {
 			  shapeNode = <path d={pathString} fill={_color} opacity={_opacity} onClick= {_onClick} onMouseOver={_onMouseover} />;
@@ -188,7 +188,7 @@ module.exports = React.createClass({
 			shapeNode = <rect x={0} width={endX - startX} height={HEIGHT} fill={_color} opacity={_opacity} onClick= {_onClick} onMouseOver={_onMouseover} />;
 		}
 
-		var _transform = this._getGroupTransform(d);
+		let _transform = this._getGroupTransform(d);
 		return (
 			<g transform={_transform}>
 				{shapeNode}
@@ -198,14 +198,14 @@ module.exports = React.createClass({
 
 	// returns the transform string used to position the g element for a locus
 	_getGroupTransform: function (d) {
-		var obj = this._getTransformObject(d);
+		let obj = this._getTransformObject(d);
 		return `translate(${obj.x}, ${obj.y})`;
 	},
 
 	// returns  transform x y coordinates
 	_getTransformObject: function (d) {
-		var _x = this._getScale(Math.min(d.start, d.end));
-		var _y = this._getMidpointY();
+		let _x = this._getScale(Math.min(d.start, d.end));
+		let _y = this._getMidpointY();
 		return {
 		        x: _x,
 			y: _y
@@ -220,9 +220,9 @@ module.exports = React.createClass({
 
 	// from relative start, relative end, and bool isWatson, return the string to draw a trapezoid
 	_getTrapezoidStringPath: function (relativeStartX, relativeEndX, strand) {
-		var pointWidth = Math.min(POINT_WIDTH, (relativeEndX - relativeStartX));
+		let pointWidth = Math.min(POINT_WIDTH, (relativeEndX - relativeStartX));
 	
-		var points;
+		let points;
 		if (strand >= 0) {
 			points = [
 				{ x: relativeStartX, y: 0 },
@@ -243,7 +243,7 @@ module.exports = React.createClass({
 			];
 		}
 
-		var areaFn = d3.svg.line()
+		let areaFn = d3.svg.line()
 			.x( d => { return d.x; })
 			.y( d => { return d.y; });
 
@@ -259,8 +259,8 @@ module.exports = React.createClass({
 
 		// TEMP be more forgiving with new domain
 		// don't let the new domain go outside domain bounds
-		var _lb = Math.max(newDomain[0], this.props.domainBounds[0]);
-		var _rb = Math.min(newDomain[1], this.props.domainBounds[1]);
+		let _lb = Math.max(newDomain[0], this.props.domainBounds[0]);
+		let _rb = Math.min(newDomain[1], this.props.domainBounds[1]);
 
 		// make sure not TOO zoomed in
 		if (_rb - _lb < MIN_BP_WIDTH) return;
@@ -272,12 +272,12 @@ module.exports = React.createClass({
 
 	_handleMouseOver: function (e, d, h) {
                 // get the position
-		// var target = e.currentTarget;
-		// var _tooltipTop = target.offsetTop;
-		// var _tooltipTop = e.clientY		
-		var _tooltipTop = h;
-		// var _tooltipLeft = this._getScale(d.start) + this.props.left + 10;
-                var _tooltipLeft = this.props.left + 30;
+		// let target = e.currentTarget;
+		// let _tooltipTop = target.offsetTop;
+		// let _tooltipTop = e.clientY		
+		let _tooltipTop = h;
+		// let _tooltipLeft = this._getScale(d.start) + this.props.left + 10;
+                let _tooltipLeft = this.props.left + 30;
 
                 if (this.props.onMouseOver) {
                         this.props.onMouseOver(d);

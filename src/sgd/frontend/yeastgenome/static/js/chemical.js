@@ -2,13 +2,13 @@
 $(document).ready(function() {
 
 	$.getJSON('/backend/chemical/' + chemical['id']  + '/phenotype_details', function(data) {
-	  	var phenotype_table = create_phenotype_table(data);
+	  	let phenotype_table = create_phenotype_table(data);
 	  	create_analyze_button("phenotype_table_analyze", phenotype_table, "<a href='" + chemical['link'] + "' class='gene_name'>" + chemical['display_name'] + "</a> Genes", true);
   	    create_download_button("phenotype_table_download", phenotype_table, chemical['display_name'] + "_phenotype_annotations");
 	});
 
 	$.getJSON('/backend/chemical/' + chemical['id']  + '/go_details', function(data) {
-                var go_table = create_go_table(data);
+                let go_table = create_go_table(data);
                 create_analyze_button("go_table_analyze", go_table, "<a href='" + chemical['link'] + "' class='gene_name'>" + chemical['display_name'] + "</a> Genes", true);
 		create_download_button("go_table_download", go_table, chemical['display_name'] + "_go_annotations");
 	});
@@ -16,25 +16,25 @@ $(document).ready(function() {
 	$.getJSON('/backend/chemical/' + chemical['id']  + '/network_graph', function(data) {
 
 		if (data != null && data["nodes"].length > 1) {
-		    var _categoryColors = {
+		    let _categoryColors = {
 			'FOCUS': 'black',
 			'GO': '#2ca02c',
 			'PHENOTYPE': '#1f77b4',
 			'COMPLEX': '#E6AB03',
 			'CHEMICAL': '#7d0df3'
 		    };
-		    var filters = {
+		    let filters = {
 			' All': function(d) { return true; },
 			' GO Terms': function(d) {
-			    var acceptedCats = ['FOCUS', 'GO', 'CHEMICAL'];
+			    let acceptedCats = ['FOCUS', 'GO', 'CHEMICAL'];
 			    return acceptedCats.includes(d.category);
 			},
 			' Phenotypes': function(d) {
-			    var acceptedCats = ['FOCUS', 'PHENOTYPE', 'CHEMICAL'];
+			    let acceptedCats = ['FOCUS', 'PHENOTYPE', 'CHEMICAL'];
 			    return acceptedCats.includes(d.category);
 			},
 			' Complexes': function(d) {
-                            var acceptedCats = ['FOCUS', 'COMPLEX', 'CHEMICAL'];
+                            let acceptedCats = ['FOCUS', 'COMPLEX', 'CHEMICAL'];
                             return acceptedCats.includes(d.category);
                         },
 		       
@@ -50,16 +50,16 @@ $(document).ready(function() {
 
 
 function create_phenotype_table(data) {
-  	var datatable = [];
-	var phenotypes = {};
-	for (var i=0; i < data.length; i++) {
+  	let datatable = [];
+	let phenotypes = {};
+	for (let i=0; i < data.length; i++) {
         datatable.push(phenotype_data_to_table(data[i], i));
 		phenotypes[data[i]["phenotype"]["id"]] = true;
 	}
 
     set_up_header('phenotype_table', datatable.length, 'entry', 'entries', Object.keys(phenotypes).length, 'phenotype', 'phenotypes');
 
-	var options = {};
+	let options = {};
 	options["bPaginate"] = true;
 	options["aaSorting"] = [[4, "asc"]];
     options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, {"bSearchable":false, "bVisible":false}, null, null, null, {"sWidth": "250px"}, null];
@@ -71,7 +71,7 @@ function create_phenotype_table(data) {
 
 function create_go_table(data) {
 
-    var options = {};
+    let options = {};
     options["bPaginate"] = true;
     options["aaSorting"] = [[3, "asc"]];
     options["bDestroy"] = true;
@@ -97,9 +97,9 @@ function create_go_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(go_data_to_table(data[i], i));
             genes[data[i]["locus"]["id"]] = true;
         }

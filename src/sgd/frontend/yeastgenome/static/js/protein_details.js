@@ -1,9 +1,9 @@
-var phosphodata = null;
-var current_residues = "";
-var current_strain = "";
-var allPtmData = null;
+let phosphodata = null;
+let current_residues = "";
+let current_strain = "";
+let allPtmData = null;
 
-var source_to_color = {
+let source_to_color = {
   PANTHER: "#3366cc",
   Pfam: "#dc3912",
   Gene3D: "#ff9900",
@@ -29,16 +29,16 @@ $(document).ready(function() {
   $("#atomic_table_download").hide();
 
   $.getJSON("/backend/locus/" + locus["id"] + "/sequence_details", function(sequence_data) {
-    var protein_data = sequence_data["protein"];
-    var alt_strain_protein_data = [];
-    var length = null;
+    let protein_data = sequence_data["protein"];
+    let alt_strain_protein_data = [];
+    let length = null;
     if (protein_data.length > 0) {
-      var strain_selection = $("#strain_selection");
-      for (var i = 0; i < protein_data.length; i++) {
-        var _strain = protein_data[i]["strain"];
+      let strain_selection = $("#strain_selection");
+      for (let i = 0; i < protein_data.length; i++) {
+        let _strain = protein_data[i]["strain"];
         if (protein_data[i]["strain"]["status"] !== "Other") {
           alt_strain_protein_data.push(protein_data[i]);
-          var option = document.createElement("option");
+          let option = document.createElement("option");
           option.setAttribute(
             "value",
             protein_data[i]["strain"]["format_name"]
@@ -85,7 +85,7 @@ $(document).ready(function() {
     //Get domain info
     $.getJSON("/backend/locus/" + locus["id"] + "/protein_domain_details", function(protein_domain_data) {	
 
-	    var domain_table = create_domain_table(protein_domain_data);
+	    let domain_table = create_domain_table(protein_domain_data);
 
 	    if (protein_domain_data.length > 0) {
 		create_download_button(
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
 	    if (protein_domain_data.length > 0) {
 		// call react view from external file
-		var colorScale = function(sourceName) {
+		let colorScale = function(sourceName) {
 		    return source_to_color[sourceName];
 		};
 	    }
@@ -108,8 +108,8 @@ $(document).ready(function() {
 
         $.getJSON("/backend/locus/" + locus["id"] + "/protein_domain_graph", function(protein_domain_graph_data) {
             if (protein_domain_graph_data["nodes"].length > 1) {
-              var graph_style = prep_style();
-              var graph = create_cytoscape_vis(
+              let graph_style = prep_style();
+              let graph = create_cytoscape_vis(
                 "cy",
                 layout,
                 graph_style,
@@ -124,13 +124,13 @@ $(document).ready(function() {
                 locus["display_name"] + "_protein_domain_graph"
               );
 
-              var download_headers = ["", "Gene", "Domain"];
-              var download_data = [];
-              var id_to_name = {};
-              for (var i = 0; i < protein_domain_graph_data["nodes"].length; i++) {
+              let download_headers = ["", "Gene", "Domain"];
+              let download_data = [];
+              let id_to_name = {};
+              for (let i = 0; i < protein_domain_graph_data["nodes"].length; i++) {
                 id_to_name[protein_domain_graph_data["nodes"][i]["data"]["id"]] = protein_domain_graph_data["nodes"][i]["data"]["name"];
               }
-              for (var i = 0;i < protein_domain_graph_data["edges"].length;i++) {
+              for (let i = 0;i < protein_domain_graph_data["edges"].length;i++) {
                 download_data.push([
                   "",
                   id_to_name[protein_domain_graph_data["edges"][i]["data"]["target"]],
@@ -164,8 +164,8 @@ $(document).ready(function() {
     if (data.length > 0) {
       $("#protein_overview").append("<dt>EC Number</dt>");
 
-      var ec_number_html = "";
-      for (var i = 0; i < data.length; i++) {
+      let ec_number_html = "";
+      for (let i = 0; i < data.length; i++) {
         ec_number_html = ec_number_html + "<a href='" + data[i]["ecnumber"]["link"] + "'>" +
           data[i]["ecnumber"]["display_name"] + "</a>";
         if (i != data.length - 1) {
@@ -178,7 +178,7 @@ $(document).ready(function() {
 
   $.getJSON("/backend/locus/" + locus["id"] + "/protein_experiment_details", function(data) {
 	  if (data.length > 0) {
-	      var protein_experiment_table = create_protein_experiment_table(data);
+	      let protein_experiment_table = create_protein_experiment_table(data);
 	      create_download_button(
 				     "protein_experiment_table_download",
 				     protein_experiment_table,
@@ -187,7 +187,7 @@ $(document).ready(function() {
 	  }
 	  else {
 	      $("#protein_experiment_header").remove();
-	      var $parent = $("#protein_experiment_table").parent();
+	      let $parent = $("#protein_experiment_table").parent();
 	      $parent.html("No half-life data available for " + locus["display_name"] + ".");
 	      return "";
 	  }
@@ -198,7 +198,7 @@ $(document).ready(function() {
 
   $.getJSON("/backend/locus/" + locus["id"] + "/protein_abundance_details", function(data) {
       if (data.length > 0) {
-        var protein_abundance_table = create_protein_abundance_table(data);
+        let protein_abundance_table = create_protein_abundance_table(data);
         create_download_button(
           "protein_abundance_table_download",
           protein_abundance_table,
@@ -207,22 +207,22 @@ $(document).ready(function() {
       } 
       else {
 	  $("#protein_abundance_header").remove();
-	  var $parent = $("#protein_abundance_table").parent();
+	  let $parent = $("#protein_abundance_table").parent();
 	  $parent.html("No protein abundance data available for " + locus["display_name"] + ".");
 	  return "";
       }
     }
   );
 
-  var externalIDs = locus["aliases"];
+  let externalIDs = locus["aliases"];
   
   if (externalIDs.length > 0) {
-      var alias_table = create_alias_table(externalIDs);
+      let alias_table = create_alias_table(externalIDs);
       create_download_button("alias_table_download", alias_table, locus["display_name"] + "_external_ids");
   }
   else {
       $("#alias_header").remove();
-      var $parent = $("#alias_table").parent();
+      let $parent = $("#alias_table").parent();
       $parent.html("No external identifier available for " + locus["display_name"] + ".");
       return "";
   }
@@ -238,14 +238,14 @@ function pad_number(number, num_digits) {
 }
 
 function prep_sequence(residues) {
-  var chunks = residues
+  let chunks = residues
     .chunk(10)
     .join(" ")
     .chunk(66);
-  var num_digits = ("" + residues.length).length;
+  let num_digits = ("" + residues.length).length;
 
-  var new_sequence = pad_number(1, num_digits) + " " + chunks[0];
-  for (var i = 1; i < chunks.length; i++) {
+  let new_sequence = pad_number(1, num_digits) + " " + chunks[0];
+  for (let i = 1; i < chunks.length; i++) {
     if (i == chunks.length - 1) {
       new_sequence = new_sequence + "<br>" + pad_number(i * 60 + 1, num_digits) + " " + chunks[i];
     } 
@@ -270,16 +270,16 @@ function get_perc(top, bottom) {
 }
 
 function set_up_properties(data) {
-  var test = Object.getOwnPropertyNames(data);
+  let test = Object.getOwnPropertyNames(data);
   if (Object.getOwnPropertyNames(data).length > 3){
-    var download_headers = [
+    let download_headers = [
       "",
       "Gene",
       "Gene Systematic Name",
       "Property",
       "Value"
     ];
-    var download_data = [];
+    let download_data = [];
     update_property("length", data["residues"].length - 1);
     download_data.push([
       "",
@@ -320,7 +320,7 @@ function set_up_properties(data) {
       "Instability Index",
       data["instability_index"]
     ]);
-    var formula = "-";
+    let formula = "-";
     if (data["carbon"] != null) {
       formula =
         "C<sub>" +
@@ -401,13 +401,13 @@ function set_up_properties(data) {
       data["no_cys_ext_coeff"]
     ]);
 
-    var options = {};
+    let options = {};
     options["bPaginate"] = false;
     options["aaSorting"] = [[0, "asc"]];
     options["bFilter"] = false;
     options["bDestroy"] = true;
     options["sDom"] = "t";
-    var total =
+    let total =
       data["ala"] +
       data["arg"] +
       data["asn"] +
@@ -681,18 +681,18 @@ function set_up_properties(data) {
 }
 
 function draw_phosphodata() {
-  var data = [];
+  let data = [];
   if (phosphodata != null && phosphodata.length > 0 && current_residues != null) {
-    var num_digits = ("" + current_residues.length).length;
-    var residues = $("#sequence_residues");
-    var old_residues = residues.html();
-    var new_residues = "";
-    var start = 0;
+    let num_digits = ("" + current_residues.length).length;
+    let residues = $("#sequence_residues");
+    let old_residues = residues.html();
+    let new_residues = "";
+    let start = 0;
 
-    var uniq_indexes = {};
-    for (var i = 0; i < phosphodata.length; i++) {
-      var _index = phosphodata[i].site_index;
-      var index = relative_to_html(phosphodata[i]["site_index"] - 1, num_digits);
+    let uniq_indexes = {};
+    for (let i = 0; i < phosphodata.length; i++) {
+      let _index = phosphodata[i].site_index;
+      let index = relative_to_html(phosphodata[i]["site_index"] - 1, num_digits);
       if (old_residues.substring(index, index + 1) == phosphodata[i]["site_residue"]) {
         data.push(phosphodata[i]);
       }
@@ -705,7 +705,7 @@ function draw_phosphodata() {
     }
     new_residues = new_residues + old_residues.substring(start, old_residues.length);
     residues.html(new_residues);
-    var phospho_table = create_phosphorylation_table(data);
+    let phospho_table = create_phosphorylation_table(data);
     create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
     $("#phosphorylation_sites_wrapper").show();
   } else {
@@ -714,16 +714,16 @@ function draw_phosphodata() {
 }
 
 function relative_to_html(index, num_digits) {
-  var row = Math.floor(1.0 * index / 60);
-  var column = index - row * 60;
+  let row = Math.floor(1.0 * index / 60);
+  let column = index - row * 60;
   return (row * (71 + num_digits) + 1 + num_digits + column + Math.floor(1.0 * column / 10));
 }
 
 function create_phosphorylation_table(data) {
-  var datatable = [];
+  let datatable = [];
 
-  var sites = {};
-  for (var i = 0; i < data.length; i++) {
+  let sites = {};
+  for (let i = 0; i < data.length; i++) {
     datatable.push(phosphorylation_data_to_table(data[i]));
     sites[data[i]["site_residue"] + data[i]["site_index"]] = true;
   }
@@ -731,7 +731,7 @@ function create_phosphorylation_table(data) {
 
   set_up_phospho_sort();
 
-  var options = {};
+  let options = {};
   options["bPaginate"] = true;
   options["aaSorting"] = [[4, "asc"]];
   options["bDestroy"] = true;
@@ -757,7 +757,7 @@ function create_phosphorylation_table(data) {
 }
 
 function isDataValid(options) {
-  var flag = false;
+  let flag = false;
   if (options.aaData) {
     if (flag == false) {
       items = options.aaData.filter(function(temp_arr) {
@@ -787,9 +787,9 @@ function modifyData(options){
 }
 
 function create_protein_experiment_table(data) {
-  var datatable = [];
-  var experiment_types = {};
-  for (var i = 0; i < data.length; i++) {
+  let datatable = [];
+  let experiment_types = {};
+  for (let i = 0; i < data.length; i++) {
     datatable.push(protein_experiment_data_to_table(data[i]));
     experiment_types[data[i]["data_type"]] = true;
   }
@@ -804,7 +804,7 @@ function create_protein_experiment_table(data) {
     "experiments"
   );
 
-  var options = {};
+  let options = {};
   options["bPaginate"] = false;
   options["aaSorting"] = [[4, "asc"]];
   options["bDestroy"] = true;
@@ -829,9 +829,9 @@ function create_protein_experiment_table(data) {
 
 function create_protein_abundance_table(data) {
 
-    var datatable = [];
-    // var abundanceData = {};
-    for (var i = 0; i < data.length; i++) {
+    let datatable = [];
+    // let abundanceData = {};
+    for (let i = 0; i < data.length; i++) {
 	datatable.push(protein_abundance_data_to_table(data[i]));
 	// abundanceData[data[i]["annotation_id"]] = true
     }
@@ -847,7 +847,7 @@ function create_protein_abundance_table(data) {
 		  "abundances",
 		  );
 
-    var options = {};
+    let options = {};
     options["bPaginate"] = false;
     options["aaSorting"] = [[11, "asc"]];
     // options["bDestroy"] = true;
@@ -881,10 +881,10 @@ function create_protein_abundance_table(data) {
 
 function create_alias_table(data) {
 
-  var datatable = [];
+  let datatable = [];
 
-  var sources = {};
-  for (var i = 0; i < data.length; i++) {
+  let sources = {};
+  for (let i = 0; i < data.length; i++) {
     if (data[i]["protein"]) {
       datatable.push([
         data[i]["id"],
@@ -905,7 +905,7 @@ function create_alias_table(data) {
     "sources"
   );
 
-  var options = {};
+  let options = {};
   options["aaSorting"] = [[2, "asc"]];
   options["aoColumns"] = [{ bSearchable: false, bVisible: false }, null, null];
   options["aaData"] = datatable;
@@ -920,15 +920,15 @@ function create_domain_table(data) {
 
     if (data.length == 0) {
         $("#domain_header").remove();
-        var $parent = $("#domain_table").parent();
+        let $parent = $("#domain_table").parent();
         $parent.html("No domain information available for " + locus["display_name"] + ".");
         return "";
     }
   
-  var datatable = [];
+  let datatable = [];
 
-  var domains = {};
-  for (var i = 0; i < data.length; i++) {
+  let domains = {};
+  for (let i = 0; i < data.length; i++) {
     datatable.push(domain_data_to_table(data[i]));
     domains[data[i]["domain"]["id"]] = true;
   }
@@ -946,7 +946,7 @@ function create_domain_table(data) {
 
   set_up_range_sort();
 
-  var options = {};
+  let options = {};
   options["bPaginate"] = true;
   options["aaSorting"] = [[4, "asc"]];
   options["aoColumns"] = [
@@ -1056,7 +1056,7 @@ function prep_style() {
     });
 }
 
-var layout = {
+let layout = {
   name: "arbor",
   liveUpdate: true,
   ungrabifyWhileSimulating: true,

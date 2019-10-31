@@ -13,10 +13,10 @@ $(document).ready(function() {
     });
 
   	$.getJSON('/backend/locus/' + locus['id'] + '/literature_graph', function(data) {
-  		var hasNetwork = false;
+  		let hasNetwork = false;
   		if(data['nodes'].length > 1) {
   			hasNetwork = true;
-  			var graph = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "literature");
+  			let graph = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "literature");
             create_cy_download_button(graph, "cy_download", locus['display_name'] + '_literature_graph')
   		}
 		else {
@@ -41,7 +41,7 @@ function set_up_reference_list(header_id, list_id, message_id, wrapper_id, downl
 	});
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -78,7 +78,7 @@ var graph_style = cytoscape.stylesheet()
 		'height': 30
 });
 
-var layout = {
+let layout = {
 	"name": "arbor",
 	"liveUpdate": true,
 	"ungrabifyWhileSimulating": true,

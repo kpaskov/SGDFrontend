@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
     $.getJSON('/backend/locus/' + locus['id'] + '/interaction_details', function(data) {
-        var interaction_table = create_interaction_table(data);
+        let interaction_table = create_interaction_table(data);
         create_download_button("interaction_table_download", interaction_table, locus['display_name'] + "_interactions");
         create_analyze_button("interaction_table_analyze", interaction_table, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> interactors", true);
   	    create_analyze_button("phys_gen_union", interaction_table, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> interactors", false);
@@ -24,8 +24,8 @@ $(document).ready(function() {
 
 	$.getJSON('/backend/locus/' + locus['id'] + '/interaction_graph', function(data) {
 	    if(data != null && data["nodes"].length > 1) {
-            var graph = create_cytoscape_vis("cy", layout, graph_style, data, null, true, "interaction");
-            var slider = create_slider("slider", graph, data["min_evidence_cutoff"], data["max_evidence_cutoff"], function slider_filter(new_cutoff) {return "node, edge[evidence >= " + new_cutoff + "]";});
+            let graph = create_cytoscape_vis("cy", layout, graph_style, data, null, true, "interaction");
+            let slider = create_slider("slider", graph, data["min_evidence_cutoff"], data["max_evidence_cutoff"], function slider_filter(new_cutoff) {return "node, edge[evidence >= " + new_cutoff + "]";});
             create_cy_download_button(graph, "cy_download", locus['display_name'] + '_interaction_graph')
 
             if(true) {
@@ -46,7 +46,7 @@ $(document).ready(function() {
 });
 
 function create_interaction_table(data) {
-    var options = {};
+    let options = {};
     if("Error" in data) {
         options["bPaginate"] = true;
         options["aaSorting"] = [[5, "asc"]];
@@ -55,9 +55,9 @@ function create_interaction_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(interaction_data_to_table(data[i], i));
             if(data[i]["locus1"]["id"] == locus['id']) {
                 genes[data[i]["locus2"]["id"]] = true;
@@ -80,8 +80,8 @@ function create_interaction_table(data) {
 }
 
 function get_physical_interactors(data) {
-    var bioent_ids = {};
-    for(var i=0; i < data.length; i++) {
+    let bioent_ids = {};
+    for(let i=0; i < data.length; i++) {
         if(data[i]["interaction_type"] == "Physical") {
             if(data[i]["locus1"]["id"] == locus['id']) {
                 bioent_ids[data[i]["locus2"]["id"]] = true;
@@ -95,8 +95,8 @@ function get_physical_interactors(data) {
 }
 
 function get_genetic_interactors(data) {
-    var bioent_ids = {};
-    for(var i=0; i < data.length; i++) {
+    let bioent_ids = {};
+    for(let i=0; i < data.length; i++) {
         if(data[i]["interaction_type"] == "Genetic") {
             if(data[i]["locus1"]["id"] == locus['id']) {
                 bioent_ids[data[i]["locus2"]["id"]] = true;
@@ -110,15 +110,15 @@ function get_genetic_interactors(data) {
 }
 
 function get_physical_and_genetic_interactors(data) {
-    var physical_ids = get_physical_interactors(data);
-    var genetic_ids = get_genetic_interactors(data);
+    let physical_ids = get_physical_interactors(data);
+    let genetic_ids = get_genetic_interactors(data);
 
-    var genetic_dict = {};
-    for(var i=0; i < genetic_ids.length; i++) {
+    let genetic_dict = {};
+    for(let i=0; i < genetic_ids.length; i++) {
         genetic_dict[genetic_ids[i]] = true;
     }
 
-    var intersect_ids = [];
+    let intersect_ids = [];
     for(i=0; i < physical_ids.length; i++) {
         if(physical_ids[i] in genetic_dict) {
             intersect_ids.push(physical_ids[i]);
@@ -139,7 +139,7 @@ function gen_filter() {
     return "node, edge[class_type = 'GENETIC']";
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -172,7 +172,7 @@ var graph_style = cytoscape.stylesheet()
 		'line-color': "#AF8DC3"
 	});
 
-var layout = {
+let layout = {
 	"name": "arbor",
 	"liveUpdate": true,
 	"ungrabifyWhileSimulating": true,

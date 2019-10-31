@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     if(reference['expression_datasets'].length > 0) {
         $("#expression_table_analyze").hide();
-        var expression_table = create_expression_table(reference['expression_datasets']);
+        let expression_table = create_expression_table(reference['expression_datasets']);
         create_download_button("expression_table_download", expression_table, reference['display_name'] + '_datasets');
     }
     else {
@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     if(reference['downloadable_files'].length > 0) {
         $("#downloadable_file_table_analyze").hide();
-        var file_table = create_downloadable_file_table(reference['downloadable_files']);
+        let file_table = create_downloadable_file_table(reference['downloadable_files']);
         create_download_button("downloadable_file_table_download", file_table, reference['display_name'] + '_files');
     }
     else {
@@ -27,12 +27,12 @@ $(document).ready(function() {
         create_literature_list('review', data, 'Reviews')
     });
 
-    var download_link = '/download_citations';
+    let download_link = '/download_citations';
     $("#download_citation").click(function() {post_to_url(download_link, {"display_name":reference['display_name'].replace(' ', '_') + '_citation.nbib', "reference_ids": [reference['id']]});})
 
     if(reference['counts']['interaction'] > 0) {
         $.getJSON('/backend/reference/' + reference['sgdid'] + '/interaction_details', function(data) {
-            var interaction_table = create_interaction_table(data);
+            let interaction_table = create_interaction_table(data);
             create_download_button("interaction_table_download", interaction_table, reference['display_name'] + "_interactions");
             create_analyze_button("interaction_table_analyze", interaction_table, reference['display_name'] + " interaction genes", true);
         });
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
     if(reference['counts']['go'] > 0) {
         $.getJSON('/backend/reference/' + reference['sgdid'] + '/go_details', function(data) {
-            var go_table = create_go_table(data);
+            let go_table = create_go_table(data);
             create_download_button("go_table_download", go_table, reference['display_name'] + "_go_terms");
             create_analyze_button("go_table_analyze", go_table, reference['display_name'] + " Gene Ontology terms", true);
         });
@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     if(reference['counts']['phenotype'] > 0) {
         $.getJSON('/backend/reference/' + reference['sgdid'] + '/phenotype_details', function(data) {
-            var phenotype_table = create_phenotype_table(data);
+            let phenotype_table = create_phenotype_table(data);
             create_download_button("phenotype_table_download", phenotype_table, reference['display_name'] + "_phenotypes");
             create_analyze_button("phenotype_table_analyze", phenotype_table, reference['display_name'] + " phenotype genes", true);
         });
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     if(reference['counts']['disease'] > 0) {
         $.getJSON('/backend/reference/' + reference['sgdid'] + '/disease_details', function(data) {
-            var disease_table = create_disease_table(data);
+            let disease_table = create_disease_table(data);
             create_download_button("disease_table_download", disease_table, reference['display_name'] + "_diseases");
             create_analyze_button("disease_table_analyze", disease_table, reference['display_name'] + " disease genes", true);
         });
@@ -76,7 +76,7 @@ $(document).ready(function() {
 
     if(reference['counts']["regulation"] > 0) {
         $.getJSON('/backend/reference/' + reference['sgdid'] + '/regulation_details', function(data) {
-            var regulation_table = create_regulation_table(data);
+            let regulation_table = create_regulation_table(data);
             create_download_button("regulation_table_download", regulation_table, reference['display_name'] + "_regulation");
             create_analyze_button("regulation_table_analyze", regulation_table, reference['display_name'] + " regulation genes", true);
         });
@@ -87,20 +87,20 @@ $(document).ready(function() {
 });
 
 function create_literature_list(list_id, data, topic) {
-    var primary_list = $("#" + list_id + "_list");
-    var see_more_list = document.createElement('span');
+    let primary_list = $("#" + list_id + "_list");
+    let see_more_list = document.createElement('span');
     see_more_list.id = list_id + '_see_more'
 
-    var topic_data = [];
-    for(var i=0; i < data.length; i++) {
+    let topic_data = [];
+    for(let i=0; i < data.length; i++) {
         if(data[i]['topic'] == topic) {
             topic_data.push(data[i]);
         }
     }
-    var count = 0;
-    for(var i=0; i < topic_data.length; i++) {
+    let count = 0;
+    for(let i=0; i < topic_data.length; i++) {
         count = count + 1;
-        var a = document.createElement('a');
+        let a = document.createElement('a');
         a.href = topic_data[i]['locus']['link'];
         a.innerHTML = topic_data[i]['locus']['display_name'];
         if(i > 10) {
@@ -110,7 +110,7 @@ function create_literature_list(list_id, data, topic) {
             primary_list.append(a);
         }
         if(i != topic_data.length-1) {
-            var comma = document.createElement('span');
+            let comma = document.createElement('span');
             comma.innerHTML = ', ';
             if(i > 10) {
                 see_more_list.appendChild(comma);
@@ -120,7 +120,7 @@ function create_literature_list(list_id, data, topic) {
             }
         }
         else if(topic_data.length > 10) {
-            var see_less = document.createElement('a');
+            let see_less = document.createElement('a');
             see_less.innerHTML = ' <i class="fa fa-arrow-circle-left"></i> Show fewer';
             see_less.id = list_id + '_see_less_button';
             see_less.onclick = function() {
@@ -130,7 +130,7 @@ function create_literature_list(list_id, data, topic) {
             see_more_list.appendChild(see_less);
         }
         if(i==10) {
-            var see_more = document.createElement('a');
+            let see_more = document.createElement('a');
             see_more.innerHTML = ' ... <i class="fa fa-arrow-circle-right"></i> Show all';
             see_more.id = list_id + '_see_more_button';
             see_more.onclick = function() {
@@ -155,7 +155,7 @@ function create_literature_list(list_id, data, topic) {
 
 function create_interaction_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[3, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bSortable":false}, null, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, null, null, null, null, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}]
@@ -163,9 +163,9 @@ function create_interaction_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(interaction_data_to_table(data[i], i));
             genes[data[i]["locus1"]["id"]] = true;
             genes[data[i]["locus2"]["id"]] = true;
@@ -173,7 +173,7 @@ function create_interaction_table(data) {
 
         set_up_header('interaction_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[3, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bSortable":false}, null, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, null, null, null, null, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}]
@@ -185,7 +185,7 @@ function create_interaction_table(data) {
 }
 
 function create_go_table(data) {
-    var options = {};
+    let options = {};
     options["bPaginate"] = true;
     options["aaSorting"] = [[3, "asc"]];
     options["bDestroy"] = true;
@@ -211,9 +211,9 @@ function create_go_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(go_data_to_table(data[i], i));
             genes[data[i]["locus"]["id"]] = true;
         }
@@ -246,7 +246,7 @@ function create_go_table(data) {
 
 function create_phenotype_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, {"bSearchable":false, "bVisible":false}, null, null, null, {'sWidth': '250px'}, {"bSearchable":false, "bVisible":false}];
@@ -254,16 +254,16 @@ function create_phenotype_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(phenotype_data_to_table(data[i], i));
             genes[data[i]['locus']['id']] = true;
         }
 
         set_up_header('phenotype_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, null, {"bSearchable":false, "bVisible":false}, null, null, null, {'sWidth': '250px'}, {"bSearchable":false, "bVisible":false}];
@@ -276,7 +276,7 @@ function create_phenotype_table(data) {
 
 function create_disease_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[3, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false},{"bSearchable":false, "bVisible":false},null,{"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false},null,null, {"bSearchable":false, "bVisible":false},null, null,{"bSearchable":false, "bVisible":false},null];
@@ -284,16 +284,16 @@ function create_disease_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(disease_data_to_table(data[i], i));
             genes[data[i]['locus']['id']] = true;
         }
 
         set_up_header('disease_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[3, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false},{"bSearchable":false, "bVisible":false},null,{"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false},null,null, {"bSearchable":false, "bVisible":false},null, null,{"bSearchable":false, "bVisible":false},null];
@@ -306,7 +306,7 @@ function create_disease_table(data) {
 
 function create_regulation_table(data) {
     if("Error" in data) {
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
         options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, null, {"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null, null, null, {"bSearchable":false, "bVisible":false}]
@@ -314,11 +314,11 @@ function create_regulation_table(data) {
         options["aaData"] = [];
     }
     else {
-        var not = {"bSearchable":false, "bVisible":false};
-        var tableOptions = [not, not, null, not, null, not, not, not, not, not, null, null, null, null, null, not, not];
-        var datatable = [];
-        var genes = {};
-        for (var i=0; i < data.length; i++) {
+        let not = {"bSearchable":false, "bVisible":false};
+        let tableOptions = [not, not, null, not, null, not, not, not, not, not, null, null, null, null, null, not, not];
+        let datatable = [];
+        let genes = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(regulation_data_to_table(data[i], null));
             genes[data[i]["locus1"]["id"]] = true;
             genes[data[i]["locus2"]["id"]] = true;
@@ -326,7 +326,7 @@ function create_regulation_table(data) {
 
         set_up_header('regulation_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
 
-        var options = {};
+        let options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[3, "asc"]];
         options["aoColumns"] = tableOptions;
@@ -338,7 +338,7 @@ function create_regulation_table(data) {
 }
 
 function create_expression_table(data) {
-    var options = {
+    let options = {
         'bPaginate': true,
         'aaSorting': [[3, "asc"]],
         'aoColumns': [
@@ -357,9 +357,9 @@ function create_expression_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        var reference_ids = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        let reference_ids = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(dataset_datat_to_table(data[i], i));
             if(data[i]['reference'] != null) {
                 reference_ids[data[i]['reference']['id']] = true;
@@ -377,7 +377,7 @@ function create_expression_table(data) {
 
 
 function create_downloadable_file_table(data) {
-    var options = {
+    let options = {
         'bPaginate': true,
         'aaSorting': [[3, "asc"]],
         'aoColumns': [
@@ -392,9 +392,9 @@ function create_downloadable_file_table(data) {
         options["aaData"] = [];
     }
     else {
-        var datatable = [];
-        // var reference_ids = {};
-        for (var i=0; i < data.length; i++) {
+        let datatable = [];
+        // let reference_ids = {};
+        for (let i=0; i < data.length; i++) {
             datatable.push(downloadable_file_to_table(data[i], i));
             // if(data[i]['reference'] != null) {
             //    reference_ids[data[i]['reference']['id']] = true;

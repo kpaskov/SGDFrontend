@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
   	$.getJSON('/backend/observable/' + ontology['id'] + '/ontology_graph', function(data) {
-  		var cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "phenotypeOntology");
+  		let cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "phenotypeOntology");
         create_cy_download_button(cy, "cy_download", ontology['display_name'] + '_ontology')
 
         $("#ontology").show();
@@ -23,11 +23,11 @@ $(document).ready(function() {
 });
 
 function set_up_full_ontology(ontology_list_id, data) {
-	var list = document.getElementById(ontology_list_id);
-	for (var i=0; i < data['elements'].length; i++) {
-		var li = document.createElement('li');
+	let list = document.getElementById(ontology_list_id);
+	for (let i=0; i < data['elements'].length; i++) {
+		let li = document.createElement('li');
 
-        var link_a = document.createElement('a');
+        let link_a = document.createElement('a');
         link_a.innerHTML = data['elements'][i]['display_name'];
         link_a.href = data['elements'][i]['link'];
 
@@ -36,18 +36,18 @@ function set_up_full_ontology(ontology_list_id, data) {
 		li.id = data['elements'][i]['id'];
 		list.appendChild(li);
 	}
-	for (var i=0; i < data['elements'].length; i++) {
-	    var child_id = data['elements'][i]['id'];
+	for (let i=0; i < data['elements'].length; i++) {
+	    let child_id = data['elements'][i]['id'];
 	    if(child_id in data['child_to_parent']) {
-            var parent_id = data['child_to_parent'][child_id];
+            let parent_id = data['child_to_parent'][child_id];
 
-            var parent = document.getElementById(parent_id);
-            var ul = null;
+            let parent = document.getElementById(parent_id);
+            let ul = null;
             if(parent.children.length <= 2) {
                 ul = document.createElement('ul');
                 ul.id = 'expand' + parent_id;
 
-				var minus = document.createElement('i');
+				let minus = document.createElement('i');
 				minus.className = minus.className + ' fa fa-minus-circle';
                 parent.insertBefore(minus, parent.firstChild);
 
@@ -56,7 +56,7 @@ function set_up_full_ontology(ontology_list_id, data) {
             else {
                 ul = parent.children[2];
             }
-            var child = document.getElementById(child_id);
+            let child = document.getElementById(child_id);
             list.removeChild(child);
 
             ul.appendChild(child);
@@ -64,7 +64,7 @@ function set_up_full_ontology(ontology_list_id, data) {
     }
 }
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -121,7 +121,7 @@ var graph_style = cytoscape.stylesheet()
 		{'background-color': "#BF5B17"
 });
 
-var layout = {
+let layout = {
 	"name": "arbor",
 	"liveUpdate": true,
 	"ungrabifyWhileSimulating": true,

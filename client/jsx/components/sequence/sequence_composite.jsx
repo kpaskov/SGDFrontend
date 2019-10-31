@@ -35,7 +35,7 @@ const SequenceComposite = React.createClass({
   },
 
   getInitialState: function () {
-    var _strainKey = null;
+    let _strainKey = null;
     if (this.props.defaultAltStrainKey) {
       _strainKey = this.props.defaultAltStrainKey;
     }
@@ -49,10 +49,10 @@ const SequenceComposite = React.createClass({
     if (!this.props.neighborsModel && !this.props.detailsModel) {
       return <Loader />;
     } else {
-      var titleNode = this._getTitleNode();
-      var neighborsNode = this._getNeighborsNode();
-      var detailsNode = this._getDetailsNode();
-      var sequenceNode = this._getSequenceNode();
+      let titleNode = this._getTitleNode();
+      let neighborsNode = this._getNeighborsNode();
+      let detailsNode = this._getDetailsNode();
+      let sequenceNode = this._getSequenceNode();
       return (<div>
         {titleNode}
         {neighborsNode}
@@ -63,16 +63,16 @@ const SequenceComposite = React.createClass({
   },
 
   _getStrainSelectorNode: function () {
-    var node = null;
+    let node = null;
     if (this.props.showAltStrains && this.props.detailsModel && this.state.activeStrainKey) {
-      var _elements = _.map(this.props.detailsModel.attributes.altStrainMetaData, (s, i) => {
+      let _elements = _.map(this.props.detailsModel.attributes.altStrainMetaData, (s, i) => {
         return {
           value: s.key,
           name: s.name,
           description: s.description
         };
       });
-      var _onChange = (key) => {
+      let _onChange = (key) => {
         this.setState({ activeStrainKey: key });
       };
       node = <DropdownSelector elements={_elements} onChange={_onChange} />;        
@@ -82,18 +82,18 @@ const SequenceComposite = React.createClass({
   },
 
   _getTitleNode: function () {
-    var node;
+    let node;
     if (this.props.showAltStrains) {
-      var selectNode = this._getStrainSelectorNode();
-      var helpNode = <HelpIcon text="Alternative Reference strains are major laboratory yeast strains with a substantial history of use and experimental results. These strains include W303, Sigma1278b, SK1, SEY6210, CEN.PK, D273-10B, JK9-3d, FL100, RM11-1a, and Y55." isInfo={true} />;
+      let selectNode = this._getStrainSelectorNode();
+      let helpNode = <HelpIcon text="Alternative Reference strains are major laboratory yeast strains with a substantial history of use and experimental results. These strains include W303, Sigma1278b, SK1, SEY6210, CEN.PK, D273-10B, JK9-3d, FL100, RM11-1a, and Y55." isInfo={true} />;
       node = (<div>
         <h2>Alternative Reference Strains {helpNode}</h2>
         <hr />
         {selectNode}
       </div>);
     } else {
-      var helpNode = <HelpIcon text={"<span>The <i>S. cerevisiae</i> reference genome sequence is derived from laboratory strain S288C.</span>"} isInfo={true} />;
-      var _jbHref = "https://browse.yeastgenome.org/?loc=" + this.props.focusLocusFormatName;
+      let helpNode = <HelpIcon text={"<span>The <i>S. cerevisiae</i> reference genome sequence is derived from laboratory strain S288C.</span>"} isInfo={true} />;
+      let _jbHref = "https://browse.yeastgenome.org/?loc=" + this.props.focusLocusFormatName;
       node = (<div>
         <div className="row title-right-text">
           <div className="columns small-6">
@@ -112,11 +112,11 @@ const SequenceComposite = React.createClass({
   },
 
   _getNeighborsNode: function () {
-    var node = <Loader />;
+    let node = <Loader />;
     if (this._canRenderNeighbors()) {
-      var attr = this._getActiveStrainNeighborsData();
+      let attr = this._getActiveStrainNeighborsData();
       if (!attr) return null;
-      var geneticPositionNode = this.props.geneticPosition ? <dl className="key-value"><dt>Genetic Position</dt><dd id="genetic_position">{this.props.geneticPosition}</dd></dl> : null;
+      let geneticPositionNode = this.props.geneticPosition ? <dl className="key-value"><dt>Genetic Position</dt><dd id="genetic_position">{this.props.geneticPosition}</dd></dl> : null;
       node = (<div className="panel sgd-viz">
         <h3 className="sequence-viz-label">
           <span dangerouslySetInnerHTML={{ __html: this.props.focusLocusDisplayName }} /> Location: <a href={attr.contigData.href}>{attr.contigData.name}</a> {attr.focusLocusDomain[0]}..{attr.focusLocusDomain[1]}
@@ -139,11 +139,11 @@ const SequenceComposite = React.createClass({
   _getDetailsNode: function () {
     if (!this.props.showSubFeatures) return null;
 
-    var innerNode = <Loader />;
-    var tableNode = null;
-    var downloadNode = null;
+    let innerNode = <Loader />;
+    let tableNode = null;
+    let downloadNode = null;
     if (this._canRenderDetails()) {
-      var attr = this._getActiveStrainDetailsData();
+      let attr = this._getActiveStrainDetailsData();
       innerNode = (<LocusDiagram
         contigData={attr.contigData}
         data={attr.data}
@@ -155,7 +155,7 @@ const SequenceComposite = React.createClass({
       />);
 
       tableNode = this._getSubFeaturesTable();
-      var _params = _.extend(this.props.detailsModel.attributes.subFeatureDownloadData, { display_name: `${this.props.focusLocusDisplayName}_subfeatures` });
+      let _params = _.extend(this.props.detailsModel.attributes.subFeatureDownloadData, { display_name: `${this.props.focusLocusDisplayName}_subfeatures` });
       downloadNode = this.props.isSimplified ? null : <DownloadButton buttonId="subfeature_table_download" url="/download_table" params={_params} />;
 
     }
@@ -169,13 +169,13 @@ const SequenceComposite = React.createClass({
   _getSequenceNode: function () {
     if (!this.props.showSequence || this.props.isSimplified) return null;
 
-    var innerNode = <Loader />;
+    let innerNode = <Loader />;
     if (this._canRenderDetails()) {
-      var _buttonId = this.props.showAltStrains ? "alternative_download" : "reference_download";
-      var _text = this.props.showAltStrains ? "Sequence" : "Sequence - S288C";
-      var _detailsData = this._getActiveStrainDetailsData()
-      var _sequences = _detailsData.sequences;
-      var _contigName = _detailsData.contigData.formatName;
+      let _buttonId = this.props.showAltStrains ? "alternative_download" : "reference_download";
+      let _text = this.props.showAltStrains ? "Sequence" : "Sequence - S288C";
+      let _detailsData = this._getActiveStrainDetailsData()
+      let _sequences = _detailsData.sequences;
+      let _contigName = _detailsData.contigData.formatName;
       innerNode = (<SequenceToggler
         sequences={_sequences} text={_text}
         locusDisplayName={this.props.focusLocusDisplayName} locusFormatName={this.props.focusLocusFormatName}
@@ -198,7 +198,7 @@ const SequenceComposite = React.createClass({
   _getSubFeaturesTable: function () {
     if (!this.props.showSubFeaturesTable && !this._canRenderDetails()) return null;
 
-    var _options = {
+    let _options = {
       aaSorting: [[1, "asc"]],
       aoColumns: [
         null, { "sType": "range" }, { "sType": "range" }, null, null
@@ -206,7 +206,7 @@ const SequenceComposite = React.createClass({
       bPaginate: false,
       oLanguage: { "sEmptyTable": "No subfeatures for " + this.props.focusLocusDisplayName + '.' }
     };
-    var _tableData = this._getActiveStrainDetailsData().tableData;
+    let _tableData = this._getActiveStrainDetailsData().tableData;
     return <DataTable data={_tableData} usePlugin={true} pluginOptions={_options} tableId="subfeature_table" />;
   },
 
@@ -228,7 +228,7 @@ const SequenceComposite = React.createClass({
 
   _getSimplifiedSequenceNode: function () {
     if (this.props.detailsModel) {
-      var attr = this._getActiveStrainDetailsData();
+      let attr = this._getActiveStrainDetailsData();
       return (<MultiSequenceDownload
         sequences={attr.sequences} locusDisplayName={this.props.focusLocusDisplayName}
         contigName={attr.contigData.name} locusFormatName={this.props.focusLocusFormatName}

@@ -1,8 +1,8 @@
 
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
+let React = require("react");
+let _ = require("underscore");
 
 module.exports = React.createClass({
 
@@ -15,11 +15,11 @@ module.exports = React.createClass({
 
 	render: function () {
 
-		var strandLabel = "Fwd: >>  Rev: <<";  
-		var labelText = <span className="legend-entry-container" style={{marginLeft: `${this.props.leftRatio * 150}%`, marginRight: `${this.props.leftRatio * 25}%`, position: "relative"}}>{strandLabel}</span>
+		let strandLabel = "Fwd: >>  Rev: <<";  
+		let labelText = <span className="legend-entry-container" style={{marginLeft: `${this.props.leftRatio * 150}%`, marginRight: `${this.props.leftRatio * 25}%`, position: "relative"}}>{strandLabel}</span>
 
-		var elementNodes = _.map(this.props.elements, (entry, i) => {
-			var expLabel = "";
+		let elementNodes = _.map(this.props.elements, (entry, i) => {
+			let expLabel = "";
 			if (i == 0) {
 			     expLabel = "Neg P Exponent: ";
 			}
@@ -30,10 +30,10 @@ module.exports = React.createClass({
                         </div>);
 		});
 
-		var today = new Date();
-		var day = today.getDate();
-		var month = today.getMonth()+1; // January is 0!
-		var year = today.getFullYear();
+		let today = new Date();
+		let day = today.getDate();
+		let month = today.getMonth()+1; // January is 0!
+		let year = today.getFullYear();
 		if (day < 10) {
 		    day = '0' + day;
 		}
@@ -41,10 +41,10 @@ module.exports = React.createClass({
 		    month = '0' + month;
 		}
 		today = year + "-" + month + "-" + day;
-		var mod = "SGD";
-		// var modText = <span className="legend-entry-container" style={{marginLeft: `${this.props.leftRatio * 25}%`, marginRight: `${this.props.leftRatio * 200}%`, position: "relative"}}>{dateString}</span>
-		var modText = <span className="legend-entry-container" style={{left: "2%", position: "relative"}}>{mod}</span>
-		var dateText = <span className="legend-entry-container" style={{left: "85%", position: "relative"}}>{today}</span>
+		let mod = "SGD";
+		// let modText = <span className="legend-entry-container" style={{marginLeft: `${this.props.leftRatio * 25}%`, marginRight: `${this.props.leftRatio * 200}%`, position: "relative"}}>{dateString}</span>
+		let modText = <span className="legend-entry-container" style={{left: "2%", position: "relative"}}>{mod}</span>
+		let dateText = <span className="legend-entry-container" style={{left: "85%", position: "relative"}}>{today}</span>
 
 
 		return (

@@ -4,14 +4,14 @@ $(document).ready(function() {
 	});
 
 	$.getJSON('/backend/go/' + go_term['id'] + '/ontology_graph', function(data) {
-  		var cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "goOntology");
+  		let cy = create_cytoscape_vis("cy", layout, graph_style, data, null, false, "goOntology");
         create_cy_download_button(cy, "cy_download", go_term['display_name'] + '_ontology')
 
         if(data['all_children'] != null && data['all_children'].length > 0) {
-            var children_div = document.getElementById("children");
-            var more_children_div = document.getElementById("children_see_more");
-            for(var i=0; i < data['all_children'].length; i++) {
-                var a = document.createElement('a');
+            let children_div = document.getElementById("children");
+            let more_children_div = document.getElementById("children_see_more");
+            for(let i=0; i < data['all_children'].length; i++) {
+                let a = document.createElement('a');
                 a.innerHTML = data['all_children'][i]['display_name'];
                 a.href = data['all_children'][i]['link']
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 
                 if(i != data['all_children'].length-1) {
-                    var comma = document.createElement('span');
+                    let comma = document.createElement('span');
                     comma.innerHTML = ' &bull; ';
                     if(i < 20) {
                         children_div.appendChild(comma);
@@ -47,14 +47,14 @@ $(document).ready(function() {
 });
 
 function create_go_table(data) {
-	var manualDatatable = [];
-	var manualGenes = {};
-    var htpDatatable = [];
-    var htpGenes = {};
-    var computationalDatatable = [];
-    var computationalGenes = {};
-	for (var i=0; i < data.length; i++) {
-        var type = data[i].annotation_type;
+	let manualDatatable = [];
+	let manualGenes = {};
+    let htpDatatable = [];
+    let htpGenes = {};
+    let computationalDatatable = [];
+    let computationalGenes = {};
+	for (let i=0; i < data.length; i++) {
+        let type = data[i].annotation_type;
         if (type === 'manually curated') {
             manualDatatable.push(go_data_to_table(data[i], i));
             manualGenes[data[i]["locus"]["id"]] = true;
@@ -70,7 +70,7 @@ function create_go_table(data) {
     set_up_header('htp_go_table', htpDatatable.length, 'entry', 'entries', Object.keys(htpGenes).length, 'gene', 'genes');
     set_up_header('computational_go_table', computationalDatatable.length, 'entry', 'entries', Object.keys(computationalGenes).length, 'gene', 'genes');
 
-	var options = {};
+	let options = {};
 	options["bPaginate"] = true;
     options["aaSorting"] = [[3, "asc"]];
 	options["bDestroy"] = true;
@@ -99,15 +99,15 @@ function create_go_table(data) {
 
 function create_or_hide_table(tableData, options, tableIdentifier, goName, goLink, goId, annotationType, originalData) {
     if (tableData.length) {
-        var localOptions =  $.extend({ aaData: tableData, oLanguage: { sEmptyTable: 'No genes annotated directly to ' + goName } }, options);
-        var table = create_table(tableIdentifier, localOptions);
+        let localOptions =  $.extend({ aaData: tableData, oLanguage: { sEmptyTable: 'No genes annotated directly to ' + goName } }, options);
+        let table = create_table(tableIdentifier, localOptions);
         create_analyze_button(tableIdentifier + "_analyze", table, "<a href='" + goLink + "' class='gene_name'>" + goName + "</a> genes", true);
         create_download_button(tableIdentifier + "_download", table, goName + "_annotations");
         
         if(go_term['descendant_locus_count'] > go_term['locus_count']) {
             create_show_child_button(tableIdentifier + "_show_children", table, originalData, "/backend/go/" + goId + "/locus_details_all", go_data_to_table, function(table_data) {
-                var genes = {};
-                for (var i=0; i < table_data.length; i++) {
+                let genes = {};
+                for (let i=0; i < table_data.length; i++) {
                     genes[table_data[i][1]] = true;
                 }
                 set_up_header(tableIdentifier, table_data.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
@@ -116,13 +116,13 @@ function create_or_hide_table(tableData, options, tableIdentifier, goName, goLin
         return table;
     } else {
         $("#" + tableIdentifier + "_header").remove();
-        var $parent = $("#" + tableIdentifier).parent();
-        var emptyMessage = "There are no " + annotationType + " annotations for " + goName + ".";
+        let $parent = $("#" + tableIdentifier).parent();
+        let emptyMessage = "There are no " + annotationType + " annotations for " + goName + ".";
         $parent.html(emptyMessage);
     }
 };
 
-var graph_style = cytoscape.stylesheet()
+let graph_style = cytoscape.stylesheet()
 	.selector('node')
 	.css({
 		'content': 'data(name)',
@@ -173,7 +173,7 @@ var graph_style = cytoscape.stylesheet()
 //		{'background-color': "#c9e4f6"
 //	});
 
-var layout = {
+let layout = {
     "name": "breadthfirst",
 	"fit": true,
     "directed": true

@@ -7,7 +7,7 @@ $(document).ready(function() {
         document.getElementById("summary_paragraph").innerHTML = strain['paragraph']['text'];
         set_up_references(strain['paragraph']['references'], "summary_paragraph_reference_list");
     }
-    var contig_table = create_contig_table(strain['contigs']);
+    let contig_table = create_contig_table(strain['contigs']);
     if (strain['contigs'].length > 0) {
 	create_download_button("contig_table_download", contig_table, strain['display_name'] + "_contigs");
     }
@@ -15,21 +15,21 @@ $(document).ready(function() {
 });
 
 function create_contig_table(data) {
-  	var datatable = [];
-    var options = {};
+  	let datatable = [];
+    let options = {};
 
     // helper fn to format contig names
-    var getFormattedContigName = function (formatName) {
-        var num = formatName.match(/Mito/) ? "mt" : formatName.split("_")[1];
+    let getFormattedContigName = function (formatName) {
+        let num = formatName.match(/Mito/) ? "mt" : formatName.split("_")[1];
         return "chr" + num;
     };
 
-	for (var i=0; i < data.length; i++) {
-        var contig = data[i];
+	for (let i=0; i < data.length; i++) {
+        let contig = data[i];
 
         if(strain['display_name'] == 'S288C') {
-            var genbank_link = '<a href="http://www.ncbi.nlm.nih.gov/nuccore/' + contig['genbank_accession'] + '">' + contig['genbank_accession'] + '</a>';
-            var refseq_link = '<a href="http://www.ncbi.nlm.nih.gov/nuccore/' + contig['refseq_id'] + '">' + contig['refseq_id'] + '</a>'
+            let genbank_link = '<a href="http://www.ncbi.nlm.nih.gov/nuccore/' + contig['genbank_accession'] + '">' + contig['genbank_accession'] + '</a>';
+            let refseq_link = '<a href="http://www.ncbi.nlm.nih.gov/nuccore/' + contig['refseq_id'] + '">' + contig['refseq_id'] + '</a>'
             if(contig['genbank_accession'] == null) {
                 genbank_link = '-';
                 refseq_link = '-';
@@ -48,8 +48,8 @@ function create_contig_table(data) {
         }
         else {
             if(contig['reference_alignment'] != null) {
-                var _formatName = contig['reference_alignment']['chromosome']['format_name'];
-                var contigName = getFormattedContigName(_formatName);
+                let _formatName = contig['reference_alignment']['chromosome']['format_name'];
+                let contigName = getFormattedContigName(_formatName);
                 datatable.push([contig['id'],
                     contig['id'],
                     '<a href="' + contig['link'] + '">' + contig['display_name'] + '</a>',
