@@ -6,7 +6,8 @@ var _ = require("underscore");
 var BaseModel = require("./base_model.jsx");
 var LocusFormatHelper = require("../lib/locus_format_helper.jsx");
 
-var MAIN_STRAIN_NAME = "S288C";
+// var MAIN_STRAIN_NAME = "S288C";
+var main_strain_list = ["S288C", "W303", "Sigma1278b", "SK1", "SEY6210", "X2180-1A", "CEN.PK", "D273-10B", "JK9-3d", "FL100", "Y55", "RM11-1a"];
 
 module.exports = class SequenceDetailsModel extends BaseModel {
 
@@ -19,6 +20,17 @@ module.exports = class SequenceDetailsModel extends BaseModel {
     }
 
     parse (response) {
+      
+        var MAIN_STRAIN_NAME = "";
+	var i;
+        for (i = 0; i < main_strain_list.length; i++) {
+            if (_.keys(response).includes(main_strain_list[i])) {
+       	       MAIN_STRAIN_NAME = main_strain_list[i];
+               break
+            }
+        }
+
+
         // alt strain data
         var _altStrainTemp = _.filter(response.genomic_dna, s => {
             return (s.strain.status === "Alternative Reference");
