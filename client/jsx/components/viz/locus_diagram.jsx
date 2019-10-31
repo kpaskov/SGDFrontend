@@ -562,6 +562,9 @@ const LocusDiagram = React.createClass({
     // details diagram
     } else if (this.props.showSubFeatures) {
       var _subN = this.props.data.locci[0].tags.length;
+
+      console.log('_subN=' + _subN);
+
       var _labelText = (_subN > 1) ? 'subfeatures' : 'subfeature';
       chromThumb = <h3 className='subfeature-label-text'>Subfeatures - S288C<span className='round secondary label'>{_subN} {_labelText}</span></h3>;
     }
