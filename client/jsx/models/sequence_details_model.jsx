@@ -52,7 +52,7 @@ module.exports = class SequenceDetailsModel extends BaseModel {
 	var strain_list = [];
         var i;
 	for (i = 0; i < strainInfo.length; i++) {
-	    strain_list.append(strainInfo[i]['strain']['format_name']);
+	    strain_list.push(strainInfo[i]['strain']['format_name']);
 	}
         for (i = 0; i < main_strain_list.length; i++) {
             if (strain_list.includes(main_strain_list[i])) {
