@@ -6,8 +6,8 @@ var _ = require("underscore");
 var BaseModel = require("./base_model.jsx");
 var LocusFormatHelper = require("../lib/locus_format_helper.jsx");
 
-var MAIN_STRAIN_NAME = "S288C";
-
+// var MAIN_STRAIN_NAME = "S288C";
+var MAIN_STRAIN_NAME = "CEN.PK";
 var main_strain_list = ["S288C", "W303", "Sigma1278b", "SK1", "SEY6210", "X2180-1A", "CEN.PK", "D273-10B", "JK9-3d", "FL100", "Y55", "RM11-1a"];
 
 
