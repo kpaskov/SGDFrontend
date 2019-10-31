@@ -20,17 +20,7 @@ module.exports = class SequenceDetailsModel extends BaseModel {
     }
 
     parse (response) {
-      
-        var MAIN_STRAIN_NAME = "";
-	var i;
-        for (i = 0; i < main_strain_list.length; i++) {
-            if (_.keys(response).includes(main_strain_list[i])) {
-       	       MAIN_STRAIN_NAME = main_strain_list[i];
-               break
-            }
-        }
-
-
+      	
         // alt strain data
         var _altStrainTemp = _.filter(response.genomic_dna, s => {
             return (s.strain.status === "Alternative Reference");
@@ -53,7 +43,18 @@ module.exports = class SequenceDetailsModel extends BaseModel {
             if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
             return 0;
         });
+
         // 288C data
+	
+	var MAIN_STRAIN_NAME = "";
+        var i;
+        for (i = 0; i < main_strain_list.length; i++) {
+            if (_.keys(response).includes(main_strain_list[i])) {
+               MAIN_STRAIN_NAME = main_strain_list[i];
+               break
+            }
+        }
+	
         var _mainStrain = this._formatStrainData(MAIN_STRAIN_NAME, response, MAIN_STRAIN_NAME);
         // other strains
         var _otherTemp = _.filter(response.genomic_dna, s => {
