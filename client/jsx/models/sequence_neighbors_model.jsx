@@ -1,3 +1,4 @@
+
 "use strict";
 
 var _ = require("underscore");
@@ -51,8 +52,6 @@ module.exports = class SequenceNeighborsModel extends BaseModel {
 
 			var _start = _.min(_loci, (d) => { return d.start; }).start;
 			var _end = _.max(_loci, (d) => { return d.end; }).end;
-
-			console.log('_start='+_start + ', _end=' + _end);
 
 			var _focusLocus = _.filter(_loci, l => {
 				return l.locus.id === this.id;
