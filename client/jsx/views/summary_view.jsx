@@ -10,6 +10,9 @@ const NavBar = require("../components/widgets/navbar.jsx");
 const ReferenceList = require("../components/literature/reference_list.jsx");
 const TabsModel = require("../models/tabs_model.jsx");
 
+var MAIN_STRAIN_NAME = "S288C";
+var main_strain_list = ["S288C", "W303", "Sigma1278b", "SK1", "SEY6210", "X2180-1A", "CEN.PK", "D273-10B", "JK9-3d", "FL100", "Y55", "RM11-1a"];
+
 var summaryView = {};
 summaryView.render = function () {
   var locusData = bootstrappedData.locusData;
@@ -54,6 +57,19 @@ summaryView.render = function () {
 
   // async sequence (if needed)
   if (bootstrappedData.tabs && bootstrappedData.tabs.sequence_section) {
+    var url = `/backend/locus/${bootstrappedData.locusId}/neighbor_sequence_details`;
+    $.getJSON(url, data) {
+        var i;
+        for (i = 0; i < main_strain_list.length; i++) {
+            if (_.keys(data).includes(main_strain_list[i])) {
+                MAIN_STRAIN_NAME = main_strain_list[i];
+                break
+            }
+        }
+    };
+    
+    console.log("main_strain_name="+MAIN_STRAIN_NAME);
+
     var _geneticPosition = locusData.genetic_position ? (locusData.genetic_position + " cM") : null;
     ReactDOM.render(
       <AsyncSequenceView
