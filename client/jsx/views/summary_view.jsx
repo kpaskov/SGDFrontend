@@ -67,7 +67,7 @@ summaryView.render = function () {
             }
         }
     });
-    
+    console.log("locusId="+bootstrappedData.locusId);
     console.log("main_strain_name="+MAIN_STRAIN_NAME);
 
     var _geneticPosition = locusData.genetic_position ? (locusData.genetic_position + " cM") : null;
