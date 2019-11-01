@@ -58,7 +58,7 @@ summaryView.render = function () {
   // async sequence (if needed)
   if (bootstrappedData.tabs && bootstrappedData.tabs.sequence_section) {
     var url = `/backend/locus/${bootstrappedData.locusId}/neighbor_sequence_details`;
-    $.getJSON(url, data) {
+    $.getJSON(url, function(data) {
         var i;
         for (i = 0; i < main_strain_list.length; i++) {
             if (_.keys(data).includes(main_strain_list[i])) {
@@ -66,7 +66,7 @@ summaryView.render = function () {
                 break
             }
         }
-    };
+    });
     
     console.log("main_strain_name="+MAIN_STRAIN_NAME);
 
