@@ -94,6 +94,11 @@ module.exports = class AlignmentIndexModel extends BaseModel {
 
 			data.dna_scores = _dna;
 			data.protein_scores = _protein;
+
+
+			console.log("data="+data)
+
+
 			return data;
 		});
 	}
