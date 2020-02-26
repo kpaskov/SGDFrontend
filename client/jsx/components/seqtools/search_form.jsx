@@ -359,7 +359,7 @@ const GeneSequenceResources = React.createClass({
 		     if (locus_type == 'ORF') {
 		     	  var variantUrl = "https://www.yeastgenome.org/variant-viewer#/" + sgdid4gene[gene].replace("SGD:", "");
 		     	  var strainUrl = "/strainAlignment?locus=" + gene;
-		     	  alignRow.push(<span style={ style.textFont }><br><a href={ variantUrl } target='infowin2'>Variant Viewer</a></br><br><a href={ strainUrl } target='infowin2'>Strain Alignment</a></br></span>);	
+		     	  alignRow.push(<span style={ style.textFont }><br /><a href={ variantUrl } target='infowin2'>Variant Viewer</a><br /><a href={ strainUrl } target='infowin2'>Strain Alignment</a></span>);	
 			  hasRow = hasRow + 1;		
 		     }
 		     else {
@@ -374,7 +374,7 @@ const GeneSequenceResources = React.createClass({
 		
 		var seqDLRow = [];
 		if (hasCoding > 0 && hasProtein > 0) { 
-		     seqDLRow = [<span style={ style.textFont }><br>Sequence Downloads</br><br>* DNA of Region</br><br>* Coding Sequence of Selected ORF</br><br>* Protein Translation of Selected ORF</br></span>];
+		     seqDLRow = [<span style={ style.textFont }><br />Sequence Downloads<br/>* DNA of Region<br/>* Coding Sequence of Selected ORF<br/>* Protein Translation of Selected ORF</span>];
 		}
 		else if (hasCoding > 0) {
 		     seqDLRow = [<span style={ style.textFont }><br>Sequence Downloads</br><br>* DNA of Region</br><br>* Coding Sequence of Selected Gene</br></span>];
