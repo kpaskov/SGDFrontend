@@ -1,10 +1,9 @@
-
 "use strict";
 var Radium = require("radium");
 var React = require("react");
 var _ = require("underscore");
 
-var VariantViewerComponent = require("sgd_visualization").VariantViewerComponent;
+var VariantViewerComponent = require("sgd_visualization2").VariantViewerComponent;
 var RadioSelector = require("../widgets/radio_selector.jsx");
 
 var AsyncVariantViewer = React.createClass({
