@@ -121,7 +121,7 @@ function create_literature_list(list_id, data, topic) {
         }
         if(i != topic_data.length-1) {
             var comma = document.createElement('span');
-            comma.innerHTML = ', ';
+            comma.innerHTML = ' | ';
             if(i > 10) {
                 see_more_list.appendChild(comma);
             }
