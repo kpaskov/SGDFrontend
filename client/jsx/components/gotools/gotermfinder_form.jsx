@@ -290,9 +290,10 @@ const GoTermFinder = React.createClass({
 
 	},
 
-	onReset(e) {
-		   window.location.reload();
-                   return 1;
+        onReset(e) {
+	        window.localStorage.clear();
+	        window.location.reload();
+                return 1;
 	},
 
 	onSubmit(e) {
