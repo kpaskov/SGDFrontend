@@ -184,7 +184,7 @@ const GoTermFinder = React.createClass({
 	        if (genes) {
 	
                    return (<div style={{ textAlign: "top" }}>
-			   <h3><strong style={{ color: 'red'}}Your gene list has been saved in the memory. Please pick the ontology and other options and Submit the form.</strong></h3>
+			   <h3><strong style={{ color: 'red'}}>Your gene list has been saved in the memory. Please pick the ontology and other options and Submit the form.</strong></h3>
 			   <h3><strong>Enter Gene/ORF names</strong> (separated by a return or a space):</h3>
                            <textarea ref='genes' onChange={this._onChange} name='genes' rows='2' cols='90'></textarea>
 			   Note: If you have a big gene list (>100), save it as a file and upload it below.
