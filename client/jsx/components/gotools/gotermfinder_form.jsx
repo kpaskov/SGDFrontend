@@ -179,12 +179,14 @@ const GoTermFinder = React.createClass({
 
 	getGeneBox() {
 
-		var genes = window.localStorage.getItem("geneList");
-		if (genes) {
-
+	        var genes = window.localStorage.getItem("geneList");
+	    
+	        if (genes) {
+	
                    return (<div style={{ textAlign: "top" }}>
+			   <h3><strong style={{ color: 'red'}}Your gene list has been saved in the memory. Please pick the ontology and other options and Submit the form.</strong></h3>
 			   <h3><strong>Enter Gene/ORF names</strong> (separated by a return or a space):</h3>
-                           <textarea ref='genes' onChange={this._onChange} name='genes' rows='2' cols='90' value={ genes }></textarea>
+                           <textarea ref='genes' onChange={this._onChange} name='genes' rows='2' cols='90'></textarea>
 			   Note: If you have a big gene list (>100), save it as a file and upload it below.
 			   <h3><strong style={{ color: 'red'}}>OR</strong> <strong>Upload a file of Gene/ORF names</strong> (.txt or .tab format):
                            <input className="btn btn-default btn-file" type="file" name='uploadFile' onChange={this.handleFile} accept="image/*;capture=camera"/></h3>
@@ -222,7 +224,7 @@ const GoTermFinder = React.createClass({
                 // used for computational only: IBA, IEA, IRD
                 // used for both manual and computational: IKR, IMR
 
-                // var _init_active_keys = evidenceCode;
+                // var _init_active_keys = evidenceCode;/
 		var _init_active_keys = [];
                 var _elements = [];
                 for (var i = 0; i < evidenceCode.length; i++) {
@@ -305,6 +307,10 @@ const GoTermFinder = React.createClass({
 		}
 		else {
 		     genesInBox = 1;
+		}
+	        if (genes == '') {
+		    genes = window.localStorage.getItem("geneList");
+		    window.localStorage.setItem("geneList", '');
 		}
 		genes = this.processGeneList(genes);
                 if (genes == '') {
