@@ -299,7 +299,7 @@ const GoTermFinder = React.createClass({
 	onSubmit(e) {
 
 		var genes = this.refs.genes.value.trim();
-		var genesInBox = 0;
+	        var genesInBox = 0;
 		if (genes == '') {
 		     genes = this.state.uploadedGenes;
 		     this.setState({
@@ -309,9 +309,11 @@ const GoTermFinder = React.createClass({
 		else {
 		     genesInBox = 1;
 		}
+	        var fromTools =	0;
 	        if (genes == '') {
 		    genes = window.localStorage.getItem("geneList");
 		    window.localStorage.setItem("geneList", '');
+		    fromTools = 1;
 		}
 		genes = this.processGeneList(genes);
                 if (genes == '') {
@@ -330,9 +332,10 @@ const GoTermFinder = React.createClass({
 
 		// check for ambiguous genes
 
-		var ambiguousGeneDict = this.state.ambiguousNames;
+	        var ambiguousGeneDict = this.state.ambiguousNames;
 
-                for (var i = 0; i < all_genes.length; i++) {
+	        if (fromTools == 0) {
+                   for (var i = 0; i < all_genes.length; i++) {
                      var gene = all_genes[i];
                      if (gene in ambiguousGeneDict) {
                            var ambiguousGeneObj = ambiguousGeneDict[gene];
@@ -357,7 +360,7 @@ const GoTermFinder = React.createClass({
                            e.preventDefault();
                            return 1;
                      }
-
+                   }
                 }
 
 		window.localStorage.setItem("genes", genes);
