@@ -30,7 +30,6 @@ const GeneSequenceResources = React.createClass({
       isPending: false,
       userError: null,
       chr: 0,
-      seqType: 'DNA',
       strains: ['S288C'],	
       strain: '',	
       resultData: {},
@@ -1532,13 +1531,9 @@ const GeneSequenceResources = React.createClass({
 
   getSeqtypeNode() {
     var _elements = [];
-    _elements.push(
-      <option value="DNA" selected="selected">
-        DNA
-      </option>
-    );
+    _elements.push(<option value="DNA">DNA</option>);
     _elements.push(<option value="Protein">Protein</option>);
-
+      
     return (
       <div>
         <p>
