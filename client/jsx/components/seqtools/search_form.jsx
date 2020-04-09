@@ -29,7 +29,10 @@ const GeneSequenceResources = React.createClass({
       isComplete: false,
       isPending: false,
       userError: null,
-      strain: '',
+      chr: 0,
+      seqType: 'DNA',
+      strains: ['S288C'],	
+      strain: '',	
       resultData: {},
       notFound: null,
       param: param,
@@ -1401,23 +1404,15 @@ const GeneSequenceResources = React.createClass({
 
     var chromosomes = Object.keys(chr2num);
 
-    var _elements = _.map(chromosomes, (c) => {
-      if (chr2num[c] == 0) {
-        return (
-          <option value={chr2num[c]} selected="selected">
-            {c}
-          </option>
-        );
-      } else {
-        return <option value={chr2num[c]}>{c}</option>;
-      }
+    var _elements = _.map(chromosomes, (c) => { 
+      return <option value={chr2num[c]}>{c}</option>;
     });
 
     return (
       <div>
         <h3>Pick a chromosome: </h3>
         <p>
-          <select ref="chr" name="chr" onChange={this.onChangeGenome}>
+          <select ref="chr" name="chr" value={this.state.chr} onChange={this.onChrChange}>
             {_elements}
           </select>
         </p>
@@ -1665,6 +1660,10 @@ const GeneSequenceResources = React.createClass({
     );
   },
 
+  onChrChange(e) {
+    this.setState({ chr: e.target.value });
+  },
+    
   onChange(e) {
     this.setState({ text: e.target.value });
   },
