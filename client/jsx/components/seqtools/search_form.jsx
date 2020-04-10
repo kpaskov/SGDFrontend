@@ -801,7 +801,7 @@ const GeneSequenceResources = React.createClass({
                 type="submit"
                 value="Genome Pattern Matching"
                 style={style.button}
-              ></input>
+              />
             </form>
             {restrictionButton}
           </div>
@@ -847,7 +847,7 @@ const GeneSequenceResources = React.createClass({
                 type="submit"
                 value="Genome Pattern Matching"
                 style={style.button}
-              ></input>
+              />
             </form>
           </div>
         </div>
@@ -976,13 +976,11 @@ const GeneSequenceResources = React.createClass({
     var seqID = name + '_' + strain + '_' + ID;
     var seq = window.localStorage.getItem(seqID);
 
-    // <input type="submit" value={ button } className="button small secondary"></input>
-
     if (emboss == '') {
       return (
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     } else {
@@ -990,7 +988,7 @@ const GeneSequenceResources = React.createClass({
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
           <input type="hidden" name="emboss" value={emboss} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     }
@@ -1002,14 +1000,14 @@ const GeneSequenceResources = React.createClass({
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
           <input type="hidden" name="type" value={seqtype} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     } else {
       return (
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     }
@@ -1021,14 +1019,14 @@ const GeneSequenceResources = React.createClass({
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
           <input type="hidden" name="emboss" value={emboss} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     } else {
       return (
         <form method="GET" action={program} target="toolwin">
           <input type="hidden" name="sequence_id" value={seqID} />
-          <input type="submit" value={button} style={style.button}></input>
+          <input type="submit" value={button} style={style.button} />
         </form>
       );
     }
@@ -1038,23 +1036,10 @@ const GeneSequenceResources = React.createClass({
     return (
       <form method="POST" action={program} target="toolwin">
         <input type="hidden" name="seq" value={seq} />
-        <input type="submit" value={button} style={style.button}></input>
+        <input type="submit" value={button} style={style.button} />
       </form>
     );
   },
-
-  // getDownloadSeqButton(genes, strains, type) {
-  //
-  //        // return (<form ref={ genes } method="POST" action="/run_seqtools" key={"hiddenNode_" + genes}>
-  //	return (<form method="POST" action="/run_seqtools">
-  //                       <input type="hidden" name="format" value='fasta' />
-  //                        <input type="hidden" name="type" value={ type } />
-  //                        <input type="hidden" name="genes" value={ genes } />
-  //			<input type="hidden" name="strains" value={ strains } />
-  //			<input type="submit" value="FASTA" className="button secondary"></input>
-  //               </form>);
-  //
-  // },
 
   display_result_table(headerRow, rows) {
     var _tableData = {
@@ -1335,7 +1320,7 @@ const GeneSequenceResources = React.createClass({
             name="up"
             onChange={this.onChange}
             size="50"
-          ></input>
+          />
           Downstream:{' '}
           <input
             type="text"
@@ -1343,7 +1328,7 @@ const GeneSequenceResources = React.createClass({
             name="down"
             onChange={this.onChange}
             size="50"
-          ></input>
+          />
         </p>
         {reverseCompNode}
       </div>
@@ -1359,21 +1344,21 @@ const GeneSequenceResources = React.createClass({
         <h3>Pick one or more strains:</h3>
         {strainNode}
         <p>
-          <input type="hidden" name="more" value="1"></input>
+          <input type="hidden" name="more" value="1" />
           <input
             type="submit"
             ref="submit"
             name="submit"
             value="Submit Form"
             className="button secondary"
-          ></input>{' '}
+          />{' '}
           <input
             type="reset"
             ref="reset"
             name="reset"
             value="Reset Form"
             className="button secondary"
-          ></input>
+          />
         </p>
       </div>
     );
@@ -1423,7 +1408,7 @@ const GeneSequenceResources = React.createClass({
             name="start"
             onChange={this.onChange}
             size="105"
-          ></input>
+          />
           to
           <input
             type="text"
@@ -1431,7 +1416,7 @@ const GeneSequenceResources = React.createClass({
             name="end"
             onChange={this.onChange}
             size="105"
-          ></input>
+          />
           The entire chromosome sequence will be displayed if no coordinates are
           entered.{' '}
         </p>
@@ -1456,14 +1441,14 @@ const GeneSequenceResources = React.createClass({
             name="submit2"
             value="Submit Form"
             className="button secondary"
-          ></input>{' '}
+          />{' '}
           <input
             type="reset"
             ref="reset2"
             name="reset2"
             value="Reset Form"
             className="button secondary"
-          ></input>
+          />
         </p>
       </div>
     );
@@ -1494,7 +1479,7 @@ const GeneSequenceResources = React.createClass({
           name="seq_id"
           ref="seq_id"
           value={localSeqID}
-        ></input>
+        />
       </div>
     );
   },
@@ -1516,14 +1501,14 @@ const GeneSequenceResources = React.createClass({
             name="submit3"
             value="Submit Form"
             className="button secondary"
-          ></input>{' '}
+          />{' '}
           <input
             type="reset"
             ref="reset3"
             name="reset3"
             value="Reset Form"
             className="button secondary"
-          ></input>
+          />
         </p>
       </div>
     );
