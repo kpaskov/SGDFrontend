@@ -31,7 +31,7 @@ const GeneSequenceResources = React.createClass({
       userError: null,
       chr: 0,
       strains: ['S288C'],	
-      strain: '',	
+      strain: 'S288C',	
       resultData: {},
       notFound: null,
       param: param,
@@ -1583,20 +1583,7 @@ const GeneSequenceResources = React.createClass({
     var defaultStrain = '';
 
     var _elements = _.map(strains, (s) => {
-      var label = s;
-      if (s == 'S288C') {
-        defaultStrain = 'S288C';
-        return (
-          <option value={s} selected="selected">
-            {label}
-          </option>
-        );
-      } else {
-        if (defaultStrain == '') {
-          defaultStrain = s;
-        }
-        return <option value={s}>{label}</option>;
-      }
+      return <option value={s}>{s}</option>;
     });
 
     window.localStorage.setItem('strain', defaultStrain);
@@ -1608,6 +1595,7 @@ const GeneSequenceResources = React.createClass({
             ref="strain"
             name="strain"
             id="strain"
+	    value={this.state.strain}
             onChange={this.onChange4strain}
           >
             {_elements}
@@ -1664,7 +1652,7 @@ const GeneSequenceResources = React.createClass({
   },
 
   onChange4strain(e) {
-    this.setState({ text: e.target.value, strain: e.target.value });
+    this.setState({ strain: e.target.value });
   },
 
   runSeqTools(searchType) {
