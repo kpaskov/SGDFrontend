@@ -1624,7 +1624,6 @@ const GeneSequenceResources = React.createClass({
             ref="strains"
             name="strains"
             id="strains"
-	    value={this.state.strains}
             onChange={this.onStrainChange}
             size="11"
             multiple
