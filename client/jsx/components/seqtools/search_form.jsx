@@ -1612,15 +1612,7 @@ const GeneSequenceResources = React.createClass({
 
     var _elements = _.map(strains, (s) => {
       var label = strain2label[s];
-      if (s == 'S288C') {
-        return (
-          <option value={s} selected="selected">
-            {label}
-          </option>
-        );
-      } else {
-        return <option value={s}>{label}</option>;
-      }
+      return <option value={s}>{label}</option>;
     });
 
     return (
@@ -1632,7 +1624,8 @@ const GeneSequenceResources = React.createClass({
             ref="strains"
             name="strains"
             id="strains"
-            onChange={this.onChange}
+	    value={this.state.strains}
+            onChange={this.onStrainChange}
             size="11"
             multiple
           >
@@ -1643,6 +1636,10 @@ const GeneSequenceResources = React.createClass({
     );
   },
 
+  onStrainChange(e) {
+    this.setState({ strains: e.target.value });
+  },
+    
   onChrChange(e) {
     this.setState({ chr: e.target.value });
   },
