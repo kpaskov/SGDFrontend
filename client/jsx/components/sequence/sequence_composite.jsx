@@ -99,7 +99,7 @@ const SequenceComposite = React.createClass({
       	node = (<div>
           <div className="row title-right-text">
             <div className="columns small-6">
-              {this.props.isSimplified ? this._getSimplifiedSequenceNode() : <h2>Focus Strain: {this.props.mainStrain}</h2>}
+              {this.props.isSimplified ? this._getSimplifiedSequenceNode() : <h2>Strain: {this.props.mainStrain}</h2>}
             </div>
           </div>
           {this.props.isSimplified ? null : <hr />}
