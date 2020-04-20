@@ -394,7 +394,7 @@ const GoSlimMapper = React.createClass({
 	},
 
 	onReset(e) {
-		// window.localStorage.clear();
+		window.localStorage.clear();
 		this.setState({ slimType: goSet[0] } );
 	},
 
