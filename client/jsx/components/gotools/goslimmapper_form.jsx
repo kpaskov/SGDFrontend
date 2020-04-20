@@ -137,7 +137,7 @@ const GoSlimMapper = React.createClass({
 			<div dangerouslySetInnerHTML={{ __html: descText}} />
 			<div className="row">
 			     <div className="large-12 columns">
-			     	  <form onSubmit={this.onSubmit} target="infowin">
+			     	  <form onSubmit={this.onSubmit} onReset={this.onReset} target="infowin">
 				        <DataTable data={_geneSection} />
 					<DataTable data={_goSection} />
 					{ submitReset }
@@ -151,7 +151,7 @@ const GoSlimMapper = React.createClass({
 	submitReset() {
 
 		return (<div>
-		       <p><input type="submit" ref='submit' name='submit' value="Submit Form" className="button secondary"></input> <input type="reset" ref='reset' name='reset' value="Reset Form" onReset={this.onReset} className="button secondary"></input></p>
+		       <p><input type="submit" ref='submit' name='submit' value="Submit Form" className="button secondary"></input> <input type="reset" ref='reset' name='reset' value="Reset Form" className="button secondary"></input></p>
 		       </div>);
 
 	},
@@ -394,7 +394,7 @@ const GoSlimMapper = React.createClass({
 	},
 
 	onReset(e) {
-		window.localStorage.clear();
+		// window.localStorage.clear();
 		this.setState({ slimType: goSet[0] } );
 	},
 
