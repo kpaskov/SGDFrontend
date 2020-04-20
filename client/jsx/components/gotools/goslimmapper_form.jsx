@@ -394,7 +394,8 @@ const GoSlimMapper = React.createClass({
 	},
 
 	onReset(e) {
-		window.localStorage.clear();
+	        // window.localStorage.clear();
+	        window.localStorage.setItem("geneList4slim", "");
 		this.setState({ slimType: goSet[0] } );
 	},
 
