@@ -832,7 +832,7 @@ function create_protein_abundance_table(data) {
     var datatable = [];
     // var abundanceData = {};
     for (var i = 0; i < data.length; i++) {
-	datatable.push(protein_abundance_data_to_table(data[i]));
+	datatable.push(protein_abundance_data_to_table(data[i], 0));
 	// abundanceData[data[i]["annotation_id"]] = true
     }
 

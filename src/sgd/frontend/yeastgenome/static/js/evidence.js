@@ -146,7 +146,7 @@ function protein_experiment_data_to_table(evidence) {
     return [evidence['id'], evidence['locus']['id'], bioent, evidence['locus']['format_name'], experiment, evidence['data_value'] + ' ' + evidence['data_unit'], reference];
 }
 
-function protein_abundance_data_to_table(evidence) {
+function protein_abundance_data_to_table(evidence, for_chemical) {
 
     var bioent = create_link(evidence['locus']['display_name'], evidence['locus']['link'], false);
 
@@ -210,6 +210,20 @@ function protein_abundance_data_to_table(evidence) {
 	strain_background = create_link(evidence['strain']['display_name'], evidence['strain']['link']);
     }  
 
+    if (for_chemical == 1) {
+
+	return [evidence['id'], evidence['locus']['id'], bioent, evidence['locus']['format_name'],
+		bioent,
+		evidence['data_value'],
+		media,
+		treatment,
+		treatment_time,
+		fold_change,
+		visualization,
+		strain_background,
+		original_reference,
+		reference];
+	
     return [evidence['id'], evidence['locus']['id'], bioent, evidence['locus']['format_name'], 
 	    evidence['data_value'],
 	    media,

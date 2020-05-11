@@ -56,12 +56,10 @@ $(document).ready(function() {
 function create_protein_abundance_table(data) {
 
   var datatable = [];
-  // var abundanceData = {};                                                                                                        
+
   for (var i = 0; i < data.length; i++) {
-    datatable.push(protein_abundance_data_to_table(data[i]));
-    // abundanceData[data[i]["annotation_id"]] = true                                                                               
+      datatable.push(protein_abundance_data_to_table(data[i], 1));
   }
-  // Object.keys(abundanceData).length,                                                                                             
 
   set_up_header(
     "protein_abundance_table",
@@ -76,7 +74,7 @@ function create_protein_abundance_table(data) {
   var options = {};
   options["bPaginate"] = false;
   options["aaSorting"] = [[11, "asc"]];
-  // options["bDestroy"] = true;                                                                                                    
+
   options["aoColumns"] = [
     { bSearchable: false, bVisible: false },
     { bSearchable: false, bVisible: false },
