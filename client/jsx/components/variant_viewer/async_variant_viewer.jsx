@@ -5,7 +5,7 @@ var _ = require('underscore');
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-var VariantViewerComponent = require('sgd_visualization')
+var VariantViewerComponent = require('sgd_visualization2')
   .VariantViewerComponent;
 var RadioSelector = require('../widgets/radio_selector.jsx');
 
