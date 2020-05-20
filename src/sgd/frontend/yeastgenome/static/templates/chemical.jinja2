@@ -74,8 +74,9 @@
 
 			{% if chemical.structure_image_url != '' %}
                             <dt>Structure</dt>
-                            <dd>(click image to zoom in/out)
+                            <dd>
 				<img src={{ chemical.structure_image_url }} id='strucImg' onClick="zoom()">
+				<br>(click image to zoom in/out)</br>
 			    </dd>
                         {% endif %}
 
