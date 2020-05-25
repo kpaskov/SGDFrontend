@@ -232,8 +232,8 @@ var style = {
   },
   radio: {
     width: '110rem',
-    marginTop: 50,
-    marginRight: '20rem',
+    marginTop: 5,
+    marginRight: '2rem',
   },
   emptyNode: {
     marginTop: '5rem',
