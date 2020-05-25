@@ -21,6 +21,8 @@ var AsyncVariantViewer = createReactClass({
     return {
       hideTitle: false,
       parentIsProtein: false,
+      parentIsUpstream: false,
+      parentIsDownstream: false,
     };
   },
 
@@ -28,6 +30,8 @@ var AsyncVariantViewer = createReactClass({
     return {
       data: null,
       childIsProtein: this.props.parentIsProtein,
+      childIsUpstream: this.props.parentIsUpstream,
+      childIsDownstream: this.props.parentIsDownstream,
     };
   },
 
@@ -79,8 +83,8 @@ var AsyncVariantViewer = createReactClass({
     var _elements = [
       { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
-      { name: 'Upstream DNA', key: 'upstream' },
-      { name: 'Downstream DNA', key: 'downstream'},
+      { name: 'Upstream Intergenic Region', key: 'upstream' },
+      { name: 'Downstream Intergenic Region', key: 'downstream'},
     ];
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
