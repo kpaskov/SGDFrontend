@@ -235,7 +235,7 @@ var style = {
     marginLeft: '1rem',
   },
   radio: {
-    width: '110rem',
+    width: '50rem',
     marginTop: 5,
     marginRight: '2rem',
   },
