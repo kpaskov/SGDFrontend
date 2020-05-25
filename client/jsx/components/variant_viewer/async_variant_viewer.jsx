@@ -83,8 +83,8 @@ var AsyncVariantViewer = createReactClass({
     var _elements = [
       { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
-      { name: 'Upstream Intergenic Region', key: 'upstream' },
-      { name: 'Downstream Intergenic Region', key: 'downstream'},
+      { name: 'Upstream IGR', key: 'upstream' },
+      { name: 'Downstream IGR', key: 'downstream'},
     ];
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
