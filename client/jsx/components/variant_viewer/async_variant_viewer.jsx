@@ -54,9 +54,19 @@ var AsyncVariantViewer = createReactClass({
         </div>
       );
 
-    var vizNode = this.state.childIsProtein
-      ? this._renderProteinViz()
-      : this._renderDnaViz();
+    var vizNode = '';
+    if (this.state.childIsProtein) {
+      vizNode = this._renderProteinViz();
+    }
+    else if (this.state.childIsUpstream) {
+      vizNode = this._renderUpstreamViz();
+    }
+    else if (this.state.childIsDownstream) {
+      vizNode = this._renderDownstreamViz();
+    }
+    else {
+      vizNode = this._renderDnaViz();
+    }	  
     return (
       <div>
         {this._renderHeader()}
@@ -88,8 +98,20 @@ var AsyncVariantViewer = createReactClass({
     ];
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
+      this.setState({ childIsUpstream: key === 'upstream' });
+      this.setState({ childIsDownstream: key === 'downstream' });
     };
-    var _init = this.state.childIsProtein ? 'protein' : 'dna';
+    var _init = 'dna';
+    if (this.state.childIsProtein) {
+      _init = 'protein';
+    }
+    else if (this.state.childIsUpstream) {
+      _init = 'upstream';	      
+    }
+    else if (this.state.childIsDownstream) {
+      _init = 'downstream';
+    }
+      
     var radioNode = (
       <RadioSelector
         elements={_elements}
@@ -149,6 +171,76 @@ var AsyncVariantViewer = createReactClass({
     );
   },
 
+  _renderUpstreamViz: function () {
+    var data = this.state.data;
+    var dnaSeqs = data.aligned_upstream_sequences.map((d) => {
+      return {
+        name: d.strain_display_name,
+        id: d.strain_id,
+        href: d.strain_link,
+        sequence: d.sequence,
+      };
+    });
+    var variantData = data.variant_data_upstream_dna.map((d) => {
+      return _.extend(d, { snpType: d.snp_type });
+    });
+    if (variantData.length === 0) return this._renderEmptyNode();
+    var caption = this._getDateStr();
+    return (
+      <VariantViewerComponent
+        name={data.name}
+        chromStart={data.upstream_chrom_start}
+        chromEnd={data.upstream_chrom_end}
+        blockStarts={data.upstream_block_starts}
+        blockSizes={data.upstream_block_sizes}
+        contigName={data.contig_name}
+        contigHref={data.contig_href}
+        alignedDnaSequences={dnaSeqs}
+        variantDataDna={variantData}
+        dnaLength={data.upstream_dna_length}
+        strand={'+'}
+        isProteinMode={false}
+        downloadCaption={caption}
+        isRelative={true}
+      />
+    );
+  },
+
+  _renderDownstreamViz: function () {
+    var data = this.state.data;
+    var dnaSeqs = data.aligned_downstream_sequences.map((d) => {
+      return {
+        name: d.strain_display_name,
+        id: d.strain_id,
+        href: d.strain_link,
+        sequence: d.sequence,
+      };
+    });
+    var variantData = data.variant_data_downstream_dna.map((d) => {
+      return _.extend(d, { snpType: d.snp_type });
+    });
+    if (variantData.length === 0) return this._renderEmptyNode();
+    var caption = this._getDateStr();
+    return (
+      <VariantViewerComponent
+        name={data.name}
+        chromStart={data.downstream_chrom_start}
+        chromEnd={data.downstream_chrom_end}
+        blockStarts={data.downstream_block_starts}
+        blockSizes={data.downstream_block_sizes}
+        contigName={data.contig_name}
+        contigHref={data.contig_href}
+        alignedDnaSequences={dnaSeqs}
+        variantDataDna={variantData}
+        dnaLength={data.dna_length}
+        strand={'+'}
+        isProteinMode={false}
+        downloadCaption={caption}
+        isRelative={true}
+      />
+    );
+  },
+    
   _renderProteinViz: function () {
     var data = this.state.data;
     var proteinSeqs = data.aligned_protein_sequences.map((d) => {
