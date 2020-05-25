@@ -71,8 +71,10 @@ var VariantViewer = createReactClass({
 
   _renderControls: function () {
     var radioElements = [
-      { name: 'DNA', key: 'dna' },
+      { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
+      { name: 'Upstream DNA', key: 'upstream' },
+      { name: 'Downstream DNA', key: 'downstream'},
     ];
     var radioOnSelect = (key) => {
       this.setState({ isProteinMode: key === 'protein' }, () => {
