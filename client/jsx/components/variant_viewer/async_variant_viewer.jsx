@@ -173,7 +173,7 @@ var AsyncVariantViewer = createReactClass({
 
   _renderUpstreamViz: function () {
     var data = this.state.data;
-    var dnaSeqs = data.aligned_upstream_sequences.map((d) => {
+    var dnaSeqs = data.upstream_aligned_sequences.map((d) => {
       return {
         name: d.strain_display_name,
         id: d.strain_id,
@@ -181,7 +181,7 @@ var AsyncVariantViewer = createReactClass({
         sequence: d.sequence,
       };
     });
-    var variantData = data.variant_data_upstream_dna.map((d) => {
+    var variantData = data.upstream_variant_data_dna.map((d) => {
       return _.extend(d, { snpType: d.snp_type });
     });
     if (variantData.length === 0) return this._renderEmptyNode();
@@ -208,7 +208,7 @@ var AsyncVariantViewer = createReactClass({
 
   _renderDownstreamViz: function () {
     var data = this.state.data;
-    var dnaSeqs = data.aligned_downstream_sequences.map((d) => {
+    var dnaSeqs = data.downstream_aligned_sequences.map((d) => {
       return {
         name: d.strain_display_name,
         id: d.strain_id,
@@ -216,7 +216,7 @@ var AsyncVariantViewer = createReactClass({
         sequence: d.sequence,
       };
     });
-    var variantData = data.variant_data_downstream_dna.map((d) => {
+    var variantData = data.downstream_variant_data_dna.map((d) => {
       return _.extend(d, { snpType: d.snp_type });
     });
     if (variantData.length === 0) return this._renderEmptyNode();
