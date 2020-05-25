@@ -231,9 +231,9 @@ var style = {
     marginLeft: '1rem',
   },
   radio: {
-    width: '11rem',
-    marginTop: 5,
-    marginRight: '2rem',
+    width: '110rem',
+    marginTop: 50,
+    marginRight: '20rem',
   },
   emptyNode: {
     marginTop: '5rem',
