@@ -77,8 +77,10 @@ var AsyncVariantViewer = createReactClass({
 
     // init radio selector
     var _elements = [
-      { name: 'DNA', key: 'dna' },
+      { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
+      { name: 'Upstream DNA', key: 'upstream' },
+      { name: 'Downstream DNA', key: 'downstream'},
     ];
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
