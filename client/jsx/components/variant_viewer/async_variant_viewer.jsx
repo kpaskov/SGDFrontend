@@ -183,7 +183,7 @@ var AsyncVariantViewer = createReactClass({
 
   _renderUpstreamViz: function () {
     var data = this.state.data;
-    var dnaSeqs = data.upstream_aligned_sequences.map((d) => {
+    var dnaSeqs = data.upstream_aligned_dna_sequences.map((d) => {
       return {
         name: d.strain_display_name,
         id: d.strain_id,
@@ -218,7 +218,7 @@ var AsyncVariantViewer = createReactClass({
 
   _renderDownstreamViz: function () {
     var data = this.state.data;
-    var dnaSeqs = data.downstream_aligned_sequences.map((d) => {
+    var dnaSeqs = data.downstream_aligned_dna_sequences.map((d) => {
       return {
         name: d.strain_display_name,
         id: d.strain_id,
