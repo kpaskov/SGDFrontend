@@ -35,6 +35,8 @@ var VariantViewer = createReactClass({
     return {
       isPending: true,
       isProteinMode: false,
+      isUpstreamMode: false,
+      isDownstreamMode: false,
       labelsVisible: true,
     };
   },
@@ -46,6 +48,8 @@ var VariantViewer = createReactClass({
       <div>
         {React.cloneElement(this.props.children, {
           isProteinMode: this.state.isProteinMode,
+          isUpstreamMode: this.isUpstreamMode,
+          isDownstreamMode: this.isDownstreamMode
         })}
         <h1>
           <span style={{ marginRight: '0.5rem' }}>Variant Viewer</span>
@@ -71,12 +75,20 @@ var VariantViewer = createReactClass({
 
   _renderControls: function () {
     var radioElements = [
-      { name: 'DNA', key: 'dna' },
+      { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
+      { name: 'Upstream IGR', key: 'upstream' },
+      { name: 'Downstream IGR', key: 'downstream' },
     ];
     var radioOnSelect = (key) => {
       this.setState({ isProteinMode: key === 'protein' }, () => {
         this.props.store.setIsProteinMode(this.state.isProteinMode);
+      });
+      this.setState({ isUpstreamMode: key === 'upstream' }, () => {
+        this.props.store.setIsUpstreamMode(this.state.isUpstreamMode);
+      });
+      this.setState({ isDownstreamMode: key === 'downstream' }, () => {
+        this.props.store.setIsDownstreamMode(this.state.isDownstreamMode);
       });
     };
     var onSettingsUpdate = this.forceUpdate.bind(this);

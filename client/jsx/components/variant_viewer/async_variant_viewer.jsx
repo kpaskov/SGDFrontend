@@ -17,6 +17,16 @@ var AsyncVariantViewer = createReactClass({
     parentIsProtein: PropTypes.bool,
   },
 
+  getInitialState: function () {
+    return {
+      isPending: true,
+      isProteinMode: false,
+      isUpstreamMode: false,
+      isDownstreamMode: false,
+      labelsVisible: true,
+    };
+  },
+
   getDefaultProps: function () {
     return {
       hideTitle: false,
