@@ -170,6 +170,8 @@ var AsyncVariantViewer = createReactClass({
         dnaLength={data.dna_length}
         strand={'+'}
         isProteinMode={false}
+        isUpstreamMode={false}
+        isDownstreamMode={false}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -205,6 +207,8 @@ var AsyncVariantViewer = createReactClass({
         dnaLength={data.upstream_dna_length}
         strand={'+'}
         isProteinMode={false}
+	isUpstreamMode={true}
+	isDownstreamMode={false}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -240,6 +244,8 @@ var AsyncVariantViewer = createReactClass({
         dnaLength={data.dna_length}
         strand={'+'}
         isProteinMode={false}
+        isUpstreamMode={false}
+        isDownstreamMode={true}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -279,6 +285,8 @@ var AsyncVariantViewer = createReactClass({
         proteinLength={data.protein_length}
         strand={'+'}
         isProteinMode={true}
+        isUpstreamMode={false}
+        isDownstreamMode={false}
         domains={_domains}
         downloadCaption={caption}
         isRelative={true}
