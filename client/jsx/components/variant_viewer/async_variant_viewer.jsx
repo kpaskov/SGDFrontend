@@ -67,16 +67,13 @@ var AsyncVariantViewer = createReactClass({
     var vizNode = '';
     if (this.state.childIsProtein) {
       vizNode = this._renderProteinViz();
-    }
-    else if (this.state.childIsUpstream) {
+    } else if (this.state.childIsUpstream) {
       vizNode = this._renderUpstreamViz();
-    }
-    else if (this.state.childIsDownstream) {
+    } else if (this.state.childIsDownstream) {
       vizNode = this._renderDownstreamViz();
-    }
-    else {
+    } else {
       vizNode = this._renderDnaViz();
-    }	  
+    }
     return (
       <div>
         {this._renderHeader()}
@@ -104,7 +101,7 @@ var AsyncVariantViewer = createReactClass({
       { name: 'Genomic DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
       { name: 'Upstream IGR', key: 'upstream' },
-      { name: 'Downstream IGR', key: 'downstream'},
+      { name: 'Downstream IGR', key: 'downstream' },
     ];
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
@@ -114,14 +111,12 @@ var AsyncVariantViewer = createReactClass({
     var _init = 'dna';
     if (this.state.childIsProtein) {
       _init = 'protein';
-    }
-    else if (this.state.childIsUpstream) {
-      _init = 'upstream';	      
-    }
-    else if (this.state.childIsDownstream) {
+    } else if (this.state.childIsUpstream) {
+      _init = 'upstream';
+    } else if (this.state.childIsDownstream) {
       _init = 'downstream';
     }
-      
+
     var radioNode = (
       <RadioSelector
         elements={_elements}
@@ -250,7 +245,7 @@ var AsyncVariantViewer = createReactClass({
       />
     );
   },
-    
+
   _renderProteinViz: function () {
     var data = this.state.data;
     var proteinSeqs = data.aligned_protein_sequences.map((d) => {
