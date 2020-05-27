@@ -193,6 +193,9 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
+
+    console.log("upstream_chrom_start="+upstream_chrom_start+ ", upstream_chrom_end="+upstream_chrom_end);
+      
     return (
       <VariantViewerComponent
         name={data.name}
