@@ -207,8 +207,8 @@ var AsyncVariantViewer = createReactClass({
         dnaLength={data.upstream_dna_length}
         strand={'+'}
         isProteinMode={false}
-	isUpstreamMode={true}
-	isDownstreamMode={false}
+        isUpstreamMode={true}
+        isDownstreamMode={false}
         downloadCaption={caption}
         isRelative={true}
       />
