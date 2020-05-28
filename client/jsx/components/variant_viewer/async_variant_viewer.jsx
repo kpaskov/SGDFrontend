@@ -193,7 +193,7 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-      
+
     return (
       <VariantViewerComponent
         name={data.name}
