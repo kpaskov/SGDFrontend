@@ -193,16 +193,12 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-
-    console.log("upstream_chrom_start="+data.upstream_chrom_start+ ", upstream_chrom_end="+data.upstream_chrom_end);
       
     return (
       <VariantViewerComponent
         name={data.name}
         chromStart={data.upstream_chrom_start}
         chromEnd={data.upstream_chrom_end}
-        blockStarts={data.upstream_block_starts}
-        blockSizes={data.upstream_block_sizes}
         contigName={data.contig_name}
         contigHref={data.contig_href}
         alignedDnaSequences={dnaSeqs}
@@ -238,13 +234,11 @@ var AsyncVariantViewer = createReactClass({
         name={data.name}
         chromStart={data.downstream_chrom_start}
         chromEnd={data.downstream_chrom_end}
-        blockStarts={data.downstream_block_starts}
-        blockSizes={data.downstream_block_sizes}
         contigName={data.contig_name}
         contigHref={data.contig_href}
         alignedDnaSequences={dnaSeqs}
         variantDataDna={variantData}
-        dnaLength={data.dna_length}
+        dnaLength={data.downstream_dna_length}
         strand={'+'}
         isProteinMode={false}
         isUpstreamMode={false}
