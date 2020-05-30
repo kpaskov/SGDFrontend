@@ -193,7 +193,7 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-
+    var intergenicDisplayName = "between " + data.upstream_format_name.replace("_", " to ");
     return (
       <VariantViewerComponent
         name={data.name}
@@ -210,6 +210,7 @@ var AsyncVariantViewer = createReactClass({
         isProteinMode={false}
         isUpstreamMode={true}
         isDownstreamMode={false}
+	intergenicDisplayName={intergenicDisplayName}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -231,6 +232,7 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
+    var	intergenicDisplayName =	"between " + data.downstream_format_name.replace("_", " to ");  
     return (
       <VariantViewerComponent
         name={data.name}
@@ -247,6 +249,7 @@ var AsyncVariantViewer = createReactClass({
         isProteinMode={false}
         isUpstreamMode={false}
         isDownstreamMode={true}
+	intergenicDisplayName={intergenicDisplayName}
         downloadCaption={caption}
         isRelative={true}
       />
