@@ -99,16 +99,16 @@ var AsyncVariantViewer = createReactClass({
     // init radio selector
     var _elements = [
       { name: 'Genomic DNA', key: 'dna' },
-      { name: 'Protein', key: 'protein' }
+      { name: 'Protein', key: 'protein' },
     ];
 
-    if (data.upstream_format_name) {  
-	_elements.push({ name: 'Upstream IGR', key: 'upstream' });
+    if (data.upstream_format_name) {
+      _elements.push({ name: 'Upstream IGR', key: 'upstream' });
     }
     if (data.downstream_format_name) {
-	_elements.push({ name: 'Downstream IGR', key: 'downstream' });
+      _elements.push({ name: 'Downstream IGR', key: 'downstream' });
     }
-      
+
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
       this.setState({ childIsUpstream: key === 'upstream' });
@@ -199,7 +199,10 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var intergenicDisplayName = 'between ' + data.upstream_format_name.replace('_', ' to ');
+    var names = data.upstream_format_name.split("_");  
+    var intergenicDisplayName =
+	"between <a href=/locus/" + names[0] + ">" + names[0] + "</a> to <a href=/locus/" + names[1] + ">" + names[0] + "</a>"
+      
     return (
       <VariantViewerComponent
         name={data.name}
@@ -238,7 +241,10 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var intergenicDisplayName = 'between ' + data.downstream_format_name.replace('_', ' to ');
+    var	names =	data.downstream_format_name.split("_");
+    var intergenicDisplayName =
+        "between <a href=/locus/" + names[0] + ">" + names[0] + "</a> to <a href=/locus/" + names[1] + ">" + names[0] + "</a>"
+
     return (
       <VariantViewerComponent
         name={data.name}
