@@ -199,9 +199,8 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var names = data.upstream_format_name.split("_");  
     var intergenicDisplayName =
-	"between <a href=/locus/" + names[0] + ">" + names[0] + "</a> to <a href=/locus/" + names[1] + ">" + names[0] + "</a>"
+	'between ' + data.upstream_format_name.replace("_", " to ");
       
     return (
       <VariantViewerComponent
@@ -241,10 +240,9 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var	names =	data.downstream_format_name.split("_");
     var intergenicDisplayName =
-        "between <a href=/locus/" + names[0] + ">" + names[0] + "</a> to <a href=/locus/" + names[1] + ">" + names[0] + "</a>"
-
+        'between ' + data.downstream_format_name.replace("_", " to ");
+    
     return (
       <VariantViewerComponent
         name={data.name}
