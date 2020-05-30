@@ -99,10 +99,16 @@ var AsyncVariantViewer = createReactClass({
     // init radio selector
     var _elements = [
       { name: 'Genomic DNA', key: 'dna' },
-      { name: 'Protein', key: 'protein' },
-      { name: 'Upstream IGR', key: 'upstream' },
-      { name: 'Downstream IGR', key: 'downstream' },
+      { name: 'Protein', key: 'protein' }
     ];
+
+    if (data.upstream_format_name) {  
+	_elements.push({ name: 'Upstream IGR', key: 'upstream' });
+    }
+    if (data.downstream_format_name) {
+	_elements.push({ name: 'Downstream IGR', key: 'downstream' });
+    }
+      
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
       this.setState({ childIsUpstream: key === 'upstream' });
@@ -193,7 +199,7 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var intergenicDisplayName = "between " + data.upstream_format_name.replace("_", " to ");
+    var intergenicDisplayName = 'between ' + data.upstream_format_name.replace('_', ' to ');
     return (
       <VariantViewerComponent
         name={data.name}
@@ -210,7 +216,7 @@ var AsyncVariantViewer = createReactClass({
         isProteinMode={false}
         isUpstreamMode={true}
         isDownstreamMode={false}
-	intergenicDisplayName={intergenicDisplayName}
+        intergenicDisplayName={intergenicDisplayName}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -232,7 +238,7 @@ var AsyncVariantViewer = createReactClass({
     });
     if (variantData.length === 0) return this._renderEmptyNode();
     var caption = this._getDateStr();
-    var	intergenicDisplayName =	"between " + data.downstream_format_name.replace("_", " to ");  
+    var intergenicDisplayName = 'between ' + data.downstream_format_name.replace('_', ' to ');
     return (
       <VariantViewerComponent
         name={data.name}
@@ -249,7 +255,7 @@ var AsyncVariantViewer = createReactClass({
         isProteinMode={false}
         isUpstreamMode={false}
         isDownstreamMode={true}
-	intergenicDisplayName={intergenicDisplayName}
+        intergenicDisplayName={intergenicDisplayName}
         downloadCaption={caption}
         isRelative={true}
       />
