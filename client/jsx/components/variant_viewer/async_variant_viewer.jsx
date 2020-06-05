@@ -324,8 +324,10 @@ var AsyncVariantViewer = createReactClass({
       text = 'These sequences are identical.';
     }
     return (
-	<div><h3>Location: {contigTextNode} {data.chrom_start}..{data.chrom_end} {intergenicDisplayName}</h3></div>
-	<div><p style={[style.emptyNode]}>{text}</p></div>
+	<div>
+	  <h3>Location: {contigTextNode} {data.chrom_start}..{data.chrom_end} {intergenicDisplayName}</h3>
+	  <p style={[style.emptyNode]}>{text}</p>
+        </div>
     );
   },
 
