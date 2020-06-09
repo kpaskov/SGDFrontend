@@ -200,7 +200,8 @@ var AsyncVariantViewer = createReactClass({
     var caption = this._getDateStr();
     var intergenicDisplayName =
       'between ' + data.upstream_format_name.replace('_', ' and ');
-    if (variantData.length === 0) return this._renderEmptyNode(intergenicDisplayName);
+    if (variantData.length === 0)
+      return this._renderEmptyNode(intergenicDisplayName);
 
     return (
       <VariantViewerComponent
@@ -238,12 +239,13 @@ var AsyncVariantViewer = createReactClass({
     var variantData = data.downstream_variant_data_dna.map((d) => {
       return _.extend(d, { snpType: d.snp_type });
     });
-      
+
     var caption = this._getDateStr();
     var intergenicDisplayName =
       'between ' + data.downstream_format_name.replace('_', ' and ');
-    if (variantData.length === 0) return this._renderEmptyNode(intergenicDisplayName);
-      
+    if (variantData.length === 0)
+      return this._renderEmptyNode(intergenicDisplayName);
+
     return (
       <VariantViewerComponent
         name={data.name}
@@ -315,7 +317,11 @@ var AsyncVariantViewer = createReactClass({
     var numSequences = isProtein
       ? data.aligned_protein_sequences.length
       : data.aligned_dna_sequences.length;
-    var contigTextNode = data.contig_href ? <a href={data.contig_href}>{data.contig_name}</a>: <span>{data.contig_name}</span>;
+    var contigTextNode = data.contig_href ? (
+      <a href={data.contig_href}>{data.contig_name}</a>
+    ) : (
+      <span>{data.contig_name}</span>
+    );
     var text;
     if (numSequences <= 1) {
       text =
@@ -324,10 +330,13 @@ var AsyncVariantViewer = createReactClass({
       text = 'These sequences are identical.';
     }
     return (
-	<div>
-	  <h3>Location: {contigTextNode} {data.chrom_start}..{data.chrom_end} {intergenicDisplayName}</h3>
-	  <p style={[style.emptyNode]}>{text}</p>
-        </div>
+      <div>
+        <h3>
+          Location: {contigTextNode} {data.chrom_start}..{data.chrom_end}{' '}
+          {intergenicDisplayName}
+        </h3>
+        <p style={[style.emptyNode]}>{text}</p>
+      </div>
     );
   },
 
