@@ -17,22 +17,10 @@ var AsyncVariantViewer = createReactClass({
     parentIsProtein: PropTypes.bool,
   },
 
-  getInitialState: function () {
-    return {
-      isPending: true,
-      isProteinMode: false,
-      isUpstreamMode: false,
-      isDownstreamMode: false,
-      labelsVisible: true,
-    };
-  },
-
   getDefaultProps: function () {
     return {
       hideTitle: false,
       parentIsProtein: false,
-      parentIsUpstream: false,
-      parentIsDownstream: false,
     };
   },
 
@@ -40,8 +28,6 @@ var AsyncVariantViewer = createReactClass({
     return {
       data: null,
       childIsProtein: this.props.parentIsProtein,
-      childIsUpstream: this.props.parentIsUpstream,
-      childIsDownstream: this.props.parentIsDownstream,
     };
   },
 
@@ -64,16 +50,9 @@ var AsyncVariantViewer = createReactClass({
         </div>
       );
 
-    var vizNode = '';
-    if (this.state.childIsProtein) {
-      vizNode = this._renderProteinViz();
-    } else if (this.state.childIsUpstream) {
-      vizNode = this._renderUpstreamViz();
-    } else if (this.state.childIsDownstream) {
-      vizNode = this._renderDownstreamViz();
-    } else {
-      vizNode = this._renderDnaViz();
-    }
+    var vizNode = this.state.childIsProtein
+      ? this._renderProteinViz()
+      : this._renderDnaViz();
     return (
       <div>
         {this._renderHeader()}
@@ -98,31 +77,13 @@ var AsyncVariantViewer = createReactClass({
 
     // init radio selector
     var _elements = [
-      { name: 'Genomic DNA', key: 'dna' },
+      { name: 'DNA', key: 'dna' },
       { name: 'Protein', key: 'protein' },
     ];
-
-    if (data.upstream_format_name) {
-      _elements.push({ name: 'Upstream IGR', key: 'upstream' });
-    }
-    if (data.downstream_format_name) {
-      _elements.push({ name: 'Downstream IGR', key: 'downstream' });
-    }
-
     var _onSelect = (key) => {
       this.setState({ childIsProtein: key === 'protein' });
-      this.setState({ childIsUpstream: key === 'upstream' });
-      this.setState({ childIsDownstream: key === 'downstream' });
     };
-    var _init = 'dna';
-    if (this.state.childIsProtein) {
-      _init = 'protein';
-    } else if (this.state.childIsUpstream) {
-      _init = 'upstream';
-    } else if (this.state.childIsDownstream) {
-      _init = 'downstream';
-    }
-
+    var _init = this.state.childIsProtein ? 'protein' : 'dna';
     var radioNode = (
       <RadioSelector
         elements={_elements}
@@ -176,93 +137,6 @@ var AsyncVariantViewer = createReactClass({
         dnaLength={data.dna_length}
         strand={'+'}
         isProteinMode={false}
-        isUpstreamMode={false}
-        isDownstreamMode={false}
-        downloadCaption={caption}
-        isRelative={true}
-      />
-    );
-  },
-
-  _renderUpstreamViz: function () {
-    var data = this.state.data;
-    var dnaSeqs = data.upstream_aligned_dna_sequences.map((d) => {
-      return {
-        name: d.strain_display_name,
-        id: d.strain_id,
-        href: d.strain_link,
-        sequence: d.sequence,
-      };
-    });
-    var variantData = data.upstream_variant_data_dna.map((d) => {
-      return _.extend(d, { snpType: d.snp_type });
-    });
-    var caption = this._getDateStr();
-    var intergenicDisplayName =
-      'between ' + data.upstream_format_name.replace('_', ' and ');
-    if (variantData.length === 0)
-      return this._renderEmptyNode(intergenicDisplayName);
-
-    return (
-      <VariantViewerComponent
-        name={data.name}
-        chromStart={data.upstream_chrom_start}
-        chromEnd={data.upstream_chrom_end}
-        blockStarts={data.upstream_block_starts}
-        blockSizes={data.upstream_block_sizes}
-        contigName={data.contig_name}
-        contigHref={data.contig_href}
-        alignedDnaSequences={dnaSeqs}
-        variantDataDna={variantData}
-        dnaLength={data.upstream_dna_length}
-        strand={'+'}
-        isProteinMode={false}
-        isUpstreamMode={true}
-        isDownstreamMode={false}
-        intergenicDisplayName={intergenicDisplayName}
-        downloadCaption={caption}
-        isRelative={true}
-      />
-    );
-  },
-
-  _renderDownstreamViz: function () {
-    var data = this.state.data;
-    var dnaSeqs = data.downstream_aligned_dna_sequences.map((d) => {
-      return {
-        name: d.strain_display_name,
-        id: d.strain_id,
-        href: d.strain_link,
-        sequence: d.sequence,
-      };
-    });
-    var variantData = data.downstream_variant_data_dna.map((d) => {
-      return _.extend(d, { snpType: d.snp_type });
-    });
-
-    var caption = this._getDateStr();
-    var intergenicDisplayName =
-      'between ' + data.downstream_format_name.replace('_', ' and ');
-    if (variantData.length === 0)
-      return this._renderEmptyNode(intergenicDisplayName);
-
-    return (
-      <VariantViewerComponent
-        name={data.name}
-        chromStart={data.downstream_chrom_start}
-        chromEnd={data.downstream_chrom_end}
-        blockStarts={data.downstream_block_starts}
-        blockSizes={data.downstream_block_sizes}
-        contigName={data.contig_name}
-        contigHref={data.contig_href}
-        alignedDnaSequences={dnaSeqs}
-        variantDataDna={variantData}
-        dnaLength={data.downstream_dna_length}
-        strand={'+'}
-        isProteinMode={false}
-        isUpstreamMode={false}
-        isDownstreamMode={true}
-        intergenicDisplayName={intergenicDisplayName}
         downloadCaption={caption}
         isRelative={true}
       />
@@ -302,8 +176,6 @@ var AsyncVariantViewer = createReactClass({
         proteinLength={data.protein_length}
         strand={'+'}
         isProteinMode={true}
-        isUpstreamMode={false}
-        isDownstreamMode={false}
         domains={_domains}
         downloadCaption={caption}
         isRelative={true}
@@ -311,17 +183,12 @@ var AsyncVariantViewer = createReactClass({
     );
   },
 
-  _renderEmptyNode: function (intergenicDisplayName) {
+  _renderEmptyNode: function () {
     var isProtein = this.state.childIsProtein;
     var data = this.state.data;
     var numSequences = isProtein
       ? data.aligned_protein_sequences.length
       : data.aligned_dna_sequences.length;
-    var contigTextNode = data.contig_href ? (
-      <a href={data.contig_href}>{data.contig_name}</a>
-    ) : (
-      <span>{data.contig_name}</span>
-    );
     var text;
     if (numSequences <= 1) {
       text =
@@ -329,15 +196,7 @@ var AsyncVariantViewer = createReactClass({
     } else {
       text = 'These sequences are identical.';
     }
-    return (
-      <div>
-        <h3>
-          Location: {contigTextNode} {data.chrom_start}..{data.chrom_end}{' '}
-          {intergenicDisplayName}
-        </h3>
-        <p style={[style.emptyNode]}>{text}</p>
-      </div>
-    );
+    return <p style={[style.emptyNode]}>{text}</p>;
   },
 
   _getDateStr: function () {
@@ -370,7 +229,7 @@ var style = {
     marginLeft: '1rem',
   },
   radio: {
-    width: '100rem',
+    width: '11rem',
     marginTop: 5,
     marginRight: '2rem',
   },
