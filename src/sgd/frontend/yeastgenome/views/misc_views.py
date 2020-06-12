@@ -27,7 +27,7 @@ def redirect_no_overview(request):
 
 @view_config(route_name='redirect_to_protein')
 def redirect_to_protein(request):
-    new_url = request.path.replace('/protein/', '/locus/') + '/protein'
+    new_url = request.path.replace('/protein/', '/locus/') 
     return HTTPMovedPermanently(get_https_url(new_url, request))
 
 @view_config(context=HTTPNotFound)
