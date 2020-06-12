@@ -2,7 +2,7 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const ProteinViewer = require('sgd_visualization').ProteinViewerComponent;
+const ProteinViewer = require('sgd_visualization_beta').ProteinViewerComponent;
 const _ = require('underscore');
 const NavBar = require('../components/widgets/navbar.jsx');
 const TabsModel = require('../models/tabs_model.jsx');
