@@ -18,6 +18,7 @@ def prep_views(chosen_frontend, config):
     config.add_route('healthcheck', '/healthcheck')
     config.add_route('redirect_no_overview', '/{ignore}/overview')
     config.add_route('redirect_no_overview_long', '/{ignore_a}/{ignore_b}/overview')
+    config.add_route('redirect_to_protein', '/protein/{ignore}')
     config.add_route('home', '/')
     config.add_route('blast_fungal', '/blast-fungal')
     config.add_route('blast_sgd', '/blast-sgd')
