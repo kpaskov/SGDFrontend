@@ -325,11 +325,9 @@ var AsyncVariantViewer = createReactClass({
     }
     return (
 	<div>
-            <h3>Location: {contigTextNode} {data.chrom_start}..{data.chrom_end} {intergenicDisplayName}</h3>
+          <h3>Location: {contigTextNode} {data.chrom_start}..{data.chrom_end} {intergenicDisplayName}</h3>
+	  <p style={[style.emptyNode]}>{text}</p>;
         </div>
-	<div>
-	    <p style={[style.emptyNode]}>{text}</p>;
-	</div>
     );
   },
 
