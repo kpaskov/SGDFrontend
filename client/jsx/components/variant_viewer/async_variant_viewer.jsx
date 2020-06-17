@@ -302,6 +302,7 @@ var AsyncVariantViewer = createReactClass({
         variantDataProtein={variantData}
         proteinLength={data.protein_length}
         strand={'+'}
+	orientation={data.strand}
         isProteinMode={true}
         isUpstreamMode={false}
         isDownstreamMode={false}
