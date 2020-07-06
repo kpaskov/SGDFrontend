@@ -220,7 +220,8 @@ var VariantViewer = createReactClass({
       this.props.store.setQuery(query);
       this.submitSearch();
     };
-    var _text = 'Enter gene name, GO term, chromosome, or list of gene names';
+    // var _text = 'Enter gene name, GO term, chromosome, or list of gene names';
+    var _text = 'Enter Gene/ORF names (separated by a comma)';
     return <SearchBar placeholderText={_text} onSubmit={_onSubmit} />;
   },
 
