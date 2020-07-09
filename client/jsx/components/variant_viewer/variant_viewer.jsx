@@ -244,7 +244,7 @@ var VariantViewer = createReactClass({
   },
 
   _renderEmptyNode: function () {
-    var text = `No results for "${this.props.store.getQuery()}."  Please modify your search and try again.`;
+    var text = `No results for "${this.props.store.getQuery()}."  Please enter valid gene/ORF names or SGDID (comma-separated) and try again.`;
     return <h3>{text}</h3>;
   },
 });
