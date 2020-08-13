@@ -66,12 +66,14 @@ function create_physical_interaction_table(data) {
         var datatable = [];
         var genes = {};
         for (var i=0; i < data.length; i++) {
-            datatable.push(physical_interaction_data_to_table(data[i], i));
-            if(data[i]["locus1"]["id"] == locus['id']) {
-                genes[data[i]["locus2"]["id"]] = true;
-            }
-            else {
-                genes[data[i]["locus1"]["id"]] = true;
+	    if (data[i]["interaction_type"] == "Physical") {
+		datatable.push(physical_interaction_data_to_table(data[i], i));
+		if(data[i]["locus1"]["id"] == locus['id']) {
+                    genes[data[i]["locus2"]["id"]] = true;
+		}
+		else {
+                    genes[data[i]["locus1"]["id"]] = true;
+		}
             }
         }
 
@@ -102,13 +104,15 @@ function create_genetic_interaction_table(data) {
         var datatable = [];
         var genes = {};
         for (var i=0; i < data.length; i++) {
-            datatable.push(genetic_interaction_data_to_table(data[i], i));
-            if(data[i]["locus1"]["id"] == locus['id']) {
-                genes[data[i]["locus2"]["id"]] = true;
-            }
-            else {
-                genes[data[i]["locus1"]["id"]] = true;
-            }
+	    if (data[i]["interaction_type"] == "Genetic") {
+		datatable.push(genetic_interaction_data_to_table(data[i], i));
+		if(data[i]["locus1"]["id"] == locus['id']) {
+                    genes[data[i]["locus2"]["id"]] = true;
+		}
+		else {
+                    genes[data[i]["locus1"]["id"]] = true;
+		}
+	    }
         }
 
         set_up_header('genetic_interaction_table', datatable.length, 'entry', 'entries', Object.keys(genes).length, 'gene', 'genes');
