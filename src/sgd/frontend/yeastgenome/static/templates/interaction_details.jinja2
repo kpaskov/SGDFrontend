@@ -96,24 +96,26 @@
                 </p>
 	</h2>
 	<hr />
+
+	<div class="spaced-container">
+	    <h3>Physical Interactions
+            	<span id="physical_interaction_table_header" class="round secondary label"></span>
 	
-	<h3>Physical Interactions
-            <span id="physical_interaction_table_header" class="round secondary label"></span>
-	
-        <!-- Includes physical_interaction_table into template -->
-        {% set table_id = "physical_interaction_table" %}
-        {% include "physical_interaction_table.jinja2" %}
-	</h3>
+	    <!-- Includes physical_interaction_table into template -->
+            {% set table_id = "physical_interaction_table" %}
+            {% include "physical_interaction_table.jinja2" %}
+	    </h3>
+	</div>
 
-	<p></p>
+	<div class="spaced-container">
+	    <h3>Genetic Interactions
+            	<span id="genetic_interaction_table_header" class="round secondary label"></span>
 
-	<h3>Genetic Interactions
-            <span id="genetic_interaction_table_header" class="round secondary label"></span>
-
-	<!-- Includes genetic_interaction_table into template -->
-        {% set table_id = "genetic_interaction_table" %}
-        {% include "genetic_interaction_table.jinja2" %}
-        </h3>
+            <!-- Includes genetic_interaction_table into template -->
+            {% set table_id = "genetic_interaction_table" %}
+            {% include "genetic_interaction_table.jinja2" %}
+            </h3>
+	</div>
 
     </section>
 
