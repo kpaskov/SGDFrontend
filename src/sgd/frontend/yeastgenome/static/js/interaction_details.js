@@ -12,21 +12,32 @@ $(document).ready(function() {
 
 	create_analyze_button_with_list("phys_gen_union", get_physical_or_genetic_interactors(data), "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> interactors", true);
 
-	
-        if(B > 0) {
+	var physData = get_physical_interactors(data) 
+        if(physData.length > 0) {
 	    create_analyze_button("phys", physical_interaction_table, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> physical interactors", true);
 	    
   	}
-  	if(A > 0) {
+
+	var genData = get_genetic_interactors(data)
+        if(genData.length > 0) {
 	    create_analyze_button("gen", genetic_interaction_table, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> genetic interactors", true);
 	    
   	}
-  	if(C > 0) {
-  	    create_analyze_button_with_list("phys_gen_intersect", get_physical_and_genetic_interactors(data), "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> both physical and genetic interactors", true);
+	
+	var intersectData = get_physical_and_genetic_interactors(data);
+  	if(intersectData.length > 0) {
+  	    create_analyze_button_with_list("phys_gen_intersect", intersectData, "<a href='" + locus['link'] + "' class='gene_name'>" + locus['display_name'] + "</a> both physical and genetic interactors", true);
+	    
   	}
-        if (A + B + C === 0 ) {
-            $("#interaction_table_download").hide();
-            $("#interaction_table_analyze").hide();
+	
+        if (physData.length === 0 ) {
+            $("#physical_interaction_table_download").hide();
+            $("#physical_interaction_table_analyze").hide();
+        }
+	
+	if (genData.length === 0 ) {
+            $("#genetic_interaction_table_download").hide();
+            $("#genetic_interaction_table_analyze").hide();
         }
 
 	
