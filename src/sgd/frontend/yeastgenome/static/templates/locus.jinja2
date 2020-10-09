@@ -134,13 +134,9 @@
                 {% endif %}
                 <dt>Comparative Info</dt>
                 <dd>
-		    {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}{% if loop.first %}
-        		<div class="panel">
-            		   {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}
-                              <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
-                           {% endfor %}
-                        </div>
-                    {% endif %}{% endfor %}
+		    {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}
+                       <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>
+                    {% endfor %}
                 </dd>
             </dl>
 
