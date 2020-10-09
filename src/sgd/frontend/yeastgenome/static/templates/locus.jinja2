@@ -134,7 +134,7 @@
                 {% endif %}
 		{% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}{% if loop.first %}		
                     <dt>Comparative Info</dt>
-		{% endfor %}
+		{% endif %}{% endfor %}
                 <dd>
 		    {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}
 		       {% if url.display_name == 'FB' %}
