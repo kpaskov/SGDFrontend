@@ -71,11 +71,9 @@ export function getFacetName(key) {
     case 'reference_locus':
       return 'Associated Genes';
     case 'reference_loci':
-      return 'Associated Genes'
+      return 'Associated Genes';
     case 'phenotype_locus':
       return 'Associated Genes';
-    case 'go_terms':
-      return 'Gene Ontology Terms';
     default:
       return key.replace(/_/g, ' ');
   }
