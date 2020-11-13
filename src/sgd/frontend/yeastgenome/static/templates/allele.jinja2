@@ -46,7 +46,7 @@
 	    {% if allele.network_graph.edges|length > 0 %}
                 add_navbar_element('Shared Alleles', 'network');
             {% endif %}
-	    {% if allele.basic_references|length > 0 %}
+	    {% if allele.references|length > 0 %}
                 add_navbar_element('References', 'reference');
             {% endif %}
 	    add_navbar_element('Resources', 'resource');
@@ -189,7 +189,7 @@
 
         <!-- References
         ================================================== -->
-        {% if allele.basic_references|length > 0 %}
+        {% if allele.references|length > 0 %}
         <section id="reference" data-magellan-destination="reference">
             <div class="page-header">
                 <h2>References
@@ -200,7 +200,7 @@
                 </h2>
                 <hr />
                 <ol className="reference-list">
-                    {% for ref in allele.basic_references %}
+                    {% for ref in allele.references %}
                        <li>
 			  <a href="{{ ref.link|e }}">{{ ref.display_name|e }}</a>
                                     <span>{{ ref.citation|e|replace(ref.display_name, '') }}</span>
