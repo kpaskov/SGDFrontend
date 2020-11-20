@@ -6,8 +6,8 @@ $(document).ready(function() {
 	});
 
         $.getJSON('/backend/allele/' + allele['sgdid']  + '/interaction_details', function(data) {
-            var interaction_table = create_interaction_table(data, allele['name']['display_name']);
-            create_download_button("interaction_table_download", interaction_table, allele['name']['display_name'] + "_interaction_annotations");
+            var interaction_table = create_interaction_table(data, allele['name']['display_text']);
+            create_download_button("interaction_table_download", interaction_table, allele['name']['display_text'] + "_interaction_annotations");
 	    create_analyze_button("interaction_table_analyze", interaction_table, "<a href='' class='gene_name'>" + allele['name']['display_name'] + "</a> interactors", true);
         });
     
