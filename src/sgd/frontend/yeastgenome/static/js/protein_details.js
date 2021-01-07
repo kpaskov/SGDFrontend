@@ -717,6 +717,8 @@ function relative_to_html(index, num_digits) {
 function create_phosphorylation_table(data) {
   var datatable = [];
 
+    console.log("PTM length="+data.length);
+    
   var sites = {};
   for (var i = 0; i < data.length; i++) {
     datatable.push(phosphorylation_data_to_table(data[i]));
