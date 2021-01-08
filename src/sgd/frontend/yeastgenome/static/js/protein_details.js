@@ -160,6 +160,7 @@ $(document).ready(function () {
     // phosphodata = data;
     // allPtmData = data;
     var phospho_table = create_phosphorylation_table(data);
+    create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");  
     draw_phosphodata(data, phospho_table);
   });
 
