@@ -2,6 +2,7 @@ var phosphodata = null;
 var current_residues = "";
 var current_strain = "";
 var allPtmData = null;
+var getPTM = 0;
 
 var source_to_color = {
   PANTHER: "#3366cc",
@@ -154,11 +155,12 @@ $(document).ready(function () {
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/posttranslational_details", function (data) {
-    if (phosphodata == null) {
+    if (getPTM == 0) {
       phosphodata = data;
       allPtmData = data;
       create_phosphorylation_table(data);
       draw_phosphodata();
+      getPTM = 1;
     }
   });
 
