@@ -703,7 +703,7 @@ function draw_phosphodata(phosphodata) {
     }
     new_residues = new_residues + old_residues.substring(start, old_residues.length);
     residues.html(new_residues);
-    var phospho_table = create_phosphorylation_table(data);
+    var phospho_table = create_phosphorylation_table(phosphodata);
     create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
     $("#phosphorylation_sites_wrapper").show();
   } else {
