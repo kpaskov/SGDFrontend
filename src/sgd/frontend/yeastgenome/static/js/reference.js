@@ -472,7 +472,7 @@ function create_phosphorylation_table(data) {
         datatable.push(['','','','',data[i]['protein'],'',data[i]["site_residue"] + data[i]["site_index"],data[i]['modification'],'',data[i]['modifier']])
         sites[data[i]["site_residue"] + data[i]["site_index"]] = true;
     }
-    set_up_header("phosphorylation_table", datatable.length, "entry", "entries", Object.keys(sites).length, "site", "sites");
+    set_up_header("phosphorylation_table_new", datatable.length, "entry", "entries", Object.keys(sites).length, "site", "sites");
     
     set_up_phospho_sort();
     
@@ -498,6 +498,6 @@ function create_phosphorylation_table(data) {
         sEmptyTable: "No post-translational data for this reference."
     };
     
-    return create_table("phosphorylation_table", options);
+    return create_table("phosphorylation_table_new", options);
     }
 
