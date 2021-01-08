@@ -1,7 +1,7 @@
-// var phosphodata = null;
+var phosphodata = null;
 var current_residues = "";
 var current_strain = "";
-// var allPtmData = null;
+var allPtmData = null;
 
 var source_to_color = {
   PANTHER: "#3366cc",
@@ -160,7 +160,7 @@ $(document).ready(function () {
     // phosphodata = data;
     // allPtmData = data;
     var phospho_table = create_phosphorylation_table(data);
-    create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");  
+    // create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");  
     draw_phosphodata(data);
   });
 
