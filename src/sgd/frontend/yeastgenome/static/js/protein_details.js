@@ -1,4 +1,4 @@
-var phosphodata = null;
+// var phosphodata = null;
 var current_residues = "";
 var current_strain = "";
 var allPtmData = null;
@@ -157,10 +157,10 @@ $(document).ready(function () {
 
     console.log("PTM length="+data.length);
 		  
-    phosphodata = data;
+    // phosphodata = data;
     allPtmData = data;
     create_phosphorylation_table(data);
-    draw_phosphodata();
+    draw_phosphodata(data);
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/ecnumber_details", function (data) {
@@ -678,7 +678,7 @@ function set_up_properties(data) {
   }
 }
 
-function draw_phosphodata() {
+function draw_phosphodata(phosphodata) {
   var data = [];
   if (phosphodata != null && phosphodata.length > 0 && current_residues != null) {
     var num_digits = ("" + current_residues.length).length;
@@ -703,8 +703,8 @@ function draw_phosphodata() {
     }
     new_residues = new_residues + old_residues.substring(start, old_residues.length);
     residues.html(new_residues);
-    // var phospho_table = create_phosphorylation_table(data);
-    // create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
+    var phospho_table = create_phosphorylation_table(data);
+    create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
     $("#phosphorylation_sites_wrapper").show();
   } else {
     $("#phosphorylation_sites_wrapper").hide();
