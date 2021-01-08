@@ -728,7 +728,7 @@ function create_phosphorylation_table(data) {
     datatable.push(phosphorylation_data_to_table(data[i]));
     sites[data[i]["site_residue"] + data[i]["site_index"]] = true;
   }
-  set_up_header("phosphorylation_table", datatable.length, "entry", "entries", Object.keys(sites).length, "site", "sites");
+  set_up_header("phosphorylation_table_new", datatable.length, "entry", "entries", Object.keys(sites).length, "site", "sites");
 
   set_up_phospho_sort();
 
