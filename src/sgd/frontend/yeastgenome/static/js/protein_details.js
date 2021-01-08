@@ -159,8 +159,8 @@ $(document).ready(function () {
 		  
     // phosphodata = data;
     // allPtmData = data;
-    var phos_table = create_phosphorylation_table(data);
-    draw_phosphodata(data, phos_table);
+    var phospho_table = create_phosphorylation_table(data);
+    draw_phosphodata(data, phospho_table);
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/ecnumber_details", function (data) {
@@ -196,8 +196,6 @@ $(document).ready(function () {
     }
   }
   );
-
-
 
   $.getJSON("/backend/locus/" + locus["id"] + "/protein_abundance_details", function (data) {
     if (data.length > 0) {
@@ -704,7 +702,7 @@ function draw_phosphodata(phosphodata, phospho_table) {
     new_residues = new_residues + old_residues.substring(start, old_residues.length);
     residues.html(new_residues);
     // var phospho_table = create_phosphorylation_table(data);
-    create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
+    // create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");
     $("#phosphorylation_sites_wrapper").show();
   } else {
     $("#phosphorylation_sites_wrapper").hide();
