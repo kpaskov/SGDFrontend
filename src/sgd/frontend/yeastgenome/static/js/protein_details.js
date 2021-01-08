@@ -159,7 +159,7 @@ $(document).ready(function () {
 		  
     phosphodata = data;
     allPtmData = data;
-    create_phosphorylation_table(data, data.length);
+    create_phosphorylation_table(data);
     draw_phosphodata();
   });
 
@@ -717,10 +717,7 @@ function relative_to_html(index, num_digits) {
   return (row * (71 + num_digits) + 1 + num_digits + column + Math.floor(1.0 * column / 10));
 }
 
-function create_phosphorylation_table(data, len) {
-  if (len != data.length) {
-    return null;
-  }
+function create_phosphorylation_table(data) {
     
   var datatable = [];
 
