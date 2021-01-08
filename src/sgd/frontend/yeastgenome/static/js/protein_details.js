@@ -154,6 +154,9 @@ $(document).ready(function () {
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/posttranslational_details", function (data) {
+
+    console.log("PTM length="+data.length())
+		  
     phosphodata = data;
     allPtmData = data;
     create_phosphorylation_table(data);
@@ -716,7 +719,7 @@ function relative_to_html(index, num_digits) {
 
 function create_phosphorylation_table(data) {
   var datatable = [];
-
+    
   var sites = {};
   for (var i = 0; i < data.length; i++) {
     datatable.push(phosphorylation_data_to_table(data[i]));
