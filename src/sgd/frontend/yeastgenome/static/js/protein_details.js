@@ -155,7 +155,7 @@ $(document).ready(function () {
 
   $.getJSON("/backend/locus/" + locus["id"] + "/posttranslational_details", function (data) {
 
-    console.log("PTM length="+data.length)
+    console.log("PTM length="+data.length);
 		  
     phosphodata = data;
     allPtmData = data;
@@ -719,6 +719,8 @@ function relative_to_html(index, num_digits) {
 
 function create_phosphorylation_table(data) {
   var datatable = [];
+
+  console.log("PTM length2="  + data.length);
     
   var sites = {};
   for (var i = 0; i < data.length; i++) {
