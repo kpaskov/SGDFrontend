@@ -154,10 +154,12 @@ $(document).ready(function () {
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/posttranslational_details", function (data) {
-    phosphodata = data;
-    allPtmData = data;
-    create_phosphorylation_table(data);
-    draw_phosphodata();
+    if (phosphodata == null) {
+      phosphodata = data;
+      allPtmData = data;
+      create_phosphorylation_table(data);
+      draw_phosphodata();
+    }
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/ecnumber_details", function (data) {
@@ -715,9 +717,6 @@ function relative_to_html(index, num_digits) {
 }
 
 function create_phosphorylation_table(data) {
-  if (phosphodata != null) {
-    return;
-  }
   var datatable = [];
   var sites = {};
   for (var i = 0; i < data.length; i++) {
