@@ -161,7 +161,7 @@ $(document).ready(function () {
     // allPtmData = data;
     var phospho_table = create_phosphorylation_table(data);
     create_download_button("phosphorylation_table_download", phospho_table, locus["display_name"] + "_phosphorylation");  
-    draw_phosphodata(data, phospho_table);
+    draw_phosphodata(data);
   });
 
   $.getJSON("/backend/locus/" + locus["id"] + "/ecnumber_details", function (data) {
@@ -677,7 +677,7 @@ function set_up_properties(data) {
   }
 }
 
-function draw_phosphodata(phosphodata, phospho_table) {
+function draw_phosphodata(phosphodata) {
   var data = [];
   if (phosphodata != null && phosphodata.length > 0 && current_residues != null) {
     var num_digits = ("" + current_residues.length).length;
