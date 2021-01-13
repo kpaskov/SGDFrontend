@@ -416,17 +416,17 @@ BLAST Help at NCBI</a>.</p><hr>';
     var datagroup = data.datagroup;
     var _databaseDef = data.databasedef;
     var param = this.state.param;
-    var defaultDatabase = [];   
     if (param['type'] == 'protein') {
-      // _databaseDef = ['YeastORF.fsa'];
-      defaultDatabase = ['YeastORF.fsa']; 
+        _databaseDef = data.databasedef4protein;
     }
+
+    var defaultDatabase = [];
     _.map(database, (d) => {
       var dataset = d.dataset;
       if (dataset.match(/^label/)) {
         dataset = datagroup[dataset];
       }
-      if (param['type'] != 'protein' && $.inArray(dataset, _databaseDef) > -1) {
+      if ($.inArray(dataset, _databaseDef) > -1) {
         defaultDatabase.push(dataset);
       }
     });
