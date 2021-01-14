@@ -414,7 +414,7 @@ BLAST Help at NCBI</a>.</p><hr>';
   _setDefaultDatabase: function (data) {
     var database = data.database;
     var datagroup = data.datagroup;
-    var _databaseDef = data.databasedef4pretein;
+    var _databaseDef = data.databasedef;
     var param = this.state.param;
     if (param['type'] == 'protein') {
       _databaseDef = data.databasedef4protein;
@@ -436,7 +436,7 @@ BLAST Help at NCBI</a>.</p><hr>';
   _getDatabaseNode: function (data) {
     var database = data.database;
     var datagroup = data.datagroup;
-    var _databaseDef = data.databasedef;
+    var _databaseDef = data.databasedef4protein;
 
     var i = 0;
     const selectedValue = [];
