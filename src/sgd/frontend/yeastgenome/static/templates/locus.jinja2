@@ -132,6 +132,19 @@
                     {% endfor %}
                     </dd>
                 {% endif %}
+
+                {% if locus.complements|length > 0 %}
+                    <dt>Functional Complement</dt>
+                    <dd>
+                    {% for complement in locus.complements %}                       
+                        <a href="{{ complement.obj_url}}" target="_blank">{{ complement.dbxref_id}}</a>
+                        {% set references = complement.references %}
+                        {% include "biblio_references.jinja2" %}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    </dd>
+                {% endif %}
+                <br>
 		{% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}{% if loop.first %}		
                     <dt>Comparative Info</dt>
 		{% endif %}{% endfor %}
