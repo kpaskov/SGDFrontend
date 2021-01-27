@@ -677,8 +677,8 @@ function set_up_properties(data) {
 }
 
 function draw_phosphodata() {
-  var data = [];
   if (phosphodata != null && phosphodata.length > 0 && current_residues != null) {
+    var data = [];
     var num_digits = ("" + current_residues.length).length;
     var residues = $("#sequence_residues");
     var old_residues = residues.html();
