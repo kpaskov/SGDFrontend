@@ -676,13 +676,15 @@ class SearchForm extends Component {
   }
 
   _getSeq() {
+
     if (this.state.seqFetched) {
-      return;
+      return
     }
     var param = this.state.param;
 
-    console.log('param=' + param);
 
+    console.log('seqname=' + param['seqname'], ' dataset='+param['dataset']);
+      
     $.ajax({
       url: PatmatchUrl,
       data_type: 'json',
