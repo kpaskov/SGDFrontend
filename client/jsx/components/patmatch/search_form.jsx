@@ -98,6 +98,7 @@ class SearchForm extends Component {
       this._getSeq();
       return;
     } else if (this.state.getSeq && this.state.seqFetched) {
+      console.log('getting seqNode...');
       var seqNode = this._getSeqNode();
 
       return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
@@ -680,7 +681,7 @@ class SearchForm extends Component {
     if (this.state.seqFetched) {
       return;
     }
-      var param = this.state.param;
+    var param = this.state.param;
       
     $.ajax({
       url: PatmatchUrl,
