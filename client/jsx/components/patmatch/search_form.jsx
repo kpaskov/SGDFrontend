@@ -676,6 +676,10 @@ class SearchForm extends Component {
   }
 
   _getSeq() {
+
+    if (this.state.seqFetched) {
+      return
+    }
     var param = this.state.param;
 
     console.log('param=' + param);
@@ -686,7 +690,6 @@ class SearchForm extends Component {
       type: 'POST',
       data: { seqname: param['seqname'], dataset: param['dataset'] },
       success(data) {
-        console.log("sequence=" + data);
         this.setState({ seqFetched: true, resultData: data });
       },
       error(xhr, status, err) {
