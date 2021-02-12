@@ -203,9 +203,9 @@ class SearchForm extends Component {
     var end = param['end'];
     var dataset = param['dataset'];
     var seqname = param['seqname'];
-    this._getSeq()
-    var seq = this.state.resultData.seq;
-
+    var seqObj = this._getSeq()
+    // var seq = this.state.resultData.seq;
+    var seq = seqObj.seq;
     var seqlen = seq.length;
     var seqStart = 0;
 
@@ -690,6 +690,7 @@ class SearchForm extends Component {
       type: 'GET',
       success(data) {
         this.setState({ seqFetched: true, resultData: data });
+        return data;
       },
       error(xhr, status, err) {
         this.setState({ isPending: true });
