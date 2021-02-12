@@ -94,13 +94,18 @@ class SearchForm extends Component {
   }
 
   _getFormNode() {
-    if (this.state.getSeq && !this.state.seqFetched) {
+    // if (this.state.getSeq && !this.state.seqFetched) {
+    //  this._getSeq();
+    //  return;
+    // } else if (this.state.getSeq && (this.state.seqFetched || this.state.resultData.seq)) {
+    //  console.log('getting seqNode...');
+    //  var seqNode = this._getSeqNode();
+    //  return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
+
+    if (this.state.getSeq) {
       this._getSeq();
-      return;
-    } else if (this.state.getSeq && (this.state.seqFetched || this.state.resultData.seq)) {
-      console.log('getting seqNode...');
       var seqNode = this._getSeqNode();
-      return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
+      return <div dangerouslySetInnerHTML={{ __html: seqNode }} />; 	  
     } else if (this.state.isComplete) {
       // if (this.state.resultData.hits == '') {
       //     var errorReport = this.state.resultData.result;
