@@ -686,6 +686,7 @@ class SearchForm extends Component {
       type: 'POST',
       data: { seqname: param['seqname'], dataset: param['dataset'] },
       success(data) {
+        console.log("sequence=" + data);
         this.setState({ seqFetched: true, resultData: data });
       },
       error(xhr, status, err) {
