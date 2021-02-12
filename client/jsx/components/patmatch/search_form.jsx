@@ -88,9 +88,9 @@ class SearchForm extends Component {
     if (this.state.submitted) {
       this._doPatmatch();
     }
-    // if (this.state.getSeq) {
-    //      this._getSeq();
-    // }
+    if (this.state.getSeq) {
+      this._getSeq();
+    }
   }
 
   _getFormNode() {
@@ -103,7 +103,6 @@ class SearchForm extends Component {
     //  return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
 
     if (this.state.getSeq) {
-      this._getSeq();
       var seqNode = this._getSeqNode();
       return <div dangerouslySetInnerHTML={{ __html: seqNode }} />; 	  
     } else if (this.state.isComplete) {
