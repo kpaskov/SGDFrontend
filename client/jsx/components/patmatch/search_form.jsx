@@ -88,23 +88,19 @@ class SearchForm extends Component {
     if (this.state.submitted) {
       this._doPatmatch();
     }
-    if (this.state.getSeq) {
-      this._getSeq();
-    }
+    // if (this.state.getSeq) {
+    //      this._getSeq();
+    // }
   }
 
   _getFormNode() {
-    // if (this.state.getSeq && !this.state.seqFetched) {
-    //  this._getSeq();
-    //  return;
-    // } else if (this.state.getSeq && (this.state.seqFetched || this.state.resultData.seq)) {
-    //  console.log('getting seqNode...');
-    //  var seqNode = this._getSeqNode();
-    //  return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
-
-    if (this.state.getSeq) {
+    if (this.state.getSeq && !this.state.seqFetched) {
+      this._getSeq();
+      return;
+    } else if (this.state.getSeq && this.state.seqFetched) {
       var seqNode = this._getSeqNode();
-      return <div dangerouslySetInnerHTML={{ __html: seqNode }} />; 	  
+
+      return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
     } else if (this.state.isComplete) {
       // if (this.state.resultData.hits == '') {
       //     var errorReport = this.state.resultData.result;
@@ -203,9 +199,8 @@ class SearchForm extends Component {
     var end = param['end'];
     var dataset = param['dataset'];
     var seqname = param['seqname'];
-    var seqObj = this._getSeq()
-    // var seq = this.state.resultData.seq;
-    var seq = seqObj.seq;
+    var seq = this.state.resultData.seq;
+
     var seqlen = seq.length;
     var seqStart = 0;
 
@@ -682,17 +677,16 @@ class SearchForm extends Component {
 
   _getSeq() {
     var param = this.state.param;
-    var url = PatmatchUrl + '?seqname=' + param['seqname'] + '&dataset=' + param['dataset']
-    console.log('url=' + url);  
+
     $.ajax({
-      url: url,
+      url: PatmatchUrl,
       data_type: 'json',
-      type: 'GET',
-      success(data) {
+      type: 'POST',
+      data: { seqname: param['seqname'], dataset: param['dataset'] },
+      success: (data) {
         this.setState({ seqFetched: true, resultData: data });
-        return data;
       },
-      error(xhr, status, err) {
+      error: (xhr, status, err) {
         this.setState({ isPending: true });
       },
     });
