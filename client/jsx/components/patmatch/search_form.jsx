@@ -203,6 +203,7 @@ class SearchForm extends Component {
     var end = param['end'];
     var dataset = param['dataset'];
     var seqname = param['seqname'];
+    this._getSeq()
     var seq = this.state.resultData.seq;
 
     var seqlen = seq.length;
