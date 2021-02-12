@@ -678,6 +678,8 @@ class SearchForm extends Component {
   _getSeq() {
     var param = this.state.param;
 
+    console.log('param=' + param);
+      
     $.ajax({
       url: PatmatchUrl,
       data_type: 'json',
