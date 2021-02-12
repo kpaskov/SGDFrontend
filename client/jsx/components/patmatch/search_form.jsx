@@ -97,10 +97,9 @@ class SearchForm extends Component {
     if (this.state.getSeq && !this.state.seqFetched) {
       this._getSeq();
       return;
-    } else if (this.state.getSeq && this.state.seqFetched) {
+    } else if (this.state.getSeq && (this.state.seqFetched || this.state.resultData.seq)) {
       console.log('getting seqNode...');
       var seqNode = this._getSeqNode();
-
       return <div dangerouslySetInnerHTML={{ __html: seqNode }} />;
     } else if (this.state.isComplete) {
       // if (this.state.resultData.hits == '') {
