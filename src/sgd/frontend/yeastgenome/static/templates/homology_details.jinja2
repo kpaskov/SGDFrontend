@@ -1,38 +1,27 @@
-{% extends "global_layout.jinja2" %}
+{% extends "lite_layout.jinja2" %}
 
-{% block title %}{{ locus.display_name }} Homology{% endblock %}
+{% block title %}{{ locus.display_name }}{% endblock %}
 
 {% block head %}
 <script>
-    var locus = {{ locus_js|safe }};
-
-
-    var domains_table_filename = "{{ locus.display_name }}_domains";
-    var alias_table_filename = "{{ locus.display_name }}_external_ids";
-    var domain_network_filename = "{{ locus.display_name }}_domain_network";
-    var properties_table_filename = "{{ locus.display_name }}_protein_properties";
-    var protein_experiment_table_filename = "{{ locus.display_name }}_experimental_data";
-    var protein_abundance_table_filename = "{{ locus.display_name }}_abundance_data";
-    var phosphorylation_table_filename = "{{ locus.display_name }}_phosphorylation";
-
-    var display_name = "{{ locus.display_name }}";
-    var format_name = "{{ locus.format_name }}";
-    var locus_id = "{{ locus.id }}";
-
+    var bootstrappedData = {
+        displayName: "{{ locus.display_name }}",
+        formatName: "{{ locus.format_name }}",
+        locusId: "{{ locus.id }}",
+        locusLink: "{{ locus.link }}",
+        locusData: {{locus_js|safe}},
+        tabs: {{tabs_js|safe}}
+    };
 </script>
 {% endblock %}
 
 {% block body %}
 
-<!-- Tabs
-================================================== -->
-<!-- Includes tabs.html into template -->
+<!-- Tabs -->
 {% include "tabs.jinja2" %}
-<script>document.getElementById("homology_tab").className += " active";</script>
 
-<!-- Navbar
-================================================== -->
 <div class="row">
+     
     <div id="navbar-container" class="large-2 columns hide-for-small-down">
     </div>
 
@@ -40,333 +29,812 @@
 
 <!-- Overview
 ================================================== -->
-    <section id="overview" data-magellan-destination="overview">
-        <a target="_blank" href="https://sites.google.com/view/yeastgenome-help/function-help/protein-information" name="top" class="documentation-link">Protein Help <i class="fa fa-question-circle"></i></a>
-        <h1>{% if locus.display_name == locus.format_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }}{% endif %} Protein
-            <a href="#" data-dropdown="summary_info"><i class="fa fa-info-circle"></i></a>
-
-            <div id="summary_info" class="f-dropdown content medium" data-dropdown-content>
-                <p>Protein abundance data, domains, shared domains with other proteins, protein sequence retrieval
-                    for
-                    various strains, sequence-based physico-chemical properties, protein modification sites, and external
-                    identifiers for the protein.</p>
-            </div>
+    <section id="overview">
+        <h1>{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Overview{% endif %}
         </h1>
         <hr />
         <div class="">
-            <!-- Includes sequence_overview.html into template -->
-            {% include "sequence_overview.jinja2" %}
-        </div>
-    </section>
 
-<!-- Experimental Data
-================================================== -->
-    <section id="experiment" data-magellan-destination="experiment">
-        <h2>Experimental Data
+            <dl class="key-value">
 
-	    <a href="#" data-dropdown="expt_info"><i class="fa fa-info-circle"></i></a>
-            <p id="expt_info" class="f-dropdown content medium" data-dropdown-content>
-                Contains experimentally-derived protein half-life data obtained using stable isotope labeling by amino acids (SILAC) coupled with mass spectrometry. This section also contains protein abundance data for both untreated and treated cells obtained from over 20 studies. These data have been normalized and converted to a common unit of molecules per cell.
-            </p>
-	</h2>
-        <hr />
+                {% if 'reserved_name' in locus %}
+                    <dt>Reserved Name</dt>
+                    <dd>{{ locus.reserved_name.display_name }}
+                        {% set references = [locus.reserved_name.reference] %}
+                        {% include "biblio_references.jinja2" %}
+                        <i>This name is reserved with SGD according to the
+                        <a target="_blank" href="https://sites.google.com/view/yeastgenome-help/community-help/gene-registry">Gene Naming Guidelines</a>
+                        agreed upon by the yeast community.</i></dd>
+                {% endif %}
+                {% if locus.display_standard_name %}
+                    <dt>Standard Name</dt>
+                    <dd>{{ locus.display_name }}
+                        {% if 'gene_name' in locus.qualities %}
+                            {% set references = locus.qualities.gene_name.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                        </dd>
+                {% endif %}
+                
+                <dt>Systematic Name</dt>
+                <dd>{{ locus.format_name }}</dd>
 
-	<h3>Protein Half Life</h3>
+                <dt>SGD ID</dt>
+                <dd>SGD:{{ locus.sgdid }}</dd>
 
-        <div class="">
-            <!-- Includes experiment_table into template -->
-            {% set table_id = "protein_experiment_table" %}
-            {% include "protein_experiment_table.jinja2" %}
-        </div>
-	
-	<p></p>	
+                {% for alias in locus.aliases if alias.category == 'Alias' %}
+                    {% if loop.first %}<dt>Aliases</dt><dd>{% endif %}
 
-	<h3>Protein Abundance</h3>
-	
-	<div class="">
-            <!-- Includes abundance_table into template -->
-            {% set table_id = "protein_abundance_table" %}
-            {% include "protein_abundance_table.jinja2" %}
-        </div>
+                    {{ alias.display_name }}
+                    {% set references = alias.references %}
+                    {%- include "biblio_references.jinja2" -%}
 
-    </section>
+                    {% if not loop.last %},{% else %}</dd>{% endif %}
+                {% endfor %}
 
-<!-- Domains
-================================================== -->
-    <section id="domain" data-magellan-destination="domain">
-        <h2>Domains and Classification - {{ locus.main_strain }}
-            <a href="#" data-dropdown="domain_info"><i class="fa fa-info-circle"></i></a>
+                {%- if (locus.locus_type != "") -%}
+                    <dt>Feature Type</dt>
+                    <dd>{{ locus.locus_type }}
+                        {%- if 'feature_type' in locus.qualities -%}
+                            {% set references = locus.qualities.feature_type.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                        {%- if locus.qualifier != None -%}, {{ locus.qualifier }}{% endif %}
+                        {%- if 'qualifier' in locus.qualities -%}
+                            {% set references = locus.qualities.qualifier.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                        {%- if locus.bioent_status != 'Active' -%}, {{ locus.bioent_status }}{% endif %}
+                    </dd>
+                {% endif %}
 
-            <p id="domain_info" class="f-dropdown content medium" data-dropdown-content>
-                Collection of computationally identified domains and motifs, as determined by InterProScan analysis;
-                includes protein coordinates for the domain, a domain Description, a Source and corresponding accession
-                ID, and the number of <i>S. cerevisiae</i> genes that share the same domain.
-            </p>
-            <span id="domain_table_header" class="round secondary label"></span>
-        </h2>
-        <hr />
-        
-        <div class="spaced-container">
-            <!-- Includes domain_table into template -->
-            {% set table_id = "domain_table" %}
-            {% include "domain_table.jinja2" %}
-        </div>
-        
-        <div id="domain_locations" class="panel sgd-viz">
-            <h3>Domain Locations
-                <a href="#" data-dropdown="domain_location_info"><i class="fa fa-info-circle"></i></a>
+                <dt>Description</dt>
+                <dd>
+                    {{ locus.description|safe }}
+                    {% if 'description' in locus.qualities %}
+                        {% set references = locus.qualities.description.references %}
+                        {% include "biblio_references.jinja2" %}
+                    {% endif %}
+                </dd>
 
-                <p id="domain_location_info" class="f-dropdown content medium" data-dropdown-content>
-                    Visual representation of the locations of the domains within the protein, as listed in
-                    the Domains and Classification table. Each row displays the domain(s) derived from a
-                    different Source, with domains color-coded according to this Source.
-                </p>
+                {% if locus.name_description != None %}
+                    <dt>Name Description</dt>
+                    <dd>{{ locus.name_description }}
+                        {% if 'name_description' in locus.qualities %}
+                            {% set references = locus.qualities.name_description.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                    </dd>
+                {% endif %}
 
-                <a href="#" data-dropdown="domain_location_help"><i class="fa fa-question-circle"></i></a>
+                {% for alias in locus.aliases if alias.category == 'Gene product' %}
+                    {% if loop.first %}
+                        <dt>Gene Product</dt>
+                        <dd>
 
-                <p id="domain_location_help" class="f-dropdown content medium" data-dropdown-content>
-                    Scroll over a domain to view its exact coordinates and its Description.
-                </p>
-            </h3>
-            <div id="domain_chart">
-                <img class="loader" src="/static/img/dark-slow-wheel.gif" />
-            </div>
-        </div>
+                        {{ alias.display_name }}
+                        {% set references = alias.references %}
+                        {% include "biblio_references.jinja2" %}
+                    {% endif %}
+                {% endfor %}
 
-        <div id="shared_domains" class="">
-            <h3 id="network">Shared Domains
-                <a href="#" data-dropdown="network_help"><i class="fa fa-info-circle"></i></a>
+                {% if locus.paralogs|length > 0 %}
+                    <dt>Paralog</dt>
+                    <dd>
+                    {% for paralog in locus.paralogs %}
+                        {% if paralog.child %}
+                            <a href="{{ paralog.child.link }}">{{ paralog.child.display_name }}</a>
+                        {% endif %}
+                        {% set references = paralog.references %}
+                        {% include "biblio_references.jinja2" %}
 
-                <p id="network_help" class="f-dropdown content medium" data-dropdown-content>
-                    This diagram displays domains (colored squares) shared between the given protein (yellow circle)
-                    and other proteins (gray circles); the domains are color-coded according to their source, as
-                    displayed in the Domain Locations table, above.
-                </p>
-            </h3>
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    </dd>
+                {% endif %}
+		{% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}{% if loop.first %}		
+                    <dt>Comparative Info</dt>
+		{% endif %}{% endfor %}
+                <dd>
+		    {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}
+		       {% if url.display_name == 'E FB' %}
+                           <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_flybase.png' width='50px' height='50px' ></a>
+		       {% elif url.display_name == 'G SGD' %}
+		           <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_sgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'C RGD' %}
+			   <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_mgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'B MGI' %}
+			   <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_rgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'F WB' %}
+			   <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_wormbase.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'D ZFIN' %}
+			   <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_zfin.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'A HGNC' %}
+                           <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_hgnc.png' width='50px' height='50px'></a>
+                       {% endif %}
+                    {% endfor %}
+                </dd>
+            </dl>
 
-            {% set network_id = "cy" %}
-            {% include "domain_network.jinja2" %}
         </div>
     </section>
 
 <!-- Sequence
 ================================================== -->
-        <section id="sequence" data-magellan-destination="sequence">
-            <h2>Sequence
-                <a href="#" data-dropdown="sequence_info"><i class="fa fa-info-circle"></i></a>
+    {% if tabs['sequence_section'] %}
+    <section id="sequence">
+        {% if tabs['sequence_tab'] %}
+        <a href="/locus/{{ locus.sgdid }}/sequence" class="details-link">Sequence Details <i class="fa fa-chevron-circle-right"></i></a>
+        {% endif %}
+        <h2>Sequence
+            <a href="#" data-dropdown="sequence_info"><i class="fa fa-info-circle"></i></a>
 
-                <p id="sequence_info" class="f-dropdown content medium" data-dropdown-content>                    
-                    Protein sequence for the given gene in S288C and other strains, when available. Use the pull-down menu under "Strain" to select the sequence for a specific strain. The displayed sequence can be downloaded in FASTA format as a .txt file. Amino acids displayed in blue represent modification sites. More detailed evidence for these modification sites is presented in the Post-translational Modifications table, located just below the protein sequence.
-                </p>
-            </h2>
-            <hr />
-            
-        <div class="">
-            <p id="sequence_section_message" hidden>This locus is not translated into a protein.</p>
-            <div id="sequence_section">
-            <label><h3>Strain</h3>
-                <select id="strain_selection" class="large-3"></select> - <span id="strain_description"></span>
-            </label>
-
-            <div class="panel">
-                <pre><blockquote id="sequence_residues"
-                                 style="font-family:Monospace; font-size:large"></blockquote></pre>
-                <p>* Blue amino acids indicate modification sites. More information below.</p>
-
-                <div class="button-bar">
-                    <ul class="button-group radius">
-                        <li><a id="sequence_download" class="small button secondary"><i class="fa fa-download"></i>
-                            Download Sequence (.fsa)</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="phosphorylation_sites_wrapper" class="spaced-container">
-                <h3>Post-translational Modifications - <span id="phosphorylation_strain"></span>
-                    <a href="#" data-dropdown="phosphorylation_info"><i class="fa fa-info-circle"></i></a>
-
-                    <p id="phosphorylation_info" class="f-dropdown content medium" data-dropdown-content>
-                        Modification sites for the protein in the selected strain, based on the presence of a residue in the specific strain, as inferred from experimental evidence.
-                    </p>
-                    <span id="phosphorylation_table_header" class="round secondary label"></span>
-                </h3>
-                <!-- Includes phosphorylation_table into template -->
-                {% set table_id = 'phosphorylation_table' %}
-                {% include "phosphorylation_table.jinja2" %}
-            </div>
-
-            <div id="physicochemical_props" class="panel">
-                <h3>Sequence-Based Physico-chemical Properties - <span id="properties_strain">S288C</span>
-                    <a href="#" data-dropdown="properties_info"><i class="fa fa-info-circle"></i></a>
-
-                    <p id="properties_info" class="f-dropdown content medium" data-dropdown-content>
-                        Calculated protein properties, including amino acid composition, length, coding
-                        region calculations, and atomic composition.
-                    </p>
-                </h3>
-
-                <div class="row" id="physicochemical_props_panel">
-                    <div class="small-12 large-6 columns content-column">
-                        <h3>Amino Acid Composition</h3>
-                        {% set table_id = "amino_acid_table" %}
-                        {% include "amino_acid_table.jinja2" %}
-
-                        <ul class="button-group radius">
-                            <li><a id="protein_properties_download" class="small button secondary"><i
-                                    class="fa fa-download"></i> Download Properties (.txt)</a></li>
-                        </ul>
-                    </div>
-                    <div class="small-12 large-6 columns content-column">
-                        <h3>Physical Details</h3>
-                        <table class="table table-striped table-bordered table-condensed"
-                               id="physical_details_table" width="100%">
-                            <tbody>
-                            <tr>
-                                <td>Length (a.a):</td>
-                                <td id="length"></td>
-                            </tr>
-                            <tr>
-                                <td>Molecular Weight (Da):</td>
-                                <td id="molecular_weight"></td>
-                            </tr>
-                            <tr>
-                                <td>Isoelectric Point (pl):</td>
-                                <td id="pi"></td>
-                            </tr>
-                            <tr>
-                                <td>Formula:</td>
-                                <td id="formula"></td>
-                            </tr>
-                            <tr>
-                                <td>Aliphatic Index:</td>
-                                <td id="aliphatic_index"></td>
-                            </tr>
-                            <tr>
-                                <td>Instability Index:</td>
-                                <td id="instability_index"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <h3>Coding Region Translation Calculations</h3>
-                        <table class="table table-striped table-bordered table-condensed" id="coding_region_table"
-                               width="100%">
-                            <tbody>
-                            <tr>
-                                <td>Codon Bias:</td>
-                                <td id="codon_bias"></td>
-                            </tr>
-                            <tr>
-                                <td>Codon Adaptation Index:</td>
-                                <td id="cai"></td>
-                            </tr>
-                            <tr>
-                                <td>Frequence of Optimal Codons:</td>
-                                <td id="fop_score"></td>
-                            </tr>
-                            <tr>
-                                <td>Hydropathicity of Protein:</td>
-                                <td id="gravy_score"></td>
-                            </tr>
-                            <tr>
-                                <td>Aromaticity Score:</td>
-                                <td id="aromaticity_score"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <h3>Extinction Coefficients at 280nm</h3>
-                        <table class="table table-striped table-bordered table-condensed"
-                               id="extinction_coeff_table" width="100%">
-                            <tbody>
-                            <tr>
-                                <td>ALL Cys residues appear as half cystines:</td>
-                                <td id="all_cys_ext_coeff"></td>
-                            </tr>
-                            <tr>
-                                <td>NO Cys residues appear as half cystines:</td>
-                                <td id="no_cys_ext_coeff"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <h3>Atomic Composition</h3>
-                        {% set table_id = "atomic_table" %}
-                        {% include "atomic_table.jinja2" %}
-                    </div>
-                </div>
-                <p><span id="no_data">Data not found or not available for&nbsp; <span id="no_data_msg"></span></span></p>
-            </div>
-         </div>
-        </div>
-    </section>
-
-<!-- External IDs
-================================================== -->
-   <section id="external_ids" data-magellan-destination="external_ids">
-        <h2>External Identifiers 
-            <a href="#" data-dropdown="external_id_info"><i class="fa fa-info-circle"></i></a>
-
-            <p id="external_id_info" class="f-dropdown content medium" data-dropdown-content>
-                List of external identifiers for the protein from various database sources.
+            <p id="sequence_info" class="f-dropdown content medium" data-dropdown-content>
+                The <i>S. cerevisiae</i> Reference Genome sequence is derived from laboratory strain
+                <a href="/strain/S288C">S288C</a>. Download DNA or protein sequence, view genomic context and
+                coordinates. Click "Sequence Details" to view all sequence information for this locus, including that
+                for other strains.
             </p>
-            <span id="alias_table_header" class="round secondary label"></span>
         </h2>
         <hr />
-            
-            <div class="">
-                <!-- Includes alias_table into template -->
-                {% set table_id = "alias_table" %}
-                {% include "alias_table.jinja2" %}
+
+        <!-- client-rendered sequence -->
+        <div class="sgd-viz">
+            <div class="sgd-viz sequence-details-container" id="sequence-viz">
+                <div class="sgd-loader-container"><div class="sgd-loader"></div></div>
             </div>
+
+            {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_S288C' or url.category == 'LOCUS_SEQUENCE_OTHER_SPECIES' or url.category == 'LOCUS_SEQUENCE_OTHER_STRAINS' %}
+                {% if loop.first %}
+                    <h3>Analyze Sequence</h3>
+                    <div class="panel">
+                        {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_S288C'%}
+                            {% if loop.first %}<h4>S288C only</h4><p id="reference_only_resources_list">{% endif %}
+                            <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+                        {% endfor %}
+
+
+                        {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_OTHER_SPECIES'%}
+                            {% if loop.first %}<h4>S288C vs. other species</h4> <p id="other_species_resources_list">{% endif %}
+                            <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+                        {% endfor %}
+
+
+                        {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_OTHER_STRAINS'%}
+                            {% if loop.first %}<h4>S288C vs. other strains</h4><p id="other_strains_resources_list">{% endif %}
+                            <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+                        {% endfor %}
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </section>
 
-<!-- Resources
-================================================== -->  
-        <section id="resources" data-magellan-destination="resources">
+    {% endif %}
+
+<!-- Protein
+================================================== -->
+    {% if tabs['protein_tab'] %}
+    <section id="protein">
+        <a href="/locus/{{ locus.sgdid }}/protein" class="details-link">Protein Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Protein
+            <a href="#" data-dropdown="protein_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="protein_info" class="f-dropdown content medium" data-dropdown-content>
+       	       Basic sequence-derived (length, molecular weight, isoelectric point) and experimentally-determined (median abundance, median absolute deviation) protein information. Click "Protein Details" for further information about the protein such as half-life, abundance, domains, domains shared with other proteins, protein sequence retrieval for various strains, physico-chemical properties, protein modification sites, and external identifiers for the protein.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            <div class="">
+                 <dl class="key-value">
+                     <dt style="width:300px">Length (a.a.)</dt>
+                     <dd>{{ locus.protein_overview.length }}</dd>
+
+                     <dt style="width:300px">Mol. Weight (Da)</dt>
+                     <dd>{{ locus.protein_overview.molecular_weight }}</dd>
+
+                     <dt style="width:300px">Isoelectric Point</dt>
+                     <dd>{{ locus.protein_overview.pi }}</dd>
+
+		     {% if locus.protein_overview.median_value %}
+			  <dt style="width:300px">Median Abundance (molecules/cell)</dt>
+		     	  {% if locus.protein_overview.median_abs_dev_value %}
+                     	      <dd>{{ locus.protein_overview.median_value }} +/- {{ locus.protein_overview.median_abs_dev_value }}</dd>
+	             	  {% else %}
+		     	      <dd>{{ locus.protein_overview.median_value }}</dd>
+	             	  {% endif %}
+		     {% endif %}
+                 </dl>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+<!-- GO
+================================================== -->
+    {% if tabs['go_tab'] %}
+    <section id="go">
+        <a href="/locus/{{ locus.sgdid }}/go" class="details-link">Gene Ontology Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Gene Ontology
+            <a href="#" data-dropdown="go_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="go_info" class="f-dropdown content medium" data-dropdown-content>
+                GO Annotations consist of four mandatory components: a gene product, a term from one of the three
+                <a href="http://geneontology.org/">Gene Ontology (GO)</a> controlled vocabularies
+                (<a href='/ontology/go/molecular_function'>Molecular Function</a>,
+                <a href='/ontology/go/biological_process'>Biological Process</a>, and
+                <a href='/ontology/go/cellular_component'>Cellular Component</a>), a reference, and an
+                evidence code. SGD has manually curated and high-throughput GO Annotations, both derived from the
+                literature, as well as computational, or predicted, annotations. Click "Gene Ontology Details" to view
+                all GO information and evidence for this locus as well as biological processes it shares with other genes.
+            </p>
+        </h2>
+        <hr />
+        <div>
+
+            {% if locus['go_overview']['paragraph'] %}
+                <dl class="key-value">
+                    <dt>Summary</dt>
+                    <dd>{{ locus['go_overview']['paragraph']|safe }}</dd>
+                </dl>
+            {% endif %}
+
+            {% if locus.go_overview.manual_molecular_function_terms|length + locus.go_overview.manual_biological_process_terms|length + locus.go_overview.manual_cellular_component_terms|length + locus.go_overview.htp_molecular_function_terms|length + locus.go_overview.htp_biological_process_terms|length + locus.go_overview.htp_cellular_component_terms|length + locus.go_overview.computational_annotation_count == 0 %}
+                <p>No Gene Ontology data available.</p>
+            {% else %}
+
+                {% if 'computational_annotation_count' not in locus.go_overview or locus.go_overview.computational_annotation_count > 0 %}
+                    <p><a href="/locus/{{ locus.sgdid }}/go#comp">View computational annotations</a></p>
+                {% endif %}
+
+                {% if locus.go_overview.manual_molecular_function_terms|length + locus.go_overview.htp_molecular_function_terms|length > 0 %}
+                <div class="panel">
+                    <h3>Molecular Function</h3>
+                    <dl class="key-value">
+                        {% if locus.go_overview.manual_molecular_function_terms|length > 0 %}
+                        <dt>Manually Curated</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.manual_molecular_function_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+
+                        {% if locus.go_overview.htp_molecular_function_terms|length > 0 %}
+                        <dt>High-Throughput</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.htp_molecular_function_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+                    </dl>
+                </div>
+                {% endif %}
+
+                {% if locus.go_overview.manual_biological_process_terms|length + locus.go_overview.htp_biological_process_terms|length > 0 %}
+                <div class="panel">
+                    <h3>Biological Process</h3>
+                    <dl class="key-value">
+                        {% if locus.go_overview.manual_biological_process_terms|length > 0 %}
+                        <dt>Manually Curated</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.manual_biological_process_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+
+                        {% if locus.go_overview.htp_biological_process_terms|length > 0 %}
+                        <dt>High-Throughput</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.htp_biological_process_terms %}
+                                <li>
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+                    </dl>
+                </div>
+                {% endif %}
+
+                {% if locus.go_overview.manual_cellular_component_terms|length + locus.go_overview.htp_cellular_component_terms|length > 0 %}
+                <div class="panel">
+                    <h3>Cellular Component</h3>
+                    <dl class="key-value">
+                        {% if locus.go_overview.manual_cellular_component_terms|length > 0 %}
+                        <dt>Manually Curated</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.manual_cellular_component_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+
+                        {% if locus.go_overview.htp_cellular_component_terms|length > 0 %}
+                        <dt>High-Throughput</dt>
+                        <dd><ul style="list-style-type:disc">
+                            {% for entry in locus.go_overview.htp_cellular_component_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a> {% if entry.term.display_name == 'cellular component' or entry.term.display_name == 'biological process' or entry.term.display_name == 'molecular function' %}unknown{% endif %}
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul></dd>
+                        {% endif %}
+                    </dl>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+
+<!-- Complex
+================================================== -->
+    {% if locus.complexes|length > 0 %}
+    <section id="complex">
+        <h2>Complex
+		<a href="#" data-dropdown="summary_help"><i class="fa fa-info-circle"></i></a>
+                <p id="summary_help" class="f-dropdown content medium" data-dropdown-content>
+		     Macromolecular complex annotations are imported from the <a href='https://www.ebi.ac.uk/complexportal/home' target='infowin2'>Complex Portal</a>. These annotations have been derived from physical molecular interaction evidence extracted from the literature and cross-referenced in the entry, or by curator inference from information on homologs in closely related species or by inference from scientific background.
+	        </p>
+	</h2>
+        <hr />
+	{{ locus.complex_details }}
+
+	<div class="panel">
+            <ul>
+                {% for c in locus.complexes %}
+                    <li><a href="/complex/{{ c.format_name }}">{{ c.display_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+    
+<!-- Pathway
+================================================== -->
+    {% if locus.pathways|length > 0 %}
+    <section id="pathway">
+        <h2>Pathways</h2>
+        <hr />
+        <div class="panel">
+            <ul>
+                {% for pathwayevidence in locus.pathways %}
+                    <li><a href="{{ pathwayevidence.pathway.link }}">{{ pathwayevidence.pathway.display_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+
+<!-- Phenotype
+================================================== -->
+    {% if tabs['phenotype_tab'] %}
+    <section id="phenotype">
+        <a href="/locus/{{ locus.sgdid }}/phenotype" class="details-link">Phenotype Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Phenotype
+            <a href="#" data-dropdown="phenotype_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="phenotype_info" class="f-dropdown content medium" data-dropdown-content>
+                Phenotype annotations for a gene are curated single mutant phenotypes that require an observable
+                (e.g., "cell shape"), a qualifier (e.g., "abnormal"), a mutant type (e.g., null), strain background,
+                and a reference. In addition, annotations are classified as classical genetics or high-throughput
+                (e.g., large scale survey, systematic mutation set). Whenever possible, allele information and
+                additional details are provided. Click "Phenotype Details" to view all phenotype annotations and
+                evidence for this locus as well as phenotypes it shares with other genes.
+            </p>
+        </h2>
+        <hr />
+        {% if locus['phenotype_overview']['paragraph'] %}
+            <dl class="key-value">
+                <dt>Summary</dt>
+                <dd>{{ locus['phenotype_overview']['paragraph']|safe }}</dd>
+            </dl>
+        {% endif %}
+        <div class="">
+            {% if locus.phenotype_overview.classical_phenotypes|length + locus.phenotype_overview.large_scale_phenotypes|length == 0 %}
+                <p>No phenotype data available.</p>
+            {% else %}
+                {% if locus.phenotype_overview.classical_phenotypes|length > 0 %}
+                <div class="panel">
+                    <h3>Classical Genetics</h3>
+                    <dl class="key-value">
+                        {% for mutant, phenotypes in locus.phenotype_overview.classical_phenotypes.items() %}
+                            <dt>{{ mutant }}</dt>
+                            <dd><ul style="list-style-type:disc">
+                                {% for phenotype in phenotypes|sort(attribute='display_name') %}
+                                     <li><a href="{{ phenotype.link }}">{{ phenotype.display_name }}</a></li>
+                                {% endfor %}
+                            </ul></dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+                {% endif %}
+
+                {% if locus.phenotype_overview.large_scale_phenotypes|length > 0 %}
+                <div class="panel">
+                    <dl class="key-value">
+                        <h3>Large-scale Survey</h3>
+                        {% for mutant, phenotypes in locus.phenotype_overview.large_scale_phenotypes.items() %}
+                            <dt>{{ mutant }}</dt>
+                            <dd><ul style="list-style-type:disc">
+                                {% for phenotype in phenotypes|sort(attribute='display_name') %}
+                                     <li><a href="{{ phenotype.link }}">{{ phenotype.display_name }}</a></li>
+                                {% endfor %}
+                            </ul></dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+<!-- Disease
+================================================== -->
+    {% if tabs['disease_tab'] %}
+    <section id="disease">
+        <a href="/locus/{{ locus.sgdid }}/disease" class="details-link">Disease Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Disease
+            <a href="#" data-dropdown="disease_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="disease_info" class="f-dropdown content medium" data-dropdown-content>
+                Disease Annotations consist of three mandatory components: a gene product, a term from the
+                <a href="http://http://disease-ontology.org//">Disease Ontology (DO)</a> controlled vocabulary and an
+                evidence code. SGD provides manually curated DO Annotations derived from the
+                literature. Click "Disease Details" to view all Disease information and evidence for this locus as well
+                as diseases it shares with other genes.
+            </p>
+        </h2>
+        <hr />
+        <div>
+
+            {% if locus['disease_overview']['paragraph'] %}
+                <dl class="key-value">
+                    <dt>Summary</dt>
+                    <dd>{{ locus['disease_overview']['paragraph']|safe }}</dd>
+                </dl>
+            {% endif %}
+
+            {% if locus.disease_overview.manual_disease_terms|length + locus.disease_overview.htp_disease_terms|length == 0 %}
+                <p>No Disease Ontology data available.</p>
+            {% else %}
+
+                {% if 'computational_annotation_count' not in locus.disease_overview or locus.disease_overview.computational_annotation_count > 0 %}
+                    <p><a href="/locus/{{ locus.sgdid }}/go#comp">View computational annotations</a></p>
+                {% endif %}
+
+                {% if locus.disease_overview.manual_disease_terms|length > 0 %}
+                <div class="panel">
+                    <h3>Manually Curated</h3>
+                    <ul style="list-style-type:disc">
+                            {% for entry in locus.disease_overview.manual_disease_terms %}
+                                <li>
+                                {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+					    {% if qualifier != None %}
+                                                {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a>
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                {% endfor %}
+                                </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+
+                {% if locus.disease_overview.htp_disease_terms|length > 0 %}
+                <div class="panel">
+                    <h3>High-Throughput</h3>
+                    <ul style="list-style-type:disc">
+                            {% for entry in locus.disease_overview.htp_disease_terms %}
+                                <li>
+                                    {% if 'qualifiers' in entry %}
+                                        {% for qualifier in entry.qualifiers %}
+                                            {{ qualifier }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="{{ entry.term.link }}">{{ entry.term.display_name }}</a>
+                                    {% for code in entry.evidence_codes %}
+                                        {% if loop.first %}({% endif %}<a href="{{ code.link }}">{{ code.display_name }}</a>{% if not loop.last %}, {% else %}){% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+<!-- Interaction
+================================================== -->
+    {% if tabs['interaction_tab'] %}
+    <section id="interaction">
+        <a href="/locus/{{ locus.sgdid }}/interaction" class="details-link">Interaction Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Interaction
+            <a href="#" data-dropdown="interaction_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="interaction_info" class="f-dropdown content medium" data-dropdown-content>
+                Interaction annotations are curated by <a href="http://thebiogrid.org/">BioGRID</a> and include physical
+                or genetic interactions observed
+                between at least two genes. An interaction annotation is composed of the interaction type, name of the
+                interactor, assay type (e.g., Two-Hybrid), annotation type (e.g., manual or high-throughput), and a
+                reference, as well as other experimental details. Click "Interaction Details" to view all interaction
+                annotations and evidence for this locus, including an interaction visualization.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            {% if locus['interaction_overview']['paragraph'] %}
+                <dl class="key-value">
+                    <dt>Summary</dt>
+                    <dd>{{ locus['interaction_overview']['paragraph']|safe }}</dd>
+                </dl>
+            {% endif %}
+
+            {% if locus.interaction_overview.total_interactions == 0 %}
+                <p>No interaction data available.</p>
+            {% else %}
+                <p><a href="/locus/{{ locus.sgdid }}/interaction#annotations">{{ locus.interaction_overview.total_interactions }}</a> total interactions for {{ locus.interaction_overview.total_interactors }} unique genes</p>
+
+                {% if locus.interaction_overview.num_phys_interactors  > 0 %}
+                <div class="panel">
+                    <h3>Physical Interactions</h3>
+                    <ul>
+                        {% for experiment in locus.interaction_overview.physical_experiments.keys()|sort %}
+                            <li>{{ experiment }}: {{ locus.interaction_overview.physical_experiments[experiment] }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if locus.interaction_overview.num_gen_interactors  > 0 %}
+                <div class="panel">
+                    <h3>Genetic Interactions</h3>
+                    <ul>
+                        {% for experiment in locus.interaction_overview.genetic_experiments.keys()|sort %}
+                            <li>{{ experiment }}: {{ locus.interaction_overview.genetic_experiments[experiment] }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+<!-- Regulation
+================================================== -->
+    {% if tabs['regulation_tab'] %}
+    <section id="regulation">
+        <a href="/locus/{{ locus.sgdid }}/regulation" class="details-link">Regulation Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Regulation
+            <a href="#" data-dropdown="regulation_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="regulation_info" class="f-dropdown content medium" data-dropdown-content>
+                The number of putative Regulators (genes that regulate it) and Targets (genes it regulates) for the
+                given locus, based on experimental evidence. This evidence includes data generated through
+                high-throughput techniques. Click "Regulation Details" to view all regulation annotations, shared GO
+                enrichment among regulation Targets, and a regulator/target diagram for the locus.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            <div class="">
+                {% if locus.regulation_overview.regulator_count + locus.regulation_overview.target_count == 0 %}
+                    <p>No regulation data available.</p>
+                {% else %}
+                    <dl class="key-value">
+                         <dt>Regulators</dt>
+                         <dd>
+                             {% if locus.regulation_overview.regulator_count > 0 %}
+                                <a href="/locus/{{ locus.sgdid }}/regulation#regulators">{{ locus.regulation_overview.regulator_count }}</a>
+                             {% else %}
+                                 {{ locus.regulation_overview.regulator_count }}
+                             {% endif %}
+                         </dd>
+
+                         <dt>Targets</dt>
+                         <dd>
+                            {% if locus.regulation_overview.target_count > 0 %}
+                                <a href="/locus/{{ locus.sgdid }}/regulation#targets">{{ locus.regulation_overview.target_count }}</a>
+                            {% else %}
+                                {{ locus.regulation_overview.target_count }}
+                            {% endif %}
+                         </dd>
+                    </dl>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+<!-- Expression
+================================================== -->
+    {% if tabs['expression_tab'] %}
+    <section id="expression">
+        <a href="/locus/{{ locus.sgdid }}/expression" class="details-link">Expression Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Expression
+            <a href="#" data-dropdown="expression_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="expression_info" class="f-dropdown content medium" data-dropdown-content>
+                Expression data are derived from records contained in the
+                <a href="http://www.ncbi.nlm.nih.gov/geo/">Gene Expression Omnibus (GEO)</a>, and are first log2
+                transformed and normalized. Referenced datasets may contain one or more condition(s), and as a result
+                there may be a greater number of conditions than datasets represented in a single clickable histogram
+                bar. The histogram division at 0.0 separates the down-regulated (green) conditions and datasets from
+                those that are up-regulated (red). Click "Expression Details" to view all expression annotations and
+                details for this locus, including a visualization of genes that share a similar expression pattern.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            <div id="two_channel_expression_chart" class="panel"></div>
+        </div>
+    </section>
+    {% endif %}
+
+<!-- Paragraph
+================================================== -->
+    {% if locus.paragraph != None %}
+    <section id="paragraph">
+        <h2>Summary Paragraph
+            <a href="#" data-dropdown="paragraph_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="paragraph_info" class="f-dropdown content medium" data-dropdown-content>
+                A summary of the locus, written by SGD Biocurators following a thorough review of the literature. Links
+                to gene names and curated GO terms are included within the Summary Paragraphs.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            <div id="summary_paragraph"></div>
+            <p>Last Updated: {{ locus.paragraph.date_edited }}</p>
+        </div>
+    </section>
+        {% endif %}
+<!-- Literature
+================================================== -->
+    {% if tabs['literature_tab'] %}
+    <section id="literature">
+        <a href="/locus/{{ locus.sgdid }}/literature" class="details-link">Literature Details <i class="fa fa-chevron-circle-right"></i></a>
+        <h2>Literature
+            <a href="#" data-dropdown="literature_info"><i class="fa fa-info-circle"></i></a>
+
+            <p id="literature_info" class="f-dropdown content medium" data-dropdown-content>
+                All manually curated literature for the specified gene, organized into topics according to their
+                relevance to the gene (Primary Literature, Additional Literature, or Review). Click "Literature Details"
+                to view all literature information for this locus, including shared literature between genes.
+            </p>
+        </h2>
+        <hr />
+        <div class="">
+            <div class="">
+                {% if locus.literature_overview.primary_count + locus.literature_overview.additional_count + locus.literature_overview.review_count == 0 %}
+                    <p>No literature data available.</p>
+                {% else %}
+                    <dl class="key-value">
+                        <dt>Primary</dt>
+                        {% if locus.literature_overview.primary_count > 0 %}
+                            <dd><a href="/locus/{{ locus.sgdid }}/literature#primary">{{locus.literature_overview.primary_count}}</a></dd>
+                        {% else %}
+                            <dd>{{locus.literature_overview.primary_count}}</dd>
+                        {% endif %}
+
+                        <dt>Additional</dt>
+                        {% if locus.literature_overview.additional_count > 0 %}
+                            <dd><a href="/locus/{{ locus.sgdid }}/literature#additional">{{locus.literature_overview.additional_count}}</a></dd>
+                        {% else %}
+                            <dd>{{locus.literature_overview.additional_count}}</dd>
+                        {% endif %}
+
+                        <dt>Reviews</dt>
+                        {% if locus.literature_overview.review_count > 0 %}
+                            <dd><a href="/locus/{{ locus.sgdid }}/literature#reviews">{{locus.literature_overview.review_count}}</a></dd>
+                        {% else %}
+                            <dd>{{locus.literature_overview.review_count}}</dd>
+                        {% endif %}
+                    </dl>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+<!-- History
+================================================== -->
+    <div id="history_target">
+    </div>
+
+<!-- References
+================================================== -->
+    <section id="reference">
+    </section>
+
+    <!-- Resources
+================================================== -->
+    {% for url in locus.urls if url.category == 'LOCUS_LSP_RESOURCES' %}{% if loop.first %}
+    <section id="resources">
         <h2>Resources</h2>
         <hr />
-
         <div class="panel">
-	  {% if locus.urls|length > 0 %}
-              {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_HOMOLOGS'%}
-		 {% if loop.first %} <h3>Homologs</h3><p id='homolog_resources_list'> {% endif %}
-                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
-		 {% if loop.last %}</p>{% endif %}
-              {% endfor %}
-
-              {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_PROTEIN_DATABASES'%}
-		 {% if loop.first %} <h3>Protein Databases</h3><p id='protein_databases_resources_list'> {% endif %}
-                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
-		 {% if loop.last %}</p>{% endif %}	
-              {% endfor %}
-               
-              {% for url in locus.urls if url.category == 'LOCUS_PROEIN_LOCALIZATION'%}
-		 {% if loop.first %} <h3>Localization</h3> <p id="localization_resources_list"> {% endif %}
-                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
-		 {% if loop.last %}</p>{% endif %}
-              {% endfor %}
-                
-              {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_MODIFICATIONS'%}
-	         {% if loop.first %} <h3>Post-translational Modifications</h3> <p id="modifications_resources_list"> {% endif %}
-                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
-		 {% if loop.last %}</p>{% endif %}
-              {% endfor %}
-          {% endif %}
+            <p>
+                {% for url in locus.urls if url.category == 'LOCUS_LSP_RESOURCES'%}
+                    <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
+                {% endfor %}
+            </p>
         </div>
-        </section>
-
+    </section>
+    {% endif %}{% endfor %}
     </div>
 </div>
 {% endblock body %}
 
 {% block scripts %}
-<script src="{{asset_root}}/js/build/nouislider.min.js"></script>
-<script src="{{asset_root}}/js/build/cytoscape.min.js"></script>
-{# don't host arbor.js on CDN because it makes webworker files that don't work on the cloud :( #}
-<script src="/static/js/build/arbor.js"></script>
-<script src="{{asset_root}}/js/local.js"></script>
-<script src="{{asset_root}}/js/cytoscape.js"></script>
-<script src="{{asset_root}}/js/evidence.js"></script>
-<script src="{{asset_root}}/js/protein_details.js"></script>
+<script>
+    views.summary.render();
+</script>
 {% endblock scripts %}
