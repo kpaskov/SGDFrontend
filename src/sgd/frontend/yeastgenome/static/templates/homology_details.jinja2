@@ -42,11 +42,33 @@
 	<!-- Overview
 	================================================== -->
 	<section id='overview'>	    	
-            <h1>{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Overview{% endif %}
-        </h1>
-        <hr />
-
+           <h1>{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Homology{% endif %}</h1>
+           <hr />
 	
+	   <div class="">
+	     <dl class="key-value">
+	        {% if 'reserved_name' in locus %}
+		    <dt>Reserved Name</dt>
+                    <dd>{{ locus.reserved_name.display_name }}
+		        {% set references = [locus.reserved_name.reference] %}
+			{% include "biblio_references.jinja2" %}
+			<i>This name is reserved with SGD according to the
+			<a target="_blank" href="https://sites.google.com/view/yeastgenome-help/community-help/gene-registry">Gene Naming Guidelines</a>
+			agreed upon by the yeast community.</i></dd>
+		{% endif %}
+		{% if locus.display_standard_name %}
+		    <dt>Standard Name</dt>
+		    <dd>{{ locus.display_name }}
+		        {% if 'gene_name' in locus.qualities %}
+			   {% set references = locus.qualities.gene_name.references %}
+			   {% include "biblio_references.jinja2" %}
+			{% endif %}</dd>
+                {% endif %}
+		
+
+
+      	     </dl>
+	   </div>
         </section>
 
 
