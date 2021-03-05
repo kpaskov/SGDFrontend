@@ -34,7 +34,7 @@
 
 	    add_navbar_element('Overview', 'overview');
             
-            add_navbar_element('Resources', 'resource');
+            add_navbar_element('Resources', 'resources');
 
         </script>
 
@@ -178,10 +178,53 @@
 
 
         <!-- Resources
-        ================================================== -->
-        <section id='resource'>
+        ============================================================ -->
+        <section id="resources" data-magellan-destination="resources">
+        <h2>Resources</h2>
+        <hr />
 
+        <div class="panel">
+          {% if locus.urls|length > 0 %}
+	      {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_HOMOLOGS'%}
+                 {% if loop.first %} <h3>Homologs</h3><p id='homolog_resources_list'> {% endif %}
+                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
+                 {% if loop.last %}</p>{% endif %}
+              {% endfor %}
+              {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_PROTEIN_DATABASES'%}
+                 {% if loop.first %} <h3>Protein Databases</h3><p id='protein_databases_resources_list'> {% endif %}
+                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
+                 {% if loop.last %}</p>{% endif %}
+              {% endfor %}
 
+              {% for url in locus.urls if url.category == 'LOCUS_PROEIN_LOCALIZATION'%}
+                 {% if loop.first %} <h3>Localization</h3> <p id="localization_resources_list"> {% endif %}
+                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
+                 {% if loop.last %}</p>{% endif %}
+              {% endfor %}
+
+              {% for url in locus.urls if url.category == 'LOCUS_PROTEIN_MODIFICATIONS'%}
+                 {% if loop.first %} <h3>Post-translational Modifications</h3> <p id="modifications_resources_list"> {% endif %}
+                 <a href="{{ url.link }}" target="_blank">{{ url.display_name }}</a>{% if not loop.last %} | {% endif %}
+                 {% if loop.last %}</p>{% endif %}
+              {% endfor %}
+
+              {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_S288C'%}
+                 {% if loop.first %}<h3>S288C only</h3><p id="reference_only_resources_list">{% endif %}
+                 <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+              {% endfor %}
+
+              {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_OTHER_SPECIES'%}
+                 {% if loop.first %}<h3>S288C vs. other species</h3> <p id="other_species_resources_list">{% endif %}
+                 <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+              {% endfor %}
+
+              {% for url in locus.urls if url.category == 'LOCUS_SEQUENCE_OTHER_STRAINS'%}
+                 {% if loop.first %}<h3>S288C vs. other strains</h3><p id="other_strains_resources_list">{% endif %}
+		 <a href="{{ url.link }}">{{ url.display_name }}</a>{% if not loop.last %} | {% else %} </p> {% endif %}
+              {% endfor %}
+
+          {% endif %}
+        </div>	      
         </section>
 
     </div>
