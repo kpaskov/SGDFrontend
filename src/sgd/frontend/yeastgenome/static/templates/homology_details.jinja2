@@ -24,22 +24,12 @@
 <!-- Navbar
 ================================================== -->
 <div class="row">
-     <!-- Includes navbar.html into template -->
-     {% include "navbar.jinja2" %}
+     <!-- Navbar -->
+     <div id="navbar-container" class="large-2 columns hide-for-small-down"></div>
 
      <div class="small-12 medium-10 columns content-column">
 
-        <script>
-            add_navbar_title(<span class="gene_name">{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Overview{% endif %}</span>')
-
-	    add_navbar_element('Overview', 'overview');
-            
-            add_navbar_element('Resources', 'resources');
-
-        </script>
-
-
-	<!-- Overview
+        <!-- Overview
 	================================================== -->
 	<section id="overview" data-magellan-destination="overview">	    	
            <h1>{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Homology{% endif %}</h1>
