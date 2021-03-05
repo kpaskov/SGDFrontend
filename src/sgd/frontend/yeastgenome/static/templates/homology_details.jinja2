@@ -1,6 +1,6 @@
 {% extends "global_layout.jinja2" %}
 
-{% block title %}{{ locus.display_name }} Protein{% endblock %}
+{% block title %}{{ locus.display_name }} Homology{% endblock %}
 
 {% block head %}
 <script>
@@ -28,7 +28,7 @@
 ================================================== -->
 <!-- Includes tabs.html into template -->
 {% include "tabs.jinja2" %}
-<script>document.getElementById("protein_tab").className += " active";</script>
+<script>document.getElementById("homology_tab").className += " active";</script>
 
 <!-- Navbar
 ================================================== -->
