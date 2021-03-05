@@ -173,6 +173,17 @@
 
 
 
+
+
+
+
+        <!-- Resources
+        ================================================== -->
+        <section id='resource'>
+
+
+        </section>
+
     </div>
 </div>
 
@@ -184,7 +195,4 @@
 {# don't host arbor.js on CDN because it makes webworker files that don't work on the cloud :( #}
 <script src="/static/js/build/arbor.js"></script>
 <script src="{{asset_root}}/js/local.js"></script>
-<script src="{{asset_root}}/js/cytoscape.js"></script>
-<script src="{{asset_root}}/js/evidence.js"></script>
-<script src="{{asset_root}}/js/protein_details.js"></script>
 {% endblock scripts %}
