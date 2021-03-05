@@ -31,6 +31,7 @@ var views = {
   summary: require('./views/summary_view.jsx'),
   variantViewer: require('./views/variant_viewer_view.jsx'),
   literature: require('./views/literature_view.jsx'),
+  homology: require('./views/homology_view.jsx'),
   router: require('./react_router_render.jsx'),
 };
 
