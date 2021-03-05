@@ -1,0 +1,190 @@
+{% extends "global_layout.jinja2" %}
+
+{% block title %}{{ locus.display_name }} Homology{% endblock %}
+
+{% block head %}
+<script>
+    var locus = {{ locus_js|safe }};
+
+    var display_name = "{{ locus.display_name }}";
+    var format_name = "{{ locus.format_name }}";
+    var locus_id = "{{ locus.id }}";
+
+</script>
+{% endblock %}
+
+{% block body %}
+
+<!-- Tabs
+================================================== -->
+<!-- Includes tabs.html into template -->
+{% include "tabs.jinja2" %}
+<script>document.getElementById("homology_tab").className += " active";</script>
+
+<!-- Navbar
+================================================== -->
+<div class="row">
+     <!-- Includes navbar.html into template -->
+     {% include "navbar.jinja2" %}
+
+     <div class="small-12 medium-10 columns content-column">
+
+        <script>
+            add_navbar_title(<span class="gene_name">{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Overview{% endif %}</span>')
+
+	    add_navbar_element('Overview', 'overview');
+            
+            add_navbar_element('Resources', 'resource');
+
+        </script>
+
+
+	<!-- Overview
+	================================================== -->
+	<section id='overview'>	    	
+           <h1>{% if not locus.display_standard_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }} Homology{% endif %}</h1>
+           <hr />
+	
+	   <div class="">
+	     <dl class="key-value">
+	        {% if 'reserved_name' in locus %}
+		    <dt>Reserved Name</dt>
+                    <dd>{{ locus.reserved_name.display_name }}
+		        {% set references = [locus.reserved_name.reference] %}
+			{% include "biblio_references.jinja2" %}
+			<i>This name is reserved with SGD according to the
+			<a target="_blank" href="https://sites.google.com/view/yeastgenome-help/community-help/gene-registry">Gene Naming Guidelines</a>
+			agreed upon by the yeast community.</i></dd>
+		{% endif %}
+		{% if locus.display_standard_name %}
+		    <dt>Standard Name</dt>
+		    <dd>{{ locus.display_name }}
+		        {% if 'gene_name' in locus.qualities %}
+			   {% set references = locus.qualities.gene_name.references %}
+			   {% include "biblio_references.jinja2" %}
+			{% endif %}</dd>
+                {% endif %}
+
+		<dt>Systematic Name</dt>
+                <dd>{{ locus.format_name }}</dd>
+
+		<dt>SGD ID</dt>
+                <dd>SGD:{{ locus.sgdid }}</dd>
+
+                {% for alias in locus.aliases if alias.category == 'Alias' %}
+                    {% if loop.first %}<dt>Aliases</dt><dd>{% endif %}
+
+                    {{ alias.display_name }}
+                    {% set references = alias.references %}
+                    {%- include "biblio_references.jinja2" -%}
+
+                    {% if not loop.last %},{% else %}</dd>{% endif %}
+                {% endfor %}
+
+                {%- if (locus.locus_type != "") -%}
+                    <dt>Feature Type</dt>
+                    <dd>{{ locus.locus_type }}
+                        {%- if 'feature_type' in locus.qualities -%}
+                            {% set references = locus.qualities.feature_type.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                        {%- if locus.qualifier != None -%}, {{ locus.qualifier }}{% endif %}
+                        {%- if 'qualifier' in locus.qualities -%}
+                            {% set references = locus.qualities.qualifier.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                        {%- if locus.bioent_status != 'Active' -%}, {{ locus.bioent_status }}{% endif %}
+                    </dd>
+                {% endif %}
+
+		<dt>Description</dt>
+                <dd>
+                    {{ locus.description|safe }}
+                    {% if 'description' in locus.qualities %}
+                        {% set references = locus.qualities.description.references %}
+                        {% include "biblio_references.jinja2" %}
+                    {% endif %}
+                </dd>
+
+                {% if locus.name_description != None %}
+                    <dt>Name Description</dt>
+                    <dd>{{ locus.name_description }}
+                        {% if 'name_description' in locus.qualities %}
+                            {% set references = locus.qualities.name_description.references %}
+                            {% include "biblio_references.jinja2" %}
+                        {% endif %}
+                    </dd>
+                {% endif %}
+
+                {% for alias in locus.aliases if alias.category == 'Gene product' %}
+                    {% if loop.first %}
+                        <dt>Gene Product</dt>
+                        <dd>
+
+                        {{ alias.display_name }}
+                        {% set references = alias.references %}
+                        {% include "biblio_references.jinja2" %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if locus.paralogs|length > 0 %}
+                    <dt>Paralog</dt>
+                    <dd>
+                    {% for paralog in locus.paralogs %}
+                        {% if paralog.child %}
+                            <a href="{{ paralog.child.link }}">{{ paralog.child.display_name }}</a>
+                        {% endif %}
+                        {% set references = paralog.references %}
+                        {% include "biblio_references.jinja2" %}
+
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    </dd>
+                {% endif %}
+
+                {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}{% if loop.first %}
+                    <dt>Comparative Info</dt>
+                {% endif %}{% endfor %}
+
+		<dd>
+		    {% for url in locus.urls if url.category == 'LOCUS_ALLIANCE_ICONS' %}
+		       {% if url.display_name == 'E FB' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_flybase.png' width='50px' height='50px' ></a>
+		       {% elif url.display_name == 'G SGD' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_sgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'C RGD' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_mgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'B MGI' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_rgd.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'F WB' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_wormbase.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'D ZFIN' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_zfin.png' width='50px' height='50px'></a>
+		       {% elif url.display_name == 'A HGNC' %}
+		          <a href="{{ url.link }}" target="_blank"><img src='{{asset_root}}/img/alliance_logo_hgnc.png' width='50px' height='50px'></a>
+		       {% endif %}
+                    {% endfor %}
+		</dd>
+      	     </dl>
+	   </div>
+        </section>
+
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{asset_root}}/js/build/nouislider.min.js"></script>
+<script src="{{asset_root}}/js/build/cytoscape.min.js"></script>
+{# don't host arbor.js on CDN because it makes webworker files that don't work on the cloud :( #}
+<script src="/static/js/build/arbor.js"></script>
+<script src="{{asset_root}}/js/local.js"></script>
+<script src="{{asset_root}}/js/cytoscape.js"></script>
+<script src="{{asset_root}}/js/evidence.js"></script>
+<script src="{{asset_root}}/js/protein_details.js"></script>
+{% endblock scripts %}
