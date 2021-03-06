@@ -197,11 +197,19 @@
 	<!-- External Identifiers
         ============================================================ -->
         <section id="external_ids" data-magellan-destination="external_ids">
-        <h2>External Identifiers</h2>
-        <hr />
-
-
-
+        <h2>External Identifiers
+            <a href="#" data-dropdown="external_id_info"><i class="fa fa-info-circle"></i></a>
+            <p id="external_id_info" class="f-dropdown content medium" data-dropdown-content>
+                List of external identifiers for the protein from various database sources.
+            </p>
+            <span id="alias_table_header" class="round secondary label"></span>
+	</h2>
+	<hr />
+            <div class="">
+                <!-- Includes alias_table into template -->
+                {% set table_id = "alias_table" %}
+                {% include "alias_table.jinja2" %}
+            </div>
         </section>
 	
         <!-- Resources
