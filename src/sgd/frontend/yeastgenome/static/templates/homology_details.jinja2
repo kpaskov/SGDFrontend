@@ -6,10 +6,6 @@
 <script>
     var locus = {{ locus_js|safe }};
 
-    var display_name = "{{ locus.display_name }}";
-    var format_name = "{{ locus.format_name }}";
-    var locus_id = "{{ locus.id }}";
-
 </script>
 {% endblock %}
 
@@ -21,13 +17,21 @@
 {% include "tabs.jinja2" %}
 <script>document.getElementById("homology_tab").className += " active";</script>
 
-<!-- Navbar
-================================================== -->
 <div class="row">
-     <!-- Navbar -->
-     <div id="navbar-container" class="large-2 columns hide-for-small-down"></div>
 
+     {% include "navbar.jinja2" %}
+     
      <div class="small-12 medium-10 columns content-column">
+
+        <script>
+            add_navbar_title('<span>{% if locus.display_name == locus.format_name %}{{ locus.display_name }}{% else %}{{ locus.display_name }} / {{ locus.format_name }}{% endif %}</span>');
+            add_navbar_element("Homology Overview", "overview");
+            add_navbar_element("Homologs", "homologs");
+            add_navbar_element("Functional Complementation", "complements");
+            add_navbar_element("Fungal Homologs", "fungal_homologs");
+            add_navbar_element("External Identifiers", "external_ids");
+	    add_navbar_element("Resources", "resources");
+        </script>
 
         <!-- Overview
 	================================================== -->
