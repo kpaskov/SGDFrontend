@@ -28,7 +28,7 @@ function create_complement_table(data) {
 	var complements = {};
 	for (var i=0; i < data.length; i++) {
         datatable.push(complement_data_to_table(data[i], i));
-		complements[data[i]["complement"]["id"]] = true;
+		complements[data[i]["id"]] = true;
 	}
 
     set_up_header('complement_table', datatable.length, 'entry', 'entries', Object.keys(complements).length, 'complement', 'complements');
