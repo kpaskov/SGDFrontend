@@ -68,7 +68,7 @@ function create_homolog_table(data) {
         var options = {};
         options["bPaginate"] = true;
         options["aaSorting"] = [[4, "asc"]];
-        options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, null, null, null, {"sWidth": "250px"}, null];
+        options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, null, null, null, null];
         options["oLanguage"] = {"sEmptyTable": "No homolog data for " + locus['display_name']};
         options["aaData"] = datatable;
 

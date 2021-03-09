@@ -19,6 +19,18 @@ function domain_data_to_table(evidence) {
 
 }
 
+function fungal_homolog_data_to_table(evidence) {
+
+    return [evidence['gene_id'], evidence['species'], evidence['gene_id'], evidence['gene_name'], evidence['description'], evidence['source']]
+
+}
+
+function homolog_data_to_table(evidence) {
+
+    return [evidence['id'], evidence['species']['name'], evidence['id'], evidence['symbol'], evidence['species']['dataProviderShortName']]
+
+}
+
 function complement_data_to_table(evidence) {
     
     let complement = create_link(evidence['dbxref_id'], evidence['obj_url']);
@@ -27,7 +39,6 @@ function complement_data_to_table(evidence) {
     return [evidence['id'], evidence['locus']['id'], evidence['species'], complement, evidence['gene_name'], evidence['strain_background'], evidence['direction'], evidence['curator_comment'], evidence['source']['display_name'], reference]
 	    
 }
-
 
 function dataset_datat_to_table(dataset) {
     var reference = '';
