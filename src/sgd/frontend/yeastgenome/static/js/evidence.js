@@ -27,8 +27,6 @@ function fungal_homolog_data_to_table(evidence) {
 
 function homolog_data_to_table(evidence) {
 
-    // return [evidence['id'], evidence['species']['name'], evidence['id'], evidence['symbol'], evidence['species']['dataProviderShortName']]
-
     let id = create_link(evidence['id'], 'https://www.alliancegenome.org/gene/' + evidence['id']);
     return [evidence['id'], evidence['species']['name'], id, evidence['symbol'], 'Alliance']
     
@@ -37,8 +35,9 @@ function homolog_data_to_table(evidence) {
 function complement_data_to_table(evidence) {
     
     let complement = create_link(evidence['dbxref_id'], evidence['obj_url']);
-    let reference = create_link(evidence['references'][0]['display_name'], evidence['references'][0]['link']) + " PMID:" + evidence['references'][0]['pubmed_id']
-    
+    // let reference = create_link(evidence['references'][0]['display_name'], evidence['references'][0]['link']) + " PMID:" + evidence['references'][0]['pubmed_id']
+    let reference = "PMID:" + evidence['references'][0]['pubmed_id']
+	
     return [evidence['id'], evidence['locus']['id'], evidence['species'], complement, evidence['strain_background'], evidence['direction'], evidence['curator_comment'], evidence['source']['display_name'], reference]
 	    
 }
