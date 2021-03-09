@@ -6,7 +6,17 @@ $(document).ready(function() {
 
 	});
 
+        $.getJSON('/backend/locus/' + locus['sgdid']  + '/homolog_details', function(data) {
+            var homolog_table = create_homolog_table(data);
+            create_download_button("homolog_table_download", homolog_table, locus['display_name'] + "_homolog_annotations");
 
+        });
+
+        $.getJSON('/backend/locus/' + locus['sgdid']  + '/fungal_homolog_details', function(data) {
+            var fungal_homolog_table = create_fungal_homolog_table(data);
+            create_download_button("fungal_homolog_table_download", fungal_homolog_table, locus['display_name'] + "_fungal_homolog_annotations");
+
+        });
     
         let externalIDs = locus["aliases"];
 
@@ -23,6 +33,50 @@ $(document).ready(function() {
     
 });
 
+
+function create_fungal_homolog_table(data) {
+        var datatable = [];
+        var homologs = {};
+        for (var i=0; i < data.length; i++) {
+        datatable.push(fungal_homolog_data_to_table(data[i], i));
+                homologs[data[i]["id"]] = true;
+        }
+
+        set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
+
+        var options = {};
+        options["bPaginate"] = true;
+        options["aaSorting"] = [[4, "asc"]];
+        options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, null, null, null, {"sWidth": "250px"}, null];
+        options["oLanguage"] = {"sEmptyTable": "No homolog data for " + locus['display_name']};
+        options["aaData"] = datatable;
+
+        return create_table("fungal_homolog_table", options);
+
+}
+
+function create_homolog_table(data) {
+        var datatable = [];
+        var homologs = {};
+        for (var i=0; i < data.length; i++) {
+        datatable.push(homolog_data_to_table(data[i], i));
+                homologs[data[i]["id"]] = true;
+        }
+
+        set_up_header('homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
+
+        var options = {};
+        options["bPaginate"] = true;
+        options["aaSorting"] = [[4, "asc"]];
+        options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, null, null, null, {"sWidth": "250px"}, null];
+        options["oLanguage"] = {"sEmptyTable": "No homolog data for " + locus['display_name']};
+        options["aaData"] = datatable;
+
+        return create_table("homolog_table", options);
+
+}
+
+
 function create_complement_table(data) {
   	var datatable = [];
 	var complements = {};
@@ -31,18 +85,18 @@ function create_complement_table(data) {
 		complements[data[i]["id"]] = true;
 	}
 
-    set_up_header('complement_table', datatable.length, 'entry', 'entries', Object.keys(complements).length, 'complement', 'complements');
+        set_up_header('complement_table', datatable.length, 'entry', 'entries', Object.keys(complements).length, 'complement', 'complements');
 
 	var options = {};
 	options["bPaginate"] = true;
 	options["aaSorting"] = [[4, "asc"]];
-    options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null, null, null, {"sWidth": "250px"}, null, null];
-    options["oLanguage"] = {"sEmptyTable": "No complement data for " + locus['display_name']};
+        options["aoColumns"] = [{"bSearchable":false, "bVisible":false}, {"bSearchable":false, "bVisible":false}, null, null, null, null, {"sWidth": "250px"}, null, null];
+        options["oLanguage"] = {"sEmptyTable": "No complement data for " + locus['display_name']};
 	options["aaData"] = datatable;
 
-    return create_table("complement_table", options);
-}
+        return create_table("complement_table", options);
 
+}
 
 function create_alias_table(data) {
 
