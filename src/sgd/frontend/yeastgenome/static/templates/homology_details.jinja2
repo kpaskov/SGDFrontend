@@ -168,8 +168,11 @@
         <section id="homologs" data-magellan-destination="homologs">
         <h2>Homologs</h2>
         <hr />
-
-
+	    <div class="">
+                <!-- Includes homolog_table into template -->
+                {% set table_id = "homolog_table" %}
+                {% include "homolog_table.jinja2" %}
+            </div>
 
 	</section>
 	
@@ -193,9 +196,12 @@
         <section id="fungal_homologs" data-magellan-destination="fungal_homologs">
         <h2>Fungal Homologs</h2>
         <hr />
-
-
-
+            <div class="">
+		<!-- Includes fungal_homolog_table into template -->
+		{% set table_id = "fungal_homolog_table" %}
+                {% include "fungal_homolog_table.jinja2" %}
+            </div>
+	    
         </section>
 
 	<!-- External Identifiers
