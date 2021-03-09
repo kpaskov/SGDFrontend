@@ -35,9 +35,9 @@ function homolog_data_to_table(evidence) {
 function complement_data_to_table(evidence) {
     
     let complement = create_link(evidence['dbxref_id'], evidence['obj_url']);
-    let reference = create_link(evidence['references'][0]['display_name'], evidence['references'][0]['link']) + " PMID:" + evidence['references'][0]['pubmed_id'];
+    let paper = create_link(evidence['references'][0]['display_name'], evidence['references'][0]['link']) + " PMID:" + evidence['references'][0]['pubmed_id'];
 	
-    return [evidence['id'], evidence['locus']['id'], evidence['species'], complement, evidence['strain_background'], evidence['direction'], evidence['curator_comment'], evidence['source']['display_name'], evidence['species']]
+    return [evidence['id'], evidence['locus']['id'], evidence['species'], complement, evidence['strain_background'], evidence['direction'], evidence['curator_comment'], evidence['source']['display_name'], paper]
 	    
 }
 
