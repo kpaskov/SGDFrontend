@@ -27,8 +27,11 @@ function fungal_homolog_data_to_table(evidence) {
 
 function homolog_data_to_table(evidence) {
 
-    return [evidence['id'], evidence['species']['name'], evidence['id'], evidence['symbol'], evidence['species']['dataProviderShortName']]
+    // return [evidence['id'], evidence['species']['name'], evidence['id'], evidence['symbol'], evidence['species']['dataProviderShortName']]
 
+    let id = create_link(evidence['id'], 'https://www.alliancegenome.org/gene/' + evidence['id']);
+    return [evidence['id'], evidence['species']['name'], id, evidence['symbol'], 'Alliance']
+    
 }
 
 function complement_data_to_table(evidence) {
