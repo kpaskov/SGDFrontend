@@ -38,11 +38,12 @@ function create_fungal_homolog_table(data) {
         var datatable = [];
         var homologs = {};
         for (var i=0; i < data.length; i++) {
-        datatable.push(fungal_homolog_data_to_table(data[i], i));
+                datatable.push(fungal_homolog_data_to_table(data[i], i));
                 homologs[data[i]["id"]] = true;
         }
 
-        set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
+        # set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
+        set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', datatable.length, 'homolog', 'homologs');
 
         var options = {};
         options["bPaginate"] = true;
