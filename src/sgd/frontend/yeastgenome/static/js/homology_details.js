@@ -42,7 +42,7 @@ function create_fungal_homolog_table(data) {
                 homologs[data[i]["id"]] = true;
         }
 
-        # set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
+        // set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', Object.keys(homologs).length, 'homolog', 'homologs');
         set_up_header('fungal_homolog_table', datatable.length, 'entry', 'entries', datatable.length, 'homolog', 'homologs');
 
         var options = {};
