@@ -1,6 +1,10 @@
 <!-- large screen version -->
 <div class="row hide-for-small">
-	<nav class="top-bar show-for-small mobile-tab-bar" data-topbar role="navigation">
+        {% if tabs[disease_tab'] %}
+	    <nav class="medium-12 columns">
+	{% else %}
+	    <nav class="small-12 columns">
+	{% endif %}
 		<ul class="tabs sgd-tabs">
 			<li id="summary_tab" class="tab-title" {% if not tabs['summary_tab'] %} style="display:none" {% endif %}><a href="/locus/{{ locus.sgdid }}"><span>Summary</span></a></li>
                         <li id="sequence_tab" class="tab-title" {% if not tabs['sequence_tab'] %} style="display:none" {% endif %}><a href="/locus/{{ locus.sgdid }}/sequence"><span>Sequence</span></a></li>
