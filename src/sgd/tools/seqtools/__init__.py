@@ -5,13 +5,10 @@ from urllib.error import URLError, HTTPError
 from src.sgd.frontend.yeastgenome import clean_cell
 import os
 
-# seq_url = "https://www.yeastgenome.org/backend/locus/_REPLACE_NAME_HERE_/sequence_details"
-# contig_url = "https://www.yeastgenome.org/backend/contig/_REPLACE_CONTIG_NAME_HERE_"
-# validate_url = "https://www.yeastgenome.org/backend/locus/"
+seq_url = "https://www.qa.yeastgenome.org/backend/locus/_REPLACE_NAME_HERE_/sequence_details"
+contig_url = "https://www.qa.yeastgenome.org/backend/contig/_REPLACE_CONTIG_NAME_HERE_"
+validate_url = "https://www.qa.yeastgenome.org/backend/locus/"
 
-seq_url = "/backend/locus/_REPLACE_NAME_HERE_/sequence_details"
-contig_url = "/backend/contig/_REPLACE_CONTIG_NAME_HERE_"
-validate_url = "/backend/locus/"
 
 def do_seq_analysis(request):
 
