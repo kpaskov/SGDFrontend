@@ -4,7 +4,7 @@ from src.sgd.frontend import config
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
-rest_url = "https://patmatch.yeastgenome.org/cgi-bin/aws-restrictionmapper2"
+rest_url = "https://patmatch.yeastgenome.org/cgi-bin/aws-restrictionmapper.qa"
 validate_url = "https://www.qa.yeastgenome.org/backend/locus/"
             
 def do_restmap(request):
@@ -77,8 +77,8 @@ def _construct_parameters(p):
                     display_name = res.get('format_name')
     if sgdid or seq:
         paramData = urllib.parse.urlencode({ 'seq': seq,
-                                       'type': type,
-                                       'name': sgdid })
+                                             'type': type,
+                                             'name': sgdid })
         return [display_name, paramData]
     else:
         return [None, None]
