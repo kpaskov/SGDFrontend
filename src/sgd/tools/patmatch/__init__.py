@@ -28,7 +28,7 @@ def _get_seq(p):
     paramData = urllib.parse.urlencode({ 'seqname': p.get('seqname'),
                                          'dataset': p.get('dataset') });
 
-    url = patmatch_url + "cgi-bin/aws-patmatch"
+    url = patmatch_url + "cgi-bin/aws-patmatch.qa"
     req = Request(url=url, data=paramData.encode('utf-8'))
     res = urlopen(req)
     result = res.read();
