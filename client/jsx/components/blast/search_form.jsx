@@ -442,7 +442,7 @@ BLAST Help at NCBI</a>.</p><hr>';
     if (param['type'] == 'protein') {
       _databaseDef = data.databasedef4protein;
     }
-      
+
     var i = 0;
     const selectedValue = [];
     var _elements = _.map(database, (d, index) => {
