@@ -97,7 +97,7 @@ def _construct_patmatch_parameters(p):
 
 def _get_config():
 
-    url = patmatch_url + "patmatch/patmatch.json"
+    url = patmatch_url + "patmatch/patmatch.qa.json"
     req = Request(url)
     res = urlopen(req)
     data = json.loads(res.read().decode('utf-8')) 
