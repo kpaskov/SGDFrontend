@@ -40,7 +40,7 @@ def _run_patmatch(p):
 
     paramData = _construct_patmatch_parameters(p)
 
-    url = patmatch_url + "cgi-bin/aws-patmatch" 
+    url = patmatch_url + "cgi-bin/aws-patmatch.qa" 
    
     req = Request(url=url, data=paramData.encode('utf-8'))
     res = urlopen(req)
