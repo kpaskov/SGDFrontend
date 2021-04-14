@@ -5,7 +5,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 rest_url = "https://patmatch.yeastgenome.org/cgi-bin/aws-restrictionmapper.qa"
-validate_url = "https://www.yeastgenome.org/backend/locus/"
+validate_url = "https://www.qa.yeastgenome.org/backend/locus/"
             
 def do_restmap(request):
 
