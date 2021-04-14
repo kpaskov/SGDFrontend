@@ -6,15 +6,18 @@ function filter_table(minValue, maxValue) {
 $(document).ready(function() {
     $("#expression_table_analyze").hide();
     var sgdid = locus.sgdid;
-    var expUrl = 'https://s3-us-west-2.amazonaws.com/sgd-prod-expression-details/' + sgdid + '.json';
-    $.getJSON(expUrl, function(data) {
-        var expression_table = create_expression_table(data['datasets']);
-        create_download_button("expression_table_download", expression_table, locus['display_name'] + "_expression");
-        $("#expression_table_analyze").hide();
-        // defer some logic to React
-        views.expression.render(data);
-    });
-
+    var new_orfs = ['YLR379W-A', 'YMR008C-A', 'YJR107C-A', 'YKL104W-A', 'YGR227C-A', 'YHR052C-B', 'YHR054C-B'];
+    if (! new_orfs.includes(locus.format_name)) {
+	var expUrl = 'https://s3-us-west-2.amazonaws.com/sgd-prod-expression-details/' + sgdid + '.json';
+	$.getJSON(expUrl, function(data) {
+            var expression_table = create_expression_table(data['datasets']);
+            create_download_button("expression_table_download", expression_table, locus['display_name'] + "_expression");
+            $("#expression_table_analyze").hide();
+            // defer some logic to React
+            views.expression.render(data);
+	});
+    }
+    
     $.getJSON('/backend/locus/' + locus['id'] + '/expression_graph', function(data) {
         if(data != null && data['nodes'].length > 1) {
             var graph = create_cytoscape_vis("cy", layout, graph_style, data, null, true, "expression");
