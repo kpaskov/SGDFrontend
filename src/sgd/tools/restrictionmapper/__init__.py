@@ -4,7 +4,7 @@ from src.sgd.frontend import config
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
-rest_url = "https://patmatch.yeastgenome.org/cgi-bin/aws-restrictionmapper2"
+rest_url = "https://patmatch-new.dev.yeastgenome.org/cgi-bin/aws-restrictionmapper"
 validate_url = "https://www.yeastgenome.org/backend/locus/"
             
 def do_restmap(request):
