@@ -20,9 +20,10 @@ def do_blast(request):
     # else:
     #    req = Request(url=blast_url, data=request.params)
 
-    paramData =	{}
+    param = {}
     for	x in p:
-        paramData[x] = p[x]
+        param[x] = p[x]
+    paramData = urlencode(param)
     req = Request(url=blast_url, data=paramData.encode('utf-8'))
     res = urlopen(req)
 
