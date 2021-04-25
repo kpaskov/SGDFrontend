@@ -2,7 +2,7 @@ import json
 from pyramid.response import Response
 from urllib.request import Request, urlopen
 # from urllib.error import URLError
-# from urllib.parse import urlencode
+from urllib.parse import urlencode
 
 blast_url = "http://blast.dev.yeastgenome.org:8080/blast_search"
 
