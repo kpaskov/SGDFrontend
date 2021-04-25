@@ -8,7 +8,14 @@ blast_url = "http://blast.dev.yeastgenome.org:8080/blast_search"
 
 def do_blast(request):
 
-    req = Request(url=blast_url, data=request.params)
+    p = dict(request.params)
+
+    req = None
+    if p.get('name'):
+        url = blast_url + "?name=" + p.get('name')
+        req = Request(url=url)
+    else:
+        req = Request(url=blast_url, data=request.params)
 
     res = urlopen(req)
 
