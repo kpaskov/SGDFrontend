@@ -15,7 +15,8 @@ def do_blast(request):
         url = blast_url + "?name=" + p.get('name')
         req = Request(url=url)
     elif p.get('conf'):
-        url = blast_url + "?conf" + p.get('conf') + ".json"
+        url = blast_url + "?conf" + p.get('conf')
+        return url
     else:
         req = Request(url=blast_url, data=request.params)
 
