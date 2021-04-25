@@ -133,13 +133,6 @@ $top-header-font-color: black;
         width: $logo-width;
         margin-top: 0.6rem;
         margin-bottom: 0.6rem;
-        .logo-label {
-                display: inline-block;
-                text-indent: -9999px;
-	}
-        &.small-logo {
-                margin-top: 4px;
-        }
 }
 
 .sgd-menu-divider {
