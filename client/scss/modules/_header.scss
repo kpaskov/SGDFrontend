@@ -129,10 +129,17 @@ $top-header-font-color: black;
 .alliance_logo {
         background: url("../img/alliance_logo.png") no-repeat;
         background-size: 100% 100%;
-        height: $logo-height;
-        width: $logo-width;
+        height: 100px;
+        width: 100px;
         margin-top: 0.6rem;
         margin-bottom: 0.6rem;
+	.logo-label {
+                display: inline-block;
+                text-indent: -9999px;
+        }
+	&.small-logo {
+                margin-top: 4px;
+        }
 }
 
 .sgd-menu-divider {
