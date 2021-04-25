@@ -126,6 +126,22 @@ $top-header-font-color: black;
 	}
 }
 
+.alliance_logo {
+        background: url("../img/alliance-logo.png") no-repeat;
+        background-size: 100% 100%;
+        height: $logo-height;
+        width: $logo-width;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+        .logo-label {
+                display: inline-block;
+                text-indent: -9999px;
+	}
+        &.small-logo {
+                margin-top: 4px;
+        }
+}
+
 .sgd-menu-divider {
 	border-left: 1px solid black;
 	position: relative;
