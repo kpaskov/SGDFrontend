@@ -26,6 +26,18 @@ $top-header-font-color: #CCC;
 	font-size: $top-header-text-font-size;
 }
 
+.top-header2 {
+        padding: 0.5rem;
+        max-width: none;
+        font-size: $header-text-font-size;
+        display: -webkit-flex;
+        display: flex;
+        background: white;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        font-size: $top-header-text-font-size;
+}
+
 .header-notice {
 	margin-left: 1rem;
 	color: $top-header-font-color;
