@@ -8,7 +8,7 @@ var RadioSelector = require('./radio_selector.jsx');
 var BlastBarChart = require('./blast_bar_chart.jsx');
 var Params = require('../mixins/parse_url_params.jsx');
 
-# var BLAST_URL = '/run_blast';
+// var BLAST_URL = '/run_blast';
 var BLAST_URL = 'http://blast.dev.yeastgenome.org:8080/blast_search';
 
 var SearchForm = createReactClass({
