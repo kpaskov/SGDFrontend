@@ -79,6 +79,17 @@ $top-header-font-color: #CCC;
 	-webkit-flex-wrap: wrap;
 }
 
+.menu-bar-container2 {
+        padding: 0 0.5rem;
+        max-width: none;
+        display:-webkit-flex;
+        display: flex;
+        justify-content: space-around;
+	-webkit-justify-content: space-around;
+        background: #DFD6F4;
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+
 .menu-search-container {
 	width: $search-width;
 	margin-top: 0.5rem;
