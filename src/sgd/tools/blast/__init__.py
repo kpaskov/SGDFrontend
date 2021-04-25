@@ -10,16 +10,20 @@ def do_blast(request):
 
     p = dict(request.params)
 
-    req = None
-    if p.get('name') and p.get('program') is None:
-        url = blast_url + "?name=" + p.get('name')
-        req = Request(url=url)
-    elif p.get('conf') and p.get('program') is None:
-        url = blast_url + "?conf" + p.get('conf')
-        req = Request(url=url)
-    else:
-        req = Request(url=blast_url, data=request.params)
+    # req = None
+    # if p.get('name') and p.get('program') is None:
+    #    url = blast_url + "?name=" + p.get('name')
+    #    req = Request(url=url)
+    # elif p.get('conf') and p.get('program') is None:
+    #    url = blast_url + "?conf" + p.get('conf')
+    #    req = Request(url=url)
+    # else:
+    #    req = Request(url=blast_url, data=request.params)
 
+    paramData =	{}
+    for	x in p:
+        paramData[x] = p[x]
+    req = Request(url=blast_url, data=paramData.encode('utf-8'))
     res = urlopen(req)
 
     data = json.loads(res.read().decode('utf-8'))
