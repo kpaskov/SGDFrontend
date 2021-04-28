@@ -11,8 +11,8 @@ var Params = require('../mixins/parse_url_params.jsx');
 var BLAST_URL = '/run_blast';
 // var BLAST_URL = 'http://blast.dev.yeastgenome.org:8080/blast_search';
 
-var SearchForm = createReactClass({
-  displayName: 'SearchForm',
+var BlastSearchForm = createReactClass({
+  displayName: 'BlastSearchForm',
 
   propTypes: {
     blastType: PropTypes.any,
@@ -1051,4 +1051,4 @@ BLAST Help at NCBI</a>.</p><hr>';
   },
 });
 
-module.exports = SearchForm;
+module.exports = BlastSearchForm;
