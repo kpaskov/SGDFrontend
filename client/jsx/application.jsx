@@ -19,6 +19,7 @@ var views = {
   suggestion: require('./views/suggestion_view.jsx'),
   blast_sgd: require('./views/blast_sgd_view.jsx'),
   blast_fungal: require('./views/blast_fungal_view.jsx'),
+  blast: require('./views/blast_view.jsx'),
   patmatch: require('./views/patmatch_view.jsx'),
   restrictionmapper: require('./views/restrictionmapper_view.jsx'),
   seqTools: require('./views/seqTools_view.jsx'),
