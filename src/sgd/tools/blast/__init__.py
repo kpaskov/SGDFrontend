@@ -5,7 +5,9 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 from urllib.parse import urlencode
 
-compute_url = "https://blast.yeastgenome.org/"
+# compute_url = "https://blast.yeastgenome.org/"
+
+compute_url = "https://blast-new.dev.yeastgenome.org/"
 
 def do_blast(request):
 
