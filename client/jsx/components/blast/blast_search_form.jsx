@@ -794,6 +794,9 @@ BLAST Help at NCBI</a>.</p><hr>';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
+      mode: 'cors',
+      credentials: 'include',
+      headers: headers,
       success: function (data) {
         this.setState({ configData: data });
       }.bind(this),
