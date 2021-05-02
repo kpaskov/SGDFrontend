@@ -9,7 +9,7 @@ var BlastBarChart = require('./blast_bar_chart.jsx');
 var Params = require('../mixins/parse_url_params.jsx');
 
 // var BLAST_URL = '/run_blast';
-// var BLAST_URL = 'https://blast.dev.yeastgenome.org/blast_search';
+var BLAST_URL = 'https://blast.dev.yeastgenome.org/blast_search';
 
 var BlastSearchForm = createReactClass({
   displayName: 'BlastSearchForm',
