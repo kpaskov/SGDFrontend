@@ -791,12 +791,13 @@ BLAST Help at NCBI</a>.</p><hr>';
     } else {
       jsonUrl = jsonUrl + 'blast-fungal';
     }
+      
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
-      mode: 'cors',
-      credentials: 'include',
-      headers: headers,
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      }),
       success: function (data) {
         this.setState({ configData: data });
       }.bind(this),
