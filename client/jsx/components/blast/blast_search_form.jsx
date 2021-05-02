@@ -799,9 +799,6 @@ BLAST Help at NCBI</a>.</p><hr>';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-      }),
       success: function (data) {
         this.setState({ configData: data });
       }.bind(this),
