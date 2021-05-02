@@ -775,6 +775,10 @@ BLAST Help at NCBI</a>.</p><hr>';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
+      headers: {
+        "x-yeastgenome-host": "https://blast.dev.yeastgenome.org",
+        "x-yeastgenome-key": "@@!!ncbi-blast-server-key!!@@"
+      },	
       success: function (data) {
         this.setState({ seqData: data });
       }.bind(this),
