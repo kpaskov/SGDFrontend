@@ -871,6 +871,10 @@ BLAST Help at NCBI</a>.</p><hr>';
     var alignToShow = window.localStorage.getItem('alignToShow');
     var filter = window.localStorage.getItem('filter');
 
+    console.log("program="+program);
+    console.log("database="+database);
+    console.log("seq="+seq);
+      
     $.ajax({
       url: BLAST_URL,
       data_type: 'json',
