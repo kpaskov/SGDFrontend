@@ -11,10 +11,10 @@ var Params = require('../mixins/parse_url_params.jsx');
 // var BLAST_URL = '/run_blast';
 var BLAST_URL = 'https://blast.dev.yeastgenome.org/blast_search';
 
-var headers = {
-  "x-yeastgenome-host": "https://blast.dev.yeastgenome.org",
-  "x-yeastgenome-key": "@@!!ncbi-blast-server-key!!@@"
-};
+// var headers = {
+//  "x-yeastgenome-host": "https://blast.dev.yeastgenome.org",
+//  "x-yeastgenome-key": "@@!!ncbi-blast-server-key!!@@"
+// };
 
 var BlastSearchForm = createReactClass({
   displayName: 'BlastSearchForm',
@@ -780,7 +780,6 @@ BLAST Help at NCBI</a>.</p><hr>';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
-      headers: headers,
       success: function (data) {
         this.setState({ seqData: data });
       }.bind(this),
@@ -801,7 +800,6 @@ BLAST Help at NCBI</a>.</p><hr>';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
-      headers: headers,
       success: function (data) {
         this.setState({ configData: data });
       }.bind(this),
