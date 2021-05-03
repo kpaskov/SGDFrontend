@@ -190,7 +190,7 @@ BLAST Help at NCBI</a>.</p><hr>';
           </div>
           <div dangerouslySetInnerHTML={{ __html: descText }} />
 	  <div>
-	    <span style={{ font-size: 14px }}>
+	    <span style={{ fontSize: 14px }}>
               <div
                 dangerouslySetInnerHTML={{
                   __html: this.state.resultData.result,
