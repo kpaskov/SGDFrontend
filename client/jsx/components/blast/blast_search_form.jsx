@@ -189,11 +189,16 @@ BLAST Help at NCBI</a>.</p><hr>';
             </table>
           </div>
           <div dangerouslySetInnerHTML={{ __html: descText }} />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: this.state.resultData.result,
-            }}
-          />
+	  <div>
+	    <span style={{ font-size: 14px }}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.state.resultData.result,
+                }}
+		/>
+	      </div>
+	    </span>
+	  </div>
         </div>
       );
     } else if (this.state.isPending) {
