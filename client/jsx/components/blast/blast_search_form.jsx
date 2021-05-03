@@ -195,8 +195,7 @@ BLAST Help at NCBI</a>.</p><hr>';
                 dangerouslySetInnerHTML={{
                   __html: this.state.resultData.result,
                 }}
-		/>
-	      </div>
+	      />
 	    </span>
 	  </div>
         </div>
