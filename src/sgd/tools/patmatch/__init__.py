@@ -4,7 +4,7 @@ from src.sgd.frontend import config
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 
-patmatch_url = "https://patmatch-new.dev.yeastgenome.org/"
+patmatch_url = "https://patmatch.new.yeastgenome.org/"
                 
 def do_patmatch(request):
 
