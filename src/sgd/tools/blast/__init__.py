@@ -7,7 +7,7 @@ from urllib.parse import urlencode
 
 # compute_url = "https://blast.yeastgenome.org/"
 
-compute_url = "https://blast-new.dev.yeastgenome.org/"
+compute_url = "https://blast-new.yeastgenome.org/"
 
 def do_blast(request):
 
