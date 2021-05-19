@@ -101,6 +101,9 @@ def new_patmatch(request):
 def restrictionmapper(request):
     return render_to_response(TEMPLATE_ROOT + 'restrictionMapper.jinja2', {}, request=request)
 
+@view_config(route_name='restrictSiteMapper')
+def restrictSiteMapper(request):
+    return render_to_response(TEMPLATE_ROOT + 'restrictSiteMapper.jinja2', {}, request=request)
 
 @view_config(route_name='seq_tools')
 def seq_tools(request):

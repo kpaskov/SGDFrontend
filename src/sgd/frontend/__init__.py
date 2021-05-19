@@ -25,6 +25,7 @@ def prep_views(chosen_frontend, config):
     config.add_route('patmatch', '/nph-patmatch')
     config.add_route('new_patmatch', '/patmatch')
     config.add_route('restrictionmapper', '/restrictionMapper')
+    config.add_route('restrictSiteMapper', '/restrictSiteMapper')
     config.add_route('seq_tools', '/seqTools')
     config.add_route('gotermfinder', '/goTermFinder')
     config.add_route('goslimmapper', '/goSlimMapper')

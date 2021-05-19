@@ -23,6 +23,7 @@ var views = {
   patmatch: require('./views/patmatch_view.jsx'),
   new_patmatch: require('./views/new_patmatch_view.jsx'),
   restrictionmapper: require('./views/restrictionmapper_view.jsx'),
+  restrictSiteMapper: require('./views/restrictSiteMapper_view.jsx'),  
   seqTools: require('./views/seqTools_view.jsx'),
   goTermFinder: require('./views/gotermfinder_view.jsx'),
   goSlimMapper: require('./views/goslimmapper_view.jsx'),
