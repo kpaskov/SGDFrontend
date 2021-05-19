@@ -588,7 +588,7 @@ class SearchForm extends Component {
   }
 
   _getConfigData() {
-    var jsonUrl = PatmatchUrl + '?conf=patmatch.json';
+    var jsonUrl = PatmatchUrl + '?conf=patmatch';
     $.ajax({
       url: jsonUrl,
       dataType: 'json',
