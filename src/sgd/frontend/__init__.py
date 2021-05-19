@@ -23,6 +23,7 @@ def prep_views(chosen_frontend, config):
     config.add_route('blast_sgd', '/blast-sgd')
     config.add_route('blast', '/blast')
     config.add_route('patmatch', '/nph-patmatch')
+    config.add_route('new_patmatch', '/patmatch')
     config.add_route('restrictionmapper', '/restrictionMapper')
     config.add_route('seq_tools', '/seqTools')
     config.add_route('gotermfinder', '/goTermFinder')

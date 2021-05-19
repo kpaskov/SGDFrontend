@@ -93,6 +93,10 @@ def blast(request):
 def patmatch(request):
     return render_to_response(TEMPLATE_ROOT + 'patmatch.jinja2', {}, request=request)
 
+@view_config(route_name='new_patmatch')
+def new_patmatch(request):
+    return render_to_response(TEMPLATE_ROOT + 'new_patmatch.jinja2', {}, request=request)
+
 @view_config(route_name='restrictionmapper')
 def restrictionmapper(request):
     return render_to_response(TEMPLATE_ROOT + 'restrictionMapper.jinja2', {}, request=request)
