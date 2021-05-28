@@ -46,7 +46,7 @@
 				   {% set is_geo_id = 1 %} 
 				{% endif %}
 			    {% endfor %}
-			    {% if is_geo_id == 1 %}
+			    {% if is_geo_id == 0 %}
 			       <dt>External ID</dt>
 			       <dd>{{ dataset.geo_id }}</dd>
 			    {% endif %}
