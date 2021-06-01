@@ -40,13 +40,13 @@
                         {% if dataset.geo_id != None %}
 			    {% for url in dataset.urls if url.category == 'External' %}
 			        {% if loop.first %}
-                                   <dt>External ID</dt>
-				   <dd><a href="{{ url.link }}" target="_blank">{{ dataset.geo_id }}</a></dd>
-				   {% set has_external_url = True %}
+				   {% set external_link = url.link %}
 				{% endif %}
 			    {% endfor %}
-			    {% if has_external_url != True %}
-			       <dt>External ID</dt>
+			    <dt>External ID</dt>
+			    {% if set external_link %}
+			       <dd><a href="{{ external_link }}" target="_blank">{{ dataset.geo_id }}</a></dd>
+			    {% else %}
 			       <dd>{{ dataset.geo_id }}</dd>
 			    {% endif %}
                         {% endif %}
