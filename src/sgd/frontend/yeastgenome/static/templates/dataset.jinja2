@@ -39,7 +39,7 @@
                     <dl class="key-value">
                         {% if dataset.geo_id != None %}
 			    <dt>External ID</dt>
-			    {% if dataset.geo_url != None %}
+			    {% if dataset.geo_url %}
 			       <dd><a href="{{ dataset.geo_url }}" target="_blank">{{ dataset.geo_id }}</a></dd>
 			    {% else %}
 			       <dd>{{ dataset.geo_id }}</dd>
