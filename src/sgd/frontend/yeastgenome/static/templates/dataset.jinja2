@@ -38,12 +38,12 @@
                 <div class="panel">
                     <dl class="key-value">
                         {% if dataset.geo_id != None %}
-			    {% found = 0 %}
+			    {% set found = 0 %}
 			    {% for url in dataset.urls if url.category == 'External' %}
 			        {% if loop.first %}
                                    <dt>External ID</dt>
 				   <dd><a href="{{ url.link }}" target="_blank">{{ dataset.geo_id }}</a></dd>
-				   {% found = 1 %}
+				   {% set found = 1 %}
 				{% endif %}
 			    {% endfor %}
 			    {% if found == 0 %}
