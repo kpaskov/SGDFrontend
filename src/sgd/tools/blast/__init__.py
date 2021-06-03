@@ -29,7 +29,7 @@ def _run_blast(p):
 
     paramData = _construct_blast_parameters(p)
 
-    url = compute_url + "cgi-bin/aws-blast"
+    url = compute_url + "cgi-bin/aws-blast2"
 
     req = Request(url=url, data=paramData.encode('utf-8'))
 
