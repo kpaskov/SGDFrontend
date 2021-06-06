@@ -10,7 +10,7 @@ var Params = require('../mixins/parse_url_params.jsx');
 
 //  http://34.223.91.67/
 
-var BLAST_URL = 'https://blast-docker.dev.yeastgenome.org/blast_search';
+var BLAST_URL = 'https://blast.dev.yeastgenome.org/blast_search';
 
 var BlastSearchForm = createReactClass({
   displayName: 'BlastSearchForm',
