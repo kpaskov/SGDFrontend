@@ -928,8 +928,6 @@ BLAST Help at NCBI</a>.</p><hr>';
       
     let tmpseq = seq.replace(/[ATCGU]/gi, '');
 
-    alert('tmpseq=' + tmpseq);
-
     if (tmpseq == '') {
       if (program == 'blastp' || program == 'tblastn') {
         alert(
