@@ -924,6 +924,21 @@ BLAST Help at NCBI</a>.</p><hr>';
       return 0;
     }
 
+    // check to make sure sequence type matches the program
+    seq = seq.replace(/[^atcguATCGU]/g, '');
+    if (seq == '') {
+      if (program == 'blastp' || program == 'tblastn') {
+        alert(program.toUpperCase() + " doesn't work with the sequence (DNA) you have entered. Please fix it and try again.");
+        return 0;
+      }
+    }
+    else {
+      if (program == 'blastn' || program == 'blastx' || program == 'tblastx') {
+        alert(program.toUpperCase() + " doesn't work with the sequence (protein) you have entered. Please fix it and try again.");
+        return 0;
+      }
+    }
+      
     // check sequence length and cutoffScore (s) value
     // if (cutoffScore != 'default' && cutoffScore < 60 && seq.length > 100) {
     //     alert("The maximum sequence length for an S value less than 60 is 100. Please adjust either the S value or sequence");
