@@ -6,9 +6,11 @@ import os
 
 # http://0.0.0.0:6545/run_gotools?aspect=C&genes=COR5|CYT1|Q0105|QCR2|S000001929|S000002937|S000003809|YEL024W|YEL039C|YGR183C|YHR001W-A
 
-gotermfinder_url = "https://gotermfinder.yeastgenome.org/cgi-bin/gotermfinder"
+# gotermfinder_url = "https://gotermfinder.yeastgenome.org/cgi-bin/gotermfinder"
+# goslimmapper_url = "https://gotermfinder.yeastgenome.org/cgi-bin/goslimmapper"
 
-goslimmapper_url = "https://gotermfinder.yeastgenome.org/cgi-bin/goslimmapper"
+gotermfinder_url = "http://gotermfinder-2a.dev.yeastgenome.org/gotermfinder"
+goslimmapper_url = "http://gotermfinder-2a.dev.yeastgenome.org/goslimmapper" 
 
 # http://gotermfinder.yeastgenome.org/cgi-bin/gotermfinder?aspect=F&genes=COR5|CYT1|Q0105|QCR2|S000001929|S000002937|S000003809|YEL024W|YEL039C|YGR183C|YHR001W-A
 
@@ -18,11 +20,15 @@ def do_gosearch(request):
 
     data = {}
     if p.get('mapper'):
-        data = run_goslimmapper(p)
+        # data = run_goslimmapper(p)
+        data = _get_json_from_server(goslimmapper_url, p)
     else:
-        data = run_gotermfinder(p)
+        # data = run_gotermfinder(p)
+        data = _get_json_from_server(gotermfinder_url, p)
+        
     return Response(body=json.dumps(data), content_type='application/json')
- 
+
+
 def run_goslimmapper(p):
 
     genes = p.get('genes', '')
